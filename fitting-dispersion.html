@@ -70,37 +70,13 @@ function drawChart(data) {
 // =======================
 // LOAD CSV + CLEAN HEADERS
 // =======================
-d3.csv("fitting.csv").then(raw => {
 
-  // Fix Excel header spacing automatically
-  const cleanKey = k => k.trim();
+  
+  d3.csv("fitting.csv").then(raw => {
 
-  const data = raw.map(row => {
+  console.log("FIRST ROW:");
+  console.log(raw[0]);
 
-    const r = {};
-    Object.keys(row).forEach(k => {
-      r[cleanKey(k)] = row[k];
-    });
-
-    return {
-      club: r["Club"]?.trim(),
-      carry: +r["Carry (YDS)"],
-      sidespin: +r["Sidespin (RPM)"]
-    };
-
-  }).filter(d =>
-      d.club &&
-      Number.isFinite(d.carry) &&
-      Number.isFinite(d.sidespin)
-  );
-
-  console.log("Loaded rows:", data.length);
-
-  drawChart(data);
-
-})
-.catch(err => {
-  console.error("CSV LOAD ERROR:", err);
 });
 
 </script>

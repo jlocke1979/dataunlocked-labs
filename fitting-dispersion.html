@@ -48,6 +48,7 @@ function drawChart(data){
   // COLOR SCALE
   // =====================
   const clubs = [...new Set(data.map(d => d.club))];
+  const visibleClubs = new Set(clubs);
 
   const color = d3.scaleOrdinal()
     .domain(clubs)
@@ -97,53 +98,67 @@ function drawChart(data){
   // =====================
   // DOTS
   // =====================
-  svg.selectAll("circle")
-    .data(data)
-    .join("circle")
-    .attr("cx",d=>x(d.sidespin))
-    .attr("cy",d=>y(d.carry))
-    .attr("r",4)
-    .attr("fill",d=>color(d.club))
-    .attr("opacity",0.8)
+  function updateDots(){
 
-    .on("mousemove",(event,d)=>{
-      tooltip
-        .style("opacity",1)
-        .html(`
-          <b>${d.club}</b><br>
-          Carry: ${d.carry.toFixed(1)} yds<br>
-          Sidespin: ${d.sidespin.toFixed(0)} rpm
-        `)
-        .style("left",(event.pageX+12)+"px")
-        .style("top",(event.pageY-20)+"px");
-    })
+  const filtered = data.filter(d =>
+    visibleClubs.has(d.club)
+  );
 
-    .on("mouseleave",()=>{
-      tooltip.style("opacity",0);
-    });
+  const dots = svg.selectAll("circle")
+    .data(filtered, d => d);
 
+  dots.join(
+    enter => enter.append("circle")
+      .attr("cx",d=>x(d.sidespin))
+      .attr("cy",d=>y(d.carry))
+      .attr("r",4)
+      .attr("fill",d=>color(d.club))
+      .attr("opacity",0.8),
+
+    update => update,
+
+    exit => exit.remove()
+  );
+}
+
+updateDots();
   // =====================
   // LEGEND
   // =====================
   const legend = svg.append("g")
-    .attr("transform","translate(700,40)");
+  .attr("transform","translate(700,40)");
 
-  clubs.forEach((club,i)=>{
+clubs.forEach((club,i)=>{
 
-    const row = legend.append("g")
-      .attr("transform",`translate(0,${i*18})`);
+  const row = legend.append("g")
+    .attr("transform",`translate(0,${i*20})`)
+    .style("cursor","pointer");
 
-    row.append("rect")
-      .attr("width",12)
-      .attr("height",12)
-      .attr("fill",color(club));
+  row.append("rect")
+    .attr("width",12)
+    .attr("height",12)
+    .attr("fill",color(club));
 
-    row.append("text")
-      .attr("x",18)
-      .attr("y",10)
-      .style("font-size","12px")
-      .text(club);
+  row.append("text")
+    .attr("x",18)
+    .attr("y",10)
+    .style("font-size","12px")
+    .text(club);
+
+  row.on("click",()=>{
+
+    if(visibleClubs.has(club)){
+      visibleClubs.delete(club);
+      row.attr("opacity",0.3);
+    } else {
+      visibleClubs.add(club);
+      row.attr("opacity",1);
+    }
+
+    updateDots();
   });
+
+});
 
 }
   

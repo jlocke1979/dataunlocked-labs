@@ -17,11 +17,12 @@
 <div id="chart"></div>
 
 <script>
+
 function drawChart(data){
+
   const width = 800;
   const height = 450;
 
-  // Clear any previous chart (handy while iterating)
   d3.select("#chart").selectAll("*").remove();
 
   const svg = d3.select("#chart")
@@ -29,6 +30,18 @@ function drawChart(data){
     .attr("width", width)
     .attr("height", height);
 
+  // =====================
+  // COLOR SCALE
+  // =====================
+  const clubs = [...new Set(data.map(d => d.club))];
+
+  const color = d3.scaleOrdinal()
+    .domain(clubs)
+    .range(d3.schemeTableau10);
+
+  // =====================
+  // SCALES
+  // =====================
   const x = d3.scaleLinear()
     .domain(d3.extent(data, d => d.sidespin))
     .range([60, width - 40]);
@@ -37,24 +50,53 @@ function drawChart(data){
     .domain(d3.extent(data, d => d.carry))
     .range([height - 40, 40]);
 
+  // =====================
+  // AXES
+  // =====================
   svg.append("g")
     .attr("transform", `translate(0,${height-40})`)
     .call(d3.axisBottom(x));
 
   svg.append("g")
-    .attr("transform", "translate(60,0)")
+    .attr("transform","translate(60,0)")
     .call(d3.axisLeft(y));
 
+  // =====================
+  // DOTS
+  // =====================
   svg.selectAll("circle")
     .data(data)
     .join("circle")
     .attr("cx", d => x(d.sidespin))
     .attr("cy", d => y(d.carry))
     .attr("r", 4)
-    .attr("fill", "#2a6f97")
-    .attr("opacity", 0.7);
-}
+    .attr("fill", d => color(d.club))
+    .attr("opacity", 0.75);
 
+  // =====================
+  // LEGEND
+  // =====================
+  const legend = svg.append("g")
+    .attr("transform", "translate(620,40)");
+
+  clubs.forEach((club,i)=>{
+
+    const row = legend.append("g")
+      .attr("transform",`translate(0,${i*18})`);
+
+    row.append("rect")
+      .attr("width",12)
+      .attr("height",12)
+      .attr("fill",color(club));
+
+    row.append("text")
+      .attr("x",18)
+      .attr("y",10)
+      .style("font-size","12px")
+      .text(club);
+  });
+}
+  
 d3.csv("fitting.csv").then(raw => {
 
   const normalize = s =>

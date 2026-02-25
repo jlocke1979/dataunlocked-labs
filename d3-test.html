@@ -59,7 +59,9 @@
 <script>
 // ---------------
 // 1) Paste data here (TSV). You can replace this string with your full 125 rows.
-Club	 Ball	 Ball Speed (MPH)	 Launch Angle (degrees)	 Backspin (RPM)	 Sidespin (RPM) 	 Carry (YDS) 	 Total (YDS)
+
+// ---------------
+const rawTSV = `Club	 Ball	 Ball Speed (MPH)	 Launch Angle (degrees)	 Backspin (RPM)	 Sidespin (RPM) 	 Carry (YDS) 	 Total (YDS)
 Iron	 Standard	103.6	20.1	6193	-623	141.1	151.2
 Iron	 Standard	86.9	21.4	4295	-198	113.9	126.8
 Iron	 Standard	114.2	24	5835	-684	158.3	168.2
@@ -183,19 +185,7 @@ Driver	 Standard	140.2	19.1	3352	564	224.8	240.9
 Driver	 Standard	148.5	12.3	2042	-1111	241.3	263.9
 Driver	 Standard	26	38.7	4536	-1545	14.1	17.3
 Driver	 Standard	143	16.9	2201	-1235	235.8	255
-Driver	 Standard	142.8	15	1556	-2994	185.1	203.8
-// ---------------
-const rawTSV = `Club\tBall\tBall Speed (MPH)\tLaunch Angle (degrees)\tBackspin (RPM)\tSidespin (RPM)\tCarry (YDS)\tTotal (YDS)
-Iron\tStandard\t103.6\t20.1\t6193\t-623\t141.1\t151.2
-Iron\tStandard\t86.9\t21.4\t4295\t-198\t113.9\t126.8
-Iron\tStandard\t114.2\t24\t5835\t-684\t158.3\t168.2
-Quantum Max KBS 90S\tStandard\t112.2\t21.2\t4712\t-345\t162.1\t173.8
-Quantum Project X 6.0\tStandard\t118.2\t19.8\t5163\t-349\t170.5\t181.8
-G440 \tStandard\t132.9\t17\t5380\t-690\t193.7\t205.1
-T250 \tStandard\t123.9\t16.8\t4909\t-630\t181.6\t193.9
-Driver\tStandard\t148.5\t12.3\t2042\t-1111\t241.3\t263.9
-Driver\tStandard\t143\t16.9\t2201\t-1235\t235.8\t255
-Driver\tStandard\t142.8\t15\t1556\t-2994\t185.1\t203.8`;
+Driver	 Standard	142.8	15	1556	-2994	185.1	203.8`;
 
 // ---- parsing / cleaning
 const rows = d3.tsvParse(rawTSV.trim());

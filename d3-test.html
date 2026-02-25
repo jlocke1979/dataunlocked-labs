@@ -1,128 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Club Fitting Dispersion (Sidespin vs Carry)</title>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; }
-    h1 { margin: 0 0 6px; }
-    .sub { color: #555; margin: 0 0 18px; }
-    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0 12px; }
-    select, button { font: inherit; padding: 8px 10px; }
-    button { cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 10px; }
-    button.active { border-color: #111; }
-    .stats { margin: 10px 0 14px; padding: 12px; border: 1px solid #e5e5e5; border-radius: 12px; background: #fafafa; }
-    .hint { color:#666; font-size: 13px; margin-top: 8px; }
-    svg { width: min(980px, 100%); height: auto; border: 1px solid #eee; border-radius: 14px; background: #fff; }
-    .axis path, .axis line { stroke: #ccc; }
-    .grid line { stroke: #eee; }
-    .zero-line { stroke: #999; stroke-dasharray: 4 4; }
-    .dot { opacity: 0.72; }
-    .dot:hover { opacity: 1; }
-    .tooltip {
-      position: fixed; pointer-events: none;
-      background: rgba(0,0,0,0.85); color: #fff;
-      padding: 8px 10px; border-radius: 10px;
-      font-size: 12px; line-height: 1.2;
-      transform: translate(10px, 10px);
-      max-width: 280px;
-      display: none;
-    }
-  </style>
+<meta charset="utf-8">
+<title>Club Dispersion</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 </head>
+
 <body>
-  <h1>Club Fitting Dispersion</h1>
-  <p class="sub">Dispersion proxy: <b>Sidespin (RPM)</b> vs <b>Carry (YDS)</b>. Filter by club type and inspect consistency.</p>
 
-  <div class="controls">
-    <span><b>Club type:</b></span>
-    <button id="btnAll" class="active" data-type="All">All</button>
-    <button data-type="Driver">Driver</button>
-    <button data-type="Iron">Iron</button>
-    <button data-type="Other">Other</button>
-
-    <span style="margin-left:10px"><b>Club model:</b></span>
-    <select id="clubSelect"></select>
-
-    <button id="resetBtn" title="Reset zoom-ish (rebuild scales)">Reset View</button>
-  </div>
-
-  <div class="stats" id="stats"></div>
-
-  <svg id="viz" viewBox="0 0 980 520" role="img" aria-label="Scatter plot of sidespin vs carry"></svg>
-  <div class="hint">Tip: Hover dots for details. Outliers (bad strikes) will be obvious—later we can add “exclude mishits” rules.</div>
-
-  <div class="tooltip" id="tip"></div>
+<h2>Club Fitting Dispersion</h2>
+<div id="chart"></div>
 
 <script>
-// ---------------
-// 1) Paste data here (TSV). You can replace this string with your full 125 rows.
 
-
-  <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Club Fitting Dispersion (Sidespin vs Carry)</title>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; }
-    h1 { margin: 0 0 6px; }
-    .sub { color: #555; margin: 0 0 18px; }
-    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0 12px; }
-    select, button { font: inherit; padding: 8px 10px; }
-    button { cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 10px; }
-    button.active { border-color: #111; }
-    .stats { margin: 10px 0 14px; padding: 12px; border: 1px solid #e5e5e5; border-radius: 12px; background: #fafafa; }
-    .hint { color:#666; font-size: 13px; margin-top: 8px; }
-    svg { width: min(980px, 100%); height: auto; border: 1px solid #eee; border-radius: 14px; background: #fff; }
-    .axis path, .axis line { stroke: #ccc; }
-    .grid line { stroke: #eee; }
-    .zero-line { stroke: #999; stroke-dasharray: 4 4; }
-    .dot { opacity: 0.72; }
-    .dot:hover { opacity: 1; }
-    .tooltip {
-      position: fixed; pointer-events: none;
-      background: rgba(0,0,0,0.85); color: #fff;
-      padding: 8px 10px; border-radius: 10px;
-      font-size: 12px; line-height: 1.2;
-      transform: translate(10px, 10px);
-      max-width: 280px;
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <h1>Club Fitting Dispersion</h1>
-  <p class="sub">Dispersion proxy: <b>Sidespin (RPM)</b> vs <b>Carry (YDS)</b>. Filter by club type and inspect consistency.</p>
-
-  <div class="controls">
-    <span><b>Club type:</b></span>
-    <button id="btnAll" class="active" data-type="All">All</button>
-    <button data-type="Driver">Driver</button>
-    <button data-type="Iron">Iron</button>
-    <button data-type="Other">Other</button>
-
-    <span style="margin-left:10px"><b>Club model:</b></span>
-    <select id="clubSelect"></select>
-
-    <button id="resetBtn" title="Reset zoom-ish (rebuild scales)">Reset View</button>
-  </div>
-
-  <div class="stats" id="stats"></div>
-
-  <svg id="viz" viewBox="0 0 980 520" role="img" aria-label="Scatter plot of sidespin vs carry"></svg>
-  <div class="hint">Tip: Hover dots for details. Outliers (bad strikes) will be obvious—later we can add “exclude mishits” rules.</div>
-
-  <div class="tooltip" id="tip"></div>
-
-<script>
-// ---------------
-// 1) Paste data here (TSV). You can replace this string with your full 125 rows.
-// ---------------
 const rawTSV = `Club	 Ball	 Ball Speed (MPH)	 Launch Angle (degrees)	 Backspin (RPM)	 Sidespin (RPM) 	 Carry (YDS) 	 Total (YDS)
 Iron	 Standard	103.6	20.1	6193	-623	141.1	151.2
 Iron	 Standard	86.9	21.4	4295	-198	113.9	126.8
@@ -249,381 +139,49 @@ Driver	 Standard	26	38.7	4536	-1545	14.1	17.3
 Driver	 Standard	143	16.9	2201	-1235	235.8	255
 Driver	 Standard	142.8	15	1556	-2994	185.1	203.8`;
 
-// ---- parsing / cleaning
 const rows = d3.tsvParse(rawTSV.trim());
 
-function toNum(v) {
-  if (v == null) return NaN;
-  const x = String(v).trim();
-  if (x === "" || x.toLowerCase() === "nan") return NaN;
-  return +x;
-}
+const data = rows.map(d => ({
+  club: d["Club"].trim(),
+  carry: +d["Carry (YDS)"],
+  sidespin: +d["Sidespin (RPM)"]
+}))
+.filter(d => !isNaN(d.carry) && !isNaN(d.sidespin));
 
-function clubType(clubName) {
-  const c = (clubName || "").toLowerCase().trim();
-  if (c === "driver" || c.includes("driver")) return "Driver";
-  if (c === "iron" || c.includes("iron")) return "Iron";
-  // "Quantum...", "G440", "T250", etc.
-  return "Other";
-}
+const width = 800;
+const height = 400;
 
-const data = rows.map(r => ({
-  club: (r["Club"] ?? "").trim(),
-  ball: (r["Ball"] ?? "").trim(),
-  ballSpeed: toNum(r["Ball Speed (MPH)"]),
-  launch: toNum(r["Launch Angle (degrees)"]),
-  backspin: toNum(r["Backspin (RPM)"]),
-  sidespin: toNum(r["Sidespin (RPM)"]),
-  carry: toNum(r["Carry (YDS)"]),
-  total: toNum(r["Total (YDS)"]),
-})).filter(d =>
-  d.club && Number.isFinite(d.sidespin) && Number.isFinite(d.carry)
-);
+const svg = d3.select("#chart")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
 
-data.forEach(d => d.type = clubType(d.club));
+const x = d3.scaleLinear()
+  .domain(d3.extent(data,d=>d.sidespin))
+  .range([60,width-40]);
 
-// ---- UI state
-let activeType = "All";
-let activeClub = "All";
+const y = d3.scaleLinear()
+  .domain(d3.extent(data,d=>d.carry))
+  .range([height-40,40]);
 
-// ---- build club dropdown
-const clubSelect = d3.select("#clubSelect");
-const uniqueClubs = Array.from(new Set(data.map(d => d.club))).sort((a,b)=>a.localeCompare(b));
-clubSelect
-  .selectAll("option")
-  .data(["All", ...uniqueClubs])
-  .join("option")
-  .attr("value", d => d)
-  .text(d => d);
+svg.append("g")
+  .attr("transform",`translate(0,${height-40})`)
+  .call(d3.axisBottom(x));
 
-clubSelect.on("change", (e) => {
-  activeClub = e.target.value;
-  render();
-});
+svg.append("g")
+  .attr("transform","translate(60,0)")
+  .call(d3.axisLeft(y));
 
-d3.selectAll("button[data-type]").on("click", function() {
-  d3.selectAll("button[data-type]").classed("active", false);
-  d3.select(this).classed("active", true);
-  activeType = this.getAttribute("data-type");
-  // if you filter type, keep club selection but it may yield empty; that's fine.
-  render();
-});
+svg.selectAll("circle")
+  .data(data)
+  .join("circle")
+  .attr("cx",d=>x(d.sidespin))
+  .attr("cy",d=>y(d.carry))
+  .attr("r",4)
+  .attr("fill","#2a6f97")
+  .attr("opacity",0.7);
 
-d3.select("#resetBtn").on("click", () => render());
-
-// ---- chart scaffolding
-const svg = d3.select("#viz");
-const tip = d3.select("#tip");
-
-const margin = { top: 24, right: 26, bottom: 54, left: 72 };
-const W = 980, H = 520;
-const iw = W - margin.left - margin.right;
-const ih = H - margin.top - margin.bottom;
-
-const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-g.append("g").attr("class", "grid");
-g.append("g").attr("class", "x axis").attr("transform", `translate(0,${ih})`);
-g.append("g").attr("class", "y axis");
-
-g.append("line")
-  .attr("class", "zero-line")
-  .attr("y1", 0).attr("y2", ih);
-
-g.append("text")
-  .attr("x", iw/2).attr("y", ih + 44)
-  .attr("text-anchor", "middle")
-  .text("Sidespin (RPM)  ← left / right →");
-
-g.append("text")
-  .attr("x", -ih/2).attr("y", -48)
-  .attr("transform", "rotate(-90)")
-  .attr("text-anchor", "middle")
-  .text("Carry (YDS)");
-
-function subset() {
-  return data.filter(d => {
-    const okType = (activeType === "All") || (d.type === activeType);
-    const okClub = (activeClub === "All") || (d.club === activeClub);
-    return okType && okClub;
-  });
-}
-
-function summarize(arr) {
-  const n = arr.length;
-  if (!n) return null;
-  const meanCarry = d3.mean(arr, d => d.carry);
-  const sdCarry = Math.sqrt(d3.mean(arr, d => (d.carry - meanCarry) ** 2));
-  const meanSide = d3.mean(arr, d => d.sidespin);
-  const sdSide = Math.sqrt(d3.mean(arr, d => (d.sidespin - meanSide) ** 2));
-  const meanBS = d3.mean(arr, d => d.ballSpeed);
-  return { n, meanCarry, sdCarry, meanSide, sdSide, meanBS };
-}
-
-function render() {
-  const arr = subset();
-
-  // stats box
-  const s = summarize(arr);
-  d3.select("#stats").html(s ? `
-    <div><b>Rows:</b> ${s.n}</div>
-    <div><b>Carry:</b> mean ${s.meanCarry.toFixed(1)} yds · SD ${s.sdCarry.toFixed(1)} yds</div>
-    <div><b>Sidespin:</b> mean ${s.meanSide.toFixed(0)} rpm · SD ${s.sdSide.toFixed(0)} rpm</div>
-    <div><b>Ball speed:</b> mean ${s.meanBS.toFixed(1)} mph</div>
-    <div class="hint"><b>Filter:</b> Type = ${activeType} · Club = ${activeClub}</div>
-  ` : `<b>No rows match this filter.</b> Try Type=All and Club=All.`);
-
-  // robust domains (pad a bit)
-  const xExtent = d3.extent(arr.length ? arr : data, d => d.sidespin);
-  const yExtent = d3.extent(arr.length ? arr : data, d => d.carry);
-
-  const xPad = Math.max(200, (xExtent[1] - xExtent[0]) * 0.12);
-  const yPad = Math.max(5, (yExtent[1] - yExtent[0]) * 0.12);
-
-  const x = d3.scaleLinear()
-    .domain([xExtent[0] - xPad, xExtent[1] + xPad])
-    .range([0, iw]);
-
-  const y = d3.scaleLinear()
-    .domain([yExtent[0] - yPad, yExtent[1] + yPad])
-    .range([ih, 0]);
-
-  // gridlines
-  g.select(".grid")
-    .call(d3.axisLeft(y).ticks(8).tickSize(-iw).tickFormat(""));
-
-  // axes
-  g.select(".x.axis").call(d3.axisBottom(x).ticks(10));
-  g.select(".y.axis").call(d3.axisLeft(y).ticks(8));
-
-  // zero line (sidespin = 0)
-  g.select(".zero-line")
-    .attr("x1", x(0))
-    .attr("x2", x(0));
-
-  // dots
-  const dots = g.selectAll("circle.dot")
-    .data(arr, (d,i) => `${d.club}-${i}-${d.carry}-${d.sidespin}`);
-
-  dots.join(
-    enter => enter.append("circle")
-      .attr("class", "dot")
-      .attr("r", 5.5)
-      .attr("cx", d => x(d.sidespin))
-      .attr("cy", d => y(d.carry))
-      .attr("fill", "#2a6f97")
-      .on("mousemove", (event, d) => {
-        tip.style("display", "block")
-          .style("left", `${event.clientX}px`)
-          .style("top", `${event.clientY}px`)
-          .html(`
-            <div><b>${d.club}</b> (${d.type})</div>
-            <div>Carry: ${d.carry.toFixed(1)} yds</div>
-            <div>Sidespin: ${d.sidespin.toFixed(0)} rpm</div>
-            <div>Ball speed: ${Number.isFinite(d.ballSpeed) ? d.ballSpeed.toFixed(1) : "—"} mph</div>
-            <div>Backspin: ${Number.isFinite(d.backspin) ? d.backspin.toFixed(0) : "—"} rpm</div>
-          `);
-      })
-      .on("mouseleave", () => tip.style("display", "none")),
-    update => update
-      .transition().duration(200)
-      .attr("cx", d => x(d.sidespin))
-      .attr("cy", d => y(d.carry)),
-    exit => exit.remove()
-  );
-}
-
-render();
 </script>
-</body>
-</html>
 
-
-// ---- parsing / cleaning
-const rows = d3.tsvParse(rawTSV.trim());
-
-function toNum(v) {
-  if (v == null) return NaN;
-  const x = String(v).trim();
-  if (x === "" || x.toLowerCase() === "nan") return NaN;
-  return +x;
-}
-
-function clubType(clubName) {
-  const c = (clubName || "").toLowerCase().trim();
-  if (c === "driver" || c.includes("driver")) return "Driver";
-  if (c === "iron" || c.includes("iron")) return "Iron";
-  // "Quantum...", "G440", "T250", etc.
-  return "Other";
-}
-
-const data = rows.map(r => ({
-  club: (r["Club"] ?? "").trim(),
-  ball: (r["Ball"] ?? "").trim(),
-  ballSpeed: toNum(r["Ball Speed (MPH)"]),
-  launch: toNum(r["Launch Angle (degrees)"]),
-  backspin: toNum(r["Backspin (RPM)"]),
-  sidespin: toNum(r["Sidespin (RPM)"]),
-  carry: toNum(r["Carry (YDS)"]),
-  total: toNum(r["Total (YDS)"]),
-})).filter(d =>
-  d.club && Number.isFinite(d.sidespin) && Number.isFinite(d.carry)
-);
-
-data.forEach(d => d.type = clubType(d.club));
-
-// ---- UI state
-let activeType = "All";
-let activeClub = "All";
-
-// ---- build club dropdown
-const clubSelect = d3.select("#clubSelect");
-const uniqueClubs = Array.from(new Set(data.map(d => d.club))).sort((a,b)=>a.localeCompare(b));
-clubSelect
-  .selectAll("option")
-  .data(["All", ...uniqueClubs])
-  .join("option")
-  .attr("value", d => d)
-  .text(d => d);
-
-clubSelect.on("change", (e) => {
-  activeClub = e.target.value;
-  render();
-});
-
-d3.selectAll("button[data-type]").on("click", function() {
-  d3.selectAll("button[data-type]").classed("active", false);
-  d3.select(this).classed("active", true);
-  activeType = this.getAttribute("data-type");
-  // if you filter type, keep club selection but it may yield empty; that's fine.
-  render();
-});
-
-d3.select("#resetBtn").on("click", () => render());
-
-// ---- chart scaffolding
-const svg = d3.select("#viz");
-const tip = d3.select("#tip");
-
-const margin = { top: 24, right: 26, bottom: 54, left: 72 };
-const W = 980, H = 520;
-const iw = W - margin.left - margin.right;
-const ih = H - margin.top - margin.bottom;
-
-const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-g.append("g").attr("class", "grid");
-g.append("g").attr("class", "x axis").attr("transform", `translate(0,${ih})`);
-g.append("g").attr("class", "y axis");
-
-g.append("line")
-  .attr("class", "zero-line")
-  .attr("y1", 0).attr("y2", ih);
-
-g.append("text")
-  .attr("x", iw/2).attr("y", ih + 44)
-  .attr("text-anchor", "middle")
-  .text("Sidespin (RPM)  ← left / right →");
-
-g.append("text")
-  .attr("x", -ih/2).attr("y", -48)
-  .attr("transform", "rotate(-90)")
-  .attr("text-anchor", "middle")
-  .text("Carry (YDS)");
-
-function subset() {
-  return data.filter(d => {
-    const okType = (activeType === "All") || (d.type === activeType);
-    const okClub = (activeClub === "All") || (d.club === activeClub);
-    return okType && okClub;
-  });
-}
-
-function summarize(arr) {
-  const n = arr.length;
-  if (!n) return null;
-  const meanCarry = d3.mean(arr, d => d.carry);
-  const sdCarry = Math.sqrt(d3.mean(arr, d => (d.carry - meanCarry) ** 2));
-  const meanSide = d3.mean(arr, d => d.sidespin);
-  const sdSide = Math.sqrt(d3.mean(arr, d => (d.sidespin - meanSide) ** 2));
-  const meanBS = d3.mean(arr, d => d.ballSpeed);
-  return { n, meanCarry, sdCarry, meanSide, sdSide, meanBS };
-}
-
-function render() {
-  const arr = subset();
-
-  // stats box
-  const s = summarize(arr);
-  d3.select("#stats").html(s ? `
-    <div><b>Rows:</b> ${s.n}</div>
-    <div><b>Carry:</b> mean ${s.meanCarry.toFixed(1)} yds · SD ${s.sdCarry.toFixed(1)} yds</div>
-    <div><b>Sidespin:</b> mean ${s.meanSide.toFixed(0)} rpm · SD ${s.sdSide.toFixed(0)} rpm</div>
-    <div><b>Ball speed:</b> mean ${s.meanBS.toFixed(1)} mph</div>
-    <div class="hint"><b>Filter:</b> Type = ${activeType} · Club = ${activeClub}</div>
-  ` : `<b>No rows match this filter.</b> Try Type=All and Club=All.`);
-
-  // robust domains (pad a bit)
-  const xExtent = d3.extent(arr.length ? arr : data, d => d.sidespin);
-  const yExtent = d3.extent(arr.length ? arr : data, d => d.carry);
-
-  const xPad = Math.max(200, (xExtent[1] - xExtent[0]) * 0.12);
-  const yPad = Math.max(5, (yExtent[1] - yExtent[0]) * 0.12);
-
-  const x = d3.scaleLinear()
-    .domain([xExtent[0] - xPad, xExtent[1] + xPad])
-    .range([0, iw]);
-
-  const y = d3.scaleLinear()
-    .domain([yExtent[0] - yPad, yExtent[1] + yPad])
-    .range([ih, 0]);
-
-  // gridlines
-  g.select(".grid")
-    .call(d3.axisLeft(y).ticks(8).tickSize(-iw).tickFormat(""));
-
-  // axes
-  g.select(".x.axis").call(d3.axisBottom(x).ticks(10));
-  g.select(".y.axis").call(d3.axisLeft(y).ticks(8));
-
-  // zero line (sidespin = 0)
-  g.select(".zero-line")
-    .attr("x1", x(0))
-    .attr("x2", x(0));
-
-  // dots
-  const dots = g.selectAll("circle.dot")
-    .data(arr, (d,i) => `${d.club}-${i}-${d.carry}-${d.sidespin}`);
-
-  dots.join(
-    enter => enter.append("circle")
-      .attr("class", "dot")
-      .attr("r", 5.5)
-      .attr("cx", d => x(d.sidespin))
-      .attr("cy", d => y(d.carry))
-      .attr("fill", "#2a6f97")
-      .on("mousemove", (event, d) => {
-        tip.style("display", "block")
-          .style("left", `${event.clientX}px`)
-          .style("top", `${event.clientY}px`)
-          .html(`
-            <div><b>${d.club}</b> (${d.type})</div>
-            <div>Carry: ${d.carry.toFixed(1)} yds</div>
-            <div>Sidespin: ${d.sidespin.toFixed(0)} rpm</div>
-            <div>Ball speed: ${Number.isFinite(d.ballSpeed) ? d.ballSpeed.toFixed(1) : "—"} mph</div>
-            <div>Backspin: ${Number.isFinite(d.backspin) ? d.backspin.toFixed(0) : "—"} rpm</div>
-          `);
-      })
-      .on("mouseleave", () => tip.style("display", "none")),
-    update => update
-      .transition().duration(200)
-      .attr("cx", d => x(d.sidespin))
-      .attr("cy", d => y(d.carry)),
-    exit => exit.remove()
-  );
-}
-
-render();
-</script>
 </body>
 </html>

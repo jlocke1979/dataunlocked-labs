@@ -121,7 +121,9 @@ function drawChart(data){
       .attr("cy",d=>y(d.carry)),
 
     exit => exit.remove()
+    
   );
+  updateDots();  
   }
   
   // =====================

@@ -23,11 +23,9 @@ svg {
 <div id="chart"></div>
 
 <script>
+<script>
 
-// =======================
-// CHART FUNCTION
-// =======================
-function drawChart(data) {
+function drawChart(data){
 
   const width = 800;
   const height = 450;
@@ -38,46 +36,68 @@ function drawChart(data) {
     .attr("height", height);
 
   const x = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.sidespin))
-    .range([60, width - 40]);
+    .domain(d3.extent(data,d=>d.sidespin))
+    .range([60,width-40]);
 
   const y = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.carry))
-    .range([height - 40, 40]);
+    .domain(d3.extent(data,d=>d.carry))
+    .range([height-40,40]);
 
-  // X axis
   svg.append("g")
-    .attr("transform", `translate(0,${height-40})`)
+    .attr("transform",`translate(0,${height-40})`)
     .call(d3.axisBottom(x));
 
-  // Y axis
   svg.append("g")
-    .attr("transform", "translate(60,0)")
+    .attr("transform","translate(60,0)")
     .call(d3.axisLeft(y));
 
-  // dots
   svg.selectAll("circle")
     .data(data)
     .join("circle")
-    .attr("cx", d => x(d.sidespin))
-    .attr("cy", d => y(d.carry))
-    .attr("r", 4)
-    .attr("fill", "#2a6f97")
-    .attr("opacity", 0.7);
+    .attr("cx",d=>x(d.sidespin))
+    .attr("cy",d=>y(d.carry))
+    .attr("r",4)
+    .attr("fill","#2a6f97")
+    .attr("opacity",0.7);
 }
 
 
-// =======================
-// LOAD CSV + CLEAN HEADERS
-// =======================
+d3.csv("fitting.csv").then(raw => {
 
-  
-  d3.csv("fitting.csv").then(raw => {
+  // normalize ALL column names automatically
+  const normalize = s =>
+    s.replace(/\uFEFF/g,"")   // remove BOM
+     .trim()
+     .toLowerCase();
 
-  console.log("FIRST ROW:");
-  console.log(raw[0]);
+  const data = raw.map(row => {
 
-});
+    const clean = {};
+
+    Object.keys(row).forEach(k=>{
+      clean[normalize(k)] = row[k];
+    });
+
+    return {
+      club: clean["club"]?.trim(),
+      carry: +clean["carry (yds)"],
+      sidespin: +clean["sidespin (rpm)"]
+    };
+
+  }).filter(d =>
+      d.club &&
+      Number.isFinite(d.carry) &&
+      Number.isFinite(d.sidespin)
+  );
+
+  console.log("Loaded rows:", data.length);
+
+  drawChart(data);
+
+})
+.catch(err=>console.error(err));
+
+</script>
 
 </script>
 

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>D3 Quick Test</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; }
+    #chart { max-width: 760px; }
+  </style>
+</head>
+<body>
+  <h1>D3 Quick Test</h1>
+  <p>If you see bars below, D3 is working.</p>
+  <div id="chart"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script>
+    const data = [
+      { label: "Driver", value: 240 },
+      { label: "7i", value: 155 },
+      { label: "PW", value: 120 },
+      { label: "56°", value: 85 }
+    ];
+
+    const width = 720;
+    const barH = 28;
+    const height = data.length * (barH + 10) + 40;
+
+    const svg = d3.select("#chart")
+      .append("svg")
+      .attr("viewBox", `0 0 ${width} ${height}`);
+
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.value)])
+      .range([0, width - 160]);
+
+    const g = svg.append("g").attr("transform", "translate(140,20)");
+
+    g.selectAll("rect")
+      .data(data)
+      .join("rect")
+      .attr("y", (d,i) => i * (barH + 10))
+      .attr("height", barH)
+      .attr("width", d => x(d.value));
+
+    g.selectAll("text.value")
+      .data(data)
+      .join("text")
+      .attr("class","value")
+      .attr("x", d => x(d.value) + 8)
+      .attr("y", (d,i) => i * (barH + 10) + barH/2 + 5)
+      .text(d => d.value);
+
+    g.selectAll("text.label")
+      .data(data)
+      .join("text")
+      .attr("class","label")
+      .attr("x", -10)
+      .attr("y", (d,i) => i * (barH + 10) + barH/2 + 5)
+      .attr("text-anchor","end")
+      .text(d => d.label);
+  </script>
+</body>
+</html>

@@ -6,15 +6,9 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
 <style>
-body {
-  font-family: system-ui;
-  padding: 30px;
-}
-svg {
-  border: 1px solid #ddd;
-}
+  body { font-family: system-ui; padding: 30px; }
+  svg { border: 1px solid #ddd; }
 </style>
-
 </head>
 
 <body>
@@ -23,11 +17,12 @@ svg {
 <div id="chart"></div>
 
 <script>
-
 function drawChart(data){
-
   const width = 800;
   const height = 450;
+
+  // Clear any previous chart (handy while iterating)
+  d3.select("#chart").selectAll("*").remove();
 
   const svg = d3.select("#chart")
     .append("svg")
@@ -35,67 +30,65 @@ function drawChart(data){
     .attr("height", height);
 
   const x = d3.scaleLinear()
-    .domain(d3.extent(data,d=>d.sidespin))
-    .range([60,width-40]);
+    .domain(d3.extent(data, d => d.sidespin))
+    .range([60, width - 40]);
 
   const y = d3.scaleLinear()
-    .domain(d3.extent(data,d=>d.carry))
-    .range([height-40,40]);
+    .domain(d3.extent(data, d => d.carry))
+    .range([height - 40, 40]);
 
   svg.append("g")
-    .attr("transform",`translate(0,${height-40})`)
+    .attr("transform", `translate(0,${height-40})`)
     .call(d3.axisBottom(x));
 
   svg.append("g")
-    .attr("transform","translate(60,0)")
+    .attr("transform", "translate(60,0)")
     .call(d3.axisLeft(y));
 
   svg.selectAll("circle")
     .data(data)
     .join("circle")
-    .attr("cx",d=>x(d.sidespin))
-    .attr("cy",d=>y(d.carry))
-    .attr("r",4)
-    .attr("fill","#2a6f97")
-    .attr("opacity",0.7);
+    .attr("cx", d => x(d.sidespin))
+    .attr("cy", d => y(d.carry))
+    .attr("r", 4)
+    .attr("fill", "#2a6f97")
+    .attr("opacity", 0.7);
 }
-
 
 d3.csv("fitting.csv").then(raw => {
 
-  // normalize ALL column names automatically
   const normalize = s =>
-    s.replace(/\uFEFF/g,"")   // remove BOM
-     .trim()
-     .toLowerCase();
+    String(s)
+      .replace(/\uFEFF/g, "")  // remove BOM if present
+      .trim()
+      .toLowerCase();
 
   const data = raw.map(row => {
-
     const clean = {};
-
-    Object.keys(row).forEach(k=>{
+    Object.keys(row).forEach(k => {
       clean[normalize(k)] = row[k];
     });
 
     return {
-      club: clean["club"]?.trim(),
+      club: (clean["club"] ?? "").trim(),
       carry: +clean["carry (yds)"],
       sidespin: +clean["sidespin (rpm)"]
     };
-
-  }).filter(d =>
-      d.club &&
-      Number.isFinite(d.carry) &&
-      Number.isFinite(d.sidespin)
+  })
+  .filter(d =>
+    d.club &&
+    Number.isFinite(d.carry) &&
+    Number.isFinite(d.sidespin)
   );
 
   console.log("Loaded rows:", data.length);
+  if (data.length === 0) {
+    console.log("Detected headers:", Object.keys(raw[0] || {}));
+  }
 
   drawChart(data);
 
-})
-.catch(err=>console.error(err));
-
+}).catch(err => console.error("CSV LOAD ERROR:", err));
 </script>
 
 </body>

@@ -7,16 +7,16 @@
 
 <style>
 body { font-family: system-ui; padding:30px; }
-svg { border:1px solid #ddd; }
-#tooltip{
-  position:absolute;
-  background:black;
-  color:white;
-  padding:6px 10px;
-  border-radius:6px;
-  font-size:12px;
-  pointer-events:none;
-  opacity:0;
+svg { border:1px solid #ccc; }
+.tooltip{
+ position:absolute;
+ background:black;
+ color:white;
+ padding:6px;
+ border-radius:6px;
+ font-size:12px;
+ pointer-events:none;
+ opacity:0;
 }
 </style>
 </head>
@@ -25,40 +25,36 @@ svg { border:1px solid #ddd; }
 
 <h2>Club Fitting Dispersion</h2>
 <div id="chart"></div>
-<div id="tooltip"></div>
+<div id="tooltip" class="tooltip"></div>
 
 <script>
 
-d3.csv("fitting.csv").then(raw => {
+d3.csv("fitting.csv").then(raw=>{
 
-const normalize = s =>
-  String(s).replace(/\uFEFF/g,"").trim().toLowerCase();
+const normalize=s=>String(s).trim().toLowerCase();
 
-const data = raw.map(row=>{
-  const clean={};
-  Object.keys(row).forEach(k=>{
-    clean[normalize(k)] = row[k];
-  });
+const data=raw.map(r=>{
+ const clean={};
+ Object.keys(r).forEach(k=>{
+   clean[normalize(k)]=r[k];
+ });
 
-  return {
-    club:String(clean["club"]??"")
-      .replace(/\s+/g," ")
-      .trim()
-      .toLowerCase(),
-    carry:+clean["carry (yds)"],
-    sidespin:+clean["sidespin (rpm)"]
-  };
-})
-.filter(d=>d.club && isFinite(d.carry) && isFinite(d.sidespin));
+ return{
+   club:clean["club"],
+   carry:+clean["carry (yds)"],
+   sidespin:+clean["sidespin (rpm)"]
+ };
+}).filter(d=>d.club && isFinite(d.carry) && isFinite(d.sidespin));
 
-drawChart(data);
+console.log("rows:",data.length);
+
+draw(data);
 
 });
 
-function drawChart(data){
+function draw(data){
 
-const width=900;
-const height=500;
+const width=900,height=500;
 
 const svg=d3.select("#chart")
 .append("svg")
@@ -70,9 +66,7 @@ const tooltip=d3.select("#tooltip");
 const clubs=[...new Set(data.map(d=>d.club))];
 const visible=new Set(clubs);
 
-const color=d3.scaleOrdinal()
-.domain(clubs)
-.range(d3.schemeTableau10);
+const color=d3.scaleOrdinal(clubs,d3.schemeTableau10);
 
 const x=d3.scaleLinear()
 .domain(d3.extent(data,d=>d.sidespin))
@@ -90,35 +84,30 @@ svg.append("g")
 .attr("transform","translate(60,0)")
 .call(d3.axisLeft(y));
 
+const dotLayer=svg.append("g");
+
 function render(){
 
 const filtered=data.filter(d=>visible.has(d.club));
 
-const dots=svg.selectAll("circle")
-.data(filtered);
-
-dots.join(
+dotLayer.selectAll("circle")
+.data(filtered)
+.join(
 enter=>enter.append("circle")
+.attr("r",4)
 .attr("cx",d=>x(d.sidespin))
 .attr("cy",d=>y(d.carry))
-.attr("r",4)
 .attr("fill",d=>color(d.club))
-.attr("opacity",0.8)
-.on("mousemove",(event,d)=>{
-tooltip
-.style("opacity",1)
-.html(`<b>${d.club}</b><br>
-Carry: ${d.carry}<br>
-Sidespin: ${d.sidespin}`)
-.style("left",(event.pageX+10)+"px")
-.style("top",(event.pageY-20)+"px");
+.on("mousemove",(e,d)=>{
+ tooltip.style("opacity",1)
+ .html(`${d.club}<br>Carry:${d.carry}`)
+ .style("left",(e.pageX+10)+"px")
+ .style("top",(e.pageY-20)+"px");
 })
 .on("mouseleave",()=>tooltip.style("opacity",0)),
-
 update=>update
 .attr("cx",d=>x(d.sidespin))
 .attr("cy",d=>y(d.carry)),
-
 exit=>exit.remove()
 );
 
@@ -148,11 +137,11 @@ row.append("text")
 row.on("click",()=>{
 
 if(visible.has(club)){
-visible.delete(club);
-row.attr("opacity",0.3);
+ visible.delete(club);
+ row.attr("opacity",0.3);
 }else{
-visible.add(club);
-row.attr("opacity",1);
+ visible.add(club);
+ row.attr("opacity",1);
 }
 
 render();

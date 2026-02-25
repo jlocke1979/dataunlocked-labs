@@ -13,173 +13,51 @@
 
 <script>
 
-const rawTSV = `Club	 Ball	 Ball Speed (MPH)	 Launch Angle (degrees)	 Backspin (RPM)	 Sidespin (RPM) 	 Carry (YDS) 	 Total (YDS)
-Iron	 Standard	103.6	20.1	6193	-623	141.1	151.2
-Iron	 Standard	86.9	21.4	4295	-198	113.9	126.8
-Iron	 Standard	114.2	24	5835	-684	158.3	168.2
-Iron	 Standard	95.6	20.5	5514	1627	126.6	137.7
-Iron	 Standard	100.3	27.4	7124	101	131	138.3
-Iron	 Standard	107.4	22.6	6448	-119	146.7	155.7
-Iron	 Standard	95.3	20.9	4313	-318	131.1	144.2
-Iron	 Standard	104.2	21.1	7548	-140	139.1	147.1
-Iron	 Standard	98.6	15	3620	1154	131.1	148.2
-Quantum Max KBS 90S	 Standard	112.2	21.2	4712	-345	162.1	173.8
-Quantum Max KBS 90S	 Standard	108.7	21.3	4286	-337	157.9	170.5
-Quantum Max KBS 90S	 Standard	108.8	22.3	5659	860	151.2	160.9
-Quantum Max KBS 90S	 Standard	104.1	13.7	3867	2201	134.2	150.2
-Quantum Max KBS 90S	 Standard	107	14.5	3329	-3730	127.7	144
-Quantum Max KBS 90S	 Standard	95.2	17.3	2311	-546	131.8	153.4
-Quantum Max KBS 90S	 Standard	110.5	21.5	5233	417	156.5	167.4
-Quantum Max KBS 90S	 Standard	109.5	8.9	5176	498	142.1	160.3
-Quantum Project X 6.0	 Standard	91.1	15.5	3975	6681	90.6	103.6
-Quantum Project X 6.0	 Standard	97.4	19.4	2955	-513	139	156.5
-Quantum Project X 6.0	 Standard	112.9	18.5	4117	-689	165.9	179.4
-Quantum Project X 6.0	 Standard	85.3	11.4	520	-1299	64.6	102.3
-Quantum Project X 6.0	 Standard	105	12.4	3503	-1596	137.2	157.3
-Quantum Project X 6.0	 Standard	118.2	19.8	5163	-349	170.5	181.8
-Quantum Project X 6.0	 Standard	107.8	16	4145	-1317	151.3	165.7
-Quantum Project X 6.0	 Standard	122.3	22	5915	342	171.8	181.9
-Quantum Project X 6.0	 Standard	59.2	11.9	749	-15	36.2	70.5
-Quantum Project X 6.0	 Standard	71.4	10.6	1692	-1285	51.6	85.7
-Quantum Project X 6.0	 Standard	48.7	34.1	4549	-8877	40.8	44.8
-Quantum Project X 6.0	 Standard	90.6	13.1	816	-1347	86	118.4
-Quantum Project X 6.0	 Standard	85.3	14	709	-1461	77	106.1
-Quantum Project X 6.0	 Standard	115.6	4.9	4971	533	142.5	167.1
-Quantum Project X 6.0	 Standard	123.6	13.4	4683	-1161	179.1	193.3
-Quantum KBS 120S	 Standard	101.6	18.3	4916	-576	140.4	153.2
-Quantum KBS 120S	 Standard	97.7	14.4	1486	-2431	104.2	128.5
-Quantum KBS 120S	 Standard	114.1	14.4	4705	-2092	156.8	170.6
-Quantum KBS 120S	 Standard	114.4	14.4	3814	-1696	161.2	177.6
-Quantum KBS 120S	 Standard	110.5	24.8	5595	786	153	162.8
-Quantum KBS 120S	 Standard	104.2	21.8	3559	541	152.8	166.5
-Quantum KBS 120S	 Standard	121	14.7	4527	-2063	170.9	184.7
-quantum px 6.0 std lie	 Standard	111.2	22.4	5285	392	157.1	167.9
-quantum px 6.0 std lie	 Standard	112	19.7	3906	-969	164.8	178.2
-quantum px 6.0 std lie	 Standard	121.2	18	5619	-257	173.7	184.6
-quantum px 6.0 std lie	 Standard	114.4	19.4	3981	-868	169.3	183.6
-quantum px 6.0 std lie	 Standard	70.5	6.3	403	-1023	26.5	72.2
-Quantum DGs300 std lie	 Standard	85.6	13.6	968	-1487	80	112.7
-Quantum DGs300 std lie	 Standard	107.9	20.5	3353	-561	161.1	176
-Quantum DGs300 std lie	 Standard	104	21.4	6127	3005	137.4	146.1
-Quantum DGs300 std lie	 Standard	118.1	19.3	5371	-187	169.4	180.3
-Quantum DGs300 std lie	 Standard	106	18	2713	-579	158.1	177.5
-Quantum DGs300 std lie	 Standard	115.9	16.8	6091	319	162.6	172.9
-Quantum DGs300 std lie	 Standard	101.2	22.2	7089	3428	130.9	138.4
-Quantum DGs300 std lie	 Standard	77.9	8.7	2504	-3086	52.1	85.4
-Quantum DGs300 std lie	 Standard	107	18.2	4574	39	152.7	166.8
-G440 	 Standard	115.6	16	5220	-1380	163.1	174.9
-G440 	 Standard	73.1	10.9	161	117	43	84
-G440 	 Standard	96.1	0.4	2339	3213	6.9	100.8
-G440 	 Standard	113.9	18	5548	108	161.6	172.9
-G440 	 Standard	107.9	12.7	5780	1301	144	157.5
-G440 	 Standard	87.4	3.5	360	-173	24.1	93.7
-G440 	 Standard	121.6	12.9	4628	-1753	171.7	186
-G440 	 Standard	117.4	9.4	5244	562	160.3	175.8
-G440 	 Standard	126.8	16	4685	-1432	185.3	197.5
-G440 	 Standard	132.9	17	5380	-690	193.7	205.1
-G440 	 Standard	118.3	16.8	3860	-1139	175.5	189.7
-G440 	 Standard	121.5	16.1	4016	-1972	175	189.4
-G440 	 Standard	125.7	21.2	5188	-1197	180.4	191.4
-G440 Project 6.5	 Standard	101.9	13.7	2296	-1272	133.2	157.4
-G440 Project 6.5	 Standard	89	17.1	4378	1039	112.7	127.2
-G440 Project 6.5	 Standard	119.7	15.2	3390	-1418	176.8	194
-G440 Project 6.5	 Standard	115.6	14.5	3637	-1664	164.5	179.6
-G440 Project 6.5	 Standard	93.8	23.8	4131	603	129.5	142.1
-G440 Project 6.5	 Standard	122.9	18.5	5863	-365	175	185.5
-G440 Project 6.5	 Standard	113.9	22.2	5634	1012	159.5	169.6
-ZXi5 px 6.5 2up	 Standard	118.4	15.5	4648	-1907	167.5	180.3
-ZXi5 px 6.5 2up	 Standard	119.8	20.1	4999	-1234	172.4	184
-T250 	 Standard	107.5	13.6	3857	-1783	144.4	160.9
-T250 	 Standard	108.3	21.6	5883	698	150	159.9
-T250 	 Standard	106.6	7.7	3518	-473	131.2	158.7
-T250 	 Standard	103.7	12	2926	-2577	121.4	142.1
-T250 	 Standard	122.5	14.2	3740	-3539	159.8	174.2
-T250 	 Standard	110.4	9.7	4678	-3031	133.6	150.9
-T250 	 Standard	123.9	16.8	4909	-630	181.6	193.9
-T250 	 Standard	117.5	15.8	4382	-1313	169.8	183.3
-T250 	 Standard	129.1	14.2	4941	-1451	187.3	199.8
-T250 	 Standard	124.1	14.4	4288	-1982	177.5	192
-T250 	 Standard	116.8	12.1	5665	-979	161.7	174.6
-T250 	 Standard	119.9	14.4	4691	-3975	154.7	166.8
-T250 	 Standard	109.8	15.2	3978	-1632	153.2	169.3
-T250 	 Standard	81	14.2	2784	-2398	80.9	103.3
-T250 	 Standard	75.2	16.4	1426	-1292	74.4	99.5
-T250 	 Standard	82.9	11.7	1253	-1777	69.1	102.8
-T250 	 Standard	119.5	18.2	6694	866	165.8	174.8
-T250 	 Standard	124.9	15.8	5391	-602	180.8	192.5
-T250 	 Standard	117.5	15.4	3799	-1327	171.6	187.4
-T250 	 Standard	126	14.6	4177	-2042	181.1	195.2
-T250 	 Standard	116.5	15.6	4376	-1496	167	181
-T250 	 Standard	94	11.1	1988	-1751	96.7	126.2
-T250 	 Standard	128.1	16.9	5214	-1078	186	197.9
-T250 	 Standard	119.4	13.3	4743	-1226	170.3	184.9
-g440 Red dor	 Standard	111.5	16.6	3960	-846	162.1	176.7
-g440 Red dor	 Standard	84.5	17.7	1470	111	106.5	129.3
-g440 Red dor	 Standard	81.4	12.2	885	-1480	66	99.3
-g440 Red dor	 Standard	123.3	12.7	4017	-2390	170.4	185.6
-g440 Red dor	 Standard	116.5	14.1	4772	-1726	163.2	177.6
-g440 Red dor	 Standard	120.8	14.4	4841	-1029	174.3	187.5
-g440 Red dor	 Standard	121.2	17.2	4065	-1616	177.5	191.8
-g440 Red dor	 Standard	111.2	14.8	2792	-2068	150.6	169.3
-g440 Red dor	 Standard	123.3	17.8	5256	-674	178.5	190.1
-g440 Red dor	 Standard	118.6	17.5	5654	-1045	168.2	178.8
-g440 Red dor	 Standard	117.2	19	5199	-96	168.8	180.2
-g440 Red dor	 Standard	96	15.2	818	-1575	102.5	136.1
-g440 Red dor	 Standard	96.5	15.4	2280	-3008	108.5	128.3
-g440 Red dor	 Standard	122.9	22.2	6703	979	168.5	177.1
-g440 Red dor	 Standard	113.6	17.3	3589	-1764	163.2	178.3
-g440 Red dor	 Standard	139	12.8	483	-1206	167.2	210.3
-g440 Red dor	 Standard	146.4	18.9	4132	1780	218.6	230.9
-Driver	 Standard	135.4	13.1	1940	-659	222.1	249.8
-Driver	 Standard	141.5	0	1334	-2054	0	175.8
-Driver	 Standard	148.3	7.4	1568	-1116	199.3	236.9
-Driver	 Standard	140.2	19.1	3352	564	224.8	240.9
-Driver	 Standard	148.5	12.3	2042	-1111	241.3	263.9
-Driver	 Standard	26	38.7	4536	-1545	14.1	17.3
-Driver	 Standard	143	16.9	2201	-1235	235.8	255
-Driver	 Standard	142.8	15	1556	-2994	185.1	203.8`;
-
-const rows = d3.tsvParse(rawTSV.trim());
-
-const data = rows.map(d => ({
-  club: d["Club"].trim(),
-  carry: +d["Carry (YDS)"],
-  sidespin: +d["Sidespin (RPM)"]
-}))
-.filter(d => !isNaN(d.carry) && !isNaN(d.sidespin));
-
 const width = 800;
-const height = 400;
+const height = 450;
 
 const svg = d3.select("#chart")
   .append("svg")
   .attr("width", width)
   .attr("height", height);
 
-const x = d3.scaleLinear()
-  .domain(d3.extent(data,d=>d.sidespin))
-  .range([60,width-40]);
+d3.csv("data/fitting.csv").then(data => {
 
-const y = d3.scaleLinear()
-  .domain(d3.extent(data,d=>d.carry))
-  .range([height-40,40]);
+  data = data.map(d => ({
+    club: d.Club.trim(),
+    carry: +d["Carry (YDS)"],
+    sidespin: +d["Sidespin (RPM)"]
+  }))
+  .filter(d => !isNaN(d.carry) && !isNaN(d.sidespin));
 
-svg.append("g")
-  .attr("transform",`translate(0,${height-40})`)
-  .call(d3.axisBottom(x));
+  console.log("Loaded rows:", data.length);
 
-svg.append("g")
-  .attr("transform","translate(60,0)")
-  .call(d3.axisLeft(y));
+  const x = d3.scaleLinear()
+    .domain(d3.extent(data,d=>d.sidespin))
+    .range([60,width-40]);
 
-svg.selectAll("circle")
-  .data(data)
-  .join("circle")
-  .attr("cx",d=>x(d.sidespin))
-  .attr("cy",d=>y(d.carry))
-  .attr("r",4)
-  .attr("fill","#2a6f97")
-  .attr("opacity",0.7);
+  const y = d3.scaleLinear()
+    .domain(d3.extent(data,d=>d.carry))
+    .range([height-40,40]);
+
+  svg.append("g")
+    .attr("transform",`translate(0,${height-40})`)
+    .call(d3.axisBottom(x));
+
+  svg.append("g")
+    .attr("transform","translate(60,0)")
+    .call(d3.axisLeft(y));
+
+  svg.selectAll("circle")
+    .data(data)
+    .join("circle")
+    .attr("cx",d=>x(d.sidespin))
+    .attr("cy",d=>y(d.carry))
+    .attr("r",4)
+    .attr("fill","#2a6f97")
+    .attr("opacity",0.7);
+
+});
 
 </script>
 

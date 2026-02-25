@@ -110,11 +110,14 @@ d3.csv("fitting.csv").then(raw => {
     Object.keys(row).forEach(k => {
       clean[normalize(k)] = row[k];
     });
+      return {
+        club: String(clean["club"] ?? "")
+            .replace(/\s+/g," ")
+            .trim()
+            .toLowerCase(),
 
-    return {
-      club: (clean["club"] ?? "").trim(),
-      carry: +clean["carry (yds)"],
-      sidespin: +clean["sidespin (rpm)"]
+        carry: +clean["carry (yds)"],
+    sidespin: +clean["sidespin (rpm)"]
     };
   })
   .filter(d =>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Golf Shot Dispersion</title>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<style>
+body {
+  font-family: system-ui;
+  padding: 30px;
+}
+
+svg {
+  border: 1px solid #ddd;
+  background: #fafafa;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Golf Shot Dispersion Prototype</h2>
+<p>Example visualization of shot distance variability.</p>
+
+<div id="chart"></div>
+
+<script>
+
+// sample data (replace later with real CSV)
+const data = [
+  {club:"7i", distance:150},
+  {club:"7i", distance:155},
+  {club:"7i", distance:148},
+  {club:"7i", distance:160},
+  {club:"7i", distance:152},
+  {club:"7i", distance:145},
+  {club:"7i", distance:158}
+];
+
+const width = 700;
+const height = 350;
+
+const svg = d3.select("#chart")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+const x = d3.scaleLinear()
+  .domain([130,170])
+  .range([60,width-40]);
+
+svg.append("g")
+  .attr("transform","translate(0,300)")
+  .call(d3.axisBottom(x));
+
+svg.selectAll("circle")
+  .data(data)
+  .join("circle")
+  .attr("cx", d => x(d.distance))
+  .attr("cy", () => 150 + (Math.random()*40-20))
+  .attr("r",6)
+  .attr("fill","#2a6f97")
+  .attr("opacity",0.7);
+
+// mean line
+const mean = d3.mean(data, d=>d.distance);
+
+svg.append("line")
+  .attr("x1",x(mean))
+  .attr("x2",x(mean))
+  .attr("y1",80)
+  .attr("y2",240)
+  .attr("stroke","red")
+  .attr("stroke-width",2);
+
+svg.append("text")
+  .attr("x",x(mean)+5)
+  .attr("y",70)
+  .text("Mean")
+  .style("fill","red");
+
+</script>
+
+</body>
+</html>

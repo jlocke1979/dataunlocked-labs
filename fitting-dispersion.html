@@ -12,6 +12,18 @@
 </head>
 
 <body>
+  
+  <div id="tooltip"
+       style="
+         position:absolute;
+         background:black;
+         color:white;
+         padding:6px 10px;
+         border-radius:6px;
+         font-size:12px;
+         pointer-events:none;
+         opacity:0;">
+  </div>
 
 <h2>Club Fitting Dispersion</h2>
 <div id="chart"></div>
@@ -20,8 +32,8 @@
 
 function drawChart(data){
 
-  const width = 800;
-  const height = 450;
+  const width = 900;
+  const height = 500;
 
   d3.select("#chart").selectAll("*").remove();
 
@@ -29,6 +41,8 @@ function drawChart(data){
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+  const tooltip = d3.select("#tooltip");
 
   // =====================
   // COLOR SCALE
@@ -43,18 +57,18 @@ function drawChart(data){
   // SCALES
   // =====================
   const x = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.sidespin))
-    .range([60, width - 40]);
+    .domain(d3.extent(data,d=>d.sidespin))
+    .range([60,width-40]);
 
   const y = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.carry))
-    .range([height - 40, 40]);
+    .domain(d3.extent(data,d=>d.carry))
+    .range([height-40,40]);
 
   // =====================
   // AXES
   // =====================
   svg.append("g")
-    .attr("transform", `translate(0,${height-40})`)
+    .attr("transform",`translate(0,${height-40})`)
     .call(d3.axisBottom(x));
 
   svg.append("g")
@@ -62,22 +76,57 @@ function drawChart(data){
     .call(d3.axisLeft(y));
 
   // =====================
+  // MEAN LINE PER CLUB
+  // =====================
+  const grouped = d3.group(data, d=>d.club);
+
+  grouped.forEach((shots,club)=>{
+
+    const meanCarry = d3.mean(shots,d=>d.carry);
+
+    svg.append("line")
+      .attr("x1",60)
+      .attr("x2",width-40)
+      .attr("y1",y(meanCarry))
+      .attr("y2",y(meanCarry))
+      .attr("stroke",color(club))
+      .attr("stroke-dasharray","4 4")
+      .attr("opacity",0.6);
+  });
+
+  // =====================
   // DOTS
   // =====================
   svg.selectAll("circle")
     .data(data)
     .join("circle")
-    .attr("cx", d => x(d.sidespin))
-    .attr("cy", d => y(d.carry))
-    .attr("r", 4)
-    .attr("fill", d => color(d.club))
-    .attr("opacity", 0.75);
+    .attr("cx",d=>x(d.sidespin))
+    .attr("cy",d=>y(d.carry))
+    .attr("r",4)
+    .attr("fill",d=>color(d.club))
+    .attr("opacity",0.8)
+
+    .on("mousemove",(event,d)=>{
+      tooltip
+        .style("opacity",1)
+        .html(`
+          <b>${d.club}</b><br>
+          Carry: ${d.carry.toFixed(1)} yds<br>
+          Sidespin: ${d.sidespin.toFixed(0)} rpm
+        `)
+        .style("left",(event.pageX+12)+"px")
+        .style("top",(event.pageY-20)+"px");
+    })
+
+    .on("mouseleave",()=>{
+      tooltip.style("opacity",0);
+    });
 
   // =====================
   // LEGEND
   // =====================
   const legend = svg.append("g")
-    .attr("transform", "translate(620,40)");
+    .attr("transform","translate(700,40)");
 
   clubs.forEach((club,i)=>{
 
@@ -95,6 +144,7 @@ function drawChart(data){
       .style("font-size","12px")
       .text(club);
   });
+
 }
   
 d3.csv("fitting.csv").then(raw => {

@@ -6,204 +6,163 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
 <style>
-  body { font-family: system-ui; padding: 30px; }
-  svg { border: 1px solid #ddd; }
+body { font-family: system-ui; padding:30px; }
+svg { border:1px solid #ddd; }
+#tooltip{
+  position:absolute;
+  background:black;
+  color:white;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:12px;
+  pointer-events:none;
+  opacity:0;
+}
 </style>
 </head>
 
 <body>
-  
-  <div id="tooltip"
-       style="
-         position:absolute;
-         background:black;
-         color:white;
-         padding:6px 10px;
-         border-radius:6px;
-         font-size:12px;
-         pointer-events:none;
-         opacity:0;">
-  </div>
 
 <h2>Club Fitting Dispersion</h2>
 <div id="chart"></div>
+<div id="tooltip"></div>
 
 <script>
 
-function drawChart(data){
+d3.csv("fitting.csv").then(raw => {
 
-  const width = 900;
-  const height = 500;
+const normalize = s =>
+  String(s).replace(/\uFEFF/g,"").trim().toLowerCase();
 
-  d3.select("#chart").selectAll("*").remove();
-
-  const svg = d3.select("#chart")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  const tooltip = d3.select("#tooltip");
-
-  // =====================
-  // COLOR SCALE
-  // =====================
-  const clubs = [...new Set(data.map(d => d.club))];
-  const visibleClubs = new Set(clubs);
-
-  const color = d3.scaleOrdinal()
-    .domain(clubs)
-    .range(d3.schemeTableau10);
-
-  // =====================
-  // SCALES
-  // =====================
-  const x = d3.scaleLinear()
-    .domain(d3.extent(data,d=>d.sidespin))
-    .range([60,width-40]);
-
-  const y = d3.scaleLinear()
-    .domain(d3.extent(data,d=>d.carry))
-    .range([height-40,40]);
-
-  // =====================
-  // AXES
-  // =====================
-  svg.append("g")
-    .attr("transform",`translate(0,${height-40})`)
-    .call(d3.axisBottom(x));
-
-  svg.append("g")
-    .attr("transform","translate(60,0)")
-    .call(d3.axisLeft(y));
-
-  // =====================
-  // MEAN LINE PER CLUB
-  // =====================
-  const grouped = d3.group(data, d=>d.club);
-
-  grouped.forEach((shots,club)=>{
-
-    const meanCarry = d3.mean(shots,d=>d.carry);
-
-    svg.append("line")
-      .attr("x1",60)
-      .attr("x2",width-40)
-      .attr("y1",y(meanCarry))
-      .attr("y2",y(meanCarry))
-      .attr("stroke",color(club))
-      .attr("stroke-dasharray","4 4")
-      .attr("opacity",0.6);
+const data = raw.map(row=>{
+  const clean={};
+  Object.keys(row).forEach(k=>{
+    clean[normalize(k)] = row[k];
   });
 
-  // =====================
-  // DOTS
-  // =====================
-  function updateDots(){
+  return {
+    club:String(clean["club"]??"")
+      .replace(/\s+/g," ")
+      .trim()
+      .toLowerCase(),
+    carry:+clean["carry (yds)"],
+    sidespin:+clean["sidespin (rpm)"]
+  };
+})
+.filter(d=>d.club && isFinite(d.carry) && isFinite(d.sidespin));
 
-  const filtered = data.filter(d =>
-    visibleClubs.has(d.club)
-  );
+drawChart(data);
 
-  const dots = svg.selectAll("circle.dot")
-    .data(filtered);
+});
 
-  dots.join(
-    enter => enter.append("circle")
-      .attr("class","dot")
-      .attr("cx",d=>x(d.sidespin))
-      .attr("cy",d=>y(d.carry))
-      .attr("r",4)
-      .attr("fill",d=>color(d.club))
-      .attr("opacity",0.8),
+function drawChart(data){
 
-    update => update
-      .attr("cx",d=>x(d.sidespin))
-      .attr("cy",d=>y(d.carry)),
+const width=900;
+const height=500;
 
-    exit => exit.remove()
-    
-  );
-  updateDots();  
-  }
-  
-  // =====================
-  // LEGEND
-  // =====================
-  const legend = svg.append("g")
-  .attr("transform","translate(700,40)");
+const svg=d3.select("#chart")
+.append("svg")
+.attr("width",width)
+.attr("height",height);
+
+const tooltip=d3.select("#tooltip");
+
+const clubs=[...new Set(data.map(d=>d.club))];
+const visible=new Set(clubs);
+
+const color=d3.scaleOrdinal()
+.domain(clubs)
+.range(d3.schemeTableau10);
+
+const x=d3.scaleLinear()
+.domain(d3.extent(data,d=>d.sidespin))
+.range([60,width-40]);
+
+const y=d3.scaleLinear()
+.domain(d3.extent(data,d=>d.carry))
+.range([height-40,40]);
+
+svg.append("g")
+.attr("transform",`translate(0,${height-40})`)
+.call(d3.axisBottom(x));
+
+svg.append("g")
+.attr("transform","translate(60,0)")
+.call(d3.axisLeft(y));
+
+function render(){
+
+const filtered=data.filter(d=>visible.has(d.club));
+
+const dots=svg.selectAll("circle")
+.data(filtered);
+
+dots.join(
+enter=>enter.append("circle")
+.attr("cx",d=>x(d.sidespin))
+.attr("cy",d=>y(d.carry))
+.attr("r",4)
+.attr("fill",d=>color(d.club))
+.attr("opacity",0.8)
+.on("mousemove",(event,d)=>{
+tooltip
+.style("opacity",1)
+.html(`<b>${d.club}</b><br>
+Carry: ${d.carry}<br>
+Sidespin: ${d.sidespin}`)
+.style("left",(event.pageX+10)+"px")
+.style("top",(event.pageY-20)+"px");
+})
+.on("mouseleave",()=>tooltip.style("opacity",0)),
+
+update=>update
+.attr("cx",d=>x(d.sidespin))
+.attr("cy",d=>y(d.carry)),
+
+exit=>exit.remove()
+);
+
+}
+
+render();
+
+const legend=svg.append("g")
+.attr("transform","translate(720,40)");
 
 clubs.forEach((club,i)=>{
 
-  const row = legend.append("g")
-    .attr("transform",`translate(0,${i*20})`)
-    .style("cursor","pointer");
+const row=legend.append("g")
+.attr("transform",`translate(0,${i*20})`)
+.style("cursor","pointer");
 
-  row.append("rect")
-    .attr("width",12)
-    .attr("height",12)
-    .attr("fill",color(club));
+row.append("rect")
+.attr("width",12)
+.attr("height",12)
+.attr("fill",color(club));
 
-  row.append("text")
-    .attr("x",18)
-    .attr("y",10)
-    .style("font-size","12px")
-    .text(club);
+row.append("text")
+.attr("x",18)
+.attr("y",10)
+.text(club);
 
-  row.on("click",()=>{
+row.on("click",()=>{
 
-    if(visibleClubs.has(club)){
-      visibleClubs.delete(club);
-      row.attr("opacity",0.3);
-    } else {
-      visibleClubs.add(club);
-      row.attr("opacity",1);
-    }
+if(visible.has(club)){
+visible.delete(club);
+row.attr("opacity",0.3);
+}else{
+visible.add(club);
+row.attr("opacity",1);
+}
 
-    updateDots();
-  });
+render();
+
+});
 
 });
 
 }
-  
-d3.csv("fitting.csv").then(raw => {
 
-  const normalize = s =>
-    String(s)
-      .replace(/\uFEFF/g, "")  // remove BOM if present
-      .trim()
-      .toLowerCase();
-
-  const data = raw.map(row => {
-    const clean = {};
-    Object.keys(row).forEach(k => {
-      clean[normalize(k)] = row[k];
-    });
-      return {
-        club: String(clean["club"] ?? "")
-            .replace(/\s+/g," ")
-            .trim()
-            .toLowerCase(),
-
-        carry: +clean["carry (yds)"],
-    sidespin: +clean["sidespin (rpm)"]
-    };
-  })
-  .filter(d =>
-    d.club &&
-    Number.isFinite(d.carry) &&
-    Number.isFinite(d.sidespin)
-  );
-
-  console.log("Loaded rows:", data.length);
-  if (data.length === 0) {
-    console.log("Detected headers:", Object.keys(raw[0] || {}));
-  }
-
-  drawChart(data);
-
-}).catch(err => console.error("CSV LOAD ERROR:", err));
 </script>
-
 </body>
 </html>

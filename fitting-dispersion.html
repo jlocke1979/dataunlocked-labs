@@ -104,24 +104,26 @@ function drawChart(data){
     visibleClubs.has(d.club)
   );
 
-  const dots = svg.selectAll("circle")
-    .data(filtered, d => d);
+  const dots = svg.selectAll("circle.dot")
+    .data(filtered);
 
   dots.join(
     enter => enter.append("circle")
+      .attr("class","dot")
       .attr("cx",d=>x(d.sidespin))
       .attr("cy",d=>y(d.carry))
       .attr("r",4)
       .attr("fill",d=>color(d.club))
       .attr("opacity",0.8),
 
-    update => update,
+    update => update
+      .attr("cx",d=>x(d.sidespin))
+      .attr("cy",d=>y(d.carry)),
 
     exit => exit.remove()
   );
-}
-
-updateDots();
+  }
+  
   // =====================
   // LEGEND
   // =====================

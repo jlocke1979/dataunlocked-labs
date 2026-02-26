@@ -85,9 +85,9 @@ function calculate(){
     +document.getElementById("rounds").value;
 
   const results = plans.map(p => ({
-    plan:p.plan,
-    cost:p.annual_cost,
-    costPerRound:p.annual_cost/rounds
+    plan: p.plan,
+    cost: p.annual_cost,
+    costPerRound: p.annual_cost / rounds
   }));
 
   results.sort(
@@ -109,15 +109,16 @@ function calculate(){
   <h3>Best Option: ${best.plan}</h3>
 
   <table>
-  <tr>
-    <th>Plan</th>
-    <th>Total Cost</th>
-    <th>Cost / Round</th>
-  </tr>
-  ${rows}
+    <tr>
+      <th>Plan</th>
+      <th>Total Cost</th>
+      <th>Cost / Round</th>
+    </tr>
+    ${rows}
   </table>
   `;
 }
+
 
 </script>
 

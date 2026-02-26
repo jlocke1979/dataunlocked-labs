@@ -4,93 +4,76 @@
 <meta charset="utf-8">
 <title>Streamlight Prototype</title>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-
-<style>
-body{
-  font-family:system-ui;
-  padding:40px;
-  max-width:700px;
-  margin:auto;
-}
-
-button{
-  padding:10px 16px;
-  font-size:16px;
-  margin-top:10px;
-}
-
-.result{
-  margin-top:20px;
-  padding:15px;
-  background:#f3f3f3;
-  border-radius:8px;
-}
-</style>
-</head>
-
-<body>
-
-<h1>🏌️ Streamlight — Season Pass Optimizer</h1>
-
-<label>Expected Rounds:</label><br>
-<input id="rounds" type="number" value="25">
-
-<br>
-<button onclick="calculate()">Calculate</button>
-
-<div id="output" class="result"></div>
-
 <script>
 
-let plans = [];
+let costs=[];
 
-// ======================
-// LOAD CSV
-// ======================
-d3.csv("../data/plan_outputs.csv").then(raw => {
+d3.csv("../data/round_costs.csv").then(raw=>{
 
-  plans = raw.map(d => ({
-    plan: d.plan,
-    annual_cost: +d.annual_cost
+  costs = raw.map(d=>({
+    course:d.course,
+    green:+d.green_fee,
+    cart:+d.cart_fee
   }));
 
-  console.log("Plans Loaded:", plans);
+  console.log("Costs Loaded:",costs);
 
-})
-.catch(err => console.error("CSV ERROR:", err));
+});
 
-
-// ======================
+// =========================
 // CALCULATE
-// ======================
+// =========================
 function calculate(){
 
-  if(plans.length === 0){
-    alert("Plans not loaded yet");
+  if(costs.length===0){
+    alert("Pricing not loaded yet");
     return;
   }
 
   const rounds =
     +document.getElementById("rounds").value;
 
-  const results = plans.map(p => ({
-    plan: p.plan,
-    costPerRound: p.annual_cost / rounds
-  }));
+  const cartUsage = 0.5; // 50% for now
 
-  results.sort(
-    (a,b)=>a.costPerRound-b.costPerRound
-  );
+  // average round cost
+  const avgRound =
+    d3.mean(costs,
+      d=> d.green + d.cart*cartUsage
+    );
 
-  const best = results[0];
+  const paygo =
+    rounds * avgRound;
 
-  document.getElementById("output").innerHTML =
-    `<b>Best Option:</b> ${best.plan}<br>
-     Cost per round: $${best.costPerRound.toFixed(2)}`;
+  const coursePass = 850;
+  const allInclusive = 720;
+
+  const plans=[
+    {plan:"Pay As You Go",cost:paygo},
+    {plan:"Course Pass",cost:coursePass},
+    {plan:"All Inclusive",cost:allInclusive}
+  ];
+
+  plans.forEach(p=>{
+    p.costPerRound=p.cost/rounds;
+  });
+
+  plans.sort((a,b)=>a.cost-b.cost);
+
+  const best=plans[0];
+
+  document.getElementById("output").innerHTML=
+  `
+  <b>Best Option:</b> ${best.plan}<br><br>
+
+  PayGo: $${paygo.toFixed(0)}<br>
+  Course Pass: $${coursePass}<br>
+  All Inclusive: $${allInclusive}<br><br>
+
+  <b>Savings:</b>
+  $${(plans[1].cost-best.cost).toFixed(0)}
+  `;
 }
 
 </script>
-
 </body>
 </html>

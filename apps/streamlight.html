@@ -64,9 +64,9 @@ th{
 let plans = [];
 
 /* LOAD DATA */
-d3.csv(
-"https://raw.githubusercontent.com/jlocke1979/dataunlocked-labs/main/plan_outputs.csv"
-)
+d3.csv("../data/plan_outputs.csv")
+
+
 .then(data => {
 
   plans = data.map(d => ({

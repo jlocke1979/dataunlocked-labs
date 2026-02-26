@@ -60,25 +60,27 @@ d3.csv(
 .catch(err => console.error(err));
 
 function calculate(){
-
-  const rounds =
-    +document.getElementById("rounds").value;
-
-  const results = plans.map(p => ({
-    plan:p.plan,
-    cost:p.annual_cost,
-    costPerRound:p.annual_cost/rounds
-  }));
-
-  results.sort(
-    (a,b)=>a.costPerRound-b.costPerRound
-  );
-
-  const best = results[0];
-
+  const rows = results.map(r => `
+    <tr>
+      <td>${r.plan}</td>
+      <td>$${r.cost.toFixed(0)}</td>
+      <td>$${r.costPerRound.toFixed(2)}</td>
+    </tr>
+  `).join("");
+  
   document.getElementById("output").innerHTML =
-    `<b>Best Option:</b> ${best.plan}<br>
-     Cost per round: $${best.costPerRound.toFixed(2)}`;
+  `
+  <h3>Best Option: ${best.plan}</h3>
+  
+  <table>
+  <tr>
+  <th>Plan</th>
+  <th>Total Cost</th>
+  <th>Cost / Round</th>
+  </tr>
+  ${rows}
+  </table>
+  `;
 }
 
 </script>

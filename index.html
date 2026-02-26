@@ -48,10 +48,14 @@ let plans=[];
 
 let plans = [];
   
-d3.csv("./plan_outputs.csv").then(raw => {
+d3.tsv("./plan_outputs.csv").then(raw => {
 
-  console.log("RAW HEADERS:");
-  console.log(Object.keys(raw[0]));
+  const plans = raw.map(d => ({
+    plan: d.plan,
+    annual_cost: +d.annual_cost
+  }));
+
+  console.log("✅ Plans:", plans);
 
 });
 

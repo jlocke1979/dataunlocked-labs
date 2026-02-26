@@ -44,7 +44,7 @@ button{
 
 let plans=[];
 
-d3.csv("optimizer.csv").then(data=>{
+d3.csv("plan_outputs.csv").then(data=>{
   plans=data.map(d=>({
     plan:d.plan,
     annual_cost:+d.annual_cost

@@ -42,44 +42,41 @@ button{
 
 <script>
 
-let plans=[];
-
-<script>
-
 let plans = [];
-  
-d3.tsv("./plan_outputs.csv").then(raw => {
 
-  const plans = raw.map(d => ({
+d3.csv(
+"https://raw.githubusercontent.com/jlocke1979/dataunlocked-labs/main/plan_outputs.csv"
+)
+.then(data => {
+
+  plans = data.map(d => ({
     plan: d.plan,
     annual_cost: +d.annual_cost
   }));
 
-  console.log(" Plans:", plans);
+  console.log("✅ Plans Loaded:", plans);
 
-});
+})
+.catch(err => console.error(err));
 
-  
-.catch(err =>
-  console.error("CSV LOAD ERROR:", err)
-);
-
-</script>
 function calculate(){
 
-  const rounds=+document.getElementById("rounds").value;
+  const rounds =
+    +document.getElementById("rounds").value;
 
-  const results=plans.map(p=>({
+  const results = plans.map(p => ({
     plan:p.plan,
     cost:p.annual_cost,
     costPerRound:p.annual_cost/rounds
   }));
 
-  results.sort((a,b)=>a.costPerRound-b.costPerRound);
+  results.sort(
+    (a,b)=>a.costPerRound-b.costPerRound
+  );
 
-  const best=results[0];
+  const best = results[0];
 
-  document.getElementById("output").innerHTML=
+  document.getElementById("output").innerHTML =
     `<b>Best Option:</b> ${best.plan}<br>
      Cost per round: $${best.costPerRound.toFixed(2)}`;
 }

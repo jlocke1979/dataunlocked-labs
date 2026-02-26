@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8">
 <title>Season Pass Decision </title>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
+  
 <style>
 body{
   font-family:system-ui;
@@ -54,7 +54,6 @@ th{
 <button onclick="calculate()">Calculate Best Option</button>
 
 <div class="result" id="output"></div>
-
 <script>
 
 let plans = [];
@@ -74,7 +73,29 @@ d3.csv(
 })
 .catch(err => console.error(err));
 
+
 function calculate(){
+
+  if(plans.length === 0){
+    alert("Plans not loaded yet");
+    return;
+  }
+
+  const rounds =
+    +document.getElementById("rounds").value;
+
+  const results = plans.map(p => ({
+    plan:p.plan,
+    cost:p.annual_cost,
+    costPerRound:p.annual_cost/rounds
+  }));
+
+  results.sort(
+    (a,b)=>a.costPerRound-b.costPerRound
+  );
+
+  const best = results[0];
+
   const rows = results.map(r => `
     <tr>
       <td>${r.plan}</td>
@@ -82,16 +103,16 @@ function calculate(){
       <td>$${r.costPerRound.toFixed(2)}</td>
     </tr>
   `).join("");
-  
+
   document.getElementById("output").innerHTML =
   `
   <h3>Best Option: ${best.plan}</h3>
-  
+
   <table>
   <tr>
-  <th>Plan</th>
-  <th>Total Cost</th>
-  <th>Cost / Round</th>
+    <th>Plan</th>
+    <th>Total Cost</th>
+    <th>Cost / Round</th>
   </tr>
   ${rows}
   </table>

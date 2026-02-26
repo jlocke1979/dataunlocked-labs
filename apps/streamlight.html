@@ -1,11 +1,9 @@
 <!doctype html>
 <html>
-
 <head>
 <meta charset="utf-8">
-<title>Season Pass Decision</title>
+<title>Streamlight Prototype</title>
 
-<!-- LOAD D3 FIRST -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
 <style>
@@ -28,48 +26,31 @@ button{
   background:#f3f3f3;
   border-radius:8px;
 }
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
-
-th,td{
-  padding:8px;
-  border-bottom:1px solid #ddd;
-}
-
-th{
-  background:#eee;
-}
 </style>
-
 </head>
 
 <body>
 
-<h1>🏌️ Should I Buy a Season Pass?</h1>
+<h1>🏌️ Streamlight — Season Pass Optimizer</h1>
 
-<label>Rounds you expect to play:</label><br>
+<label>Expected Rounds:</label><br>
 <input id="rounds" type="number" value="25">
 
 <br>
-<button onclick="calculate()">Calculate Best Option</button>
+<button onclick="calculate()">Calculate</button>
 
-<div class="result" id="output"></div>
+<div id="output" class="result"></div>
 
 <script>
 
 let plans = [];
 
-/* LOAD DATA */
-d3.csv("../data/plan_outputs.csv")
+// ======================
+// LOAD CSV
+// ======================
+d3.csv("../data/plan_outputs.csv").then(raw => {
 
-
-.then(data => {
-
-  plans = data.map(d => ({
+  plans = raw.map(d => ({
     plan: d.plan,
     annual_cost: +d.annual_cost
   }));
@@ -77,10 +58,12 @@ d3.csv("../data/plan_outputs.csv")
   console.log("Plans Loaded:", plans);
 
 })
-.catch(err => console.error(err));
+.catch(err => console.error("CSV ERROR:", err));
 
 
-/* CALCULATOR */
+// ======================
+// CALCULATE
+// ======================
 function calculate(){
 
   if(plans.length === 0){
@@ -92,9 +75,8 @@ function calculate(){
     +document.getElementById("rounds").value;
 
   const results = plans.map(p => ({
-    plan:p.plan,
-    cost:p.annual_cost,
-    costPerRound:p.annual_cost/rounds
+    plan: p.plan,
+    costPerRound: p.annual_cost / rounds
   }));
 
   results.sort(
@@ -103,27 +85,9 @@ function calculate(){
 
   const best = results[0];
 
-  const rows = results.map(r => `
-    <tr>
-      <td>${r.plan}</td>
-      <td>$${r.cost.toFixed(0)}</td>
-      <td>$${r.costPerRound.toFixed(2)}</td>
-    </tr>
-  `).join("");
-
   document.getElementById("output").innerHTML =
-  `
-  <h3>Best Option: ${best.plan}</h3>
-
-  <table>
-  <tr>
-    <th>Plan</th>
-    <th>Total Cost</th>
-    <th>Cost / Round</th>
-  </tr>
-  ${rows}
-  </table>
-  `;
+    `<b>Best Option:</b> ${best.plan}<br>
+     Cost per round: $${best.costPerRound.toFixed(2)}`;
 }
 
 </script>

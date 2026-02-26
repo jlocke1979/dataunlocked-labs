@@ -44,33 +44,33 @@ button{
 
 let plans=[];
 
-d3.csv("./plan_outputs.csv").then(raw => {
+<script>
 
-  const plans =
-    raw
-      .map(d => ({
-        plan: d.Strategy?.trim(),
-        annual_cost: +d.Annual_Total
-      }))
+let plans = [];
 
-      // remove blanks
-      .filter(d =>
-        d.plan &&
-        Number.isFinite(d.annual_cost)
-      )
+d3.csv("./plan_outputs.csv")
+.then(raw => {
 
-      // remove duplicates
-      .filter((d,i,arr)=>
-        arr.findIndex(x=>x.plan===d.plan)===i
-      )
+  plans = raw
+    .map(d => ({
+      plan: (d.Strategy || "").trim(),
+      annual_cost: +d.Annual_Total
+    }))
+    .filter(d =>
+      d.plan &&
+      Number.isFinite(d.annual_cost) &&
+      d.annual_cost > 0
+    );
 
-      // remove impossible values
-      .filter(d => d.annual_cost > 0);
+  console.log("✅ CLEAN PLANS:", plans);
+  console.log("Rows:", plans.length);
 
-  console.log("Clean plans:",plans);
+})
+.catch(err =>
+  console.error("CSV LOAD ERROR:", err)
+);
 
-});
-
+</script>
 function calculate(){
 
   const rounds=+document.getElementById("rounds").value;

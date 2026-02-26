@@ -47,25 +47,15 @@ let plans=[];
 <script>
 
 let plans = [];
+  
+d3.csv("./plan_outputs.csv").then(raw => {
 
-d3.csv("./plan_outputs.csv")
-.then(raw => {
+  console.log("RAW HEADERS:");
+  console.log(Object.keys(raw[0]));
 
-  plans = raw
-    .map(d => ({
-      plan: (d.Strategy || "").trim(),
-      annual_cost: +d.Annual_Total
-    }))
-    .filter(d =>
-      d.plan &&
-      Number.isFinite(d.annual_cost) &&
-      d.annual_cost > 0
-    );
+});
 
-  console.log("✅ CLEAN PLANS:", plans);
-  console.log("Rows:", plans.length);
-
-})
+  
 .catch(err =>
   console.error("CSV LOAD ERROR:", err)
 );

@@ -100,18 +100,31 @@ function calculate(){
   plans.sort((a,b)=>a.cost-b.cost);
 
   const best=plans[0];
+const rows = plans.map((p,i)=>`
+<tr style="
+  background:${i===0 ? '#dff5e1' : 'white'};
+  font-weight:${i===0 ? 'bold':'normal'};
+">
+<td>${p.plan}</td>
+<td>$${p.cost.toFixed(0)}</td>
+<td>$${p.costPerRound.toFixed(2)}</td>
+</tr>
+`).join("");
 
-  document.getElementById("output").innerHTML=
-  `
-  <b>Best Option:</b> ${best.plan}<br><br>
+document.getElementById("output").innerHTML=
+`
+<h3>Best Option: ✅ ${best.plan}</h3>
 
-  PayGo: $${paygo.toFixed(0)}<br>
-  Course Pass: $${coursePass}<br>
-  All Inclusive: $${allInclusive}<br><br>
-
-  <b>Savings:</b>
-  $${(plans[1].cost-best.cost).toFixed(0)}
-  `;
+<table border="1" cellpadding="8"
+style="border-collapse:collapse;margin-top:10px;">
+<tr>
+<th>Plan</th>
+<th>Total Cost</th>
+<th>Cost / Round</th>
+</tr>
+${rows}
+</table>
+`;
 }
 
 </script>

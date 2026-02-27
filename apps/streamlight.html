@@ -8,7 +8,7 @@
 
 let costs=[];
 
-d3.csv("../data/rounds_costs.csv").then(raw=>{
+d3.csv("rounds_costs.csv").then(raw=>{
 
   costs = raw.map(d=>({
     course:d.course,

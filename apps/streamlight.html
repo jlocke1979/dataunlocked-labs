@@ -34,8 +34,9 @@ button{
 
 <h1>🏌️ Streamlight — Season Pass Optimizer</h1>
 
-<label>Rounds you expect to play:</label><br>
-<input id="rounds" type="number" value="25">
+<label>Rounds by category:</label><br>
+<div id="rounds-by-category"></div>
+<p id="rounds-total" style="margin-top:8px;font-weight:bold;"></p>
 
 <br><br>
 
@@ -47,63 +48,105 @@ Calculate Best Option
 
 <script>
 
-let costs=[];
+// Pricing by category (weekday, weekend, twilight, etc.) — categories come from data
+let costsByCategory = [];
+const CART_USAGE = 0.5;
 
-// LOAD CSV
+// LOAD CSV: rows are course, category, green_fee, cart_fee
 d3.csv("rounds_cost.csv").then(raw=>{
-
-  costs = raw.map(d=>({
-    course:d.course,
-    green:+d.green_fee,
-    cart:+d.cart_fee
+  const rows = raw.map(d=>({
+    course: d.course,
+    category: d.category,
+    green: +d.green_fee,
+    cart: +d.cart_fee
   }));
 
-  console.log("Costs Loaded:",costs);
+  costsByCategory = d3.groups(rows, d => d.category);
+  const categories = costsByCategory.map(([cat]) => cat);
+  console.log("Costs by category:", costsByCategory);
 
+  // Build rounds-by-category inputs (extensible: one input per category in data)
+  const container = document.getElementById("rounds-by-category");
+  container.innerHTML = "";
+  categories.forEach(cat => {
+    const label = document.createElement("label");
+    label.textContent = cat + ": ";
+    const input = document.createElement("input");
+    input.type = "number";
+    input.min = 0;
+    input.value = cat === "weekday" ? 12 : cat === "weekend" ? 8 : 5;
+    input.id = "rounds-" + cat;
+    input.style.width = "60px";
+    input.style.marginRight = "12px";
+    input.addEventListener("input", updateRoundsTotal);
+    container.appendChild(label);
+    container.appendChild(input);
+  });
+  updateRoundsTotal();
 });
 
-// =========================
-// CALCULATE
-// =========================
-function calculate(){
+function updateRoundsTotal() {
+  const total = getRoundsByCategory().total;
+  const el = document.getElementById("rounds-total");
+  if (el) el.textContent = "Total rounds: " + total;
+}
 
-  if(costs.length===0){
+// Read rounds per category from DOM (one input per category; extensible)
+function getRoundsByCategory() {
+  const byCat = {};
+  let total = 0;
+  document.querySelectorAll("[id^='rounds-']").forEach(input => {
+    const cat = input.id.replace("rounds-", "");
+    const n = Math.max(0, +input.value || 0);
+    byCat[cat] = n;
+    total += n;
+  });
+  return { byCat, total };
+}
+
+// =========================
+// CALCULATE (category-based)
+// =========================
+function calculate() {
+  if (!costsByCategory.length) {
     alert("Pricing not loaded yet");
     return;
   }
 
-  const rounds =
-    +document.getElementById("rounds").value;
+  const { byCat: roundsByCategory, total: totalRounds } = getRoundsByCategory();
+  if (totalRounds === 0) {
+    document.getElementById("output").innerHTML = "<p>Enter at least one round.</p>";
+    return;
+  }
 
-  const cartUsage = 0.5;
-
-  const avgRound =
-    d3.mean(costs,
-      d=> d.green + d.cart*cartUsage
-    );
-
-  const paygo = rounds * avgRound;
+  // Per-category average round cost (green + cart * usage), then weighted paygo
+  let paygo = 0;
+  costsByCategory.forEach(([category, rows]) => {
+    const avgRound = d3.mean(rows, d => d.green + d.cart * CART_USAGE);
+    const rounds = roundsByCategory[category] || 0;
+    paygo += rounds * avgRound;
+  });
 
   const coursePass = 850;
   const allInclusive = 720;
 
-  const plans=[
-    {plan:"Pay As You Go",cost:paygo},
-    {plan:"Course Pass",cost:coursePass},
-    {plan:"All Inclusive",cost:allInclusive}
+  const plans = [
+    { plan: "Pay As You Go", cost: paygo },
+    { plan: "Course Pass", cost: coursePass },
+    { plan: "All Inclusive", cost: allInclusive }
   ];
 
-  plans.forEach(p=>{
-    p.costPerRound=p.cost/rounds;
+  plans.forEach(p => {
+    p.costPerRound = p.cost / totalRounds;
   });
 
-  plans.sort((a,b)=>a.cost-b.cost);
+  plans.sort((a, b) => a.cost - b.cost);
+  const best = plans[0];
 
-  const best=plans[0];
-const rows = plans.map((p,i)=>`
+  const rows = plans.map((p, i) => `
 <tr style="
-  background:${i===0 ? '#dff5e1' : 'white'};
-  font-weight:${i===0 ? 'bold':'normal'};
+  background:${i === 0 ? "#dff5e1" : "white"};
+  font-weight:${i === 0 ? "bold" : "normal"};
 ">
 <td>${p.plan}</td>
 <td>$${p.cost.toFixed(0)}</td>
@@ -111,8 +154,7 @@ const rows = plans.map((p,i)=>`
 </tr>
 `).join("");
 
-document.getElementById("output").innerHTML=
-`
+  document.getElementById("output").innerHTML = `
 <h3>Best Option: ✅ ${best.plan}</h3>
 
 <table border="1" cellpadding="8"

@@ -1,10 +1,6 @@
-course,category,green_fee,cart_fee
-Newman 18,weekday,35,17
-Newman 18,weekend,45,17
-Newman 18,twilight,28,17
-Madison 18,weekday,26,17
-Madison 18,weekend,36,17
-Madison 18,twilight,22,17
-Kellogg Exec 9,weekday,24,12
-Kellogg Exec 9,weekend,32,12
-Kellogg Exec 9,twilight,20,12
+course,player_type,category,price
+Newman,adult,18_weekday,35
+Newman,senior,18_weekday,30
+Newman,junior,18_weekday,20
+Newman,adult,18_twilight,25
+Kellogg,adult,9_weekday,24

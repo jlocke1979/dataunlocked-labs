@@ -19,4 +19,5 @@ const curve = generateCostCurve({
   membershipCost: 1200
 }, 366);
 
+
 console.log(curve);

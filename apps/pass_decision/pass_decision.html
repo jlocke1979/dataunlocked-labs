@@ -46,45 +46,67 @@ Calculate Best Option
 </button>
 
 <div id="output" class="result"></div>
+<div id="chart"></div>
+const width = 600;
+const height = 400;
+const margin = 40;
 
+const svg = d3.select("#chart")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+const x = d3.scaleLinear()
+  .domain([0, d3.max(curve, d => d.rounds)])
+  .range([margin, width - margin]);
+
+const y = d3.scaleLinear()
+  .domain([
+    0,
+    d3.max(curve, d =>
+      Math.max(d.paygCost, d.memberCost))
+  ])
+  .range([height - margin, margin]);
+
+// Pay-as-you-go line
+svg.append("path")
+  .datum(curve)
+  .attr("fill", "none")
+  .attr("stroke", "steelblue")
+  .attr("stroke-width", 2)
+  .attr("d", d3.line()
+    .x(d => x(d.rounds))
+    .y(d => y(d.paygCost))
+  );
+
+// Membership line
+svg.append("path")
+  .datum(curve)
+  .attr("fill", "none")
+  .attr("stroke", "green")
+  .attr("stroke-width", 2)
+  .attr("d", d3.line()
+    .x(d => x(d.rounds))
+    .y(d => y(d.memberCost))
+  );
+
+// Axes
+svg.append("g")
+  .attr("transform",
+    `translate(0,${height-margin})`)
+  .call(d3.axisBottom(x));
+
+svg.append("g")
+  .attr("transform",
+    `translate(${margin},0)`)
+  .call(d3.axisLeft(y));
 <script>
 
 // Pricing by category (weekday, weekend, twilight, etc.) — categories come from data
 let costsByCategory = [];
 const CART_USAGE = 0.5;
 
-// LOAD CSV: rows are course, category, green_fee, cart_fee
-d3.csv("rounds_cost.csv").then(raw=>{
-  const rows = raw.map(d=>({
-    course: d.course,
-    category: d.category,
-    green: +d.green_fee,
-    cart: +d.cart_fee
-  }));
 
-  costsByCategory = d3.groups(rows, d => d.category);
-  const categories = costsByCategory.map(([cat]) => cat);
-  console.log("Costs by category:", costsByCategory);
-
-  // Build rounds-by-category inputs (extensible: one input per category in data)
-  const container = document.getElementById("rounds-by-category");
-  container.innerHTML = "";
-  categories.forEach(cat => {
-    const label = document.createElement("label");
-    label.textContent = cat + ": ";
-    const input = document.createElement("input");
-    input.type = "number";
-    input.min = 0;
-    input.value = cat === "weekday" ? 12 : cat === "weekend" ? 8 : 5;
-    input.id = "rounds-" + cat;
-    input.style.width = "60px";
-    input.style.marginRight = "12px";
-    input.addEventListener("input", updateRoundsTotal);
-    container.appendChild(label);
-    container.appendChild(input);
-  });
-  updateRoundsTotal();
-});
 
 function updateRoundsTotal() {
   const total = getRoundsByCategory().total;
@@ -172,5 +194,9 @@ ${rows}
 
 </script>
 
+
+<script type="module" src="/apps/pass_decision/app.js"></script>
+
 </body>
+
 </html>

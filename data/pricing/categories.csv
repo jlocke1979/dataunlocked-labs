@@ -1,0 +1,9 @@
+category,holes,day_group,time_band
+18_weekday_standard,18,weekday,standard
+18_weekend_standard,18,weekend,standard
+18_weekday_twilight,18,weekday,twilight
+18_weekend_twilight,18,weekend,twilight
+9_weekday_standard,9,weekday,standard
+9_weekend_standard,9,weekend,standard
+9_weekday_twilight,9,weekday,twilight
+9_weekend_twilight,9,weekend,twilight

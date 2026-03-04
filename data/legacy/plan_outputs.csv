@@ -1,4 +1,4 @@
-﻿plan,annual_cost
-Pay As You Go,1260
-Course Only Pass,850
-All Inclusive Pass,720
+﻿plan,annual_fee,marginal_cost
+Pay As You Go,0,avg_round
+Course Pass,975,0
+All Inclusive,2300,0

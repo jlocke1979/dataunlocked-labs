@@ -21,6 +21,9 @@ button{
   font-size:16px;
   margin-top:10px;
 }
+.sliders{
+  margin-bottom:14px;
+}
 .result{
   margin-top:20px;
   padding:15px;
@@ -35,167 +38,35 @@ button{
 
 <h1>🏌️ Streamlight — Season Pass Optimizer</h1>
 
-<label>Rounds by category:</label><br>
-<div id="rounds-by-category"></div>
-<p id="rounds-total" style="margin-top:8px;font-weight:bold;"></p>
+<div class="sliders">
+  <label>Expected rounds per year: <strong id="rounds-value">30</strong></label><br>
+  <input type="range" id="rounds" min="0" max="120" value="30" style="width:220px;">
+</div>
+<div class="sliders">
+  <label>Cart usage: <strong id="cart-value">50</strong>%</label><br>
+  <input type="range" id="cart" min="0" max="100" value="50" style="width:220px;">
+</div>
+<div class="sliders">
+  <label>Twilight rounds: <strong id="twilight-value">10</strong>%</label><br>
+  <input type="range" id="twilight" min="0" max="50" value="10" style="width:220px;">
+</div>
+<div class="sliders">
+  <label>Practice sessions per week: <strong id="practice-value">0</strong></label><br>
+  <input type="range" id="practice" min="0" max="7" value="0" style="width:220px;">
+</div>
+<div class="sliders">
+  <label>Range bucket size:</label><br>
+  <select id="range-bucket">
+    <option value="small">Small</option>
+    <option value="medium" selected>Medium</option>
+    <option value="large">Large</option>
+  </select>
+</div>
 
-<br><br>
-
-<button onclick="calculate()">
-Calculate Best Option
-</button>
-
-<div id="output" class="result"></div>
 <div id="chart"></div>
-const width = 600;
-const height = 400;
-const margin = 40;
+<div id="output" class="result"></div>
 
-const svg = d3.select("#chart")
-  .append("svg")
-  .attr("width", width)
-  .attr("height", height);
-
-const x = d3.scaleLinear()
-  .domain([0, d3.max(curve, d => d.rounds)])
-  .range([margin, width - margin]);
-
-const y = d3.scaleLinear()
-  .domain([
-    0,
-    d3.max(curve, d =>
-      Math.max(d.paygCost, d.memberCost))
-  ])
-  .range([height - margin, margin]);
-
-// Pay-as-you-go line
-svg.append("path")
-  .datum(curve)
-  .attr("fill", "none")
-  .attr("stroke", "steelblue")
-  .attr("stroke-width", 2)
-  .attr("d", d3.line()
-    .x(d => x(d.rounds))
-    .y(d => y(d.paygCost))
-  );
-
-// Membership line
-svg.append("path")
-  .datum(curve)
-  .attr("fill", "none")
-  .attr("stroke", "green")
-  .attr("stroke-width", 2)
-  .attr("d", d3.line()
-    .x(d => x(d.rounds))
-    .y(d => y(d.memberCost))
-  );
-
-// Axes
-svg.append("g")
-  .attr("transform",
-    `translate(0,${height-margin})`)
-  .call(d3.axisBottom(x));
-
-svg.append("g")
-  .attr("transform",
-    `translate(${margin},0)`)
-  .call(d3.axisLeft(y));
-<script>
-
-// Pricing by category (weekday, weekend, twilight, etc.) — categories come from data
-let costsByCategory = [];
-const CART_USAGE = 0.5;
-
-
-
-function updateRoundsTotal() {
-  const total = getRoundsByCategory().total;
-  const el = document.getElementById("rounds-total");
-  if (el) el.textContent = "Total rounds: " + total;
-}
-
-// Read rounds per category from DOM (one input per category; extensible)
-function getRoundsByCategory() {
-  const byCat = {};
-  let total = 0;
-  document.querySelectorAll("[id^='rounds-']").forEach(input => {
-    const cat = input.id.replace("rounds-", "");
-    const n = Math.max(0, +input.value || 0);
-    byCat[cat] = n;
-    total += n;
-  });
-  return { byCat, total };
-}
-
-// =========================
-// CALCULATE (category-based)
-// =========================
-function calculate() {
-  if (!costsByCategory.length) {
-    alert("Pricing not loaded yet");
-    return;
-  }
-
-  const { byCat: roundsByCategory, total: totalRounds } = getRoundsByCategory();
-  if (totalRounds === 0) {
-    document.getElementById("output").innerHTML = "<p>Enter at least one round.</p>";
-    return;
-  }
-
-  // Per-category average round cost (green + cart * usage), then weighted paygo
-  let paygo = 0;
-  costsByCategory.forEach(([category, rows]) => {
-    const avgRound = d3.mean(rows, d => d.green + d.cart * CART_USAGE);
-    const rounds = roundsByCategory[category] || 0;
-    paygo += rounds * avgRound;
-  });
-
-  const coursePass = 850;
-  const allInclusive = 720;
-
-  const plans = [
-    { plan: "Pay As You Go", cost: paygo },
-    { plan: "Course Pass", cost: coursePass },
-    { plan: "All Inclusive", cost: allInclusive }
-  ];
-
-  plans.forEach(p => {
-    p.costPerRound = p.cost / totalRounds;
-  });
-
-  plans.sort((a, b) => a.cost - b.cost);
-  const best = plans[0];
-
-  const rows = plans.map((p, i) => `
-<tr style="
-  background:${i === 0 ? "#dff5e1" : "white"};
-  font-weight:${i === 0 ? "bold" : "normal"};
-">
-<td>${p.plan}</td>
-<td>$${p.cost.toFixed(0)}</td>
-<td>$${p.costPerRound.toFixed(2)}</td>
-</tr>
-`).join("");
-
-  document.getElementById("output").innerHTML = `
-<h3>Best Option: ✅ ${best.plan}</h3>
-
-<table border="1" cellpadding="8"
-style="border-collapse:collapse;margin-top:10px;">
-<tr>
-<th>Plan</th>
-<th>Total Cost</th>
-<th>Cost / Round</th>
-</tr>
-${rows}
-</table>
-`;
-}
-
-</script>
-
-
-<script type="module" src="/apps/pass_decision/app.js"></script>
+<script type="module" src="app.js"></script>
 
 </body>
 

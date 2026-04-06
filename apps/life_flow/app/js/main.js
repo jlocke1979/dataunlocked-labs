@@ -1,8 +1,10 @@
-import { initScene1 } from "./scenes/scene1_life_flow.js";
+import { initDotFieldScene } from "./scenes/scene1_dotfield.js";
+// import { initScene1 } from "./scenes/scene1_life_flow.js";
 
 function init() {
   console.log("App starting...");
-  initScene1();
+  initDotFieldScene();
+  // initScene1();
 }
 
 init();

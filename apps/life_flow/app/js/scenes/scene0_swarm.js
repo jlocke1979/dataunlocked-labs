@@ -14,13 +14,13 @@ export function initDotFieldScene() {
   svg.append("rect")
     .attr("width", width)
     .attr("height", height)
-    .attr("fill", "#f5f1e8");
+    .attr("fill", "#0f172a");
 
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", 50)
     .attr("text-anchor", "middle")
-    .attr("fill", "#2f3e34")
+    .attr("fill", "white")
     .attr("font-size", "28px")
     .attr("font-weight", "600")
     .text("Life Flow");
@@ -29,7 +29,7 @@ export function initDotFieldScene() {
     .attr("x", width / 2)
     .attr("y", 82)
     .attr("text-anchor", "middle")
-    .attr("fill", "#6b7568")
+    .attr("fill", "#cbd5e1")
     .attr("font-size", "16px")
     .text("1 dot = 1,000 people");
 
@@ -37,35 +37,38 @@ export function initDotFieldScene() {
     .attr("x", width / 2)
     .attr("y", 108)
     .attr("text-anchor", "middle")
-    .attr("fill", "#6b7568")
+    .attr("fill", "#94a3b8")
     .attr("font-size", "15px")
     .text("A first sketch of scale: waiting, transplanted, and lost while waiting");
 
   const dotData = [];
 
+  // 100 waiting
   for (let i = 0; i < 100; i++) {
     dotData.push({ type: "waiting" });
   }
 
+  // Mark first 40 as transplanted
   for (let i = 0; i < 40; i++) {
     dotData[i].type = "transplanted";
   }
 
+  // Mark next 5 as deaths while waiting
   for (let i = 40; i < 45; i++) {
     dotData[i].type = "lost";
   }
 
   const columns = 10;
   const spacing = 42;
-  const radius = 10;
+  const radius = 12;
 
   const startX = (width - (columns - 1) * spacing) / 2;
   const startY = marginTop + 70;
 
   const colorMap = {
-    waiting: "#a8b3a1",
-    transplanted: "#6f8f72",
-    lost: "#b85c5c"
+    waiting: "#475569",
+    transplanted: "#38bdf8",
+    lost: "#ef4444"
   };
 
   dotData.forEach((d, i) => {
@@ -82,28 +85,15 @@ export function initDotFieldScene() {
     .attr("class", "dot")
     .attr("cx", d => d.x)
     .attr("cy", d => d.y)
-    .attr("r", radius)
-    .attr("fill", colorMap.waiting)
-    .attr("opacity", 0.9);
+    .attr("r", 0)
+    .attr("fill", "#1e293b")
+    .attr("opacity", 0.95);
 
-  setTimeout(() => {
-    dots.transition()
-      .duration(1600)
-      .ease(d3.easeCubicInOut)
-      .attr("cx", d => {
-        if (d.type === "transplanted") return d.x + 250;
-        return d.x;
-      })
-      .attr("cy", d => {
-        if (d.type === "lost") return d.y + 120;
-        return d.y;
-      })
-      .attr("fill", d => colorMap[d.type])
-      .attr("opacity", d => {
-        if (d.type === "lost") return 0.5;
-        return 1;
-      });
-  }, 1200);
+  dots.transition()
+    .delay((d, i) => i * 18)
+    .duration(500)
+    .attr("r", radius)
+    .attr("fill", d => colorMap[d.type]);
 
   const legendY = startY + 10 * spacing + 55;
 
@@ -129,7 +119,7 @@ export function initDotFieldScene() {
   legend.append("text")
     .attr("x", 18)
     .attr("y", 5)
-    .attr("fill", "#2f3e34")
+    .attr("fill", "white")
     .attr("font-size", "15px")
     .text(d => `${d.label}: ${d.value}`);
 
@@ -137,7 +127,7 @@ export function initDotFieldScene() {
     .attr("x", width / 2)
     .attr("y", legendY + 125)
     .attr("text-anchor", "middle")
-    .attr("fill", "#6b7568")
+    .attr("fill", "#cbd5e1")
     .attr("font-size", "16px")
     .text("Even at this scale, the imbalance is visible.");
 

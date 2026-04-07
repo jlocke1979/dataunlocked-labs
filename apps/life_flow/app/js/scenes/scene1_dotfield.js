@@ -1,3 +1,6 @@
+import { TOTAL_DOTS, WAITLIST_DOTS } from "../constants.js";
+
+
 export function initDotFieldScene() {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
@@ -40,6 +43,8 @@ export function initDotFieldScene() {
     .attr("fill", "#6b7568")
     .attr("font-size", "15px")
     .text("A first sketch of scale: waiting, transplanted, and lost while waiting");
+
+
 
   const dotData = [];
 

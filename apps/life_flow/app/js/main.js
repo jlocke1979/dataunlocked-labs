@@ -1,10 +1,10 @@
-import { initDotFieldScene } from "./scenes/scene1_dotfield.js";
-// import { initScene1 } from "./scenes/scene1_life_flow.js";
+import { initPopulationCloudScene } from "./scenes/scene0_v1.1_population_cloud.js";
 
 function init() {
   console.log("App starting...");
-  initDotFieldScene();
-  // initScene1();
+  const viz = document.querySelector("#viz");
+  console.log("viz exists?", !!viz);
+  initPopulationCloudScene();
 }
 
 init();

@@ -35,7 +35,7 @@ function initScene1Situation() {
     .attr("font-size", "28px")
     .attr("font-weight", "600")
     .text("The United States");
-    
+
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", 106)
@@ -71,7 +71,7 @@ function initScene1Situation() {
       dots.push({
         x: centerX + x,
         y: centerY + y,
-        r: 1.8 + Math.random() * 0.8
+        r: 1.2 + Math.random() * 0.3
       });
     }
   }

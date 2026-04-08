@@ -1,4 +1,4 @@
-export function initScene1() {
+function initScene2System() {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
@@ -13,15 +13,16 @@ export function initScene1() {
   svg.append("rect")
     .attr("width", width)
     .attr("height", height)
-    .attr("fill", "#0f172a");
+    .attr("fill", "#f5f1e8");
 
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", 50)
     .attr("text-anchor", "middle")
-    .attr("fill", "white")
+    .attr("fill", "#2f3e34")
     .attr("font-size", "24px")
-    .text("Life Flow — Scene 1");
+    .attr("font-weight", "600")
+    .text("A System in Motion");
 
   const zones = [
     { name: "Donors", x: 120, y: 250 },
@@ -44,22 +45,22 @@ export function initScene1() {
     .attr("y1", d => d.source.y)
     .attr("x2", d => d.target.x)
     .attr("y2", d => d.target.y)
-    .attr("stroke", "#334155")
+    .attr("stroke", "#b8c3b6")
     .attr("stroke-width", 3)
-    .attr("opacity", 0.7);
+    .attr("opacity", 0.9);
 
   zones.forEach(zone => {
     svg.append("circle")
       .attr("cx", zone.x)
       .attr("cy", zone.y)
       .attr("r", 34)
-      .attr("fill", "#334155");
+      .attr("fill", "#94a39a");
 
     svg.append("text")
       .attr("x", zone.x)
       .attr("y", zone.y + 60)
       .attr("text-anchor", "middle")
-      .attr("fill", "white")
+      .attr("fill", "#2f3e34")
       .attr("font-size", "14px")
       .text(zone.name);
   });
@@ -69,7 +70,7 @@ export function initScene1() {
       .attr("cx", startX)
       .attr("cy", startY)
       .attr("r", 5)
-      .attr("fill", "#38bdf8")
+      .attr("fill", "#7c9c8b")
       .attr("opacity", 0.9);
 
     particle
@@ -98,7 +99,13 @@ export function initScene1() {
     .attr("x", width / 2)
     .attr("y", 110)
     .attr("text-anchor", "middle")
-    .attr("fill", "#cbd5e1")
+    .attr("fill", "#6b7568")
     .attr("font-size", "16px")
-    .text("A national system in motion, shaped by both life-saving flow and scarcity.");
+    .text("A national system coordinates donors, organs, waiting recipients, and transplants.");
+
+  console.log("Scene 2 system initialized");
+}
+
+export function runScene2() {
+  initScene2System();
 }

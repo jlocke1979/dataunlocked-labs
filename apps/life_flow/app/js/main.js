@@ -1,10 +1,29 @@
-import { initPopulationCloudScene } from "./scenes/scene0_v1.1_population_cloud.js";
+import { runScene1 } from "./scenes/scene1_situation.js";
+import { runScene2 } from "./scenes/scene2_system.js";
 
-function init() {
-  console.log("App starting...");
-  const viz = document.querySelector("#viz");
-  console.log("viz exists?", !!viz);
-  initPopulationCloudScene();
+let currentScene = 1;
+
+const scenes = {
+  1: runScene1,
+  2: runScene2,
+};
+
+function loadScene(index) {
+  console.log(`Loading scene ${index}`);
+  currentScene = index;
+  scenes[index]();
 }
 
-init();
+loadScene(1);
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") {
+    const next = currentScene + 1;
+    if (scenes[next]) loadScene(next);
+  }
+
+  if (e.key === "ArrowLeft") {
+    const prev = currentScene - 1;
+    if (scenes[prev]) loadScene(prev);
+  }
+});

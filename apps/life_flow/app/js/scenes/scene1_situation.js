@@ -1,5 +1,6 @@
 import { US_POP, UNIT, TOTAL_DOTS, RENDER_DOTS } from "../constants.js";
 
+
 function initScene1Situation() {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
@@ -19,6 +20,14 @@ function initScene1Situation() {
     .attr("fill", "#f5f1e8");
 
   svg.append("text")
+    .attr("x", 20)
+    .attr("y", 24)
+    .attr("text-anchor", "start")
+    .attr("fill", "#8a9385")
+    .attr("font-size", "12px")
+    .text("Scene 1 — Situation");
+
+  svg.append("text")
     .attr("x", width / 2)
     .attr("y", 52)
     .attr("text-anchor", "middle")
@@ -26,15 +35,7 @@ function initScene1Situation() {
     .attr("font-size", "28px")
     .attr("font-weight", "600")
     .text("The United States");
-
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", 82)
-    .attr("text-anchor", "middle")
-    .attr("fill", "#6b7568")
-    .attr("font-size", "16px")
-    .text("About 340 million people");
-
+    
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", 106)

@@ -16,6 +16,13 @@ function initScene2System() {
     .attr("fill", "#f5f1e8");
 
   svg.append("text")
+    .attr("x", 20)
+    .attr("y", 24)
+    .attr("fill", "#8a9385")
+    .attr("font-size", "12px")
+    .text("Scene 2 — System");
+
+  svg.append("text")
     .attr("x", width / 2)
     .attr("y", 50)
     .attr("text-anchor", "middle")

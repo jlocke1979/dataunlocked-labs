@@ -9,16 +9,15 @@ const MAX_ROUNDS = 120;
 
 /**
  * Read all slider/control values into a single scenario object.
- * Extensible: add new properties here when new inputs (weekend mix, 9-hole mix, etc.) are added.
- * @returns {{ rounds: number, cartPercent: number, twilightPercent: number, practiceSessionsPerWeek: number, rangeBucketSize: string }}
+ * @returns {{ rounds: number, cartPercent: number, twilightPercent: number, rangeBucketsPerSeason: number, rangeBucketSize: string }}
  */
 function readScenario() {
   const rounds = Math.max(0, Math.min(MAX_ROUNDS, parseInt(document.getElementById("rounds")?.value, 10) || 0));
   const cartPercent = Math.max(0, Math.min(100, parseInt(document.getElementById("cart")?.value, 10) || 0));
   const twilightPercent = Math.max(0, Math.min(50, parseInt(document.getElementById("twilight")?.value, 10) || 0));
-  const practiceSessionsPerWeek = Math.max(0, Math.min(7, parseInt(document.getElementById("practice")?.value, 10) || 0));
+  const rangeBucketsPerSeason = Math.max(0, Math.min(120, parseInt(document.getElementById("range-buckets")?.value, 10) || 0));
   const rangeBucketSize = (document.getElementById("range-bucket")?.value || "medium").toLowerCase();
-  return { rounds, cartPercent, twilightPercent, practiceSessionsPerWeek, rangeBucketSize };
+  return { rounds, cartPercent, twilightPercent, rangeBucketsPerSeason, rangeBucketSize };
 }
 
 /** Update the number labels next to each slider. */
@@ -26,8 +25,8 @@ function updateSliderLabels() {
   document.getElementById("rounds-value").textContent = document.getElementById("rounds").value;
   document.getElementById("cart-value").textContent = document.getElementById("cart").value;
   document.getElementById("twilight-value").textContent = document.getElementById("twilight").value;
-  const practiceEl = document.getElementById("practice-value");
-  if (practiceEl) practiceEl.textContent = document.getElementById("practice").value;
+  const rangeBucketsEl = document.getElementById("range-buckets-value");
+  if (rangeBucketsEl) rangeBucketsEl.textContent = document.getElementById("range-buckets")?.value ?? 10;
 }
 
 /**
@@ -380,8 +379,8 @@ function init() {
   document.getElementById("rounds").addEventListener("input", refresh);
   document.getElementById("cart").addEventListener("input", refresh);
   document.getElementById("twilight").addEventListener("input", refresh);
-  const practiceEl = document.getElementById("practice");
-  if (practiceEl) practiceEl.addEventListener("input", refresh);
+  const rangeBucketsEl = document.getElementById("range-buckets");
+  if (rangeBucketsEl) rangeBucketsEl.addEventListener("input", refresh);
   const rangeBucketEl = document.getElementById("range-bucket");
   if (rangeBucketEl) rangeBucketEl.addEventListener("change", refresh);
 

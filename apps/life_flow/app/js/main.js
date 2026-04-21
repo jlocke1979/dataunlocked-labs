@@ -35,3 +35,15 @@ window.addEventListener("keydown", (e) => {
     if (scenes[prev]) loadScene(prev);
   }
 });
+
+
+//// For Assignement 01  Temporal /////
+d3.csv("data/optn_transplants_clean.csv").then(data => {
+  data.forEach(d => {
+    d.year = +d.year;
+    d.transplants = +d.transplants;
+    d.to_date = +d.to_date;
+  });
+
+  console.log(data.slice(0, 10));
+});

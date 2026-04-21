@@ -7,3 +7,4 @@ export const WAITLIST_DOTS = Math.floor(WAITLIST_STOCK / UNIT);
 
 // temporary rendering cap for performance
 export const RENDER_DOTS = 10000;
+

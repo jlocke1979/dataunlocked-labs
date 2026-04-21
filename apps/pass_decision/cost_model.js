@@ -5,13 +5,14 @@
  */
 
 /**
- * Calculate annual cost for each plan (golf + practice where applicable).
- * @param {Object} scenario - From readScenario(): rounds, cartPercent, twilightPercent, practiceSessionsPerWeek, rangeBucketSize, etc.
+ * Calculate annual cost for each plan.
+ * Range cost is included only in Pay As You Go; membership plans that include range do not add it.
+ * @param {Object} scenario - From readScenario(): rounds, cartPercent, twilightPercent, rangeBucketsPerSeason, rangeBucketSize, etc.
  * @param {Object} pricing - From pricing data layer (getPricingForModel())
  * @returns {{ payAsYouGo: number, coursePass: number, allInclusive: number }}
  */
 export function calculateCosts(scenario, pricing) {
-  const { rounds = 0, cartPercent = 0, twilightPercent = 0, practiceSessionsPerWeek = 0 } = scenario;
+  const { rounds = 0, cartPercent = 0, twilightPercent = 0, rangeBucketsPerSeason = 0 } = scenario;
   const cartPct = Math.max(0, Math.min(100, cartPercent || 0)) / 100;
   const twiPct = Math.max(0, Math.min(50, twilightPercent || 0)) / 100;
 
@@ -27,13 +28,12 @@ export function calculateCosts(scenario, pricing) {
   const avgRoundCost = avgGreenFee + cartPerRound;
   const golfCost = rounds * avgRoundCost;
 
-  const sessionsPerWeek = Math.max(0, Math.min(7, practiceSessionsPerWeek || 0));
-  const practiceSessionsPerYear = sessionsPerWeek * 52;
-  const practiceCost = practiceSessionsPerYear * bucketPrice;
+  const buckets = Math.max(0, Math.min(120, rangeBucketsPerSeason || 0));
+  const rangeCost = buckets * bucketPrice;
 
   return {
-    payAsYouGo: golfCost + practiceCost,
-    coursePass: coursePassAnnual + practiceCost,
+    payAsYouGo: golfCost + rangeCost,
+    coursePass: coursePassAnnual,
     allInclusive: allInclusiveAnnual
   };
 }

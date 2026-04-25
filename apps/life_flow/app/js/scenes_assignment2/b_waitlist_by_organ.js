@@ -18,11 +18,11 @@ export function runWaitlistByOrgan() {
 
   const categories = [
     { organ: "Kidney", count: 90 },
-    { organ: "Liver", count: 25 },
-    { organ: "Heart", count: 15 },
-    { organ: "Lung", count: 10 },
-    { organ: "Pancreas", count: 5 },
-    { organ: "Intestine", count: 5 }
+    { organ: "Liver", count: 12 },
+    { organ: "Heart", count: 4 },
+    { organ: "Lung", count: 3 },
+    { organ: "Pancreas", count: 2 },
+    { organ: "Intestine", count: 1 }
   ];
 
   const color = {
@@ -160,7 +160,7 @@ export function runWaitlistByOrgan() {
     .attr("y", BOTTOM_LABEL_Y)
     .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Prototype • relative counts");
+    .text("Prototype • scaled from OPTN/UNOS proportions");
 
   // Force simulation
   const simulation = d3.forceSimulation(nodes)

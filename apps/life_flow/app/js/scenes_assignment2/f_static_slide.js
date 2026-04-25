@@ -39,5 +39,5 @@ export function runStaticSlide() {
     .attr("y", BOTTOM_LABEL_Y)
     .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Prototype • relative scale");
+    .text("Prototype • scaled from OPTN/UNOS proportions");
 }

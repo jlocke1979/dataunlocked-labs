@@ -84,5 +84,5 @@ export function runSingleVsMulti() {
     .attr("y", BOTTOM_LABEL_Y)
     .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Prototype • relative counts");
+    .text("Prototype • scaled from OPTN/UNOS proportions");
 }

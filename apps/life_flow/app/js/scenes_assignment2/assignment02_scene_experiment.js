@@ -1,4 +1,6 @@
-export function runScene5(container) {
+export function runAssignment02Scene(container) {
+  // This is a placeholder scene for testing and experimentation. You can modify this function to create your own custom visualization for Assignment 2.
+  export function runScene5(container) {
   container.html("");
 
   const width = window.innerWidth;

@@ -3,6 +3,11 @@ export function runWaitlistByOrgan() {
 
   const width = 1200;
   const height = 675;
+  const TITLE_X = 40;
+  const TITLE_Y = 60;
+  const SUBTITLE_Y = 92;
+  const LEGEND_Y = height - 80;
+  const BOTTOM_LABEL_Y = height - 20;
 
   d3.select("#vis").selectAll("*").remove();
 
@@ -38,8 +43,8 @@ export function runWaitlistByOrgan() {
 
   // Title
   svg.append("text")
-    .attr("x", 40)
-    .attr("y", 60)
+    .attr("x", TITLE_X)
+    .attr("y", TITLE_Y)
     .attr("font-size", 28)
     .attr("font-weight", 700)
     .attr("fill", "#2f3e34")
@@ -47,15 +52,15 @@ export function runWaitlistByOrgan() {
 
   // Subtitle
   svg.append("text")
-    .attr("x", 40)
-    .attr("y", 92)
+    .attr("x", TITLE_X)
+    .attr("y", SUBTITLE_Y)
     .attr("font-size", 15)
     .attr("fill", "#6f6a5f")
     .text("Each circle represents a patient waiting for a specific organ. Hover to inspect; click to focus.");
 
   // Legend
   const legend = svg.append("g")
-    .attr("transform", "translate(40, 115)");
+    .attr("transform", `translate(${TITLE_X}, ${LEGEND_Y})`);
 
   const legendItems = legend.selectAll("g.legend-item")
     .data(categories)
@@ -85,7 +90,7 @@ export function runWaitlistByOrgan() {
 
   // Tooltip / status line
   const tooltip = svg.append("text")
-    .attr("x", 40)
+    .attr("x", TITLE_X)
     .attr("y", height - 45)
     .attr("font-size", 18)
     .attr("font-weight", 600)
@@ -149,13 +154,13 @@ export function runWaitlistByOrgan() {
     }
   });
 
-  // Short takeaway
+  // Minimal data label
   svg.append("text")
-    .attr("x", 40)
-    .attr("y", height - 20)
-    .attr("font-size", 14)
-    .attr("fill", "#6f6a5f")
-    .text("Takeaway: kidney demand dominates the waitlist, with smaller but meaningful needs across other organs.");
+    .attr("x", TITLE_X)
+    .attr("y", BOTTOM_LABEL_Y)
+    .attr("font-size", 11)
+    .attr("fill", "#8a8479")
+    .text("Prototype • relative counts");
 
   // Force simulation
   const simulation = d3.forceSimulation(nodes)

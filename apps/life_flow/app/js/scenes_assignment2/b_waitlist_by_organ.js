@@ -53,6 +53,36 @@ export function runWaitlistByOrgan() {
     .attr("fill", "#6f6a5f")
     .text("Each circle represents a patient waiting for a specific organ. Hover to inspect; click to focus.");
 
+  // Legend
+  const legend = svg.append("g")
+    .attr("transform", "translate(40, 115)");
+
+  const legendItems = legend.selectAll("g.legend-item")
+    .data(categories)
+    .enter()
+    .append("g")
+    .attr("class", "legend-item")
+    .attr("transform", (d, i) => {
+      const columns = 3;
+      const col = i % columns;
+      const row = Math.floor(i / columns);
+      return `translate(${col * 170}, ${row * 24})`;
+    });
+
+  legendItems.append("circle")
+    .attr("r", 6)
+    .attr("cx", 0)
+    .attr("cy", 0)
+    .attr("fill", d => color[d.organ])
+    .attr("opacity", 0.9);
+
+  legendItems.append("text")
+    .attr("x", 12)
+    .attr("y", 5)
+    .attr("font-size", 13)
+    .attr("fill", "#2f3e34")
+    .text(d => d.organ);
+
   // Tooltip / status line
   const tooltip = svg.append("text")
     .attr("x", 40)
@@ -118,6 +148,14 @@ export function runWaitlistByOrgan() {
       tooltip.text("");
     }
   });
+
+  // Short takeaway
+  svg.append("text")
+    .attr("x", 40)
+    .attr("y", height - 20)
+    .attr("font-size", 14)
+    .attr("fill", "#6f6a5f")
+    .text("Takeaway: kidney demand dominates the waitlist, with smaller but meaningful needs across other organs.");
 
   // Force simulation
   const simulation = d3.forceSimulation(nodes)

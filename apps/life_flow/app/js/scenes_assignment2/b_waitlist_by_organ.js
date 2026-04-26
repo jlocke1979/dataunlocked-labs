@@ -1,3 +1,5 @@
+import { WAITLIST_CATEGORIES, WAITLIST_COLORS, getSharedWaitlistNodes } from "./shared_waitlist_nodes.js";
+
 export function runWaitlistByOrgan() {
   console.log("Scene 2: runWaitlistByOrgan is running");
 
@@ -8,6 +10,7 @@ export function runWaitlistByOrgan() {
   const SUBTITLE_Y = 92;
   const LEGEND_Y = height - 80;
   const BOTTOM_LABEL_Y = height - 20;
+  const SOURCE_Y = height - 6;
 
   d3.select("#vis").selectAll("*").remove();
 
@@ -16,30 +19,16 @@ export function runWaitlistByOrgan() {
     .attr("width", width)
     .attr("height", height);
 
-  const categories = [
-    { organ: "Kidney", count: 90 },
-    { organ: "Liver", count: 12 },
-    { organ: "Heart", count: 4 },
-    { organ: "Lung", count: 3 },
-    { organ: "Pancreas", count: 2 },
-    { organ: "Intestine", count: 1 }
-  ];
-
-  const color = {
-    Kidney: "#6c8f6b",
-    Liver: "#b77b6b",
-    Heart: "#b56576",
-    Lung: "#7a8da3",
-    Pancreas: "#b59a5e",
-    Intestine: "#6f6a5f"
-  };
-
-  const nodes = categories.flatMap(cat =>
-    d3.range(cat.count).map(() => ({
-      organ: cat.organ,
-      radius: 4 + Math.random() * 2
-    }))
-  );
+  const categories = WAITLIST_CATEGORIES;
+  const color = WAITLIST_COLORS;
+  const cloudCenter = { x: 600, y: 337.5 };
+  const cloudCompactFactor = 0.82;
+  const nodes = getSharedWaitlistNodes().map(d => ({
+    organ: d.organ,
+    radius: d.radius,
+    x: cloudCenter.x + (d.initialX - cloudCenter.x) * cloudCompactFactor,
+    y: cloudCenter.y + (d.initialY - cloudCenter.y) * cloudCompactFactor
+  }));
 
   // Title
   svg.append("text")
@@ -48,7 +37,7 @@ export function runWaitlistByOrgan() {
     .attr("font-size", 28)
     .attr("font-weight", 700)
     .attr("fill", "#2f3e34")
-    .text("Waitlist by Organ");
+    .text("Patients join the waitlist");
 
   // Subtitle
   svg.append("text")
@@ -56,7 +45,7 @@ export function runWaitlistByOrgan() {
     .attr("y", SUBTITLE_Y)
     .attr("font-size", 15)
     .attr("fill", "#6f6a5f")
-    .text("Each circle represents a patient waiting for a specific organ. Hover to inspect; click to focus.");
+    .text("Each dot represents about 500 patients.");
 
   // Legend
   const legend = svg.append("g")
@@ -68,7 +57,7 @@ export function runWaitlistByOrgan() {
     .append("g")
     .attr("class", "legend-item")
     .attr("transform", (d, i) => {
-      const columns = 3;
+      const columns = 4;
       const col = i % columns;
       const row = Math.floor(i / columns);
       return `translate(${col * 170}, ${row * 24})`;
@@ -88,91 +77,40 @@ export function runWaitlistByOrgan() {
     .attr("fill", "#2f3e34")
     .text(d => d.organ);
 
-  // Tooltip / status line
-  const tooltip = svg.append("text")
-    .attr("x", TITLE_X)
-    .attr("y", height - 45)
-    .attr("font-size", 18)
-    .attr("font-weight", 600)
-    .attr("fill", "#2f3e34")
-    .text("");
-
   // Circles
   const circles = svg.selectAll("circle.patient")
     .data(nodes)
     .enter()
     .append("circle")
     .attr("class", "patient")
-    .attr("r", d => d.radius)
-    .attr("fill", d => color[d.organ])
-    .attr("opacity", 0.55)
-    .attr("stroke", "none")
-    .style("cursor", "pointer")
-    .on("mouseover", function(event, d) {
-      d3.select(this)
-        .raise()
-        .transition()
-        .duration(150)
-        .attr("r", d.radius * 2)
-        .attr("opacity", 1)
-        .attr("stroke", "#f5f1e8")
-        .attr("stroke-width", 1.5);
-
-      tooltip.text(`${d.organ} need`);
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y)
+    .attr("r", d => {
+      const normalized = Math.max(0, Math.min(1, (d.radius - 4) / 2));
+      return 3.5 + normalized;
     })
-    .on("mouseout", function(event, d) {
-      d3.select(this)
-        .transition()
-        .duration(150)
-        .attr("r", d.radius)
-        .attr("opacity", 0.55)
-        .attr("stroke", "none");
+    .attr("fill", "#8a9096")
+    .attr("opacity", 0.62)
+    .attr("stroke", "#2f3e34")
+    .attr("stroke-width", 0.5)
+    .style("cursor", "default");
 
-      tooltip.text("");
-    })
-    .on("click", function(event, d) {
-      event.stopPropagation();
+  circles
+    .transition()
+    .delay(150)
+    .duration(650)
+    .attr("opacity", 0.7);
 
-      circles
-        .transition()
-        .duration(300)
-        .attr("opacity", n => n.organ === d.organ ? 1 : 0.12);
+  circles
+    .transition()
+    .delay(280)
+    .duration(950)
+    .attr("fill", d => color[d.organ]);
 
-      tooltip.text(`${d.organ} selected — relative waitlist demand`);
-    });
-
-  // Click background to reset
-  svg.on("click", function(event) {
-    if (event.target.tagName === "svg") {
-      circles
-        .transition()
-        .duration(300)
-        .attr("opacity", 0.55)
-        .attr("stroke", "none");
-
-      tooltip.text("");
-    }
-  });
-
-  // Minimal data label
   svg.append("text")
     .attr("x", TITLE_X)
-    .attr("y", BOTTOM_LABEL_Y)
+    .attr("y", SOURCE_Y)
     .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Prototype • scaled from OPTN/UNOS proportions");
-
-  // Force simulation
-  const simulation = d3.forceSimulation(nodes)
-    .force("x", d3.forceX(width / 2).strength(0.05))
-    .force("y", d3.forceY(height / 2).strength(0.05))
-    .force("collision", d3.forceCollide(d => d.radius + 1))
-    .alpha(1)
-    .on("tick", ticked);
-
-  function ticked() {
-    circles
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y);
-  }
+    .text("Source: Organ Procurement and Transplantation Network (OPTN) and United Network for Organ Sharing (UNOS)");
 }

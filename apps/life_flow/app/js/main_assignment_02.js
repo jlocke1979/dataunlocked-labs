@@ -6,6 +6,7 @@ import { runTransplantsByOrgan } from "./scenes_assignment2/c_transplants_by_org
 import { runWaitlistVsTransplants } from "./scenes_assignment2/d_waitlist_vs_transplants.js";
 import { runSingleVsMulti } from "./scenes_assignment2/e_single_vs_multi.js";
 import { runStaticSlide } from "./scenes_assignment2/f_static_slide.js";
+import { runConclusion } from "./scenes_assignment2/g_conclusion.js";
 
 const scenes = [
   runIntroMass,
@@ -13,7 +14,8 @@ const scenes = [
   runTransplantsByOrgan,
   runWaitlistVsTransplants,
   runSingleVsMulti,
-  runStaticSlide
+  runStaticSlide,
+  runConclusion
 ];
 
 let currentScene = 0;

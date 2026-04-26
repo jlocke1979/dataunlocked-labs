@@ -4,18 +4,15 @@ export function runIntroMass() {
   const TITLE_X = 40;
   const TITLE_Y = 60;
   const SUBTITLE_Y = 92;
-  const LEGEND_Y = height - 80;
-  const BOTTOM_LABEL_Y = height - 20;
 
   const svg = d3.select("#vis")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  // Subtle background mass to match the force-dot style
-  const nodes = d3.range(150).map(() => ({
-    radius: 4 + Math.random() * 3
-  }));
+  const nodes = [
+    { radius: 7, focus: true, x: -20, y: height / 2 + 20, vx: 0, vy: 0 }
+  ];
 
   const simulation = d3.forceSimulation(nodes)
     .force("x", d3.forceX(width / 2).strength(0.05))
@@ -29,8 +26,14 @@ export function runIntroMass() {
     .enter()
     .append("circle")
     .attr("r", d => d.radius)
-    .attr("fill", "#6c8f6b")
-    .attr("opacity", 0.28);
+    .attr("fill", "#8a9096")
+    .attr("opacity", 0.95);
+
+  circles
+    .transition()
+    .delay(0)
+    .duration(500)
+    .attr("opacity", 0.95);
 
   function ticked() {
     circles
@@ -45,26 +48,22 @@ export function runIntroMass() {
     .attr("font-size", 28)
     .attr("font-weight", 700)
     .attr("fill", "#2f3e34")
-    .text("Life Flow: Waiting by Organ");
+    .text("One patient");
 
   svg.append("text")
-    .attr("x", TITLE_X)
-    .attr("y", SUBTITLE_Y)
+    .attr("x", width / 2 - 30)
+    .attr("y", height / 2 + 48)
+    .attr("text-anchor", "middle")
     .attr("font-size", 15)
     .attr("fill", "#6f6a5f")
-    .text("This prototype explores categorical differences in organ waitlist demand.");
+    .text("A single life enters the organ transplant system");
 
-  svg.append("text")
-    .attr("x", TITLE_X)
-    .attr("y", 126)
-    .attr("font-size", 15)
-    .attr("fill", "#6f6a5f")
-    .text("Use the arrow keys to move through scenes.");
-
-  svg.append("text")
-    .attr("x", TITLE_X)
-    .attr("y", BOTTOM_LABEL_Y)
-    .attr("font-size", 11)
-    .attr("fill", "#8a8479")
-    .text("Prototype • scaled from OPTN/UNOS proportions");
+  svg.append("line")
+    .attr("x1", width / 2 - 30)
+    .attr("y1", height / 2 + 36)
+    .attr("x2", width / 2 - 30)
+    .attr("y2", height / 2 + 14)
+    .attr("stroke", "#d9d9d9")
+    .attr("stroke-width", 1)
+    .attr("opacity", 0.9);
 }

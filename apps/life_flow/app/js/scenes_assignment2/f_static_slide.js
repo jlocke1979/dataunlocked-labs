@@ -29,7 +29,7 @@ export function runStaticSlide() {
     .attr("font-size", 28)
     .attr("font-weight", 700)
     .attr("fill", "#2f3e34")
-    .text("Rare, but complex");
+    .text("Multi-Organ Transplants");
 
   svg.append("text")
     .attr("x", TITLE_X)
@@ -56,80 +56,110 @@ export function runStaticSlide() {
   ];
   combinations.sort((a, b) => b.count2025 - a.count2025);
 
-  const gridStartX = 110;
-  const gridStartY = 180;
-  const colGap = 210;
-  const rowGap = 145;
-  const cols = 5;
+  const listStartY = 150;
+  const rowGap = 34;
+  const ICON_X = 74;
+  const LABEL_X = 110;
+  const MATRIX_X = 430;
+  const MOLECULE_DOT_R = 4.8;
+  const COUNT_DOT_R = 2.6;
+  const CASES_PER_DOT = 20;
+  const MATRIX_COLS = 12;
+  const MATRIX_DOT_GAP_X = 8;
+  const MATRIX_DOT_GAP_Y = 8;
 
-  const maxCount = d3.max(combinations, d => d.count2025) || 1;
-  const maxRadius = 70;
-  const minRadius = 6;
-  const bubbleRadius = d => Math.max(minRadius, Math.sqrt(d.count2025 / maxCount) * maxRadius);
+  function moleculeOffsets(count) {
+    if (count === 2) {
+      return [
+        { x: -MOLECULE_DOT_R, y: 0 },
+        { x: MOLECULE_DOT_R, y: 0 }
+      ];
+    }
+    if (count === 3) {
+      return [
+        { x: 0, y: -MOLECULE_DOT_R * 1.2 },
+        { x: -MOLECULE_DOT_R, y: MOLECULE_DOT_R * 0.75 },
+        { x: MOLECULE_DOT_R, y: MOLECULE_DOT_R * 0.75 }
+      ];
+    }
+    return [
+      { x: -MOLECULE_DOT_R, y: -MOLECULE_DOT_R },
+      { x: MOLECULE_DOT_R, y: -MOLECULE_DOT_R },
+      { x: -MOLECULE_DOT_R, y: MOLECULE_DOT_R },
+      { x: MOLECULE_DOT_R, y: MOLECULE_DOT_R }
+    ];
+  }
 
-  const comboGroups = svg.selectAll("g.combo-bubble")
+  const comboGroups = svg.selectAll("g.combo-row")
     .data(combinations)
     .enter()
     .append("g")
-    .attr("class", "combo-bubble")
+    .attr("class", "combo-row")
     .attr("transform", (d, i) => {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
-      return `translate(${gridStartX + col * colGap}, ${gridStartY + row * rowGap})`;
+      return `translate(0, ${listStartY + i * rowGap})`;
     });
-
-  const pie = d3.pie().value(1).sort(null);
 
   comboGroups.each(function(d) {
     const g = d3.select(this);
-    const radius = bubbleRadius(d);
-    const innerBubbleRadius = Math.max(2, radius - 1);
-    const arc = d3.arc().innerRadius(0).outerRadius(innerBubbleRadius);
+    const offsets = moleculeOffsets(d.organs.length);
+    const moleculeDots = d.organs.map((organ, i) => ({
+      organ,
+      x: offsets[i].x,
+      y: offsets[i].y
+    }));
 
-    g.selectAll("path.combo-slice")
-      .data(pie(d.organs))
+    g.selectAll("circle.molecule-dot")
+      .data(moleculeDots)
       .enter()
-      .append("path")
-      .attr("class", "combo-slice")
-      .attr("d", arc)
-      .attr("fill", p => color[p.data]);
-
-    g.append("circle")
-      .attr("cx", 0)
+      .append("circle")
+      .attr("class", "molecule-dot")
+      .attr("cx", ICON_X)
       .attr("cy", 0)
-      .attr("r", radius)
-      .attr("fill", "none")
-      .attr("stroke", "#c7c1b4")
-      .attr("stroke-width", 1);
+      .attr("r", MOLECULE_DOT_R)
+      .attr("transform", p => `translate(${p.x}, ${p.y})`)
+      .attr("fill", p => color[p.organ])
+      .attr("stroke", "#f5f1e8")
+      .attr("stroke-width", 0.7)
+      .attr("opacity", 0.95);
+
+    const scaledCount = Math.max(1, Math.round(d.count2025 / CASES_PER_DOT));
+    const matrixDots = d3.range(scaledCount).map(i => ({
+      x: MATRIX_X + (i % MATRIX_COLS) * MATRIX_DOT_GAP_X,
+      y: (Math.floor(i / MATRIX_COLS) - 1) * MATRIX_DOT_GAP_Y
+    }));
+
+    g.selectAll("circle.count-dot")
+      .data(matrixDots)
+      .enter()
+      .append("circle")
+      .attr("class", "count-dot")
+      .attr("cx", p => p.x)
+      .attr("cy", p => p.y)
+      .attr("r", COUNT_DOT_R)
+      .attr("fill", "#b8b3aa")
+      .attr("opacity", 0.95);
   });
 
   comboGroups.append("text")
-    .attr("x", 0)
-    .attr("y", d => bubbleRadius(d) + 18)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 11)
+    .attr("x", LABEL_X)
+    .attr("y", 4)
+    .attr("text-anchor", "start")
+    .attr("font-size", 12)
     .attr("fill", "#2f3e34")
-    .text(d => d.label);
-
-  comboGroups.append("text")
-    .attr("x", 0)
-    .attr("y", d => bubbleRadius(d) + 32)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 10)
-    .attr("fill", "#8a8479")
-    .text(d => `n=${d.count2025}`);
+    .text(d => `${d.label} · ${d.count2025}`);
 
   svg.append("text")
-    .attr("x", TITLE_X)
-    .attr("y", height - 44)
-    .attr("font-size", 10)
+    .attr("x", width / 2)
+    .attr("y", height - 26)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Bubble area represents count; minimum size used for visibility.");
+    .text("← back     next →");
 
   svg.append("text")
     .attr("x", TITLE_X)
     .attr("y", SOURCE_Y)
     .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Source: Organ Procurement and Transplantation Network (OPTN) and United Network for Organ Sharing (UNOS)");
+    .text("Source: Organ Procurement and Transplantation Network (OPTN) and United Network for Organ Sharing (UNOS), 2025");
 }

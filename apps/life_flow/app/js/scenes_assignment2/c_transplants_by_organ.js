@@ -148,9 +148,17 @@ export function runTransplantsByOrgan() {
   }, 1000);
 
   svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 26)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 11)
+    .attr("fill", "#8a8479")
+    .text("← back     next →");
+
+  svg.append("text")
     .attr("x", TITLE_X)
     .attr("y", SOURCE_Y)
     .attr("font-size", 11)
     .attr("fill", "#8a8479")
-    .text("Source: Organ Procurement and Transplantation Network (OPTN) and United Network for Organ Sharing (UNOS)");
+    .text("Source: Organ Procurement and Transplantation Network (OPTN) and United Network for Organ Sharing (UNOS), 2025");
 }

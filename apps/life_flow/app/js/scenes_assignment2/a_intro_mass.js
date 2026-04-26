@@ -66,4 +66,12 @@ export function runIntroMass() {
     .attr("stroke", "#d9d9d9")
     .attr("stroke-width", 1)
     .attr("opacity", 0.9);
+
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 24)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 11)
+    .attr("fill", "#8a8479")
+    .text("← back     next →");
 }

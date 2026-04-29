@@ -1,14 +1,21 @@
 # MSDS 455 Assignment 02 Revision
 
+## Exploratory Data Analysis
+Basic EDA is provided in analysis.ipynb to validate fields and category distributions used in the visualization.
+
 ## How to View
 
-From this folder, run:
+D3.js requires a server so may not work without running on localhost. 
+
+In Terminal [From this folder], run:
 
 python3 -m http.server 8000
 
 Then open:
 
 http://localhost:8000
+
+
 
 ## Contents
 

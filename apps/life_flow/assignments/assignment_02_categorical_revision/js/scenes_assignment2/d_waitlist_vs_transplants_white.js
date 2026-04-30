@@ -26,14 +26,14 @@ export function runWaitlistVsTransplants() {
     .attr("font-size", 28)
     .attr("font-weight", 700)
     .attr("fill", "#2f3e34")
-    .text("Waitlist vs Transplants");
+    .text("Organ Transplant Demand vs Supply (2025)");
 
   svg.append("text")
     .attr("x", TITLE_X)
     .attr("y", SUBTITLE_Y)
     .attr("font-size", 15)
     .attr("fill", "#6f6a5f")
-    .text("Within each organ category, need exceeds completed transplants.");
+    .text("Waitlist patients vs completed transplants by organ type");
 
   svg.append("text")
     .attr("x", TITLE_X)

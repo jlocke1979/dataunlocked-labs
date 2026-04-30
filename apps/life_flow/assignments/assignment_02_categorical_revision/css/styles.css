@@ -1,11 +1,20 @@
+html,
 body {
   margin: 0;
+  background: #ffffff;
+}
+
+#viz,
+#vis,
+#app {
+  background: #ffffff;
+}
+
+body {
   font-family: Arial, sans-serif;
-  background: #f5f1e8;
   color: #2f3e34;
 }
 
 #app {
   text-align: center;
-  background: #f5f1e8;
 }

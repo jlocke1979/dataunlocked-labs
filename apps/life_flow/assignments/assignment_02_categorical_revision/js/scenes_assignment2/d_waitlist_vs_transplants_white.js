@@ -15,6 +15,11 @@ export function runWaitlistVsTransplants() {
     .attr("width", width)
     .attr("height", height);
 
+  svg.append("rect")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("fill", "#ffffff");
+
   svg.append("text")
     .attr("x", TITLE_X)
     .attr("y", TITLE_Y)
@@ -51,6 +56,7 @@ export function runWaitlistVsTransplants() {
   const labelX = 110;
   const waitlistX = 360;
   const transplantX = 690;
+  const ratioX = 970;
   const rowStartY = 194;
   const rowGap = 62;
   const DOT_R = 4;
@@ -62,22 +68,52 @@ export function runWaitlistVsTransplants() {
     return x - Math.floor(x);
   }
 
-  function gridPoints(count, centerX, centerY, cols) {
+  function gridPoints(count, centerX, startY, cols) {
     const rows = Math.max(1, Math.ceil(count / cols));
     const startX = centerX - ((Math.min(cols, count) - 1) * DOT_STEP) / 2;
-    const startY = centerY - ((rows - 1) * DOT_STEP) / 2;
     return d3.range(count).map(i => ({
       x: startX + (i % cols) * DOT_STEP,
       y: startY + Math.floor(i / cols) * DOT_STEP
     }));
   }
 
+  function greatestCommonDivisor(a, b) {
+    let x = Math.abs(a);
+    let y = Math.abs(b);
+
+    while (y !== 0) {
+      const next = x % y;
+      x = y;
+      y = next;
+    }
+
+    return x || 1;
+  }
+
+  function formatRatio(waitlistCount, transplantCount) {
+    if (transplantCount === 0) return `${waitlistCount}:0`;
+
+    const divisor = greatestCommonDivisor(waitlistCount, transplantCount);
+    return `${waitlistCount / divisor}:${transplantCount / divisor}`;
+  }
+
+  const rowData = categories.map(cat => {
+    const transplants = transplantCounts[cat.organ] || 0;
+    return {
+      ...cat,
+      waitlist: Math.max(0, cat.count - transplants),
+      transplants
+    };
+  });
+
   const nodes = categories.flatMap((cat, rowIdx) => {
     const y = rowStartY + rowIdx * rowGap;
     const tCount = transplantCounts[cat.organ] || 0;
     const wCount = Math.max(0, cat.count - tCount);
+    const waitlistRows = Math.max(1, Math.ceil(wCount / 18));
+    const rowTopY = y - ((waitlistRows - 1) * DOT_STEP) / 2;
 
-    const waitlistNodes = gridPoints(wCount, waitlistX, y, 18).map(p => ({
+    const waitlistNodes = gridPoints(wCount, waitlistX, rowTopY, 18).map(p => ({
       ...(() => {
         const r1 = seededRandom(++nodeSeed);
         const r2 = seededRandom(++nodeSeed);
@@ -92,7 +128,7 @@ export function runWaitlistVsTransplants() {
       y: p.y
     }));
 
-    const transplantNodes = gridPoints(tCount, transplantX, y, 10).map(p => ({
+    const transplantNodes = gridPoints(tCount, transplantX, rowTopY, 10).map(p => ({
       ...(() => {
         const r1 = seededRandom(++nodeSeed);
         const r2 = seededRandom(++nodeSeed);
@@ -118,8 +154,7 @@ export function runWaitlistVsTransplants() {
     .attr("cy", d => d.startY)
     .attr("r", DOT_R)
     .attr("fill", d => color[d.organ])
-    .attr("stroke", d => d.side === "transplants" ? "#f5f1e8" : "#2f3e34")
-    .attr("stroke-width", d => d.side === "transplants" ? 0.9 : 0.5)
+    .attr("stroke", "none")
     .attr("opacity", 0.02);
 
   circles
@@ -127,11 +162,21 @@ export function runWaitlistVsTransplants() {
     .duration(1200)
     .attr("cx", d => d.x)
     .attr("cy", d => d.y)
-    .attr("opacity", d => d.side === "transplants" ? 0.78 : 0.7);
+    .attr("opacity", d => d.side === "waitlist" ? 0.42 : 0.72);
 
   svg.append("line")
     .attr("x1", (waitlistX + transplantX) / 2)
     .attr("x2", (waitlistX + transplantX) / 2)
+    .attr("y1", rowStartY - 42)
+    .attr("y2", rowStartY + (categories.length - 1) * rowGap + 22)
+    .attr("stroke", "#b7b3ab")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", "3,5")
+    .attr("opacity", 0.8);
+
+  svg.append("line")
+    .attr("x1", (transplantX + ratioX) / 2)
+    .attr("x2", (transplantX + ratioX) / 2)
     .attr("y1", rowStartY - 42)
     .attr("y2", rowStartY + (categories.length - 1) * rowGap + 22)
     .attr("stroke", "#b7b3ab")
@@ -169,6 +214,29 @@ export function runWaitlistVsTransplants() {
     .attr("opacity", 0)
     .text("Transplants");
 
+  const ratioLabel = svg.append("text")
+    .attr("x", ratioX)
+    .attr("y", rowStartY - 56)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 12)
+    .attr("fill", "#6f6a5f")
+    .attr("opacity", 0)
+    .text("Waitlist : Transplant");
+
+  const ratioValues = svg.selectAll("text.ratio-label")
+    .data(rowData)
+    .enter()
+    .append("text")
+    .attr("class", "ratio-label")
+    .attr("x", ratioX)
+    .attr("y", (d, i) => rowStartY + i * rowGap + 4)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 12)
+    .attr("font-weight", 700)
+    .attr("fill", d => color[d.organ])
+    .attr("opacity", 0)
+    .text(d => formatRatio(d.waitlist, d.transplants));
+
   svg.selectAll("text.organ-label")
     .transition()
     .delay(250)
@@ -182,6 +250,18 @@ export function runWaitlistVsTransplants() {
     .attr("opacity", 1);
 
   transplantsLabel
+    .transition()
+    .delay(250)
+    .duration(500)
+    .attr("opacity", 1);
+
+  ratioLabel
+    .transition()
+    .delay(250)
+    .duration(500)
+    .attr("opacity", 1);
+
+  ratioValues
     .transition()
     .delay(250)
     .duration(500)

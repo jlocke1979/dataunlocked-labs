@@ -4,24 +4,12 @@
 This visualization compares 2025 organ transplant demand (waitlist) versus completed transplants across major organ categories. The goal is to highlight the imbalance between demand and supply.
 
 ## Key Insight
-Kidney transplants dominate overall volume, but demand significantly exceeds supply across all major organ categories.
+Kidney transplants account for the majority of volume, but demand significantly exceeds supply across all major organ categories.
 
 ## Live Visualization
-https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/assignment_02_categorical_revision/
+https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/assignment_03_hierarchial/
 
-## How to Run Locally
-This visualization uses D3.js and requires a local server.
-
-From this folder:
-
-```bash
-python3 -m http.server 8000
-
-Then open:
-
-http://localhost:8000
-
- Project Structure
+Project Structure
 
 * index.html – entry point
 * js/main_assignment_02.js – controller

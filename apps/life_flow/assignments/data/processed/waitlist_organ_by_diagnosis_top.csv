@@ -1,0 +1,41 @@
+diagnosis,organ,count,organ_color
+Diabetes Mellitus -. Type II,Kidney,34058,#6f8f72
+Hypertensive Nephrosclerosis,Kidney,17947,#6f8f72
+"Other, Specify",Kidney,9861,#6f8f72
+Polycystic Kidneys,Kidney,6196,#6f8f72
+Retransplant/Graft Failure,Kidney,6108,#6f8f72
+Focal Glomerular Sclerosis (Focal Segmental -. Fs,Kidney,4728,#6f8f72
+Iga Nephropathy,Kidney,4336,#6f8f72
+Not Reported,Kidney,3718,#6f8f72
+Diabetes Mellitus -. Type I,Kidney,3307,#6f8f72
+Systemic Lupus Erythematosus,Kidney,2134,#6f8f72
+ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,Liver,2124,#7c9a92
+Diabetes Mellitus -. Type I,Kidney / Pancreas,1540,#4f6f55
+Dilated Myopathy: Idiopathic,Heart,1278,#9c7a7a
+CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),Liver,1090,#7c9a92
+Not Reported,Liver,1075,#7c9a92
+Chronic Glomerulonephritis Unspecified,Kidney,1015,#6f8f72
+Dilated Myopathy: Ischemic,Heart,906,#9c7a7a
+Calcineurin Inhibitor Nephrotoxicity,Kidney,806,#6f8f72
+Hepatorenal Syndrome,Kidney,768,#6f8f72
+Diabetes Mellitus -. Type II,Kidney / Pancreas,676,#4f6f55
+Congenital Obstructive Uropathy,Kidney,632,#6f8f72
+Alport'S Syndrome,Kidney,602,#6f8f72
+Malignant Hypertension,Kidney,565,#6f8f72
+Acquired Obstructive Nephropathy,Kidney,564,#6f8f72
+Hypoplasia/Dysplasia/Dysgensis/Agenesis,Kidney,544,#6f8f72
+Congenital Heart Defect -. With Surgery,Heart,528,#9c7a7a
+Membranous Glomerulonephritis,Kidney,509,#6f8f72
+Membranous Nephropathy,Kidney,478,#6f8f72
+Dilated Myopathy: Other Specify,Heart,477,#9c7a7a
+Lithium Toxicity,Kidney,441,#6f8f72
+Plm: Hepatoma (Hcc) And Cirrhosis,Liver,427,#7c9a92
+Plm: Hepatoma -. Hepatocellular Carcinoma,Liver,425,#7c9a92
+Acute Tubular Necrosis,Kidney,382,#6f8f72
+Cirrhosis: Fatty Liver (Nash),Liver,379,#7c9a92
+"Other, Specify",Liver,374,#7c9a92
+Diabetes Mellitus -. Type I,Pancreas,367,#a8b3a1
+Chronic Pyelonephritis/Reflux Nephropath,Kidney,344,#6f8f72
+Cirrhosis: Type C,Liver,338,#7c9a92
+Nephritis,Kidney,297,#6f8f72
+Hiv Nephropathy,Kidney,267,#6f8f72

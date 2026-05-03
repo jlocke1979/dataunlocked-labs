@@ -56,3 +56,15 @@ Notes
 
 The D3 code is modularized across JavaScript files rather than embedded directly in HTML.
 
+
+Exploratory demand-side dataset:
+The Organ by Diagnosis export summarizes transplant waitlist registrations by diagnosis and organ. 
+
+Early inspection shows that kidney demand dominates the waiting list, with Type II diabetes, 
+hypertensive nephrosclerosis, polycystic kidney disease, and graft failure among the largest diagnosis categories. 
+Counts should be interpreted as waitlist registrations, not necessarily unique patients, 
+because OPTN/HRSA distinguishes registrations from candidates.
+
+
+
+

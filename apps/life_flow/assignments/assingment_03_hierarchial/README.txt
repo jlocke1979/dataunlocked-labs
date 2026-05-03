@@ -1,69 +1,75 @@
-# MSDS 455 – Assignment 02 (Categorical Data) Revision
+# MSDS 455 – Assignment 03 (Hierarchical / Part-to-Whole Data)
 
 ## Overview
-This visualization compares 2025 organ transplant demand (waitlist) versus completed transplants across major organ categories. The goal is to highlight the imbalance between demand and supply.
+This assignment compares current OPTN waitlist registrations with 2025 transplants by organ and diagnosis.
+
+Aggregate rows and columns such as “All Diagnosis” and “All Organs” were removed to avoid double-counting. The data was reshaped from wide to long format to support hierarchical visualization.
+
+The final visualization uses side-by-side treemaps to highlight the relationship between demand (waitlist) and realized outcomes (transplants).
+
+---
 
 ## Key Insight
-Kidney transplants account for the majority of volume, but demand significantly exceeds supply across all major organ categories.
+Kidney demand dominates the transplant system, driven largely by chronic conditions such as diabetes and hypertension.
 
-## Live Visualization
-https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/assignment_03_hierarchial/
+While transplant activity follows similar patterns, it occurs at a significantly smaller scale, indicating a system constrained by supply.
 
-Project Structure
+---
 
-* index.html – entry point
-* js/main_assignment_02.js – controller
-* js/scenes_assignment2/d_waitlist_vs_transplants.js – main D3 visualization
-* js/scenes_assignment2/shared_waitlist_nodes.js – shared constants and category structure
-* data/ – cleaned datasets used for visualization
-* analysis.ipynb – exploratory data analysis
-
-Data Source
-
-OPTN national data reports (2025)
-Parent Page: 
-https://www.hrsa.gov/optn?from=optn.transplant.hrsa.gov
-Data Portal: 
-https://www.hrsa.gov/optn/data/data-reports
-Data Portal: Advanced Reporting
-https://hrsa.unos.org/data/view-data-reports/build-advanced/
+## Final Visualization
+- Static slide (PDF) included in submission
+- Interactive version (optional):
+  
+https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/assingment_03_hierarchial/
 
 
 
+## Project Structure
 
-Exploratory Data Analysis
-
-EDA is provided in analysis.ipynb.
-The workflow includes:
-
-* inspection of raw tab-delimited OPTN data
-* identification of structural issues (wide format, formatted numeric strings)
-* transformation into a clean, structured dataset
-* filtering to 2025 for categorical comparison
-
-Visualization Iterations
-
-Three iterations were developed:
-
-1. Initial dot-based comparison of waitlist vs. transplants
-2. Improved clarity using gray waitlist vs. colored transplant dots
-3. Version adding a waitlist-to-transplant ratio and refined labeling
-4. Version changing from beige to white background
-
-Background styling was also evaluated to balance aesthetics with data-to-ink ratio.
-
-Notes
-
-The D3 code is modularized across JavaScript files rather than embedded directly in HTML.
+assignment_03_hierarchial/
+├── analysis.ipynb                # EDA + transformation + visualization
+├── data/
+│   ├── raw/                      # OPTN exports
+│   └── processed/                # cleaned datasets
+├── outputs/
+│   ├── final_visualization.svg
+│   ├── final_visualization.html
+│   └── archive_iterations/       # prior versions
+└── final_slide.pdf               # submission artifact
 
 
-Exploratory demand-side dataset:
-The Organ by Diagnosis export summarizes transplant waitlist registrations by diagnosis and organ. 
 
-Early inspection shows that kidney demand dominates the waiting list, with Type II diabetes, 
-hypertensive nephrosclerosis, polycystic kidney disease, and graft failure among the largest diagnosis categories. 
-Counts should be interpreted as waitlist registrations, not necessarily unique patients, 
-because OPTN/HRSA distinguishes registrations from candidates.
+---
+
+## Data Source
+
+OPTN / HRSA National Data (2025)
+
+- Main site: https://www.hrsa.gov/optn  
+- Data portal: https://www.hrsa.gov/optn/data/data-reports  
+- Advanced reports: https://hrsa.unos.org/data/view-data-reports/build-advanced/
+
+---
+
+## Exploratory Data Analysis
+
+EDA is documented in `analysis.ipynb` and includes:
+
+- inspection of raw OPTN tabular exports
+- identification of structural issues (wide format, formatted numeric strings)
+- removal of aggregate rows (e.g., “All Diagnosis”, “All Organs”)
+- transformation into long format for hierarchical analysis
+- validation checks on totals and distributions
+
+---
+
+## Notes
+
+- Waitlist counts represent **registrations**, not unique patients
+- Transplants represent realized matches between supply (donors) and demand (waitlist)
+- The visualization emphasizes relative structure and scale rather than exact matching flows
+
+
 
 
 

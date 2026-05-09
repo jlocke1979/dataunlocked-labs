@@ -1,0 +1,79 @@
+# Life Flow — Architecture and Development Notes
+
+This document stores technical notes separate from the official style guide.
+
+## Current Project Approach
+
+The final project is expected to be an interactive web-based data visualization built primarily with D3.js.
+
+Possible technologies:
+- D3.js
+- HTML/CSS/JavaScript
+- Python for data preparation
+- PostgreSQL for data storage or exploration
+- GitHub for version control
+- GitHub Pages for deployment
+
+## Proposed Scene Files
+
+Current scene naming structure:
+
+- scene0_landing.js
+- scene1_situation.js
+- scene2_system.js
+- scene3_tension.js
+- scene4_problem.js
+- scene5_resolution.js
+- scene6_outro.js
+
+## D3 Build Strategy
+
+### Layer 1: Prototype Motion
+
+Before attaching final data, build the visual motion system:
+- dots or particles
+- paths
+- zones
+- opacity changes
+- labels
+- transitions
+
+### Layer 2: Attach Real Counts
+
+Connect the motion system to actual data:
+- total transplants
+- waitlist size
+- deaths while waiting
+- organ breakdowns
+- donor type
+
+### Layer 3: Add Interaction
+
+Possible interactions:
+- organ toggle
+- hover labels
+- scene navigation
+- donor scenario toggle
+- bottleneck toggle
+
+## Data Sources
+
+Potential authoritative sources:
+- OPTN
+- UNOS
+- SRTR
+- HRSA organ donation statistics
+
+## Repo Organization Goal
+
+Future cleanup may separate:
+
+- assignments
+- final_show
+- docs
+- data
+- scripts
+- app
+- assets
+
+For now, avoid major architecture cleanup during the style guide assignment unless it becomes necessary.

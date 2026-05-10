@@ -1,123 +1,203 @@
-[FINAL PROJECT]
-- Add dedication slide or footer:
-  - Sue Ellen (personal dedication)
-  - Northwestern Memorial Hospital transplant staff
-  - Broader transplant network
-- Decide format:
-  - Separate slide at end? (preferred)
-  - Subtle footer on final visualization?
-  - Optional: dual dedication (personal + institutional)
+# Life Flow — Ideas and Future Concepts
 
-  These are solid, authoritative entry points:
+This document stores exploratory ideas that may influence the final project but are not part of the official style guide yet.
 
-* United Network for Organ Sharing
-    👉 https://unos.org/transplant/allocation/
-* Organ Procurement and Transplantation Network
-    👉 https://optn.transplant.hrsa.gov/policies-bylaws/
-* CAS overview (lung system):
-    👉 https://optn.transplant.hrsa.gov/policies-bylaws/a-closer-look/composite-allocation-score/
+## Dual Funnel Concept
 
-    
+A possible future structure is a two-sided flow model:
 
-    Idea: Usable Supply Funnel
+- Left side: patient demand
+- Right side: donor supply
+- Middle: matching and transplant
+- After match: outcomes and survival
 
-Donors → Organs recovered → Transplanted vs Discarded
+This model could show how both patients and donors pass through filters before a transplant occurs.
 
-Key variables:
-- KDPI (quality)
-- DCD vs brain death
-- Disease markers (HCV/HBV)
+## Bottleneck Exploration
 
-Hypothesis:
-System is constrained not just by donor supply, but by usable organ quality and acceptance decisions.
+Possible bottlenecks to explore:
 
+- Donor registration
+- Donor eligibility
+- Organ recovery
+- Organ acceptance
+- Organ utilization
+- Matching delays
+- Transportation windows
+- Hospital capacity
+- Surgeon capacity
+- Waitlist dynamics
 
+Potential framing:
 
+The problem is not simply that not enough people are registered donors. Organs become lives saved only if they successfully move through a fragile multi-step system.
 
-Idea: Waiting Time & Access Inequality (Final Project Direction)
+## Advanced Visualization Ideas
 
-* Core Question:
-    How long do patients wait for a transplant—and how does that vary by blood type, organ, and region?
-* Dataset:
-    UNOS / HRSA regional data (Region 7 example)
-    https://hrsa.unos.org/data/view-data-reports/regional-data/?type=region&selectAreaValue=7#
-* Key Variables:
-    * Organ
-    * Blood type (O, A, B, AB)
-    * Region
-    * Time period (e.g., 2003–2006, etc.)
-    * Median waiting time (days)
-    * Confidence intervals
-    * Registrations added
-* Initial Observations:
-    * Blood type O appears to have longer wait times
-    * Wait times vary significantly by organ
-    * Regional variation may indicate geographic inequality
-    * Some values suppressed (*) → low sample sizes
-* Hypothesis:
-    * Waiting time is influenced by compatibility constraints (blood type) and regional supply differences
-    * Suggests inequity in access, not just supply limitations
-* Potential Visualizations:
-    * Heatmap → organ × blood type (color = wait time)
-    * Bar chart → wait time by blood type within each organ
-    * Small multiples → trends over time
-* Connection to Main Thesis:
-    * Extends from:
-        * “Supply-constrained system”
-    * To:
-        * “Access to transplants is uneven due to biological and geographic constraints”
-* Future Integration:
-    * Combine with:
-        * Supply (transplants by organ)
-        * Usable supply (KDPI, discard rates)
-    * Builds toward full system story:
-        * Supply → Allocation → Patient Experience
+Possible future visual forms:
 
+- Sankey diagram
+- Alluvial diagram
+- Animated pipeline
+- Network graph for multi-organ transplants
+- Toggleable bottleneck model
+- Scenario simulation
+- Tornado chart showing impact of system changes
+- Geographic map of organ availability and transport windows
 
+## Multi-Organ Network Idea
 
+Nodes could represent organs. Links could represent multi-organ transplant combinations.
 
-Story Flow  Final 1
+Example:
+- Kidney
+- Liver
+- Heart
+- Lung
+- Pancreas
+- Intestine
 
-        Demand (Patients)
-                ↘
-                 ↘
-              Matching System → Transplants
-                 ↗
-                ↗
-        Supply (Donors)
+Link thickness could represent the number of multi-organ transplants.
 
+## Donor Registration Scenario
 
-Story Flow Final 2 
-Transplants → Outcomes (Life)
-Waitlist → Outcomes (Death / Still Waiting)
+A future scene could ask:
+
+What happens if donor participation increases?
+
+Possible visual treatment:
+- More dots enter the system
+- More connections complete
+- Backlog declines slightly
+- Viewer sees that participation matters, but the system remains complex
+
+## Mobile / Interaction Ideas
+
+Future improvement:
+- Add visible next/back buttons
+- Avoid keyboard-only navigation
+- Simplify mobile layouts
+- Keep interaction low-friction
+
+## Dedication Idea
+
+Potential final dedication:
+
+Dedicated to Sue Ellen, the staff at Northwestern Memorial Hospital, and the broader transplant network whose work turns complex systems into extended lives.
 
 
+---
 
-### Exploratory Final Show Dataset: Waitlist by Organ and Diagnosis
+# Additional Exploratory Concepts
 
-Source: Organ Procurement and Transplantation Network (OPTN) / HRSA National Data Reports.  
-Report path: National Data → Waiting List → Organ by Diagnosis.  
-URL: https://hrsa.unos.org/data/view-data-reports/national-data/#
+## Usable Supply Funnel
 
-This exploratory dataset summarizes the national transplant waiting list by diagnosis and organ category. It may support future final-show work around demand-side structure: who is waiting, what organs they need, and what diagnoses drive transplant demand.
+Possible future visualization:
 
-Important note: OPTN reports distinguish between candidates and registrations. A patient listed at more than one center, or listed for multiple organs, may have multiple registrations.
+Donors → Organs Recovered → Transplanted vs Discarded
 
+Potential variables:
+- KDPI (Kidney Donor Profile Index)
+- DCD vs brain death donors
+- disease markers
+- organ discard rates
 
-Insight: Demand Drivers
+Possible insight:
+The transplant system may be constrained not only by donor supply, but also by usable organ quality and organ acceptance decisions.
 
-Kidney transplant demand is heavily driven by chronic disease,
-particularly Type II diabetes and hypertension.
+---
 
-This suggests that the transplant system is not only supply-constrained,
-but also shaped by long-term population health trends.
+## Waiting Time and Access Inequality
 
-Implication: upstream prevention (diabetes, hypertension) could materially
-impact transplant demand.
+Potential future analytical direction:
 
+Core question:
+How long do patients wait for a transplant, and how does that vary by:
+- organ
+- blood type
+- region
+- time period
 
+Potential insight:
+Access to transplant may be uneven due to compatibility constraints and geographic variation.
 
+Possible visualization ideas:
+- heatmaps
+- small multiples
+- regional comparisons
+- wait time distributions
 
+Potential thematic expansion:
+The transplant system may reflect not only scarcity, but also uneven access.
 
+---
 
+## Demand Drivers
 
+Potential future exploration:
+
+Kidney transplant demand appears strongly influenced by chronic diseases such as:
+- Type II diabetes
+- hypertension
+
+Possible implication:
+Long-term population health trends may influence transplant demand as much as donor supply.
+
+Potential future framing:
+The transplant system is shaped by both:
+- downstream organ scarcity
+- upstream public health conditions
+
+---
+
+## Additional Story Structures
+
+### Story Flow Option A
+
+Demand (Patients)
+        ↘
+         ↘
+      Matching System → Transplants
+         ↗
+        ↗
+Supply (Donors)
+
+### Story Flow Option B
+
+Transplants → Life Outcomes  
+Waitlist → Waiting / Mortality Outcomes
+
+---
+
+## Potential Future Dataset
+
+### Waitlist by Organ and Diagnosis
+
+Potential use:
+Understanding demand-side structure of the transplant system.
+
+Potential analytical questions:
+- What diagnoses drive transplant demand?
+- Which organs dominate waitlist growth?
+- How does diagnosis mix vary over time?
+
+Important note:
+OPTN reporting distinguishes between:
+- candidates
+- registrations
+
+A single patient may appear multiple times across listings or centers.
+
+---
+
+## Potential Dedication
+
+Possible final-show dedication:
+- Sue Ellen
+- Northwestern Memorial Hospital transplant staff
+- broader transplant network
+
+Possible formats:
+- end slide
+- subtle footer
+- dual personal/institutional dedication

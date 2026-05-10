@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Life Flow - Assignment 02 Proportion Style Test</title>
+  <link rel="stylesheet" href="assignment_02_categorical_revision/css/styles.css" />
+  <style>
+    html,
+    body,
+    #vis {
+      background: #f7f7f4;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    svg {
+      display: block;
+      background: #f7f7f4;
+    }
+
+    .style-test-nav {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      z-index: 2;
+      font: 11px "Calisto MT", Georgia, serif;
+    }
+
+    .style-test-nav a {
+      color: #202623;
+      margin-left: 18px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="style-test-nav" aria-label="Assignment 2 style test views">
+    <a href="./index_assignment_02_style_test.html">Absolute</a>
+    <a href="./index_assignment_02_proportion_style_test.html">Proportion</a>
+  </nav>
+  <div id="vis"></div>
+
+  <script src="assignment_02_categorical_revision/vendor/d3.v7.min.js"></script>
+  <script type="module" src="assignment_02_categorical_revision/js/main_assignment_02_proportion_style_test.js"></script>
+</body>
+</html>

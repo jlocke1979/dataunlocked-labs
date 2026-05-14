@@ -1,0 +1,441 @@
+
+
+
+About Reference Dictionary: 
+The informations in these folders comes from this link: 
+Source: https://hrsa.unos.org/data/view-data-reports/build-advanced/?category=1%3BDonor
+
+The document is designed for reproducability to document 
+the various options selects to produce each report. 
+These reports can be found in data/raw/ 
+Each rpt is titled "Rpt1.1_...." for easy tying back to this dictionary 
+
+
+
+The First digit in the title (e.g. 1.0) represents the 4 sections of reports, organized as follows:
+1. Donors 
+2. Waitlist
+3. Transplants
+4. Multiple Transplants
+
+The second digit in the title (eg. 0.1) conotates variations within those groups. 
+Most of the variations include Organs (or Multi-Organs) as one of the dimensions (either a row or column)
+The other fields are cycled throug paired with section and organ (example, age of organ recipient,). This is repeated for as many of the 'interesting variables' 
+
+Which Varaibles Matter most and got into this dataset?
+The reports below likely represent about 80% of the combinations between Organs and some other variable. 
+the 20% are the variable I find too complex to manage or not interesting enough to matter. 
+
+
+Section 1 - Donor (Supply Side)
+
+Report 1.1  - "Total Donors"
+Step 1. Data Category = Donor
+Step 2. Column = Organs
+Step 3. Row = Donor Type
+Step 4. [Default Counts and Portraint]
+Step 5. [Go]
+Optional: Year = 2025
+
+
+Report 1.2  - Organs discarded  
+Step 1. Donor
+Step 2. Organs DISCARDED
+Step 3. Donor Type
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+Report 1.3  - Organs Recovered
+Step 1. Donor
+Step 2. Organs Recovered
+Step 3. Donor Type
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+Report 1.4  - Organs Transplanted
+Step 1. Donor
+Step 2. Organs Transplanted
+Step 3. Donor Type
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+Report 1.5  - Organs by Donor Cause of Death 
+Step 1. Donor
+Step 2. Organs 
+Step 3. Donor Cause of Death 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+Report 1.6  - Organs by Circumstance of Death 
+Step 1. Donor
+Step 2. Organs 
+Step 3. Circumstance of Death 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+Report 1.7  - Organs by Donor Mechanism of Death 
+Step 1. Donor
+Step 2. Organs 
+Step 3. ODonor Mechanism of Death  
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+Report 1.8  - Organs by Donor Recovery Hospital
+Step 1. Donor
+Step 2. Organs 
+Step 3. Donor Recovery Hospital
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+Report 1.9  - Organs by Living Donor Relation to Recipient 
+Step 1. Donor
+Step 2. Organs 
+Step 3. Living Donor Relation to Recipient 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+Report 1.10  - Organs by Donor Type
+Step 1. Donor
+Step 2. Organs 
+Step 3. Donor Type
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+
+Report 1.11  - Organs by Dontion Service Areas of Recovery 
+Step 1. Donor
+Step 2. Organs 
+Step 3. ontion Service Areas of Recovery 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year = 2025
+
+
+
+Section 2 - Waitlist (Demand Side)
+
+Note - We use candidate here because it imiplies a single individual, 
+(where as 'registrations' can count) individual twice if registered for multiple organs or in different organ centers)
+
+Report 2.1  - Current Wait list And How long they been on waitlist 
+Step 1. Waiting List 
+Step 2. Organ
+Step 3. Waiting Time
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Count = Candidates 
+
+Report 2.2 - Wait List Additions - All Years
+Step 1. Waiting List Additions
+Step 2. Organ
+Step 3. List Year 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Count = Candidates 
+
+Report 2.3 - Wait List Removals
+Step 1. Waiting List Removals
+Step 2. Organ
+Step 3. List Year 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Count = Candidates 
+
+
+
+Report 2.4 - Wait List - Organ By Waitlist Status 
+Step 1. Waiting List Additions
+Step 2. Organ
+Step 3. Waiting List Status
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Count = Candidates 
+
+
+
+Report 2.5 Wait List -  Organ by Waiting Time
+Step 1. Waiting List 
+Step 2. Organ
+Step 3. Waiting Time 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Count = Candidates 
+
+Report 2.6 Wait List -  Organ by Primary Source of Payment 
+Step 1. Waiting List 
+Step 2. Organ
+Step 3. Primary Source of Payment 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Count = Candidates 
+
+
+
+
+Section 3 - Transplants (Intersection of Demand and Supply)
+Report 3.1 Transplants By Organ by Year 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Transplant List Year 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+
+
+
+
+Report 3.2 Transplants By Waiting List Status at Transplant by Year 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Waiting List Status at Transplant
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 3.3 Transplants By Organ by Recipient Primary Source of Payment 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Primary Source of Payment 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Interesting Public Health insight (Medicare / mEdicaid)
+
+
+Report 3.4 Transplants By Organ by Donor Increased Risk Status 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Donor Increased Risk Status
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 3.5 Transplants By Organ by Distance to Transplant Center 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Distance to Transplant Center
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 3.6 Transplants By Organ by VAD at Transplant (HR)
+Step 1. Transplant
+Step 2. Organ
+Step 3. VAD at Transplant (HR)
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 3.7 Transplants By Organ by Transplant Center
+Step 1. Transplant
+Step 2. Organ
+Step 3. Transplant Center
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 3.8 Transplants By Organ by Donations Service Areas of Donor Recovery 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Donation Service Areas of Donor Recovery 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 3.9 Transplants By Organ by Donor KDPI (Kidney Donbor Profile Index. lower = Better (0)  , hi = worse = 100) Longevity of kidney relative to other kidneys 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Donation Service Areas of Donor Recovery 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 3.10 Transplants By Organ by Living Donor Relation to Recipient
+Step 1. Transplant
+Step 2. Organ
+Step 3. Living Donor Relation to Recipient
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+My Comment: This one is worth Exploring 
+
+
+Report 3.11 Transplants By Organ Recipient Diagnosis Category, Recipient Diagnosis By Organ
+Step 1. Transplant
+Step 2. Organ
+Step 3. Organ Recipient Diagnosis Category, Recipient Diagnosis 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+My Comment: This one is worth Exploring 
+
+
+Report 3.12 Transplants By Organ by Donation after Circulatory Death (DCD) 
+Step 1. Transplant
+Step 2. Organ
+Step 3. Donation after Circulatory Death (DCD) 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+My Comment: This one is worth Exploring for sankey 
+
+
+
+Section 4 - Multiple Transplants (Intersection of Demand and Supply)
+Report 4.1 - Multiple Transplants By Organ by Year 
+Step 1. multiple Organ Transplant
+Step 2. Organ
+Step 3. Transplant List Year 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+
+
+
+Report 4.2 - Multiple Transplants By Donor Type and Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Donor Type 
+Step 3. Multiple Organs 
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 4.3 - Multiple Transplants By ABO By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. ABO
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 4.4 - Multiple Transplants By Age By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Age
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 4.5 - Multiple Transplants By Recipient Citizenship By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Recipient Citizenship 
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 4.6 - Multiple Transplants By Recipient Race/Ethnicity  By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Recipient Race/Ethnicity 
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 4.7 - Multiple Transplants By Recipient Birth Sex By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Recipient Birth Sex 
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 4.8 - Multiple Transplants By Recipient State of Residence By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Recipient Birth Sex 
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 4.9 - Multiple Transplants By Region of Center By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Region of Center
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+
+Report 4.10 - Multiple Transplants By State of Center By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Recipient Birth Sex 
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+
+Report 4.11 - Multiple Transplants By Donor Age By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. onor Age  
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+Report 4.12 - Multiple Transplants By Donor Opo By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Donor Opo
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 4.13 - Multiple Transplants By Donor Type By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Donor Type
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+Report 4.14 - Multiple Transplants By Donotion Service Areaa By Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Donor Type
+Step 3. Multi-Organ
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+
+Report 4.15 - Multiple Transplants Donor Type by Tranplant Center  Multiple Organ 
+Step 1. multiple Organ Transplant
+Step 2. Donor Type
+Step 3. Transplant Center
+Step 4. [Defaults]
+Step 5. [ClickGo] 
+Optional: Year 2025
+
+
+
+
+
+

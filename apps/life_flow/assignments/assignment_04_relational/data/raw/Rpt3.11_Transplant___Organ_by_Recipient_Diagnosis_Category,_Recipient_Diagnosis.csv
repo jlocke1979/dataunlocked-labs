@@ -1,0 +1,667 @@
+,,,All Organs,Kidney,Liver,Pancreas,Kidney / Pancreas,Heart,Lung,Heart / Lung,Intestine,VCA - other genitourinary organ,VCA - uterus
+All Diagnoses,All Diagnosis,,"49,065","27,574","12,344",107,804,"4,587","3,490",61,88,1,9
+,Abca3 Transporter Mutation,,4,0,0,0,0,0,4,0,0,0,0
+,Ahn: Type B- Hbsag+,,21,0,21,0,0,0,0,0,0,0,0
+,Dilated Myopathy: Post Partum,,39,0,0,0,0,39,0,0,0,0,0
+,Drug Related Interstitial Nephritis,,45,45,0,0,0,0,0,0,0,0,0
+,Eisenmenger'S Syn: Atrial Septal Defect,,2,0,0,0,0,0,0,2,0,0,0
+,Eisenmenger'S Syn: Vsd,,2,0,0,0,0,0,1,1,0,0,0
+,Ahn: Type C,,14,0,14,0,0,0,0,0,0,0,0
+,Eosinophilic Granuloma,,3,0,0,0,0,0,3,0,0,0,0
+,Fabry'S Disease,,17,17,0,0,0,0,0,0,0,0,0
+,Familial Cholestasis: Byler'S Disease,,3,0,3,0,0,0,0,0,0,0,0
+,Familial Cholestasis: Other Specify,,9,0,9,0,0,0,0,0,0,0,0
+,Familial Nephropathy,,13,13,0,0,0,0,0,0,0,0,0
+,Fbp: Hirschsprung'S Disease,,3,0,0,0,0,0,0,0,3,0,0
+,Ahn: Type D,,1,0,1,0,0,0,0,0,0,0,0
+,Fbp: Pseudo-Obstruction-Myopathic,,3,0,0,0,0,0,0,0,3,0,0
+,Fibrocavitary Lung Disease,,2,0,0,0,0,0,2,0,0,0,0
+,Focal Glomerular Sclerosis (Focal Segmental -. Fs,,"1,395","1,393",0,0,2,0,0,0,0,0,0
+,Goodpasture'S Syndrome,,47,47,0,0,0,0,0,0,0,0,0
+,Gout,,5,5,0,0,0,0,0,0,0,0,0
+,Graft Failure,,222,0,222,0,0,0,0,0,0,0,0
+,Graft Failure,,4,0,0,0,0,0,0,0,4,0,0
+,Graft-Vs-Host Disease (Gvhd),,11,0,0,0,0,0,11,0,0,0,0
+,Granulomatous Lung Disease,,1,0,0,0,0,0,1,0,0,0,0
+,Heart Re-Tx/Gf: Acute Rejection,,3,0,0,0,0,3,0,0,0,0,0
+,Heart Re-Tx/Gf: Chronic Rejection,,19,0,0,0,0,19,0,0,0,0,0
+,Heart Re-Tx/Gf: Coronary Artery Disease,,78,0,0,0,0,78,0,0,0,0,0
+,Heart Re-Tx/Gf: Non-Specific,,4,0,0,0,0,4,0,0,0,0,0
+,Heart Re-Tx/Gf: Other Specify,,10,0,0,0,0,10,0,0,0,0,0
+,Heart Re-Tx/Gf: Primary Failure,,11,0,0,0,0,11,0,0,0,0,0
+,Heart Re-Tx/Gf: Restrictive/Constrictive,,6,0,0,0,0,5,0,1,0,0,0
+,Hemolytic Uremic Syndrome,,55,55,0,0,0,0,0,0,0,0,0
+,Henoch-Schoenlein Purpura,,11,11,0,0,0,0,0,0,0,0,0
+,Hepatorenal Syndrome,,588,588,0,0,0,0,0,0,0,0,0
+,Hermansky Pudlak Syndrome,,2,0,0,0,0,0,2,0,0,0,0
+,Heroin Nephrotoxicity,,1,1,0,0,0,0,0,0,0,0,0
+,Alpha -. 1. -. Antitrypsin Deficiency,,47,0,0,0,0,0,47,0,0,0,0
+,Hiv Nephropathy,,107,107,0,0,0,0,0,0,0,0,0
+,Hypersensitivity Pneumonitis,,178,0,0,0,0,0,178,0,0,0,0
+,Hypertensive Nephrosclerosis,,"5,183","5,162",0,0,21,0,0,0,0,0,0
+,Hypertrophic Cardiomyopathy,,186,0,0,0,0,185,0,1,0,0,0
+,Hypogammaglobulinemia,,1,0,0,0,0,0,1,0,0,0,0
+,
+,Hypoplasia/Dysplasia/Dysgensis/Agenesis,,226,226,0,0,0,0,0,0,0,0,0
+,Idio/Post-Inf Crescentic Glomerulonephri,,31,31,0,0,0,0,0,0,0,0,0
+,Idiopathic Pulmonary Hemosiderosis,,1,0,0,0,0,0,1,0,0,0,0
+,Iga Nephropathy,,"1,333","1,332",0,0,1,0,0,0,0,0,0
+,Iip: Acute Interstitial Pneumonia,,6,0,0,0,0,0,6,0,0,0,0
+,Alport'S Syndrome,,262,261,0,0,1,0,0,0,0,0,0
+,Iip: Boop/Cop,,2,0,0,0,0,0,2,0,0,0,0
+,Iip: Idiopathic Pulmonary Fibrosis (Ipf),,"1,052",0,0,0,0,0,"1,050",2,0,0,0
+,Iip: Lymphocytic Interstitial Pneumonia (Lip),,5,0,0,0,0,0,5,0,0,0,0
+,Iip: Nonspecific Interstitial Pneumonia,,164,0,0,0,0,0,164,0,0,0,0
+,Iip: Respiratory Bronchiolitis,,1,0,0,0,0,0,1,0,0,0,0
+,Incidental Carcinoma,,1,1,0,0,0,0,0,0,0,0,0
+,Inhalation Burns/Trauma,,1,0,0,0,0,0,1,0,0,0,0
+,Intestinal Disease Other Specify,,2,0,0,0,0,0,0,0,2,0,0
+,Kartagener'S Syndrome,,2,0,0,0,0,0,2,0,0,0,0
+,Lithium Toxicity,,113,113,0,0,0,0,0,0,0,0,0
+,Alveolar Proteinosis,,1,0,0,0,0,0,1,0,0,0,0
+,Lung Re-Tx/Gf: Acute Rejection,,2,0,0,0,0,0,2,0,0,0,0
+,Lung Re-Tx/Gf: Non-Specific,,4,0,0,0,0,0,4,0,0,0,0
+,Lung Re-Tx/Gf: Obliterative Bronchiolitis-Obstruc,,50,0,0,0,0,0,50,0,0,0,0
+,Lung Re-Tx/Gf: Obliterative Bronchiolitis-Restric,,17,0,0,0,0,0,17,0,0,0,0
+,Lung Re-Tx/Gf: Obstructive,,8,0,0,0,0,0,8,0,0,0,0
+,Lung Re-Tx/Gf: Other Specify,,7,0,0,0,0,0,7,0,0,0,0
+,Lung Re-Tx/Gf: Primary Graft Failure,,5,0,0,0,0,0,5,0,0,0,0
+,Lung Re-Tx/Gf: Restrictive,,5,0,0,0,0,0,5,0,0,0,0
+,Lupus,,7,0,0,0,0,0,7,0,0,0,0
+,Lymphangioleiomyomatosis,,13,0,0,0,0,0,13,0,0,0,0
+,Malignant Hypertension,,142,142,0,0,0,0,0,0,0,0,0
+,Medullary Cystic Disease,,29,29,0,0,0,0,0,0,0,0,0
+,Membranous Glomerulonephritis,,162,162,0,0,0,0,0,0,0,0,0
+,Membranous Nephropathy,,121,121,0,0,0,0,0,0,0,0,0
+,Mesangio-Capillary 1. Glomerulonephritis,,14,13,0,0,1,0,0,0,0,0,0
+,Mesangio-Capillary 2. Glomerulonephritis,,3,3,0,0,0,0,0,0,0,0,0
+,Metdis: Alpha-1-Antitrypsin Defic A-1-A,,87,0,87,0,0,0,0,0,0,0,0
+,Metdis: Glyc Stor Dis Type I. (Gsd-I),,2,0,2,0,0,0,0,0,0,0,0
+,Amyloidosis,,70,70,0,0,0,0,0,0,0,0,0
+,Metdis: Glyc Stor Dis Type Iv (Gsd-Iv),,1,0,1,0,0,0,0,0,0,0,0
+,Metdis: Hemochromatosis -. Hemosiderosis,,31,0,31,0,0,0,0,0,0,0,0
+,Metdis: Maple Syrup Urine Disease,,34,0,34,0,0,0,0,0,0,0,0
+,Metdis: Other Specify,,45,0,45,0,0,0,0,0,0,0,0
+,"Metdis: Primary Oxalosis/Oxaluria, Hyperoxaluria",,7,0,7,0,0,0,0,0,0,0,0
+,
+,Metdis: Tyrosinemia,,1,0,1,0,0,0,0,0,0,0,0
+,"Metdis: Wilson'S Disease, Other Copper Metabolism",,30,0,30,0,0,0,0,0,0,0,0
+,Mixed Connective Tissue Disease,,98,0,0,0,0,0,97,1,0,0,0
+,Muscular Dystrophy: Other Specify,,5,0,0,0,0,5,0,0,0,0,0
+,Acquired Obstructive Nephropathy,,108,108,0,0,0,0,0,0,0,0,0
+,Analgesic Nephropathy,,36,35,0,0,1,0,0,0,0,0,0
+,Myeloma,,44,44,0,0,0,0,0,0,0,0,0
+,Neonatal Cholestatic Liver Disease,,5,0,5,0,0,0,0,0,0,0,0
+,Neonatal Hepatitis Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,Nephritis,,107,106,0,0,1,0,0,0,0,0,0
+,Nephrolithiasis,,63,63,0,0,0,0,0,0,0,0,0
+,Nephronophthisis,,48,48,0,0,0,0,0,0,0,0,0
+,Obliterative Bronchiolitis (Non-Retransplant),,31,0,0,0,0,0,31,0,0,0,0
+,Obstructive Lung Disease,,1,0,0,0,0,0,1,0,0,0,0
+,Occupational Lung Disease Other Specify,,11,0,0,0,0,0,11,0,0,0,0
+,Other Cancers,,1,0,0,1,0,0,0,0,0,0,0
+,Anti-Gbm,,24,24,0,0,0,0,0,0,0,0,0
+,Oxalate Nephropathy (Includes Hereditary Oxalosis,,30,30,0,0,0,0,0,0,0,0,0
+,Plm: Cholangiocarcinoma (Ch-Ca),,75,0,75,0,0,0,0,0,0,0,0
+,Plm: Fibrolamellar (Fl-Hc),,2,0,2,0,0,0,0,0,0,0,0
+,"Plm: Hemangioendothelioma, Hemangiosarcoma, Angio",,14,0,14,0,0,0,0,0,0,0,0
+,Plm: Hepatoblastoma (Hbl),,35,0,35,0,0,0,0,0,0,0,0
+,Plm: Hepatoma (Hcc) And Cirrhosis,,963,0,963,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,557,0,557,0,0,0,0,0,0,0,0
+,Antibiotic-Induced Nephritis,,6,6,0,0,0,0,0,0,0,0,0
+,"Plm: Other Specify (I.E., Klatzkin Tumor, Leiomys",,19,0,19,0,0,0,0,0,0,0,0
+,Polyarteritis,,3,3,0,0,0,0,0,0,0,0,0
+,Polycystic Kidneys,,"1,964","1,963",0,0,1,0,0,0,0,0,0
+,Polymyositis,,18,0,0,0,0,0,18,0,0,0,0
+,Pre-Bmtransplantation Total Body Irradiation,,1,1,0,0,0,0,0,0,0,0,0
+,Primary Biliary Cirrhosis (Pbc),,261,0,261,0,0,0,0,0,0,0,0
+,Primary Ciliary Dyskinesia,,4,0,0,0,0,0,4,0,0,0,0
+,Prune Belly Syndrome,,18,18,0,0,0,0,0,0,0,0,0
+,Ards/Pneumonia,,31,0,0,0,0,0,30,1,0,0,0
+,Psc: Crohn'S Disease,,50,0,50,0,0,0,0,0,0,0,0
+,Psc: No Bowel Disease,,133,0,133,0,0,0,0,0,0,0,0
+,Psc: Other Specify,,42,0,42,0,0,0,0,0,0,0,0
+,Psc: Ulcerative Colitis,,193,0,193,0,0,0,0,0,0,0,0
+,Pulmonary Fibrosis Other Specify Cause,,396,0,0,0,0,0,393,3,0,0,0
+,Pulmonary Hypertension/Pulmonary Arterial Hyperte,,69,0,0,0,0,0,59,10,0,0,0
+,Pulmonary Telangiectasia -. Restrictive,,1,0,0,0,0,0,1,0,0,0,0
+,
+,Arrhythmogenic Right Ventricular Dysplasia/Cardio,,49,0,0,0,0,49,0,0,0,0,0
+,Pulmonary Thromboembolic Disease,,1,0,0,0,0,0,1,0,0,0,0
+,Pulmonary Vascular Disease,,3,0,0,0,0,0,3,0,0,0,0
+,Pulmonary Veno-Occlusive Disease,,10,0,0,0,0,0,9,1,0,0,0
+,Radiation Nephritis,,4,4,0,0,0,0,0,0,0,0,0
+,Rapid Progressive Glomerulonephritis (Rpgn),,41,41,0,0,0,0,0,0,0,0,0
+,Renal Artery Thrombosis,,4,4,0,0,0,0,0,0,0,0,0
+,Renal Cell Carcinoma,,83,83,0,0,0,0,0,0,0,0,0
+,Restrictive Myopathy: Amyloidosis,,90,0,0,0,0,90,0,0,0,0,0
+,Restrictive Myopathy: Endocardial Fibros,,2,0,0,0,0,2,0,0,0,0,0
+,Benign Tumor: Hepatic Adenoma,,15,0,15,0,0,0,0,0,0,0,0
+,Restrictive Myopathy: Idiopathic,,27,0,0,0,0,27,0,0,0,0,0
+,Restrictive Myopathy: Other Specify,,36,0,0,0,0,35,0,1,0,0,0
+,Restrictive Myopathy: Sarcoidosis,,60,0,0,0,0,59,0,1,0,0,0
+,Restrictive Myopathy: Sec To Radiat/Chem,,16,0,0,0,0,16,0,0,0,0,0
+,Retransplant/Graft Failure,,"2,024","2,019",0,0,5,0,0,0,0,0,0
+,Rheumatoid Disease,,53,0,0,0,0,0,53,0,0,0,0
+,Sarcoidosis,,72,0,0,0,0,0,70,2,0,0,0
+,Sarcoidosis,,20,20,0,0,0,0,0,0,0,0,0
+,Benign Tumor: Other Specify,,7,0,7,0,0,0,0,0,0,0,0
+,Scleroderma,,7,7,0,0,0,0,0,0,0,0,0
+,Scleroderma -. Pulmonary Hypertension,,17,0,0,0,0,0,17,0,0,0,0
+,Scleroderma -. Restrictive,,48,0,0,0,0,0,48,0,0,0,0
+,Sec Biliary Cirrhosis: Caroli'S Disease,,6,0,6,0,0,0,0,0,0,0,0
+,Sec Biliary Cirrhosis: Choledochol Cyst,,1,0,1,0,0,0,0,0,0,0,0
+,Sec Biliary Cirrhosis: Other Specify,,8,0,8,0,0,0,0,0,0,0,0
+,Secondary Hepatic Malignancy Other Specify,,35,0,35,0,0,0,0,0,0,0,0
+,Benign Tumor: Polycystic Liver Disease,,125,0,125,0,0,0,0,0,0,0,0
+,Secondary Pulmonary Hypertension,,1,0,0,0,0,0,1,0,0,0,0
+,Sgs: Gastroschisis,,5,0,0,0,0,0,0,0,5,0,0
+,Sgs: Intestinal Atresia,,5,0,0,0,0,0,0,0,5,0,0
+,Sgs: Intestinal Volvulus Secondary To Adhesions,,1,0,0,0,0,0,0,0,1,0,0
+,Sgs: Intestinal Volvulus Secondary To Malrotation,,4,0,0,0,0,0,0,0,4,0,0
+,Sgs: Mass Resect Sec To Inf Bowel-Crohns,,3,0,0,0,0,0,0,0,3,0,0
+,Sgs: Mass Resect Sec To Mes Venous Throm,,3,0,0,0,0,0,0,0,3,0,0
+,Sgs: Mass Resect Sec To Tumor,,2,0,0,0,0,0,0,0,2,0,0
+,Sgs: Massive Resection Secondary To Mesenteric Ar,,4,0,0,0,0,0,0,0,4,0,0
+,Sgs: Necrotizing Enterocolitis,,1,0,0,0,0,0,0,0,1,0,0
+,Sgs: Other Specify,,18,0,0,0,0,0,0,0,18,0,0
+,Sgs: Unspecified,,1,0,0,0,0,0,0,0,1,0,0
+,Sickle Cell Anemia,,19,19,0,0,0,0,0,0,0,0,0
+,
+,Silicosis,,28,0,0,0,0,0,28,0,0,0,0
+,Sjogren'S Syndrome,,21,0,0,0,0,0,21,0,0,0,0
+,Surfactant Protein B. Deficiency,,2,0,0,0,0,0,2,0,0,0,0
+,Surfactant Protein C. Deficiency,,2,0,0,0,0,0,2,0,0,0,0
+,Systemic Lupus Erythematosus,,703,703,0,0,0,0,0,0,0,0,0
+,"Bile Duct Cancer: (Cholangioma, Biliary Tract Car",,14,0,14,0,0,0,0,0,0,0,0
+,Thin Basement Membrane Disease,,20,20,0,0,0,0,0,0,0,0,0
+,Tpn/Hyperalimentation Ind Liver Disease,,18,0,18,0,0,0,0,0,0,0,0
+,Trauma Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,Urolithiasis,,1,1,0,0,0,0,0,0,0,0,0
+,Valvular Heart Disease,,55,0,0,0,0,53,0,2,0,0,0
+,Wegener'S Granuloma -. Restrictive,,1,0,0,0,0,0,1,0,0,0,0
+,Acute Tubular Necrosis,,139,137,0,0,2,0,0,0,0,0,0
+,CYSTIC FIBROSIS,,20,0,20,0,0,0,0,0,0,0,0
+,"Biliary Atresia Or Hypoplasia: Other, Specify",,33,0,33,0,0,0,0,0,0,0,0
+,Wegeners Granulomatosis,,81,80,0,0,1,0,0,0,0,0,0
+,Wilms' Tumor,,14,13,0,0,1,0,0,0,0,0,0
+,"Other, Specify",,"3,752","2,927",644,43,7,103,3,2,23,0,0
+,Not Reported,,50,25,2,0,0,5,8,4,0,0,6
+,Congenital,,1,0,0,0,0,0,0,0,0,0,1
+,Malignancy,,1,0,0,0,0,0,0,0,0,1,0
+,Biliary Atresia: Extrahepatic,,157,0,157,0,0,0,0,0,0,0,0
+,Other Specify,,2,0,0,0,0,0,0,0,0,0,2
+,DILATED MYOPATHY: VIRAL (NOT COVID-19),,15,0,0,0,0,15,0,0,0,0,0
+,COVID-19: DILATED MYOPATHY: ACTIVE MYOCARDITIS,,1,0,0,0,0,1,0,0,0,0,0
+,COVID-19: DILATED MYOPATHY: HISTORY OF MYOCARDITIS,,1,0,0,0,0,1,0,0,0,0,0
+,COVID-19: ARDS,,5,0,0,0,0,0,4,1,0,0,0
+,COVID-19: PULMONARY FIBROSIS,,39,0,0,0,0,0,39,0,0,0,0
+,ACUTE ALCOHOL-ASSOCIATED HEPATITIS WITH OR WITHOUT CIRRHOSIS,,803,0,803,0,0,0,0,0,0,0,0
+,ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,,"3,410",0,"3,410",0,0,0,0,0,0,0,0
+,COMBINED PULMONARY FIBROSIS AND EMPHYSEMA (CPFE),,201,0,0,0,0,0,200,1,0,0,0
+,Biliary Hypoplasia: Alagille’s Syndrome (Paucity,,23,0,23,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,"2,012",0,"2,012",0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION AND ALCOHOL-RELATED/ASSOCIATED LIVER DISEASE (METALD),,505,0,505,0,0,0,0,0,0,0,0
+,PULMONARY LYMPHANGIECTASIA (PL),,2,0,0,0,0,0,2,0,0,0,0
+,Biliary Hypoplasia: Nonsyndromic Paucity Of Intra,,1,0,1,0,0,0,0,0,0,0,0
+,Bronchiectasis,,71,0,0,0,0,0,70,1,0,0,0
+,Bronchioloalveolar Carcinoma (Bac),,3,0,0,0,0,0,3,0,0,0,0
+,Bronchopulmonary Dysplasia,,3,0,0,0,0,0,3,0,0,0,0
+,Budd-Chiari Syndrome,,38,0,38,0,0,0,0,0,0,0,0
+,Calcineurin Inhibitor Nephrotoxicity,,209,209,0,0,0,0,0,0,0,0,0
+,
+,Cancer,,1,0,0,0,0,1,0,0,0,0,0
+,Ahn: Drug Other Specify,,43,0,43,0,0,0,0,0,0,0,0
+,Cancer Chemotherapy Induced Nephritis,,21,21,0,0,0,0,0,0,0,0,0
+,Carcinoid Tumorlets,,2,0,0,0,0,0,2,0,0,0,0
+,Choles Liver Disease: Other Specify,,33,0,33,0,0,0,0,0,0,0,0
+,Chronic Glomerulonephritis Unspecified,,360,360,0,0,0,0,0,0,0,0,0
+,Chronic Glomerulosclerosis Unspecified,,45,45,0,0,0,0,0,0,0,0,0
+,Chronic Nephrosclerosis-Unspecified,,30,30,0,0,0,0,0,0,0,0,0
+,Chronic Pyelonephritis/Reflux Nephropath,,98,98,0,0,0,0,0,0,0,0,0
+,Cirrhosis: Autoimmune,,292,0,292,0,0,0,0,0,0,0,0
+,Ahn: Etiology Unknown,,32,0,32,0,0,0,0,0,0,0,0
+,Cirrhosis: Chronic Active Hepatitis: Etiology Unk,,17,0,17,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,281,0,281,0,0,0,0,0,0,0,0
+,Cirrhosis: Drug/Indust Exposure Other Specify,,11,0,11,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,447,0,447,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B. And C,,4,0,4,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B. And D,,4,0,4,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B- Hbsag+,,96,0,96,0,0,0,0,0,0,0,0
+,"Ahn: Other, Specify (E.G., Acute Viral Infection,",,71,0,71,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,259,0,259,0,0,0,0,0,0,0,0
+,Cirrhosis: Type D,,1,0,1,0,0,0,0,0,0,0,0
+,Congenital Heart Defect -. Prior Surgery Unknown,,4,0,0,0,0,4,0,0,0,0,0
+,Congenital Heart Defect -. With Surgery,,373,0,0,0,0,366,0,7,0,0,0
+,Congenital Heart Defect -. Without Surgery,,42,0,0,0,0,39,0,3,0,0,0
+,Congenital Hepatic Fibrosis,,17,0,17,0,0,0,0,0,0,0,0
+,Congenital Malformation,,2,0,0,0,0,0,2,0,0,0,0
+,Congenital Obstructive Uropathy,,182,181,0,0,1,0,0,0,0,0,0
+,RETRANSPLANT/GRAFT FAILURE,,9,0,0,9,0,0,0,0,0,0,0
+,Constrictive Bronchiolitis,,5,0,0,0,0,0,5,0,0,0,0
+,Copd/Emphysema,,592,0,0,0,0,0,590,2,0,0,0
+,Coronary Artery Disease,,69,0,0,0,0,68,0,1,0,0,0
+,Cortical Necrosis,,20,20,0,0,0,0,0,0,0,0,0
+,Crest -. Pulmonary Hypertension,,1,0,0,0,0,0,1,0,0,0,0
+,Cystic Fibrosis,,56,0,0,0,0,0,56,0,0,0,0
+,RETRANSPLANT,,6,0,0,0,0,0,0,0,6,0,0
+,Cystinosis,,14,14,0,0,0,0,0,0,0,0,0
+,Diabetes Mellitus -. Type I,,"1,124",600,0,0,524,0,0,0,0,0,0
+,Diabetes Mellitus -. Type I,,44,0,0,44,0,0,0,0,0,0,0
+,Diabetes Mellitus -. Type II,,"7,633","7,402",0,0,231,0,0,0,0,0,0
+,Diabetes Mellitus -. Type II,,9,0,0,9,0,0,0,0,0,0,0
+,Diabetes Mellitus -. Type Other /. Unknown,,97,94,0,0,3,0,0,0,0,0,0
+,
+,Diabetes Secondary To Cystic Fibrosis Without Pan,,1,0,0,1,0,0,0,0,0,0,0
+,Dilated Myopathy: Adriamycin,,30,0,0,0,0,30,0,0,0,0,0
+,Dilated Myopathy: Alcoholic,,5,0,0,0,0,5,0,0,0,0,0
+,Dilated Myopathy: Familial,,167,0,0,0,0,167,0,0,0,0,0
+,Dilated Myopathy: Idiopathic,,"1,437",0,0,0,0,"1,429",0,8,0,0,0
+,Dilated Myopathy: Ischemic,,"1,056",0,0,0,0,"1,054",0,2,0,0,0
+,Dilated Myopathy: Myocarditis,,38,0,0,0,0,38,0,0,0,0,0
+,Dilated Myopathy: Other Specify,,571,0,0,0,0,571,0,0,0,0,0
+Acute Hepatic Necrosis,All Diagnosis,,206,0,206,0,0,0,0,0,0,0,0
+,Ahn: Type B- Hbsag+,,11,0,11,0,0,0,0,0,0,0,0
+,Ahn: Type C,,7,0,7,0,0,0,0,0,0,0,0
+,"Metdis: Wilson'S Disease, Other Copper Metabolism",,1,0,1,0,0,0,0,0,0,0,0
+,Plm: Hepatoma (Hcc) And Cirrhosis,,4,0,4,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,3,0,3,0,0,0,0,0,0,0,0
+,"Plm: Other Specify (I.E., Klatzkin Tumor, Leiomys",,1,0,1,0,0,0,0,0,0,0,0
+,Psc: Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,"Bile Duct Cancer: (Cholangioma, Biliary Tract Car",,1,0,1,0,0,0,0,0,0,0,0
+,CYSTIC FIBROSIS,,1,0,1,0,0,0,0,0,0,0,0
+,"Other, Specify",,11,0,11,0,0,0,0,0,0,0,0
+,ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,,3,0,3,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,1,0,1,0,0,0,0,0,0,0,0
+,Ahn: Drug Other Specify,,43,0,43,0,0,0,0,0,0,0,0
+,Choles Liver Disease: Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Autoimmune,,5,0,5,0,0,0,0,0,0,0,0
+,Ahn: Etiology Unknown,,30,0,30,0,0,0,0,0,0,0,0
+,Cirrhosis: Chronic Active Hepatitis: Etiology Unk,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,1,0,1,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,9,0,9,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B- Hbsag+,,2,0,2,0,0,0,0,0,0,0,0
+,"Ahn: Other, Specify (E.G., Acute Viral Infection,",,66,0,66,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,2,0,2,0,0,0,0,0,0,0,0
+,Cirrhosis: Type D,,1,0,1,0,0,0,0,0,0,0,0
+Alpha-1 - Antitrypsin Deficiency,All Diagnosis,,47,0,0,0,0,0,47,0,0,0,0
+,Alpha -. 1. -. Antitrypsin Deficiency,,47,0,0,0,0,0,47,0,0,0,0
+Benign Neoplasms,All Diagnosis,,144,0,144,0,0,0,0,0,0,0,0
+,Benign Tumor: Hepatic Adenoma,,11,0,11,0,0,0,0,0,0,0,0
+,Benign Tumor: Other Specify,,6,0,6,0,0,0,0,0,0,0,0
+,Benign Tumor: Polycystic Liver Disease,,125,0,125,0,0,0,0,0,0,0,0
+,"Other, Specify",,1,0,1,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,1,0,1,0,0,0,0,0,0,0,0
+Biliary Atresia,All Diagnosis,,229,0,229,0,0,0,0,0,0,0,0
+,
+,Plm: Hepatoma (Hcc) And Cirrhosis,,1,0,1,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,1,0,1,0,0,0,0,0,0,0,0
+,"Biliary Atresia Or Hypoplasia: Other, Specify",,33,0,33,0,0,0,0,0,0,0,0
+,"Other, Specify",,9,0,9,0,0,0,0,0,0,0,0
+,Biliary Atresia: Extrahepatic,,154,0,154,0,0,0,0,0,0,0,0
+,Biliary Hypoplasia: Alagille’s Syndrome (Paucity,,23,0,23,0,0,0,0,0,0,0,0
+,Biliary Hypoplasia: Nonsyndromic Paucity Of Intra,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,1,0,1,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,6,0,6,0,0,0,0,0,0,0,0
+Cardiomyopathy,All Diagnosis,,"2,704",0,0,0,0,"2,693",0,11,0,0,0
+,Dilated Myopathy: Post Partum,,39,0,0,0,0,39,0,0,0,0,0
+,Hypertrophic Cardiomyopathy,,186,0,0,0,0,185,0,1,0,0,0
+,Restrictive Myopathy: Amyloidosis,,90,0,0,0,0,90,0,0,0,0,0
+,Restrictive Myopathy: Endocardial Fibros,,2,0,0,0,0,2,0,0,0,0,0
+,Restrictive Myopathy: Idiopathic,,27,0,0,0,0,27,0,0,0,0,0
+,Restrictive Myopathy: Other Specify,,36,0,0,0,0,35,0,1,0,0,0
+,Restrictive Myopathy: Sarcoidosis,,60,0,0,0,0,59,0,1,0,0,0
+,Restrictive Myopathy: Sec To Radiat/Chem,,16,0,0,0,0,16,0,0,0,0,0
+,Dilated Myopathy: Adriamycin,,30,0,0,0,0,30,0,0,0,0,0
+,Dilated Myopathy: Alcoholic,,5,0,0,0,0,5,0,0,0,0,0
+,Dilated Myopathy: Familial,,167,0,0,0,0,167,0,0,0,0,0
+,Dilated Myopathy: Idiopathic,,"1,437",0,0,0,0,"1,429",0,8,0,0,0
+,Dilated Myopathy: Myocarditis,,38,0,0,0,0,38,0,0,0,0,0
+,Dilated Myopathy: Other Specify,,571,0,0,0,0,571,0,0,0,0,0
+Cholestatic Liver Disease/Cirrhosis,All Diagnosis,,"3,340",0,"3,340",0,0,0,0,0,0,0,0
+,Ahn: Type D,,1,0,1,0,0,0,0,0,0,0,0
+,Graft Failure,,2,0,2,0,0,0,0,0,0,0,0
+,Metdis: Alpha-1-Antitrypsin Defic A-1-A,,9,0,9,0,0,0,0,0,0,0,0
+,Metdis: Hemochromatosis -. Hemosiderosis,,2,0,2,0,0,0,0,0,0,0,0
+,Plm: Cholangiocarcinoma (Ch-Ca),,3,0,3,0,0,0,0,0,0,0,0
+,"Plm: Hemangioendothelioma, Hemangiosarcoma, Angio",,1,0,1,0,0,0,0,0,0,0,0
+,Plm: Hepatoma (Hcc) And Cirrhosis,,104,0,104,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,57,0,57,0,0,0,0,0,0,0,0
+,"Plm: Other Specify (I.E., Klatzkin Tumor, Leiomys",,2,0,2,0,0,0,0,0,0,0,0
+,Primary Biliary Cirrhosis (Pbc),,255,0,255,0,0,0,0,0,0,0,0
+,Psc: Crohn'S Disease,,49,0,49,0,0,0,0,0,0,0,0
+,Psc: No Bowel Disease,,129,0,129,0,0,0,0,0,0,0,0
+,Psc: Other Specify,,40,0,40,0,0,0,0,0,0,0,0
+,Psc: Ulcerative Colitis,,190,0,190,0,0,0,0,0,0,0,0
+,Sec Biliary Cirrhosis: Caroli'S Disease,,6,0,6,0,0,0,0,0,0,0,0
+,Sec Biliary Cirrhosis: Choledochol Cyst,,1,0,1,0,0,0,0,0,0,0,0
+,
+,Sec Biliary Cirrhosis: Other Specify,,8,0,8,0,0,0,0,0,0,0,0
+,"Bile Duct Cancer: (Cholangioma, Biliary Tract Car",,3,0,3,0,0,0,0,0,0,0,0
+,"Other, Specify",,38,0,38,0,0,0,0,0,0,0,0
+,ACUTE ALCOHOL-ASSOCIATED HEPATITIS WITH OR WITHOUT CIRRHOSIS,,3,0,3,0,0,0,0,0,0,0,0
+,ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,,28,0,28,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,"1,809",0,"1,809",0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION AND ALCOHOL-RELATED/ASSOCIATED LIVER DISEASE (METALD),,452,0,452,0,0,0,0,0,0,0,0
+,Choles Liver Disease: Other Specify,,23,0,23,0,0,0,0,0,0,0,0
+,Cirrhosis: Autoimmune,,5,0,5,0,0,0,0,0,0,0,0
+,Cirrhosis: Chronic Active Hepatitis: Etiology Unk,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,21,0,21,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,93,0,93,0,0,0,0,0,0,0,0
+,"Ahn: Other, Specify (E.G., Acute Viral Infection,",,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,3,0,3,0,0,0,0,0,0,0,0
+,Congenital Hepatic Fibrosis,,1,0,1,0,0,0,0,0,0,0,0
+Congenital Heart Disease,All Diagnosis,,423,0,0,0,0,409,1,13,0,0,0
+,Eisenmenger'S Syn: Atrial Septal Defect,,2,0,0,0,0,0,0,2,0,0,0
+,Eisenmenger'S Syn: Vsd,,2,0,0,0,0,0,1,1,0,0,0
+,Congenital Heart Defect -. Prior Surgery Unknown,,4,0,0,0,0,4,0,0,0,0,0
+,Congenital Heart Defect -. With Surgery,,373,0,0,0,0,366,0,7,0,0,0
+,Congenital Heart Defect -. Without Surgery,,42,0,0,0,0,39,0,3,0,0,0
+"Congenital, Rare, Familial, and Metaboli",All Diagnosis,,534,533,0,0,1,0,0,0,0,0,0
+,Fabry'S Disease,,17,17,0,0,0,0,0,0,0,0,0
+,Hypoplasia/Dysplasia/Dysgensis/Agenesis,,226,226,0,0,0,0,0,0,0,0,0
+,Medullary Cystic Disease,,29,29,0,0,0,0,0,0,0,0,0
+,Nephronophthisis,,48,48,0,0,0,0,0,0,0,0,0
+,Prune Belly Syndrome,,18,18,0,0,0,0,0,0,0,0,0
+,Congenital Obstructive Uropathy,,182,181,0,0,1,0,0,0,0,0,0
+,Cystinosis,,14,14,0,0,0,0,0,0,0,0,0
+Coronary Artery Disease,All Diagnosis,,"1,125",0,0,0,0,"1,122",0,3,0,0,0
+,Coronary Artery Disease,,69,0,0,0,0,68,0,1,0,0,0
+,Dilated Myopathy: Ischemic,,"1,056",0,0,0,0,"1,054",0,2,0,0,0
+Cystic Fibrosis,All Diagnosis,,56,0,0,0,0,0,56,0,0,0,0
+,Cystic Fibrosis,,56,0,0,0,0,0,56,0,0,0,0
+Diabetes,All Diagnosis,,"8,907","8,096",0,53,758,0,0,0,0,0,0
+,Diabetes Mellitus -. Type I,,"1,124",600,0,0,524,0,0,0,0,0,0
+,Diabetes Mellitus -. Type I,,44,0,0,44,0,0,0,0,0,0,0
+,Diabetes Mellitus -. Type II,,"7,633","7,402",0,0,231,0,0,0,0,0,0
+,Diabetes Mellitus -. Type II,,9,0,0,9,0,0,0,0,0,0,0
+,Diabetes Mellitus -. Type Other /. Unknown,,97,94,0,0,3,0,0,0,0,0,0
+Emphysema/COPD,All Diagnosis,,592,0,0,0,0,0,590,2,0,0,0
+,
+,Copd/Emphysema,,592,0,0,0,0,0,590,2,0,0,0
+Functional Bowel Problems,All Diagnosis,,6,0,0,0,0,0,0,0,6,0,0
+,Fbp: Hirschsprung'S Disease,,3,0,0,0,0,0,0,0,3,0,0
+,Fbp: Pseudo-Obstruction-Myopathic,,3,0,0,0,0,0,0,0,3,0,0
+Glomerular Disease,All Diagnosis,,"4,797","4,791",0,0,6,0,0,0,0,0,0
+,Focal Glomerular Sclerosis (Focal Segmental -. Fs,,"1,395","1,393",0,0,2,0,0,0,0,0,0
+,Goodpasture'S Syndrome,,47,47,0,0,0,0,0,0,0,0,0
+,Hemolytic Uremic Syndrome,,55,55,0,0,0,0,0,0,0,0,0
+,Henoch-Schoenlein Purpura,,11,11,0,0,0,0,0,0,0,0,0
+,Idio/Post-Inf Crescentic Glomerulonephri,,31,31,0,0,0,0,0,0,0,0,0
+,Iga Nephropathy,,"1,333","1,332",0,0,1,0,0,0,0,0,0
+,Alport'S Syndrome,,262,261,0,0,1,0,0,0,0,0,0
+,Membranous Glomerulonephritis,,162,162,0,0,0,0,0,0,0,0,0
+,Membranous Nephropathy,,121,121,0,0,0,0,0,0,0,0,0
+,Mesangio-Capillary 1. Glomerulonephritis,,14,13,0,0,1,0,0,0,0,0,0
+,Mesangio-Capillary 2. Glomerulonephritis,,3,3,0,0,0,0,0,0,0,0,0
+,Amyloidosis,,70,70,0,0,0,0,0,0,0,0,0
+,Anti-Gbm,,24,24,0,0,0,0,0,0,0,0,0
+,Rapid Progressive Glomerulonephritis (Rpgn),,41,41,0,0,0,0,0,0,0,0,0
+,Sickle Cell Anemia,,19,19,0,0,0,0,0,0,0,0,0
+,Systemic Lupus Erythematosus,,703,703,0,0,0,0,0,0,0,0,0
+,Thin Basement Membrane Disease,,20,20,0,0,0,0,0,0,0,0,0
+,Wegeners Granulomatosis,,81,80,0,0,1,0,0,0,0,0,0
+,Chronic Glomerulonephritis Unspecified,,360,360,0,0,0,0,0,0,0,0,0
+,Chronic Glomerulosclerosis Unspecified,,45,45,0,0,0,0,0,0,0,0,0
+Hypertensive Nephrosclerosis,All Diagnosis,,"5,183","5,162",0,0,21,0,0,0,0,0,0
+,Hypertensive Nephrosclerosis,,"5,183","5,162",0,0,21,0,0,0,0,0,0
+Idiopathic Pulmonary Fibrosis,All Diagnosis,,"1,052",0,0,0,0,0,"1,050",2,0,0,0
+,Iip: Idiopathic Pulmonary Fibrosis (Ipf),,"1,052",0,0,0,0,0,"1,050",2,0,0,0
+Malignant Neoplasms,All Diagnosis,,"1,417",0,"1,417",0,0,0,0,0,0,0,0
+,Ahn: Type B- Hbsag+,,1,0,1,0,0,0,0,0,0,0,0
+,Graft Failure,,4,0,4,0,0,0,0,0,0,0,0
+,Plm: Cholangiocarcinoma (Ch-Ca),,69,0,69,0,0,0,0,0,0,0,0
+,Plm: Fibrolamellar (Fl-Hc),,2,0,2,0,0,0,0,0,0,0,0
+,"Plm: Hemangioendothelioma, Hemangiosarcoma, Angio",,12,0,12,0,0,0,0,0,0,0,0
+,Plm: Hepatoblastoma (Hbl),,35,0,35,0,0,0,0,0,0,0,0
+,Plm: Hepatoma (Hcc) And Cirrhosis,,746,0,746,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,425,0,425,0,0,0,0,0,0,0,0
+,"Plm: Other Specify (I.E., Klatzkin Tumor, Leiomys",,14,0,14,0,0,0,0,0,0,0,0
+,Primary Biliary Cirrhosis (Pbc),,1,0,1,0,0,0,0,0,0,0,0
+,Psc: Crohn'S Disease,,1,0,1,0,0,0,0,0,0,0,0
+,
+,Psc: No Bowel Disease,,3,0,3,0,0,0,0,0,0,0,0
+,Psc: Ulcerative Colitis,,3,0,3,0,0,0,0,0,0,0,0
+,Benign Tumor: Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,Secondary Hepatic Malignancy Other Specify,,32,0,32,0,0,0,0,0,0,0,0
+,"Bile Duct Cancer: (Cholangioma, Biliary Tract Car",,9,0,9,0,0,0,0,0,0,0,0
+,"Other, Specify",,12,0,12,0,0,0,0,0,0,0,0
+,ACUTE ALCOHOL-ASSOCIATED HEPATITIS WITH OR WITHOUT CIRRHOSIS,,1,0,1,0,0,0,0,0,0,0,0
+,ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,,11,0,11,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,18,0,18,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION AND ALCOHOL-RELATED/ASSOCIATED LIVER DISEASE (METALD),,4,0,4,0,0,0,0,0,0,0,0
+,Cirrhosis: Chronic Active Hepatitis: Etiology Unk,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,1,0,1,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,5,0,5,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B- Hbsag+,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,5,0,5,0,0,0,0,0,0,0,0
+Metabolic Disease,All Diagnosis,,237,0,237,0,0,0,0,0,0,0,0
+,Familial Cholestasis: Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,Graft Failure,,2,0,2,0,0,0,0,0,0,0,0
+,Metdis: Alpha-1-Antitrypsin Defic A-1-A,,75,0,75,0,0,0,0,0,0,0,0
+,Metdis: Glyc Stor Dis Type I. (Gsd-I),,2,0,2,0,0,0,0,0,0,0,0
+,Metdis: Glyc Stor Dis Type Iv (Gsd-Iv),,1,0,1,0,0,0,0,0,0,0,0
+,Metdis: Hemochromatosis -. Hemosiderosis,,26,0,26,0,0,0,0,0,0,0,0
+,Metdis: Maple Syrup Urine Disease,,34,0,34,0,0,0,0,0,0,0,0
+,Metdis: Other Specify,,45,0,45,0,0,0,0,0,0,0,0
+,"Metdis: Primary Oxalosis/Oxaluria, Hyperoxaluria",,7,0,7,0,0,0,0,0,0,0,0
+,Metdis: Tyrosinemia,,1,0,1,0,0,0,0,0,0,0,0
+,"Metdis: Wilson'S Disease, Other Copper Metabolism",,27,0,27,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,1,0,1,0,0,0,0,0,0,0,0
+,"Other, Specify",,6,0,6,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,1,0,1,0,0,0,0,0,0,0,0
+,Budd-Chiari Syndrome,,1,0,1,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,2,0,2,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,4,0,4,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,1,0,1,0,0,0,0,0,0,0,0
+Neoplasms,All Diagnosis,,142,141,0,0,1,0,0,0,0,0,0
+,Incidental Carcinoma,,1,1,0,0,0,0,0,0,0,0,0
+,Myeloma,,44,44,0,0,0,0,0,0,0,0,0
+,Renal Cell Carcinoma,,83,83,0,0,0,0,0,0,0,0,0
+,Wilms' Tumor,,14,13,0,0,1,0,0,0,0,0,0
+Non-Cholestatic Cirrhosis,All Diagnosis,,"1,164",0,"1,164",0,0,0,0,0,0,0,0
+,Ahn: Type B- Hbsag+,,7,0,7,0,0,0,0,0,0,0,0
+,
+,Ahn: Type C,,5,0,5,0,0,0,0,0,0,0,0
+,Graft Failure,,2,0,2,0,0,0,0,0,0,0,0
+,"Metdis: Wilson'S Disease, Other Copper Metabolism",,1,0,1,0,0,0,0,0,0,0,0
+,"Plm: Hemangioendothelioma, Hemangiosarcoma, Angio",,1,0,1,0,0,0,0,0,0,0,0
+,Plm: Hepatoma (Hcc) And Cirrhosis,,34,0,34,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,25,0,25,0,0,0,0,0,0,0,0
+,"Plm: Other Specify (I.E., Klatzkin Tumor, Leiomys",,1,0,1,0,0,0,0,0,0,0,0
+,Primary Biliary Cirrhosis (Pbc),,2,0,2,0,0,0,0,0,0,0,0
+,Psc: No Bowel Disease,,1,0,1,0,0,0,0,0,0,0,0
+,Psc: Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,"Other, Specify",,33,0,33,0,0,0,0,0,0,0,0
+,ACUTE ALCOHOL-ASSOCIATED HEPATITIS WITH OR WITHOUT CIRRHOSIS,,1,0,1,0,0,0,0,0,0,0,0
+,ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,,9,0,9,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,31,0,31,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION AND ALCOHOL-RELATED/ASSOCIATED LIVER DISEASE (METALD),,5,0,5,0,0,0,0,0,0,0,0
+,Choles Liver Disease: Other Specify,,3,0,3,0,0,0,0,0,0,0,0
+,Cirrhosis: Autoimmune,,277,0,277,0,0,0,0,0,0,0,0
+,Cirrhosis: Chronic Active Hepatitis: Etiology Unk,,8,0,8,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,236,0,236,0,0,0,0,0,0,0,0
+,Cirrhosis: Drug/Indust Exposure Other Specify,,11,0,11,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,126,0,126,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B. And C,,4,0,4,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B. And D,,4,0,4,0,0,0,0,0,0,0,0
+,Cirrhosis: Type B- Hbsag+,,93,0,93,0,0,0,0,0,0,0,0
+,"Ahn: Other, Specify (E.G., Acute Viral Infection,",,2,0,2,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,241,0,241,0,0,0,0,0,0,0,0
+Not Reported,All Diagnosis,,50,25,2,0,0,5,8,4,0,0,6
+,Not Reported,,50,25,2,0,0,5,8,4,0,0,6
+Other,All Diagnosis,,"10,105","3,748","5,605",45,7,174,493,4,25,1,3
+,Abca3 Transporter Mutation,,4,0,0,0,0,0,4,0,0,0,0
+,Ahn: Type B- Hbsag+,,2,0,2,0,0,0,0,0,0,0,0
+,Ahn: Type C,,2,0,2,0,0,0,0,0,0,0,0
+,Familial Cholestasis: Byler'S Disease,,3,0,3,0,0,0,0,0,0,0,0
+,Familial Cholestasis: Other Specify,,8,0,8,0,0,0,0,0,0,0,0
+,Familial Nephropathy,,13,13,0,0,0,0,0,0,0,0,0
+,Graft Failure,,212,0,212,0,0,0,0,0,0,0,0
+,Hepatorenal Syndrome,,588,588,0,0,0,0,0,0,0,0,0
+,Hiv Nephropathy,,107,107,0,0,0,0,0,0,0,0,0
+,Iip: Acute Interstitial Pneumonia,,6,0,0,0,0,0,6,0,0,0,0
+,Iip: Nonspecific Interstitial Pneumonia,,164,0,0,0,0,0,164,0,0,0,0
+,Iip: Respiratory Bronchiolitis,,1,0,0,0,0,0,1,0,0,0,0
+,
+,Intestinal Disease Other Specify,,2,0,0,0,0,0,0,0,2,0,0
+,Lithium Toxicity,,113,113,0,0,0,0,0,0,0,0,0
+,Lung Re-Tx/Gf: Obliterative Bronchiolitis-Obstruc,,50,0,0,0,0,0,50,0,0,0,0
+,Lung Re-Tx/Gf: Obliterative Bronchiolitis-Restric,,17,0,0,0,0,0,17,0,0,0,0
+,Metdis: Alpha-1-Antitrypsin Defic A-1-A,,3,0,3,0,0,0,0,0,0,0,0
+,Metdis: Hemochromatosis -. Hemosiderosis,,3,0,3,0,0,0,0,0,0,0,0
+,"Metdis: Wilson'S Disease, Other Copper Metabolism",,1,0,1,0,0,0,0,0,0,0,0
+,Muscular Dystrophy: Other Specify,,5,0,0,0,0,5,0,0,0,0,0
+,Neonatal Cholestatic Liver Disease,,5,0,5,0,0,0,0,0,0,0,0
+,Neonatal Hepatitis Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,Other Cancers,,1,0,0,1,0,0,0,0,0,0,0
+,Plm: Cholangiocarcinoma (Ch-Ca),,3,0,3,0,0,0,0,0,0,0,0
+,Plm: Hepatoma (Hcc) And Cirrhosis,,74,0,74,0,0,0,0,0,0,0,0
+,Plm: Hepatoma -. Hepatocellular Carcinoma,,45,0,45,0,0,0,0,0,0,0,0
+,"Plm: Other Specify (I.E., Klatzkin Tumor, Leiomys",,1,0,1,0,0,0,0,0,0,0,0
+,Primary Biliary Cirrhosis (Pbc),,3,0,3,0,0,0,0,0,0,0,0
+,Arrhythmogenic Right Ventricular Dysplasia/Cardio,,49,0,0,0,0,49,0,0,0,0,0
+,Benign Tumor: Hepatic Adenoma,,4,0,4,0,0,0,0,0,0,0,0
+,Secondary Hepatic Malignancy Other Specify,,3,0,3,0,0,0,0,0,0,0,0
+,Secondary Pulmonary Hypertension,,1,0,0,0,0,0,1,0,0,0,0
+,Surfactant Protein C. Deficiency,,2,0,0,0,0,0,2,0,0,0,0
+,"Bile Duct Cancer: (Cholangioma, Biliary Tract Car",,1,0,1,0,0,0,0,0,0,0,0
+,Tpn/Hyperalimentation Ind Liver Disease,,18,0,18,0,0,0,0,0,0,0,0
+,Trauma Other Specify,,1,0,1,0,0,0,0,0,0,0,0
+,CYSTIC FIBROSIS,,19,0,19,0,0,0,0,0,0,0,0
+,"Other, Specify",,"3,642","2,927",534,43,7,103,3,2,23,0,0
+,Congenital,,1,0,0,0,0,0,0,0,0,0,1
+,Malignancy,,1,0,0,0,0,0,0,0,0,1,0
+,Biliary Atresia: Extrahepatic,,3,0,3,0,0,0,0,0,0,0,0
+,Other Specify,,2,0,0,0,0,0,0,0,0,0,2
+,DILATED MYOPATHY: VIRAL (NOT COVID-19),,15,0,0,0,0,15,0,0,0,0,0
+,COVID-19: DILATED MYOPATHY: ACTIVE MYOCARDITIS,,1,0,0,0,0,1,0,0,0,0,0
+,COVID-19: DILATED MYOPATHY: HISTORY OF MYOCARDITIS,,1,0,0,0,0,1,0,0,0,0,0
+,COVID-19: ARDS,,5,0,0,0,0,0,4,1,0,0,0
+,COVID-19: PULMONARY FIBROSIS,,39,0,0,0,0,0,39,0,0,0,0
+,ACUTE ALCOHOL-ASSOCIATED HEPATITIS WITH OR WITHOUT CIRRHOSIS,,798,0,798,0,0,0,0,0,0,0,0
+,ALCOHOL-ASSOCIATED CIRRHOSIS WITHOUT ACUTE ALCOHOL-ASSOCIATED HEPATITIS,,"3,359",0,"3,359",0,0,0,0,0,0,0,0
+,COMBINED PULMONARY FIBROSIS AND EMPHYSEMA (CPFE),,201,0,0,0,0,0,200,1,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION - ASSOCIATED STEATOHEPATITIS (MASH),,151,0,151,0,0,0,0,0,0,0,0
+,CIRRHOSIS: METABOLIC DYSFUNCTION AND ALCOHOL-RELATED/ASSOCIATED LIVER DISEASE (METALD),,44,0,44,0,0,0,0,0,0,0,0
+,PULMONARY LYMPHANGIECTASIA (PL),,2,0,0,0,0,0,2,0,0,0,0
+,
+,Budd-Chiari Syndrome,,37,0,37,0,0,0,0,0,0,0,0
+,Choles Liver Disease: Other Specify,,6,0,6,0,0,0,0,0,0,0,0
+,Cirrhosis: Autoimmune,,5,0,5,0,0,0,0,0,0,0,0
+,Ahn: Etiology Unknown,,2,0,2,0,0,0,0,0,0,0,0
+,Cirrhosis: Chronic Active Hepatitis: Etiology Unk,,6,0,6,0,0,0,0,0,0,0,0
+,Cirrhosis: Cryptogenic (Idiopathic),,19,0,19,0,0,0,0,0,0,0,0
+,"Cirrhosis: Other, Specify (E.G., Histiocytosis, S",,204,0,204,0,0,0,0,0,0,0,0
+,"Ahn: Other, Specify (E.G., Acute Viral Infection,",,2,0,2,0,0,0,0,0,0,0,0
+,Cirrhosis: Type C,,7,0,7,0,0,0,0,0,0,0,0
+,Congenital Hepatic Fibrosis,,16,0,16,0,0,0,0,0,0,0,0
+,Diabetes Secondary To Cystic Fibrosis Without Pan,,1,0,0,1,0,0,0,0,0,0,0
+Other Cardiac Disease,All Diagnosis,,1,0,0,0,0,1,0,0,0,0,0
+,Cancer,,1,0,0,0,0,1,0,0,0,0,0
+Other Lung Disease,All Diagnosis,,"1,164",0,0,0,0,0,"1,155",9,0,0,0
+,Eosinophilic Granuloma,,3,0,0,0,0,0,3,0,0,0,0
+,Fibrocavitary Lung Disease,,2,0,0,0,0,0,2,0,0,0,0
+,Graft-Vs-Host Disease (Gvhd),,11,0,0,0,0,0,11,0,0,0,0
+,Granulomatous Lung Disease,,1,0,0,0,0,0,1,0,0,0,0
+,Hermansky Pudlak Syndrome,,2,0,0,0,0,0,2,0,0,0,0
+,Hypersensitivity Pneumonitis,,178,0,0,0,0,0,178,0,0,0,0
+,Hypogammaglobulinemia,,1,0,0,0,0,0,1,0,0,0,0
+,Idiopathic Pulmonary Hemosiderosis,,1,0,0,0,0,0,1,0,0,0,0
+,Iip: Boop/Cop,,2,0,0,0,0,0,2,0,0,0,0
+,Iip: Lymphocytic Interstitial Pneumonia (Lip),,5,0,0,0,0,0,5,0,0,0,0
+,Inhalation Burns/Trauma,,1,0,0,0,0,0,1,0,0,0,0
+,Kartagener'S Syndrome,,2,0,0,0,0,0,2,0,0,0,0
+,Alveolar Proteinosis,,1,0,0,0,0,0,1,0,0,0,0
+,Lupus,,7,0,0,0,0,0,7,0,0,0,0
+,Lymphangioleiomyomatosis,,13,0,0,0,0,0,13,0,0,0,0
+,Mixed Connective Tissue Disease,,98,0,0,0,0,0,97,1,0,0,0
+,Obliterative Bronchiolitis (Non-Retransplant),,31,0,0,0,0,0,31,0,0,0,0
+,Obstructive Lung Disease,,1,0,0,0,0,0,1,0,0,0,0
+,Occupational Lung Disease Other Specify,,11,0,0,0,0,0,11,0,0,0,0
+,Polymyositis,,18,0,0,0,0,0,18,0,0,0,0
+,Primary Ciliary Dyskinesia,,4,0,0,0,0,0,4,0,0,0,0
+,Ards/Pneumonia,,31,0,0,0,0,0,30,1,0,0,0
+,Pulmonary Fibrosis Other Specify Cause,,396,0,0,0,0,0,393,3,0,0,0
+,Pulmonary Telangiectasia -. Restrictive,,1,0,0,0,0,0,1,0,0,0,0
+,Pulmonary Thromboembolic Disease,,1,0,0,0,0,0,1,0,0,0,0
+,Pulmonary Vascular Disease,,3,0,0,0,0,0,3,0,0,0,0
+,Pulmonary Veno-Occlusive Disease,,10,0,0,0,0,0,9,1,0,0,0
+,
+,Rheumatoid Disease,,53,0,0,0,0,0,53,0,0,0,0
+,Sarcoidosis,,72,0,0,0,0,0,70,2,0,0,0
+,Scleroderma -. Pulmonary Hypertension,,17,0,0,0,0,0,17,0,0,0,0
+,Scleroderma -. Restrictive,,48,0,0,0,0,0,48,0,0,0,0
+,Silicosis,,28,0,0,0,0,0,28,0,0,0,0
+,Sjogren'S Syndrome,,21,0,0,0,0,0,21,0,0,0,0
+,Surfactant Protein B. Deficiency,,2,0,0,0,0,0,2,0,0,0,0
+,Wegener'S Granuloma -. Restrictive,,1,0,0,0,0,0,1,0,0,0,0
+,Bronchiectasis,,71,0,0,0,0,0,70,1,0,0,0
+,Bronchioloalveolar Carcinoma (Bac),,3,0,0,0,0,0,3,0,0,0,0
+,Bronchopulmonary Dysplasia,,3,0,0,0,0,0,3,0,0,0,0
+,Carcinoid Tumorlets,,2,0,0,0,0,0,2,0,0,0,0
+,Congenital Malformation,,2,0,0,0,0,0,2,0,0,0,0
+,Constrictive Bronchiolitis,,5,0,0,0,0,0,5,0,0,0,0
+,Crest -. Pulmonary Hypertension,,1,0,0,0,0,0,1,0,0,0,0
+Polycystic Kidneys,All Diagnosis,,"1,964","1,963",0,0,1,0,0,0,0,0,0
+,Polycystic Kidneys,,"1,964","1,963",0,0,1,0,0,0,0,0,0
+Primary Pulmonary Hypertension,All Diagnosis,,69,0,0,0,0,0,59,10,0,0,0
+,Pulmonary Hypertension/Pulmonary Arterial Hyperte,,69,0,0,0,0,0,59,10,0,0,0
+Renovascular and Other Vascular Disease,All Diagnosis,,186,186,0,0,0,0,0,0,0,0,0
+,Malignant Hypertension,,142,142,0,0,0,0,0,0,0,0,0
+,Polyarteritis,,3,3,0,0,0,0,0,0,0,0,0
+,Renal Artery Thrombosis,,4,4,0,0,0,0,0,0,0,0,0
+,Scleroderma,,7,7,0,0,0,0,0,0,0,0,0
+,Chronic Nephrosclerosis-Unspecified,,30,30,0,0,0,0,0,0,0,0,0
+Retransplant/Graft Failure,All Diagnosis,,"2,205","2,019",0,9,5,130,31,1,10,0,0
+,Graft Failure,,4,0,0,0,0,0,0,0,4,0,0
+,Heart Re-Tx/Gf: Acute Rejection,,3,0,0,0,0,3,0,0,0,0,0
+,Heart Re-Tx/Gf: Chronic Rejection,,19,0,0,0,0,19,0,0,0,0,0
+,Heart Re-Tx/Gf: Coronary Artery Disease,,78,0,0,0,0,78,0,0,0,0,0
+,Heart Re-Tx/Gf: Non-Specific,,4,0,0,0,0,4,0,0,0,0,0
+,Heart Re-Tx/Gf: Other Specify,,10,0,0,0,0,10,0,0,0,0,0
+,Heart Re-Tx/Gf: Primary Failure,,11,0,0,0,0,11,0,0,0,0,0
+,Heart Re-Tx/Gf: Restrictive/Constrictive,,6,0,0,0,0,5,0,1,0,0,0
+,Lung Re-Tx/Gf: Acute Rejection,,2,0,0,0,0,0,2,0,0,0,0
+,Lung Re-Tx/Gf: Non-Specific,,4,0,0,0,0,0,4,0,0,0,0
+,Lung Re-Tx/Gf: Obstructive,,8,0,0,0,0,0,8,0,0,0,0
+,Lung Re-Tx/Gf: Other Specify,,7,0,0,0,0,0,7,0,0,0,0
+,Lung Re-Tx/Gf: Primary Graft Failure,,5,0,0,0,0,0,5,0,0,0,0
+,Lung Re-Tx/Gf: Restrictive,,5,0,0,0,0,0,5,0,0,0,0
+,Retransplant/Graft Failure,,"2,024","2,019",0,0,5,0,0,0,0,0,0
+,
+,RETRANSPLANT/GRAFT FAILURE,,9,0,0,9,0,0,0,0,0,0,0
+,RETRANSPLANT,,6,0,0,0,0,0,0,0,6,0,0
+Short Gut Syndrome,All Diagnosis,,47,0,0,0,0,0,0,0,47,0,0
+,Sgs: Gastroschisis,,5,0,0,0,0,0,0,0,5,0,0
+,Sgs: Intestinal Atresia,,5,0,0,0,0,0,0,0,5,0,0
+,Sgs: Intestinal Volvulus Secondary To Adhesions,,1,0,0,0,0,0,0,0,1,0,0
+,Sgs: Intestinal Volvulus Secondary To Malrotation,,4,0,0,0,0,0,0,0,4,0,0
+,Sgs: Mass Resect Sec To Inf Bowel-Crohns,,3,0,0,0,0,0,0,0,3,0,0
+,Sgs: Mass Resect Sec To Mes Venous Throm,,3,0,0,0,0,0,0,0,3,0,0
+,Sgs: Mass Resect Sec To Tumor,,2,0,0,0,0,0,0,0,2,0,0
+,Sgs: Massive Resection Secondary To Mesenteric Ar,,4,0,0,0,0,0,0,0,4,0,0
+,Sgs: Necrotizing Enterocolitis,,1,0,0,0,0,0,0,0,1,0,0
+,Sgs: Other Specify,,18,0,0,0,0,0,0,0,18,0,0
+,Sgs: Unspecified,,1,0,0,0,0,0,0,0,1,0,0
+Tubular and Interstitial Diseases,All Diagnosis,,914,910,0,0,4,0,0,0,0,0,0
+,Drug Related Interstitial Nephritis,,45,45,0,0,0,0,0,0,0,0,0
+,Gout,,5,5,0,0,0,0,0,0,0,0,0
+,Heroin Nephrotoxicity,,1,1,0,0,0,0,0,0,0,0,0
+,Acquired Obstructive Nephropathy,,108,108,0,0,0,0,0,0,0,0,0
+,Analgesic Nephropathy,,36,35,0,0,1,0,0,0,0,0,0
+,Nephritis,,107,106,0,0,1,0,0,0,0,0,0
+,Nephrolithiasis,,63,63,0,0,0,0,0,0,0,0,0
+,Oxalate Nephropathy (Includes Hereditary Oxalosis,,30,30,0,0,0,0,0,0,0,0,0
+,Antibiotic-Induced Nephritis,,6,6,0,0,0,0,0,0,0,0,0
+,Pre-Bmtransplantation Total Body Irradiation,,1,1,0,0,0,0,0,0,0,0,0
+,Radiation Nephritis,,4,4,0,0,0,0,0,0,0,0,0
+,Sarcoidosis,,20,20,0,0,0,0,0,0,0,0,0
+,Urolithiasis,,1,1,0,0,0,0,0,0,0,0,0
+,Acute Tubular Necrosis,,139,137,0,0,2,0,0,0,0,0,0
+,Calcineurin Inhibitor Nephrotoxicity,,209,209,0,0,0,0,0,0,0,0,0
+,Cancer Chemotherapy Induced Nephritis,,21,21,0,0,0,0,0,0,0,0,0
+,Chronic Pyelonephritis/Reflux Nephropath,,98,98,0,0,0,0,0,0,0,0,0
+,Cortical Necrosis,,20,20,0,0,0,0,0,0,0,0,0
+Valvular Heart Disease,All Diagnosis,,55,0,0,0,0,53,0,2,0,0,0
+,Valvular Heart Disease,,55,0,0,0,0,53,0,2,0,0,0

@@ -1,0 +1,16 @@
+,,All Ethnicities,"White, Non-Hispanic","Black, Non-Hispanic",Hispanic/Latino,Unknown,"Asian, Non-Hispanic","American Indian/Alaska Native, Non-Hispanic","Pacific Islander, Non-Hispanic","Multiracial, Non-Hispanic"
+All Multiple Organ,,"1,436",791,258,257,34,65,17,6,8
+Liver-Pancreas,,1,1,0,0,0,0,0,0,0
+Kidney-Intestine,,3,3,0,0,0,0,0,0,0
+Intestine-Pancreas,,6,4,1,0,1,0,0,0,0
+Liver-Intestine,,1,1,0,0,0,0,0,0,0
+VCA-Kidney,,1,0,0,1,0,0,0,0,0
+Liver-Intestine-Pancreas,,37,22,3,9,1,2,0,0,0
+Liver-Kidney-Intestine-Pancreas,,5,4,1,0,0,0,0,0,0
+Kidney-Heart,,361,130,149,46,11,18,2,3,2
+Liver-Heart,,92,63,6,9,7,6,1,0,0
+Liver-Kidney-Heart,,9,1,2,6,0,0,0,0,0
+Kidney-Lung,,16,9,4,2,1,0,0,0,0
+Liver-Lung,,39,26,4,8,0,1,0,0,0
+Liver-Kidney,,864,527,87,176,13,38,14,3,6
+Kidney-Heart-Lung,,1,0,1,0,0,0,0,0,0

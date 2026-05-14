@@ -1,0 +1,16 @@
+,,All Citizenship,U.S. Citizen,Non-US Citizen/US Resident,"Non-US Citzn/Non-US Res,To US not for TX","Non-US Citzn/Non-US Res,To US for TX"
+All Multiple Organ,,"1,436","1,339",65,20,12
+Liver-Pancreas,,1,1,0,0,0
+Kidney-Intestine,,3,3,0,0,0
+Intestine-Pancreas,,6,6,0,0,0
+Liver-Intestine,,1,1,0,0,0
+VCA-Kidney,,1,0,0,1,0
+Liver-Intestine-Pancreas,,37,34,2,0,1
+Liver-Kidney-Intestine-Pancreas,,5,4,1,0,0
+Kidney-Heart,,361,343,11,4,3
+Liver-Heart,,92,84,0,2,6
+Liver-Kidney-Heart,,9,8,0,1,0
+Kidney-Lung,,16,15,1,0,0
+Liver-Lung,,39,38,1,0,0
+Liver-Kidney,,864,801,49,12,2
+Kidney-Heart-Lung,,1,1,0,0,0

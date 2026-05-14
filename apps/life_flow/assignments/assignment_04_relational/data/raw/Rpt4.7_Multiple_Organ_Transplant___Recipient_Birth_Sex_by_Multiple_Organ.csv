@@ -1,0 +1,16 @@
+,,All Genders,Male,Female
+All Multiple Organ,,"1,436",889,547
+Liver-Pancreas,,1,0,1
+Kidney-Intestine,,3,3,0
+Intestine-Pancreas,,6,3,3
+Liver-Intestine,,1,0,1
+VCA-Kidney,,1,1,0
+Liver-Intestine-Pancreas,,37,25,12
+Liver-Kidney-Intestine-Pancreas,,5,3,2
+Kidney-Heart,,361,278,83
+Liver-Heart,,92,58,34
+Liver-Kidney-Heart,,9,6,3
+Kidney-Lung,,16,9,7
+Liver-Lung,,39,31,8
+Liver-Kidney,,864,471,393
+Kidney-Heart-Lung,,1,1,0

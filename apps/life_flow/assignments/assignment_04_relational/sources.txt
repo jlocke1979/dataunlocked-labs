@@ -1,0 +1,13 @@
+
+All Reports can be re-created by following this link: 
+
+Source: https://hrsa.unos.org/data/view-data-reports/build-advanced/?category=1%3BDonor
+
+
+For detail instruction on how to recreate all raw data report: 
+
+See the detailed Walk-Throughs all raw data reports, located here: 
+
+lifeflow/assignments/assignment_04_relational/data/notes/Dictionary_of_Reports_OPTN_Advanced_reports.txt
+
+

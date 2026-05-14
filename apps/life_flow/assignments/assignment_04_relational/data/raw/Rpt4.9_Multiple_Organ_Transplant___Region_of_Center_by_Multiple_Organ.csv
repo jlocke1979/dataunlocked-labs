@@ -1,0 +1,16 @@
+,,All Regions,Region  1,Region  2,Region  3,Region  4,Region  5,Region  6,Region  7,Region  8,Region  9,Region  10,Region  11
+All Multiple Organ,,"1,436",82,97,195,168,246,31,117,89,136,124,151
+Liver-Pancreas,,1,0,0,0,0,0,0,0,0,0,0,1
+Kidney-Intestine,,3,0,0,0,0,0,0,1,0,1,1,0
+Intestine-Pancreas,,6,0,1,0,0,0,0,0,0,1,4,0
+Liver-Intestine,,1,0,1,0,0,0,0,0,0,0,0,0
+VCA-Kidney,,1,0,0,0,0,1,0,0,0,0,0,0
+Liver-Intestine-Pancreas,,37,0,8,9,0,2,0,0,6,4,5,3
+Liver-Kidney-Intestine-Pancreas,,5,0,1,1,0,0,0,0,0,1,1,1
+Kidney-Heart,,361,33,30,41,35,59,7,20,24,40,22,50
+Liver-Heart,,92,2,15,10,11,13,3,7,6,11,5,9
+Liver-Kidney-Heart,,9,0,0,1,0,1,0,3,0,4,0,0
+Kidney-Lung,,16,1,0,1,2,1,0,8,1,1,0,1
+Liver-Lung,,39,1,1,7,5,4,1,4,0,8,5,3
+Liver-Kidney,,864,45,40,125,115,165,20,74,52,64,81,83
+Kidney-Heart-Lung,,1,0,0,0,0,0,0,0,0,1,0,0

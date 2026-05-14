@@ -1,0 +1,38 @@
+,,All Organs,Kidney,Liver,Pancreas,Kidney / Pancreas,Heart,Lung,Heart / Lung,Intestine,VCA - abdominal wall,VCA - head and neck,VCA - upper limb,VCA - uterus
+All Types,,"109,318","95,036","8,822",837,"2,382","4,054","1,030",30,169,1,2,2,4
+Liver: Status 1A,,5,0,5,0,0,0,0,0,0,0,0,0,0
+Liver: Status 1B,,20,0,20,0,0,0,0,0,0,0,0,0,0
+Liver: MELD / PELD <15,,"3,232",0,"3,232",0,0,0,0,0,0,0,0,0,0
+Liver: MELD / PELD 15-19,,"1,906",0,"1,906",0,0,0,0,0,0,0,0,0,0
+Liver: MELD / PELD 20-24,,"1,005",0,"1,005",0,0,0,0,0,0,0,0,0,0
+Liver: MELD / PELD 25-29,,212,0,212,0,0,0,0,0,0,0,0,0,0
+Liver: MELD / PELD 30-34,,82,0,82,0,0,0,0,0,0,0,0,0,0
+Liver: MELD / PELD 35+,,57,0,57,0,0,0,0,0,0,0,0,0,0
+Liver: Status Inactive,,"2,354",0,"2,354",0,0,0,0,0,0,0,0,0,0
+Heart: Status 1A,,217,0,0,0,0,217,0,0,0,0,0,0,0
+Heart: Status 1B,,157,0,0,0,0,157,0,0,0,0,0,0,0
+Heart: Status 2,,67,0,0,0,0,67,0,0,0,0,0,0,0
+Heart: Adult Status 1,,33,0,0,0,0,33,0,0,0,0,0,0,0
+Heart: Adult Status 2,,252,0,0,0,0,252,0,0,0,0,0,0,0
+Heart: Adult Status 3,,176,0,0,0,0,176,0,0,0,0,0,0,0
+Heart: Adult Status 4,,"1,751",0,0,0,0,"1,751",0,0,0,0,0,0,0
+Heart: Adult Status 5,,143,0,0,0,0,143,0,0,0,0,0,0,0
+Heart: Adult Status 6,,576,0,0,0,0,576,0,0,0,0,0,0,0
+Heart: Status 7 (Inactive),,690,0,0,0,0,690,0,0,0,0,0,0,0
+"Lung/Heart-Lung: Less Than 12 Years, Priority 1",,8,0,0,0,0,0,8,0,0,0,0,0,0
+"Lung/Heart-Lung: Less Than 12 Years, Priority 2",,11,0,0,0,0,0,11,3,0,0,0,0,0
+Lung/Heart-Lung: CAS < 20.0,,250,0,0,0,0,0,250,5,0,0,0,0,0
+Lung/Heart-Lung: CAS 20.0 to < 21.0,,84,0,0,0,0,0,84,3,0,0,0,0,0
+Lung/Heart-Lung: CAS 21.0 to < 22.0,,74,0,0,0,0,0,74,0,0,0,0,0,0
+Lung/Heart-Lung: CAS 22.0 to < 23.0,,102,0,0,0,0,0,101,2,0,0,0,0,0
+Lung/Heart-Lung: CAS 23.0 to < 24.0,,206,0,0,0,0,0,206,1,0,0,0,0,0
+Lung/Heart-Lung: CAS 24.0+,,298,0,0,0,0,0,298,11,0,0,0,0,0
+Lung/Heart-Lung: Inactive,,5,0,0,0,0,0,0,5,0,0,0,0,0
+Intestine: Status 1,,83,0,0,0,0,0,0,0,83,0,0,0,0
+Intestine: Non-urgent,,27,0,0,0,0,0,0,0,27,0,0,0,0
+Intestine: Temporarily inactive,,59,0,0,0,0,0,0,0,59,0,0,0,0
+Kidney/Pancreas/Kidney-Pancreas: Active,,"51,856","50,996",0,162,"1,294",0,0,0,0,0,0,0,0
+Kidney/Panc/Kidney-Panc: Active-Medically urgent,,4,4,0,0,0,0,0,0,0,0,0,0,0
+Kidney/Panc/Kidney-Panc: Temporarily inactive,,"47,485","46,364",0,679,"1,124",0,0,0,0,0,0,0,0
+VCA: Active,,7,0,0,0,0,0,0,0,0,0,1,2,4
+VCA: Inactive,,2,0,0,0,0,0,0,0,0,1,1,0,0

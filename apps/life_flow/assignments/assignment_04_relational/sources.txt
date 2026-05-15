@@ -1,13 +1,30 @@
 
 All Reports can be re-created by following this link: 
 
+
+# Source 1 -  OPTN Advanced Data Portal 
+
 Source: https://hrsa.unos.org/data/view-data-reports/build-advanced/?category=1%3BDonor
 
-
+Important Note for Source 1:
 For detail instruction on how to recreate all raw data report: 
-
 See the detailed Walk-Throughs all raw data reports, located here: 
-
 lifeflow/assignments/assignment_04_relational/data/notes/Dictionary_of_Reports_OPTN_Advanced_reports.txt
 
 
+
+# Source 2
+# Key Questions: AHow many registered donors in U.S.? in 20205, how many die in a given year?
+
+# Answers:
+Source 2a: 
+HRSA: "170 million people in the U.S. were registered donors as of 2023"
+
+Sourde 2b: 
+Donate Life America’s 2025 statistics sheet says more than 170 million registered organ, eye, and tissue donors. 
+
+Source 2c: 
+HRSA also notes only 3 in 1,000 people die in a way that allows deceased organ donation, 
+Insight = Registration does not translate vailable organs.  
+Health Resources and Services Administration. 2025. “Organ Donation Statistics.” 
+Organdonor.gov. Last reviewed May 2025.

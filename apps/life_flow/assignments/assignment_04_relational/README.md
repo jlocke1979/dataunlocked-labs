@@ -25,10 +25,10 @@ https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/index_
 
 | Artifact | Location |
 |----------|----------|
-| Final image | `final/final_heatmap.png` (source: `exploratory/iteration_17_final_heatmap.png`) |
+| Final image | `final/final_heatmap.png` (source: `exploratory/output/iteration_17_final_heatmap.png`) |
 | Final slide | `final/final_slide.pdf` |
 | EDA & code | `exploratory/eda.ipynb` (search `ITERATION 17 CODE START`) |
-| Color backup | `exploratory/iteration_16f_charcoal_forrest.png` |
+| Color backup | `exploratory/output/iteration_16f_charcoal_forrest.png` |
 
 Palette: Charcoal Forrest sequential scale on Museum White, with Life Flow typography and OPTN source citation.
 
@@ -40,15 +40,14 @@ Palette: Charcoal Forrest sequential scale on Museum White, with Life Flow typog
 assignment_04_relational/
 ├── exploratory/
 │   ├── eda.ipynb                      # EDA, iterations, final figure code
-│   ├── eda_archive1.ipynb             # frozen notebook backup
-│   └── iteration_*.png                # saved chart iterations
+│   ├── backup/
+│   │   └── eda_archive1.ipynb         # frozen notebook backup
+│   └── output/
+│       └── iteration_*.png            # saved chart iterations
 ├── data/
 │   ├── raw/                           # OPTN Advanced Report CSV exports
 │   ├── notes/                         # report dictionary / field notes
 │   └── processed/                     # derived tables (if used)
-├── scripts/
-│   ├── preprocess.py                  # optional preprocessing stubs
-│   └── visualization.js               # optional web helpers
 ├── final/
 │   ├── final_heatmap.png              # submission heatmap
 │   └── final_slide.pdf                # printable slide

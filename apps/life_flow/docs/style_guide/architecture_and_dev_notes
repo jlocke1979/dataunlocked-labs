@@ -59,10 +59,10 @@ Possible interactions:
 ## Data Sources
 
 Potential authoritative sources:
-- OPTN
-- UNOS
-- SRTR
-- HRSA organ donation statistics
+- OPTN - Primary data source 
+- UNOS - used for multi-organ views only 
+- SRTR -  possible future source
+- HRSA organ donation statistics - possible future source)
 
 ## Repo Organization Goal
 

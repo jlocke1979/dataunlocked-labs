@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSDS 455 – Assignment 04 | Relational Data</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --text: #202623;
+      --muted: #5a5a56;
+      --rule: #d8d6d0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      font-family: Georgia, "Palatino Linotype", Palatino, serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+      text-align: center;
+    }
+
+    .assignment-title {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 2rem;
+    }
+
+    .viz-title {
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      font-size: clamp(1.35rem, 3.2vw, 1.65rem);
+      font-weight: 700;
+      margin: 0 0 0.65rem;
+      line-height: 1.25;
+    }
+
+    .viz-subtitle {
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      color: var(--muted);
+      margin: 0 auto 2rem;
+      max-width: 38em;
+      line-height: 1.5;
+    }
+
+    figure {
+      margin: 0;
+      padding: 0;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .pdf-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.82rem;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .pdf-link:hover {
+      border-bottom-color: var(--text);
+    }
+
+    .source {
+      margin-top: 2.5rem;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="assignment-title">MSDS 455 – Assignment 04 | Relational Data</p>
+
+    <h1 class="viz-title">Distribution of Wait Times by Organ</h1>
+    <p class="viz-subtitle">
+      Kidney candidates face substantially longer waiting periods, while most lung candidates are transplanted within six months.
+    </p>
+
+    <figure>
+      <img
+        src="assignment_04_relational/final/final_heatmap.png"
+        alt="Heatmap of wait-time distributions by organ."
+      />
+    </figure>
+
+    <a class="pdf-link" href="assignment_04_relational/final/final_slide.pdf">Download PDF</a>
+
+    <p class="source">
+      Source: Organ Procurement and Transplantation Network (OPTN). 2025. OPTN Advanced Reports.
+    </p>
+  </main>
+</body>
+</html>

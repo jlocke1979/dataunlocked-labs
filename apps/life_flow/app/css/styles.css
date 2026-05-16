@@ -9,3 +9,22 @@ body {
   text-align: center;
   background: #f5f1e8;
 }
+
+/*  Version 1 */
+font-family: "Book Antiqua", Georgia, serif;
+font-family: "Calisto MT", Georgia, serif;
+
+/* Version 2 */
+ 
+
+@font-face {
+  font-family: "Book Antiqua Custom";
+  src: url("../assets/fonts/BookAntiqua-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Calisto MT Custom";
+  src: url("../assets/fonts/CalistoMT-Regular.woff2") format("woff2");
+  font-weight: 400;
+}

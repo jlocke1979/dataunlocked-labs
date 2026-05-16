@@ -1,122 +1,107 @@
-
-
-                                    
-                                    WARNING!!!!
-                < MAY NEED TO RE-REVIEW,...THIS WAS FROM ASSIGNMENT >
-
-
-
-######################################################################################
-######################################################################################
-######################################################################################################################
-
-This section is UPdated notes for Assignment 04 - Use to create new readme at end of assignment
-
-# Current Direction Summary
-
-Iteration 1–2:
-Heatmaps revealed strong wait-time distribution differences across organs.
-
-Iteration 3–4:
-Scatter and bubble explorations began examining relationships between wait burden and transplant/removal outcomes.
-
-Iteration 5–6:
-Small multiple concepts improved cross-organ comparison while preserving visibility for smaller organ categories.
-
-Current likely final direction:
-Bubble scatter and/or small multiples emphasizing wait burden and transplant outcomes across organs.
-
-
-
-                                    
-                                    WARNING!!!!
-                < MAY NEED TO RE-REVIEW,...THIS WAS FROM ASSIGNMENT >
-
-
-
-######################################################################################
-######################################################################################
-######################################################################################
-######################################################################################
-######################################################################################
-
-
-
-# MSDS 455 – Assignment 03 (Hierarchical / Part-to-Whole Data)
+# MSDS 455 – Assignment 04 (Relational Data)
 
 ## Overview
-This assignment compares current OPTN waitlist registrations with 2025 transplants by organ and diagnosis.
 
-Aggregate rows and columns such as “All Diagnosis” and “All Organs” were removed to avoid double-counting. The data was reshaped from wide to long format to support hierarchical visualization.
+This project examines **relationships between organ category and transplant waiting-time distributions** using OPTN waitlist data. Exploratory visual analysis tested several relational encodings before converging on a single comparative view.
 
-The final visualization uses side-by-side treemaps to highlight the relationship between demand (waitlist) and realized outcomes (transplants).
+The **final visualization** is a heatmap that shows how each organ’s waitlist candidates are distributed across OPTN waiting-time buckets—making cross-organ differences in wait burden easy to compare at a glance.
 
 ---
 
 ## Key Insight
-Kidney demand dominates the transplant system, driven largely by chronic conditions such as diabetes and hypertension.
 
-While transplant activity follows similar patterns, it occurs at a significantly smaller scale, indicating a system constrained by supply.
+- **Kidney** candidates face substantially **longer** waiting periods, with meaningful mass in multi-year buckets.
+- **Lung** candidates are concentrated in **shorter** waiting windows; most fall within roughly six months in this snapshot.
+- **Patient wait experience differs sharply by organ**—system pressure is organ-specific, not well represented by one average wait time.
 
 ---
 
 ## Final Visualization
-- Static slide (PDF) included in submission
-- Interactive version (optional):
-  
-https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/assingment_03_hierarchial/
 
+**Chart:** *Distribution of wait times by organ* (burden-sorted heatmap)
 
+**Public view (GitHub Pages):**  
+https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/index_assignment_04.html
+
+| Artifact | Location |
+|----------|----------|
+| Final image | `final/final_heatmap.png` (source: `exploratory/iteration_17_final_heatmap.png`) |
+| Final slide | `final/final_slide.pdf` |
+| EDA & code | `exploratory/eda.ipynb` (search `ITERATION 17 CODE START`) |
+| Color backup | `exploratory/iteration_16f_charcoal_forrest.png` |
+
+Palette: Charcoal Forrest sequential scale on Museum White, with Life Flow typography and OPTN source citation.
+
+---
 
 ## Project Structure
 
-assignment_03_hierarchial/
-├── Exploratory/
-│   ├── eda.ipynb                 # EDA + transformation + visualization
-│   └── iteration_*.png           # saved exploratory chart iterations
+```
+assignment_04_relational/
+├── exploratory/
+│   ├── eda.ipynb                      # EDA, iterations, final figure code
+│   ├── eda_archive1.ipynb             # frozen notebook backup
+│   └── iteration_*.png                # saved chart iterations
 ├── data/
-│   ├── raw/                      # OPTN exports
-│   └── processed/                # cleaned datasets
-├── outputs/
-│   ├── final_visualization.svg
-│   ├── final_visualization.html
-│   └── archive_iterations/       # prior versions
-└── final_slide.pdf               # submission artifact
-
-
+│   ├── raw/                           # OPTN Advanced Report CSV exports
+│   ├── notes/                         # report dictionary / field notes
+│   └── processed/                     # derived tables (if used)
+├── scripts/
+│   ├── preprocess.py                  # optional preprocessing stubs
+│   └── visualization.js               # optional web helpers
+├── final/
+│   ├── final_heatmap.png              # submission heatmap
+│   └── final_slide.pdf                # printable slide
+├── sources.txt                        # source log
+└── README.md
+```
 
 ---
 
 ## Data Source
 
-OPTN / HRSA National Data (2025)
+**Citation:** Organ Procurement and Transplantation Network (OPTN). 2025. OPTN Advanced Reports.
 
-- Main site: https://www.hrsa.gov/optn  
-- Data portal: https://www.hrsa.gov/optn/data/data-reports  
-- Advanced reports: https://hrsa.unos.org/data/view-data-reports/build-advanced/
+**Primary report (final chart):** `data/raw/Rpt2.1_Waitlist___Organ_by_Waiting_Time.csv`
+
+**References:**
+
+- OPTN / HRSA: https://www.hrsa.gov/optn  
+- Data & reports: https://www.hrsa.gov/optn/data/data-reports  
+- Advanced report builder: https://hrsa.unos.org/data/view-data-reports/build-advanced/
+
+Report definitions and recreation notes: `data/notes/`
 
 ---
 
 ## Exploratory Data Analysis
 
-EDA is documented in `Exploratory/eda.ipynb`, with saved iteration images in `Exploratory/`, and includes:
+Documented in `exploratory/eda.ipynb`. Summary of the iteration path:
 
-- inspection of raw OPTN tabular exports
-- identification of structural issues (wide format, formatted numeric strings)
-- removal of aggregate rows (e.g., “All Diagnosis”, “All Organs”)
-- transformation into long format for hierarchical analysis
-- validation checks on totals and distributions
+| Phase | Focus |
+|-------|--------|
+| **1–2** | Early wait-time heatmaps; row-wise % within organ |
+| **3–8** *(11a–11g)* | Scatter, bubble, and small-multiple relational views |
+| **9–11** | System-flow prototype; donor/transplant/multi heatmaps; organ-level scatters |
+| **12–15** | Refined `Rpt2.1` heatmap candidates |
+| **16–17** | Color experiments (16a–16f), typography, final Charcoal Forrest polish |
+
+**Methods used in the final heatmap:**
+
+- **Normalization:** each cell = % of that organ’s waitlist snapshot in a waiting-time bucket (rows sum to 100%).
+- **Filtering:** organs below 100 candidates excluded from unstable percentage splits.
+- **Sorting:** rows ordered by **weighted wait burden** (bucket shares × weights 1 shortest → 8 longest).
 
 ---
 
-## Notes
+## Notes / Limitations
 
-- Waitlist counts represent **registrations**, not unique patients
-- Transplants represent realized matches between supply (donors) and demand (waitlist)
-- The visualization emphasizes relative structure and scale rather than exact matching flows
+- Waitlist counts reflect **registrations**, not necessarily unique patients.
+- The chart emphasizes **relative distributions within each organ**, not individual patient trajectories or outcomes.
+- Survival, rejection, and related outcome threads were explored conceptually in early directions but **were not incorporated** into the final visualization.
 
+---
 
+## AI Disclosure
 
-
-
-
+AI tools were used for coding assistance, debugging, and iterative visualization refinement. Analytical decisions, data interpretation, source selection, and final design choices were reviewed and directed by the author.

@@ -5,6 +5,8 @@ import { runScene4 } from "./scenes/scene4_problem.js";
 import { runScene5 } from "./scenes/scene5_resolution.js";
 import { runScene6 } from "./scenes/scene6_outro.js";
 import { runAssignment02Scene } from "./assignment02_scene_experiment.js";
+import { TYPOGRAPHY } from "../constants/typography.js";
+
 
 const scenes = [
   runAssignment02Scene

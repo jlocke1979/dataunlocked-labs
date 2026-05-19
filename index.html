@@ -1,67 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>DataUnlocked Labs</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 0 24px;
-      line-height: 1.5;
-    }
-    h1 {
-      margin-bottom: 0;
-    }
-    .subtitle {
-      color: #555;
-      margin-top: 8px;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 32px;
-    }
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 20px;
-      text-decoration: none;
-      color: inherit;
-      background: #fafafa;
-    }
-    .card:hover {
-      background: #f0f0f0;
-    }
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.25rem;
-    }
-    .card p {
-      color: #555;
-    }
-  </style>
-</head>
-<body>
-  <h1>DataUnlocked Labs</h1>
-  <p class="subtitle">Personal data projects, prototypes, and analytics experiments.</p>
+<a class="card" href="apps/golf_analytics/">
+  <h2>Golf Analytics</h2>
+  <p>
+    Golf Pad score trends, rolling averages, blow-up hole tracking,
+    penalties, and performance heatmaps.
+  </p>
 
-  <div class="cards">
-    <a class="card" href="apps/golf_analytics/">
-      <h2>Golf Analytics</h2>
-      <p>Golf Pad score trends, blow-up holes, penalties, and performance visuals.</p>
-    </a>
+  <div style="margin-top:12px;">
+    <img src="apps/golf_analytics/visuals/score_vs_par_heatmap_green_purple.png"
+         width="100%"
+         style="border-radius:8px; margin-bottom:10px;">
 
-    <a class="card" href="apps/life_flow/app/">
-      <h2>Life Flow</h2>
-      <p>Organ transplant data visualization and storytelling project.</p>
-    </a>
+    <img src="apps/golf_analytics/visuals/blowup_heatmap_red.png"
+         width="100%"
+         style="border-radius:8px; margin-bottom:10px;">
 
-    <a class="card" href="apps/pass_decision/pass_decision.html">
-      <h2>Pass Decision</h2>
-      <p>Golf course pass and membership decision tool.</p>
-    </a>
+    <img src="apps/golf_analytics/visuals/adjusted_18_score_rolling_average.png"
+         width="100%"
+         style="border-radius:8px;">
   </div>
-</body>
-</html>
+</a>

@@ -1,21 +1,147 @@
-<a class="card" href="apps/golf_analytics/">
-  <h2>Golf Analytics</h2>
-  <p>
-    Golf Pad score trends, rolling averages, blow-up hole tracking,
-    penalties, and performance heatmaps.
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DataUnlocked Labs</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 24px;
+      line-height: 1.5;
+      background: #ffffff;
+      color: #222;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-top: 8px;
+      margin-bottom: 36px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      background: #fafafa;
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      background: #f2f2f2;
+      transform: translateY(-2px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .preview-grid img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: white;
+    }
+
+    .coming-soon {
+      height: 220px;
+      border-radius: 10px;
+      border: 1px dashed #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>DataUnlocked Labs</h1>
+
+  <p class="subtitle">
+    Personal data projects, prototypes, analytics experiments, and visualization work.
   </p>
 
-  <div style="margin-top:12px;">
-    <img src="apps/golf_analytics/visuals/score_vs_par_heatmap_green_purple.png"
-         width="100%"
-         style="border-radius:8px; margin-bottom:10px;">
+  <div class="cards">
 
-    <img src="apps/golf_analytics/visuals/blowup_heatmap_red.png"
-         width="100%"
-         style="border-radius:8px; margin-bottom:10px;">
+    <!-- Golf Analytics -->
+    <a class="card" href="apps/golf_analytics/">
+      <h2>Golf Analytics</h2>
 
-    <img src="apps/golf_analytics/visuals/adjusted_18_score_rolling_average.png"
-         width="100%"
-         style="border-radius:8px;">
+      <p>
+        Golf Pad score trends, rolling averages, blow-up hole tracking,
+        penalties, and performance heatmaps.
+      </p>
+
+      <div class="preview-grid">
+
+        <img src="apps/golf_analytics/visuals/final_outputs/score_vs_par_heatmap_green_purple.png"
+             alt="Score vs Par Heatmap">
+
+        <img src="apps/golf_analytics/visuals/final_outputs/blowup_heatmap_red.png"
+             alt="Blow-Up Hole Heatmap">
+
+        <img src="apps/golf_analytics/visuals/final_outputs/adjusted_18_score_rolling_average.png"
+             alt="Adjusted 18 Score Rolling Average">
+
+      </div>
+    </a>
+
+    <!-- Life Flow -->
+    <a class="card" href="apps/life_flow/app/">
+      <h2>Life Flow</h2>
+
+      <p>
+        Organ transplant data visualization and narrative storytelling project.
+      </p>
+
+      <div class="coming-soon">
+        Preview coming soon
+      </div>
+    </a>
+
+    <!-- Pass Decision -->
+    <a class="card" href="apps/pass_decision/pass_decision.html">
+      <h2>Pass Decision</h2>
+
+      <p>
+        Golf course pass and membership decision analytics tool.
+      </p>
+
+      <div class="coming-soon">
+        Preview coming soon
+      </div>
+    </a>
+
   </div>
-</a>
+
+</body>
+</html>

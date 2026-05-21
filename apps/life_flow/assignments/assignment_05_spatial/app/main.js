@@ -13,7 +13,7 @@ const MARGIN = { top: 20, right: 20, bottom: 20, left: 20 };
 // Paths relative to /app/ page URL (../ → assignment_05_spatial/data/processed/)
 const DATA = {
   edges: "../data/processed/top_50_edges_all_organs.csv",
-  nodes: "../data/processed/top50_all_nodes_with_state_centroids.csv",
+  nodes: "../data/processed/top50_all_nodes_partial_real_coordinates.csv",
   // US states mesh for Albers background (TopoJSON from us-atlas)
   states: "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
 };

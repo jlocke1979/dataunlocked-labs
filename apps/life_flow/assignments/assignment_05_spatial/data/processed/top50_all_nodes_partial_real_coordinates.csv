@@ -1,0 +1,75 @@
+id,type,name,state,region,lat,lon,notes
+ALOB-OP1,source_dsa,Legacy of Hope,Alabama,Region  3,32.8067,-86.7911,
+ALUA-TX1,transplant_center,University of Alabama Hospital,Alabama,Region  3,32.8067,-86.7911,
+AZMC-TX1,transplant_center,Mayo Clinic Hospital Arizona,Arizona,Region  5,33.5044,-112.0740,city_approx:Phoenix;high
+AZOB-OP1,source_dsa,Donor Network of Arizona,Arizona,Region  5,33.4484,-112.0740,city_approx:Phoenix;high
+CACS-TX1,transplant_center,Cedars-Sinai Medical Center,California,Region  5,36.1162,-119.6816,
+CADN-OP1,source_dsa,Donor Network West,California,Region  5,37.7799,-121.9780,city_approx:San Ramon;medium
+CAIM-TX1,transplant_center,University of California Irvine Medical Center,California,Region  5,36.1162,-119.6816,
+CALL-TX1,transplant_center,Loma Linda University Medical Center,California,Region  5,36.1162,-119.6816,
+CAOP-OP1,source_dsa,OneLegacy,California,Region  5,34.1336,-117.9073,city_approx:Los Angeles area (OneLegacy);high
+CAPM-TX1,transplant_center,California Pacific Medical Center-Van Ness Campus,California,Region  5,36.1162,-119.6816,
+CASD-TX1,transplant_center,University of California San Diego Medical Center,California,Region  5,36.1162,-119.6816,
+CASF-TX1,transplant_center,University of California San Francisco Medical Center,California,Region  5,36.1162,-119.6816,
+CASM-TX1,transplant_center,University of California Davis Medical Center,California,Region  5,36.1162,-119.6816,
+CASU-TX1,transplant_center,Stanford Health Care,California,Region  5,36.1162,-119.6816,
+CAUC-TX1,transplant_center,University of California at Los Angeles Medical Center,California,Region  5,36.1162,-119.6816,
+CAUH-TX1,transplant_center,Keck Hospital of USC,California,Region  5,36.1162,-119.6816,
+CORS-OP1,source_dsa,Donor Alliance,Colorado,Region  8,39.7392,-104.9903,city_approx:Denver;high
+COUC-TX1,transplant_center,University of Colorado Hospital/Health Science Center,Colorado,Region  8,39.0598,-105.3111,
+FLJM-TX1,transplant_center,Jackson Memorial Hospital University of Miami School of Medicine,Florida,Region  3,27.7663,-81.6868,
+FLMP-OP1,source_dsa,South Florida Donor Network,Florida,Region  3,27.7663,-81.6868,
+FLTG-TX1,transplant_center,Tampa General Hospital,Florida,Region  3,27.7663,-81.6868,
+FLWC-OP1,source_dsa,LifeLink of Florida,Florida,Region  3,27.7663,-81.6868,
+GAEM-TX1,transplant_center,Emory University Hospital,Georgia,Region  3,33.7925,-84.3244,city_approx:Atlanta;high
+GALL-OP1,source_dsa,LifeLink of Georgia,Georgia,Region  3,33.7490,-84.3880,city_approx:Atlanta;high
+GAPH-TX1,transplant_center,Piedmont Hospital,Georgia,Region  3,33.0406,-83.6431,
+HIOP-OP1,source_dsa,Legacy of Life Hawaii,Hawaii,Region  6,21.0943,-157.4983,
+HIQM-TX1,transplant_center,The Queen's Medical Center,Hawaii,Region  6,21.0943,-157.4983,
+ILIP-OP1,source_dsa,Gift of Hope Organ & Tissue Donor Network,Illinois,Region  7,40.3495,-88.9861,
+ILNM-TX1,transplant_center,Northwestern Memorial Hospital,Illinois,Region  7,40.3495,-88.9861,
+ILUC-TX1,transplant_center,University of Chicago Medical Center,Illinois,Region  7,40.3495,-88.9861,
+INIM-TX1,transplant_center,Indiana University Health,Indiana,Region  10,39.8494,-86.2583,
+INOP-OP1,source_dsa,Indiana Donor Network,Indiana,Region  10,39.8494,-86.2583,
+KSUK-TX1,transplant_center,University of Kansas Hospital,Kansas,Region  8,38.5266,-96.7265,
+LAOF-TX1,transplant_center,Ochsner Foundation Hospital,Louisiana,Region  3,31.1695,-91.8678,
+LAOP-OP1,source_dsa,Louisiana Organ Procurement Agency,Louisiana,Region  3,31.1695,-91.8678,
+MAMG-TX1,transplant_center,Massachusetts General Hospital,Massachusetts,Region  1,42.2302,-71.5301,
+MAOB-OP1,source_dsa,New England Organ Bank,Rhode Island,Region  1,41.6809,-71.5118,
+MIHF-TX1,transplant_center,Henry Ford Hospital,Michigan,Region  10,43.3266,-84.5361,
+MIOP-OP1,source_dsa,Gift of Life Michigan,Michigan,Region  10,43.3266,-84.5361,
+MIUM-TX1,transplant_center,University of Michigan Medical Center,Michigan,Region  10,43.3266,-84.5361,
+MNMC-TX1,transplant_center,Mayo Clinic Hospital Minnesota,Minnesota,Region  7,45.6945,-93.9002,
+MNOP-OP1,source_dsa,LifeSource Upper Midwest Organ Procurement Organization,South Dakota,Region  7,44.9750,-93.2250,city_approx:Minneapolis;medium
+MNUM-TX1,transplant_center,"University of Minnesota Medical Center, Fairview",Minnesota,Region  7,45.6945,-93.9002,
+MOBH-TX1,transplant_center,Barnes-Jewish Hospital,Missouri,Region  8,38.4561,-92.2884,
+MOMA-OP1,source_dsa,Mid-America Transplant Services,Missouri,Region  8,38.4561,-92.2884,
+MWOB-OP1,source_dsa,Midwest Transplant Network,Missouri,Region  8,38.4561,-92.2884,
+NCDU-TX1,transplant_center,Duke University Hospital,North Carolina,Region  11,35.6301,-79.8064,
+NCNC-OP1,source_dsa,HonorBridge,North Carolina,Region  11,35.6301,-79.8064,
+NEOR-OP1,source_dsa,Live On Nebraska,Nebraska,Region  8,41.1254,-98.2681,
+NEUN-TX1,transplant_center,The Nebraska Medical Center,Nebraska,Region  8,41.1254,-98.2681,
+NYMS-TX1,transplant_center,Mount Sinai Medical Center,New York,Region  9,42.1657,-74.9481,
+OHCC-TX1,transplant_center,The Cleveland Clinic Foundation,Ohio,Region  11,40.3888,-82.7649,
+OHLB-OP1,source_dsa,Lifebanc,Ohio,Region  11,40.3888,-82.7649,
+ORUO-TX1,transplant_center,Oregon Health and Science University,Oregon,Region  6,44.5720,-122.0709,
+PADV-OP1,source_dsa,Gift of Life Donor Program,Pennsylvania,Region  2,39.9526,-75.1652,city_approx:Philadelphia;high
+PAUP-TX1,transplant_center,Hospital of the University of Pennsylvania,Pennsylvania,Region  2,40.5908,-77.2098,
+SCMU-TX1,transplant_center,Medical University of South Carolina,South Carolina,Region  11,33.8569,-80.9450,
+SCOP-OP1,source_dsa,We Are Sharing Hope SC,South Carolina,Region  11,33.8569,-80.9450,
+TNDS-OP1,source_dsa,Tennessee Donor Services,Tennessee,Region  11,36.1627,-86.7816,city_approx:Nashville;high
+TNVU-TX1,transplant_center,Vanderbilt University Medical Center,Tennessee,Region  11,35.7478,-86.6923,
+TXGC-OP1,source_dsa,LifeGift Organ Donation Center,Texas,Region  4,29.7604,-95.3698,city_approx:Houston;high
+TXHI-TX1,transplant_center,CHI St. Luke's Health Baylor College of Medicine Medical Center,Texas,Region  4,31.0545,-97.5635,
+TXHS-TX1,transplant_center,Methodist Specialty and Transplant Hospital,Texas,Region  4,31.0545,-97.5635,
+TXMH-TX1,transplant_center,Houston Methodist Hospital,Texas,Region  4,29.7097,-95.3984,city_approx:Houston;high
+TXSA-OP1,source_dsa,Texas Organ Sharing Alliance,Texas,Region  4,31.0545,-97.5635,
+TXSB-OP1,source_dsa,Southwest Transplant Alliance,Texas,Region  4,32.7767,-96.7970,city_approx:Dallas;high
+TXSP-TX1,transplant_center,UT Southwestern Medical Center/William P. Clements Jr. University Hospital,Texas,Region  4,31.0545,-97.5635,
+TXTX-TX1,transplant_center,Baylor University Medical Center,Texas,Region  4,31.0545,-97.5635,
+UTLD-TX1,transplant_center,Intermountain Medical Center,Utah,Region  5,40.1500,-111.8624,
+UTMC-TX1,transplant_center,University of Utah Medical Center,Utah,Region  5,40.1500,-111.8624,
+UTOP-OP1,source_dsa,DonorConnect,Utah,Region  5,40.7608,-111.8910,city_approx:Salt Lake City;high
+WALC-OP1,source_dsa,LifeCenter Northwest,Washington,Region  6,47.6145,-122.1860,city_approx:Bellevue;high
+WASM-TX1,transplant_center,Swedish Medical Center,Washington,Region  6,47.4009,-121.4905,
+WAUW-TX1,transplant_center,University of Washington Medical Center,Washington,Region  6,47.4009,-121.4905,

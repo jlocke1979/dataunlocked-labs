@@ -1,0 +1,223 @@
+/* Assignment 05 — rough D3 flow map prototype */
+
+:root {
+  --bg: #f7f5f0;
+  --panel: #ffffff;
+  --text: #1e2a24;
+  --muted: #5c6b63;
+  --land: #e8e4dc;
+  --land-stroke: #c5bfb4;
+  --link: #4a6a82;
+  --source: #1a7f6e;
+  --destination: #c45c3e;
+  --border: #ddd8ce;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+#chart-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Card holds map + legend side by side */
+.viz-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.viz-layout {
+  display: flex;
+  align-items: stretch;
+}
+
+.chart-map {
+  flex: 1;
+  min-width: 0;
+}
+
+.chart-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Right-side legend panel (no overlap with map) */
+.legend-panel {
+  flex: 0 0 200px;
+  padding: 1.25rem 1rem 1.25rem 1.15rem;
+  border-left: 1px solid var(--border);
+  background: #faf9f6;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.legend-panel__title {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.legend-section {
+  margin-bottom: 1.15rem;
+}
+
+.legend-section__heading {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.legend-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.45rem;
+}
+
+.legend-swatch {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.legend-swatch--source {
+  background: var(--source);
+}
+
+.legend-swatch--destination {
+  background: var(--destination);
+}
+
+.legend-note {
+  margin: 0 0 0.6rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.legend-flow-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-flow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.legend-line {
+  display: inline-block;
+  width: 40px;
+  height: 0;
+  border-top: 2px solid var(--link);
+  opacity: 0.55;
+}
+
+.legend-flow-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.legend-footnote {
+  margin: 0.5rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.footnote {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.footnote code {
+  font-size: 0.85em;
+}
+
+/* SVG map layers */
+.state {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+  stroke-width: 0.6;
+}
+
+.link {
+  fill: none;
+  stroke: var(--link);
+  stroke-opacity: 0.45;
+}
+
+.node--source {
+  fill: var(--source);
+  stroke: #fff;
+  stroke-width: 1.2;
+}
+
+.node--destination {
+  fill: var(--destination);
+  stroke: #fff;
+  stroke-width: 1.2;
+}
+
+.error {
+  padding: 1rem;
+  color: #8b2e2e;
+}
+
+/* Stack legend below map on narrow screens */
+@media (max-width: 720px) {
+  .viz-layout {
+    flex-direction: column;
+  }
+
+  .legend-panel {
+    flex: none;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}

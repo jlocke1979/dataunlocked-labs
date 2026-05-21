@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 05 — D2T Flow Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <h1 id="chart-title">Donor Recovery → Transplant Center Flows (Top 50)</h1>
+        <p class="subtitle">
+          Proof-of-concept · state centroid coordinates · OPTN D2T all organs
+        </p>
+      </header>
+
+      <div class="viz-card">
+        <div class="viz-layout">
+          <div
+            id="chart"
+            class="chart-map"
+            aria-label="Flow map visualization"
+          ></div>
+          <aside id="legend-panel" class="legend-panel" aria-label="Legend">
+            <h2 class="legend-panel__title">Legend</h2>
+
+            <section class="legend-section">
+              <h3 class="legend-section__heading">Nodes</h3>
+              <ul class="legend-list">
+                <li class="legend-item">
+                  <span class="legend-swatch legend-swatch--source"></span>
+                  <span>Donor recovery (DSA)</span>
+                </li>
+                <li class="legend-item">
+                  <span class="legend-swatch legend-swatch--destination"></span>
+                  <span>Transplant center</span>
+                </li>
+              </ul>
+            </section>
+
+            <section class="legend-section">
+              <h3 class="legend-section__heading">Flows</h3>
+              <p class="legend-note">Line width ∝ transplant count</p>
+              <div class="legend-flow-scale">
+                <div class="legend-flow-row">
+                  <span class="legend-line legend-line--low"></span>
+                  <span class="legend-flow-label">lower</span>
+                </div>
+                <div class="legend-flow-row">
+                  <span class="legend-line legend-line--high"></span>
+                  <span class="legend-flow-label">higher</span>
+                </div>
+              </div>
+            </section>
+
+            <p class="legend-footnote">
+              Coordinates are state centroids (proof-of-concept).
+            </p>
+          </aside>
+        </div>
+      </div>
+
+      <p class="footnote">
+        From <code>assignment_05_spatial/</code>, run
+        <code>python3 -m http.server 8080</code> and open
+        <code>http://localhost:8080/app/</code> (CSVs load via
+        <code>../data/processed/</code>).
+      </p>
+    </main>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,280 @@
+
+
+
+About Reference Dictionary: 
+The informations in these folders comes from this link: 
+Source: https://hrsa.unos.org/data/view-data-reports/build-advanced/?category=1%3BDonor
+
+The document is designed for reproducability to document 
+the various options selects to produce each report. 
+These reports can be found in data/raw/ 
+Each rpt is titled "Rpt1.1_...." for easy tying back to this dictionary 
+
+
+The First digit in the title (e.g. 1.0) represents the 4 sections of reports, organized as follows:
+1.X.X Waitlists
+2.X.X Donors 
+3.X.X Transplants
+4.X.X Multi-Transplants
+
+
+The second digit in the title (eg. 0.1) conotates variations within those groups. 
+Most of the variations include Location related data 
+X.1.X - Donation Service Area
+x.2.x - Transplant Center  - (Waitlist Assosciated)
+X.3.X - State 
+x.4.X - Region 
+
+
+Other secondar variables of interest are typically
+X.X.1 - Organs - (applies to all)
+X.X.2 - Organs discarded
+X.X.3 - Organs recovered
+X.X.4 - Organs Transplanted -
+X.X.5 - Diagnosis Category / Daignosis 
+X.X.6 - Cause of Death / Circumstance of Death / Mechanism of Death 
+
+
+
+
+
+All Reports Have these Features In common - Do not alter acre
+Year = 2025
+
+
+The report Number System (Examples): 
+Rpt 1.1.1 =  Waitlist_DonationServiceArea_Organs
+Rpt 1.1.2 =  Waitlist_DonationServiceArea_Organs Recovered
+...
+Rpt 4.3.3 =  MultiTransplants_Region_OrgansTransplanted
+
+
+
+# References / Structure Files  (Not primarily for reading data / rather understanding hierarchy of key variables)
+
+## A. Section () - Region Hierarchy (I used Waitlist but should be consistent across any view as relationships don't differ by group)
+
+Report A.1 - Region.State - Hierarchy - (Step 2 Organs, Step 3a Region 3b State, Optional = Canddidates  )
+Step 1. Data Category = Waitlist 
+Step 2. Column = Organs
+Step 3. Row = Region of Center , State of Center
+Step 4. [Default Counts and Portraint]
+Optional: Canddiates 
+Optional : Year = 2025 when availabl each
+Step 5. [Go]
+
+Report A.2 - State.Donations  Center  - (Step 2 Organs, Step 3a State 3b Center , Optional = Canddidates  )
+Step 1. Data Category = Waitlist 
+Step 2. Column = Organs
+Step 3. Row = Sates , Donations Service Area of Center 
+Step 4. [Default Counts and Portraint]
+Optional: Canddiates 
+Optional : Year = 2025 when availabl each
+Step 5. [Go]
+
+Report A.3 - State.Transplant Center  - (Step 2 Organs, Step 3a State 3b Center , Optional = Canddidates  )
+Step 1. Data Category = Waitlist 
+Step 2. Column = Organs
+Step 3. Row = Sates , Transplant Center 
+Step 4. [Default Counts and Portraint]
+Optional: Canddiates 
+Optional : Year = 2025 when availabl each
+Step 5. [Go]
+
+
+Report B.1  - Diagnosis Category / Diagnosis 
+Step 1. Data Category = Waitlist 
+Step 2. Column = Organs
+Step 3. Row = 
+Step 4. [Default Counts and Portraint]
+Optional: Canddiates 
+Optional : Year = n/A (2025 when available)
+Step 5. [Go]
+
+Report C.1  - Cause of Death / Circumstances of death / Mechanism of Death 
+Step 1. Data Category = Donor 
+Step 2. Column = Organs
+Step 3. Row = Cause of Death / Circumstance of daeath 
+Step 4. [Default Counts and Portraint]
+Optional: Canddiates 
+Optional : Year = n/A (2025 when available)
+Step 5. [Go]
+
+
+Report D.1  - Recipient Diagnosis Category (47 items) / Recipient Diagnosis (331 items)
+Step 1. Data Category = Transplant
+Step 2. Column = Organs (19)
+Step 3. Row = Recipient Diagnosis Category (47 items) / Recipient Diagnosis (331 items)
+Step 4. [Default Counts and Portraint]
+Optional : Year = 2025 
+Step 5. [Go]
+
+Report E.1  - Multi-Transplants / Donor OPO by Organ Multipl 
+Step 1. Data Category = Multi Transplant
+Step 2. Column = Donor OPo 
+Step 3. Row = Multi-Organs (512)
+Optional : Year = 2025 
+Step 5. [Go]
+
+
+Report 1.1.1 
+Step 1. Data Category = Waitlist
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row = Organs (19)
+Step 4. [Default Counts and Portraint]
+IMPORTANT FOR WAITLIST
+Optional A: CANDIDATES  (not Registrations)...Candidates count 1 individual 1 times.  [An Individual can register multiple times for organs/ service areas leading to overcounting individuals]
+Optional B: Year isn't available for waitlist. When Year is avialable choose 2025 [For waitlitst this option is disables or N/A because the waitlist is always as of the day you pulled May 20, 2026)
+Step 5. [Go]
+
+Report 1.1.2  = REPORT NOT AVAILBBLE (Waitlist doesn't have Organs Discarded)
+Report 1.1.3  = REPORT NOT AVAILBBLE (Waitlist doesn't have Organs Recovered)
+Report 1.1.4  = REPORT NOT AVAILBBLE (Waitlist doesn't have Organs Transplanted)
+
+Report 1.1.5  "Waitlist Diagnosis Category > Diagnosis Category / Diagnosis?
+Step 1. Data Category = Waitlist
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row =  Diagnosis Category / Diagnosis 
+Step 4. [Default Counts and Portraint]
+IMPORTANT FOR WAITLIST
+Optional A: CANDIDATES  (not Registrations)...Candidates count 1 individual 1 times.  [An Individual can register multiple times for organs/ service areas leading to overcounting individuals]
+Optional B: Year isn't available for waitlist. When Year is avialable choose 2025 [For waitlitst this option is disables or N/A because the waitlist is always as of the day you pulled May 20, 2026)
+Step 5. [Go]
+
+
+Not - Not all reports are avilable. Pulling for any I have 
+Exmaple 
+
+Many Reports can't be made / Don't exist / Example 
+Report 1.1.6  = Do Not apply to Waitlist 3
+Report 1.2.1 (or .2 .3 .4)    = Do Not apply to Waitlist 3
+Report 1.3  (or .2 .3 .4)     = Do Not apply to Waitlist 
+.....
+
+
+Reports 1. 2
+
+
+
+Section 2 - Donor Reports
+
+
+Report 2.1.1 
+Step 1. Data Category = Donor
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row = Organs
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+Report 2.1.2
+Step 1. Data Category = Donor
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row = Organs discarded
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+Report 2.1.3
+Step 1. Data Category = Donor
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row = Organs Recovered
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+Report 2.1.4
+Step 1. Data Category = Donor
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row = Organs Transplanted (6 items)
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+
+Report 2.1.5 = REPORT NOT AVIALLBE  - Diagnosis Category / Diagnosis (not applicable for donors)
+
+
+Report 2.1.6
+Step 1. Data Category = Donor
+Step 2. Column = Donation Service Area of Recovery (89 items)
+Step 3. Row = Donor_Cause_of_Death,_Donor_Circumstance_of_Death,_Donor_Mechanism_of_Death
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+
+Section 3 Transplant Reports
+Report 3.1.1 
+Step 1. Data Category = Transplants 
+Step 2. Column = Organ
+Step 3. Row = Transplant Center (357 items)
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+Report 3.1.2 - Not Appplicable  
+Report 3.1.3 - Not Appplicable  
+Report 3.1.4 - Not Appplicable  
+Report 3.1.5 - Not Appplicable  
+Report 3.1.6 - Not Appplicable  
+
+Report 3.D2T - Very Interesting!?! sue Elllen Specific viz?
+Step 1. Data Category = Multi-Organ Transplants 
+Step 2. Column = Donation Service Area
+Step 3. Row = Transplant Center (357 items)
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+
+Report 4.D2T - Very Interesting!?! sue Elllen Specific viz?
+
+Step 1. Data Category = Multi-Organ Transplants 
+Step 2. Column = Donor OPO 
+Step 3. Row = Transplant Center (357 items)
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Step 5. [Go]
+
+
+This Spawned a new area of data pulling 
+
+Take 3.D2T and 4.D2T and Add Organ Detail (instead of all organs)
+
+Calling This Section "Source to Destination" Data 
+
+
+T_SD.1 - [Transplant_Source_to_Destination ] Kidney
+
+Step 1. Data Category = Transplants 
+Step 2. Column = Donation Service Area of Donor Recovery (Source) 
+Step 3. Row = Transplant Center (357 items) (Destination )
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Optional: Organ  = Kidney
+
+[Repeat this by cycling through ALL Organs.  Report T_SD.2 = liver. T_SD.3 = Pacrease,....]
+
+
+
+
+MultiTranplant:Source to Destination: MT_SD
+MT_SD.1.Liver-Kidney
+Step 1. Data Category = Multi Transplants 
+Step 2. Column = Donation Service Area of Donor Recovery (Source) 
+Step 3. Row = Transplant Center (357 items) (Destination )
+Step 4. [Default Counts and Portraint]
+Optional: Year = 2025
+Optional: Organ  = Liver+Kidney
+
+[Repeat this by cycling through ALL Organs.  Report MT_SD.2 = liver. MT_SD.3 = Pacrease,....]
+
+Dictionary of MultiTransplant Organ Combination
+
+1. Liver-Lung 
+2. Liver-Pancrease
+.
+.
+.
+25. VCA-Kidney

@@ -1,0 +1,310 @@
+,,,,All Donors,Kidney,Liver,Heart,Pancreas,Lung,Intestine
+All Causes,All Circumstances,All Mechanisms,,"23,791","21,797","13,824","4,753","1,260","3,977",88
+,,Asphyxiation,,699,678,601,339,127,221,7
+,,Blunt Injury,,"2,343","2,265","1,910","1,126",337,713,24
+,,Cardiovascular,,"4,189","3,681","3,275",599,118,582,9
+,,Drowning,,137,134,118,82,29,25,6
+,,Drug Intoxication,,"1,606","1,575","1,381",872,191,544,3
+,,Electrical,,11,11,11,5,2,2,0
+,,Gunshot Wound,,849,836,769,567,219,441,17
+,,Intracranial Hemorrhage / Stroke,,"4,577","4,130","3,707",761,158,"1,194",14
+,,Natural Causes (Since 10/25/99),,"1,541","1,409",937,230,45,138,5
+,,None of the above,,382,350,252,86,18,57,1
+,,Not Reported,,"7,238","6,523",707,0,0,0,0
+,,Seizure,,193,179,139,70,10,52,2
+,,Sids,,5,5,2,3,0,0,0
+,,Stab,,21,21,15,13,6,8,0
+,Child Abuse,All Mechanisms,,39,36,25,29,4,1,4
+,,Asphyxiation,,1,1,1,1,1,0,1
+,,Blunt Injury,,30,28,19,22,2,1,2
+,,Cardiovascular,,1,1,1,1,0,0,0
+,,Drowning,,1,0,1,1,0,0,0
+,,Intracranial Hemorrhage / Stroke,,3,3,1,1,0,0,0
+,,None of the above,,3,3,2,3,1,0,1
+,Homicide,All Mechanisms,,329,321,299,219,84,148,6
+,,Asphyxiation,,11,11,11,6,2,3,0
+,,Blunt Injury,,74,71,63,42,11,27,2
+,,Cardiovascular,,5,4,5,4,2,3,1
+,,Drug Intoxication,,1,1,1,1,0,1,0
+,,Gunshot Wound,,221,217,207,157,66,110,3
+,,Intracranial Hemorrhage / Stroke,,3,3,3,1,0,1,0
+,,Stab,,14,14,9,8,3,3,0
+,MVA,All Mechanisms,,"1,526","1,498","1,315",848,267,492,15
+,,Asphyxiation,,4,4,3,3,2,1,0
+,,Blunt Injury,,"1,424","1,399","1,232",802,254,464,14
+,,Cardiovascular,,23,21,16,5,0,7,0
+,,Drowning,,3,3,2,0,0,0,0
+,,Drug Intoxication,,1,1,1,0,0,0,0
+,,Intracranial Hemorrhage / Stroke,,47,46,41,25,7,15,0
+,,Natural Causes (Since 10/25/99),,6,6,6,4,1,0,1
+,,None of the above,,17,17,13,8,3,4,0
+,,Seizure,,1,1,1,1,0,1,0
+,Natural Causes (Since 10/25/99),All Mechanisms,,"9,693","8,656","7,409","1,494",310,"1,759",30
+,,Asphyxiation,,100,98,77,31,7,8,1
+,,
+,,Blunt Injury,,7,7,4,4,0,3,0
+,,Cardiovascular,,"3,675","3,209","2,854",482,102,483,7
+,,Drowning,,3,3,3,1,1,0,2
+,,Drug Intoxication,,54,54,39,23,5,17,0
+,,Gunshot Wound,,1,1,1,1,0,1,0
+,,Intracranial Hemorrhage / Stroke,,"4,091","3,679","3,331",651,140,"1,062",14
+,,Natural Causes (Since 10/25/99),,"1,504","1,375",912,222,43,132,4
+,,None of the above,,87,73,63,15,2,9,0
+,,Seizure,,166,152,123,61,10,44,2
+,,Sids,,5,5,2,3,0,0,0
+,Non MVA,All Mechanisms,,"2,344","2,248","1,880","1,002",238,676,14
+,,Asphyxiation,,197,181,155,64,17,36,1
+,,Blunt Injury,,772,724,562,236,56,204,4
+,,Cardiovascular,,84,79,69,26,1,13,0
+,,Drowning,,121,119,104,76,26,24,3
+,,Drug Intoxication,,972,957,838,537,113,345,3
+,,Electrical,,11,11,11,5,2,2,0
+,,Gunshot Wound,,45,45,39,25,18,22,3
+,,Intracranial Hemorrhage / Stroke,,90,83,66,20,2,19,0
+,,Natural Causes (Since 10/25/99),,11,11,7,3,0,3,0
+,,None of the above,,38,35,26,8,2,6,0
+,,Seizure,,2,2,2,1,0,1,0
+,,Stab,,1,1,1,1,1,1,0
+,None of the above,All Mechanisms,,"1,550","1,456","1,238",496,103,370,2
+,,Asphyxiation,,39,37,34,17,4,5,0
+,,Blunt Injury,,5,5,2,4,1,0,0
+,,Cardiovascular,,392,358,324,78,12,73,1
+,,Drowning,,5,5,5,3,2,1,1
+,,Drug Intoxication,,476,465,424,262,62,141,0
+,,Gunshot Wound,,16,14,15,12,3,8,0
+,,Intracranial Hemorrhage / Stroke,,343,316,265,63,9,97,0
+,,Natural Causes (Since 10/25/99),,20,17,12,1,1,3,0
+,,None of the above,,230,215,144,49,9,36,0
+,,Seizure,,24,24,13,7,0,6,0
+,Not Reported,All Mechanisms,,"7,238","6,523",707,0,0,0,0
+,,Not Reported,,"7,238","6,523",707,0,0,0,0
+,Suicide,All Mechanisms,,"1,072","1,059",951,665,254,531,17
+,,Asphyxiation,,347,346,320,217,94,168,4
+,,Blunt Injury,,31,31,28,16,13,14,2
+,,Cardiovascular,,9,9,6,3,1,3,0
+,,Drowning,,4,4,3,1,0,0,0
+,,
+,,Drug Intoxication,,102,97,78,49,11,40,0
+,,Gunshot Wound,,566,559,507,372,132,300,11
+,,None of the above,,7,7,4,3,1,2,0
+,,Stab,,6,6,5,4,2,4,0
+Not Reported,All Circumstances,All Mechanisms,,"7,238","6,523",707,0,0,0,0
+,,Not Reported,,"7,238","6,523",707,0,0,0,0
+,Not Reported,All Mechanisms,,"7,238","6,523",707,0,0,0,0
+,,Not Reported,,"7,238","6,523",707,0,0,0,0
+ANOXIA,All Circumstances,All Mechanisms,,"7,848","7,163","6,213","2,181",525,"1,516",30
+,,Asphyxiation,,689,668,595,336,127,219,7
+,,Blunt Injury,,80,78,59,36,7,11,0
+,,Cardiovascular,,"4,058","3,562","3,193",589,116,567,9
+,,Drowning,,137,134,118,82,29,25,6
+,,Drug Intoxication,,"1,549","1,521","1,338",847,187,518,3
+,,Electrical,,10,10,10,5,2,2,0
+,,Gunshot Wound,,24,23,18,13,2,4,0
+,,Intracranial Hemorrhage / Stroke,,3,2,2,1,0,0,0
+,,Natural Causes (Since 10/25/99),,926,828,612,153,34,86,2
+,,None of the above,,185,162,131,48,8,30,1
+,,Seizure,,168,156,124,61,9,48,2
+,,Sids,,5,5,2,3,0,0,0
+,,Stab,,14,14,11,7,4,6,0
+,Child Abuse,All Mechanisms,,8,7,6,7,2,0,2
+,,Asphyxiation,,1,1,1,1,1,0,1
+,,Blunt Injury,,3,3,1,2,0,0,0
+,,Cardiovascular,,1,1,1,1,0,0,0
+,,Drowning,,1,0,1,1,0,0,0
+,,None of the above,,2,2,2,2,1,0,1
+,Homicide,All Mechanisms,,42,41,37,25,7,12,1
+,,Asphyxiation,,11,11,11,6,2,3,0
+,,Blunt Injury,,3,3,2,2,0,1,0
+,,Cardiovascular,,5,4,5,4,2,3,1
+,,Drug Intoxication,,1,1,1,1,0,1,0
+,,Gunshot Wound,,15,15,13,10,2,3,0
+,,Stab,,7,7,5,2,1,1,0
+,MVA,All Mechanisms,,84,80,60,33,8,16,0
+,,Asphyxiation,,4,4,3,3,2,1,0
+,,Blunt Injury,,47,45,33,22,6,7,0
+,,Cardiovascular,,23,21,16,5,0,7,0
+,,Drowning,,3,3,2,0,0,0,0
+,,Drug Intoxication,,1,1,1,0,0,0,0
+,,
+,,Natural Causes (Since 10/25/99),,1,1,1,1,0,0,0
+,,None of the above,,4,4,3,1,0,0,0
+,,Seizure,,1,1,1,1,0,1,0
+,Natural Causes (Since 10/25/99),All Mechanisms,,"4,807","4,229","3,643",739,159,616,14
+,,Asphyxiation,,98,96,76,31,7,8,1
+,,Cardiovascular,,"3,562","3,104","2,786",474,101,468,7
+,,Drowning,,3,3,3,1,1,0,2
+,,Drug Intoxication,,46,46,35,20,5,13,0
+,,Intracranial Hemorrhage / Stroke,,3,2,2,1,0,0,0
+,,Natural Causes (Since 10/25/99),,904,808,597,148,34,81,2
+,,None of the above,,42,33,33,8,2,5,0
+,,Seizure,,144,132,109,53,9,41,2
+,,Sids,,5,5,2,3,0,0,0
+,Non MVA,All Mechanisms,,"1,414","1,379","1,196",712,159,419,7
+,,Asphyxiation,,195,179,154,63,17,35,1
+,,Blunt Injury,,26,26,22,9,1,3,0
+,,Cardiovascular,,81,78,66,25,1,13,0
+,,Drowning,,121,119,104,76,26,24,3
+,,Drug Intoxication,,954,942,823,525,111,334,3
+,,Electrical,,10,10,10,5,2,2,0
+,,Gunshot Wound,,4,4,2,1,0,1,0
+,,Natural Causes (Since 10/25/99),,9,9,6,3,0,3,0
+,,None of the above,,12,10,7,4,0,3,0
+,,Seizure,,1,1,1,0,0,0,0
+,,Stab,,1,1,1,1,1,1,0
+,None of the above,All Mechanisms,,"1,031",972,863,392,82,242,2
+,,Asphyxiation,,36,34,32,16,4,5,0
+,,Blunt Injury,,1,1,1,1,0,0,0
+,,Cardiovascular,,377,345,313,77,11,73,1
+,,Drowning,,5,5,5,3,2,1,1
+,,Drug Intoxication,,457,446,408,257,61,135,0
+,,Natural Causes (Since 10/25/99),,12,10,8,1,0,2,0
+,,None of the above,,121,109,83,30,4,20,0
+,,Seizure,,22,22,13,7,0,6,0
+,Suicide,All Mechanisms,,462,455,408,273,108,211,4
+,,Asphyxiation,,344,343,318,216,94,167,4
+,,Cardiovascular,,9,9,6,3,1,3,0
+,,Drowning,,4,4,3,1,0,0,0
+,,Drug Intoxication,,90,85,70,44,10,35,0
+,,Gunshot Wound,,5,4,3,2,0,0,0
+,,None of the above,,4,4,3,3,1,2,0
+,,
+,,Stab,,6,6,5,4,2,4,0
+CEREBRO VASCULAR / STROKE,All Circumstances,All Mechanisms,,"4,519","4,076","3,654",736,149,"1,183",14
+,,Blunt Injury,,1,1,1,0,0,0,0
+,,Cardiovascular,,24,22,14,0,0,6,0
+,,Drug Intoxication,,19,19,14,4,1,7,0
+,,Intracranial Hemorrhage / Stroke,,"4,379","3,942","3,553",706,146,"1,144",14
+,,Natural Causes (Since 10/25/99),,81,77,60,19,1,21,0
+,,None of the above,,12,12,10,5,1,5,0
+,,Seizure,,3,3,2,2,0,0,0
+,MVA,All Mechanisms,,10,9,9,6,1,4,0
+,,Blunt Injury,,1,1,1,0,0,0,0
+,,Intracranial Hemorrhage / Stroke,,8,7,7,5,0,4,0
+,,None of the above,,1,1,1,1,1,0,0
+,Natural Causes (Since 10/25/99),All Mechanisms,,"4,147","3,732","3,363",663,138,"1,079",14
+,,Cardiovascular,,23,21,13,0,0,6,0
+,,Drug Intoxication,,6,6,3,1,0,3,0
+,,Intracranial Hemorrhage / Stroke,,"4,031","3,622","3,283",638,137,"1,047",14
+,,Natural Causes (Since 10/25/99),,80,76,59,19,1,21,0
+,,None of the above,,5,5,3,3,0,2,0
+,,Seizure,,2,2,2,2,0,0,0
+,Non MVA,All Mechanisms,,5,5,4,1,0,0,0
+,,Intracranial Hemorrhage / Stroke,,5,5,4,1,0,0,0
+,None of the above,All Mechanisms,,357,330,278,66,10,100,0
+,,Cardiovascular,,1,1,1,0,0,0,0
+,,Drug Intoxication,,13,13,11,3,1,4,0
+,,Intracranial Hemorrhage / Stroke,,335,308,259,62,9,93,0
+,,Natural Causes (Since 10/25/99),,1,1,1,0,0,0,0
+,,None of the above,,6,6,6,1,0,3,0
+,,Seizure,,1,1,0,0,0,0,0
+HEAD TRAUMA,All Circumstances,All Mechanisms,,"3,166","3,074","2,663","1,666",546,"1,159",41
+,,Blunt Injury,,"2,194","2,119","1,800","1,072",322,690,24
+,,Gunshot Wound,,796,786,725,534,210,425,16
+,,Intracranial Hemorrhage / Stroke,,141,135,110,42,9,34,0
+,,Natural Causes (Since 10/25/99),,8,8,6,3,1,0,1
+,,None of the above,,19,18,17,8,3,6,0
+,,Seizure,,5,5,3,4,0,2,0
+,,Stab,,3,3,2,3,1,2,0
+,Child Abuse,All Mechanisms,,30,28,19,21,2,1,2
+,,Blunt Injury,,26,24,18,19,2,1,2
+,,Intracranial Hemorrhage / Stroke,,3,3,1,1,0,0,0
+,,None of the above,,1,1,0,1,0,0,0
+,,
+,Homicide,All Mechanisms,,278,271,255,189,76,136,5
+,,Blunt Injury,,70,67,60,40,11,26,2
+,,Gunshot Wound,,202,198,190,145,64,107,3
+,,Intracranial Hemorrhage / Stroke,,3,3,3,1,0,1,0
+,,Stab,,3,3,2,3,1,2,0
+,MVA,All Mechanisms,,"1,385","1,363","1,212",798,253,461,15
+,,Blunt Injury,,"1,333","1,311","1,166",769,243,446,14
+,,Intracranial Hemorrhage / Stroke,,39,39,34,20,7,11,0
+,,Natural Causes (Since 10/25/99),,4,4,4,3,1,0,1
+,,None of the above,,9,9,8,6,2,4,0
+,Natural Causes (Since 10/25/99),All Mechanisms,,27,27,19,8,0,7,0
+,,Blunt Injury,,7,7,4,4,0,3,0
+,,Intracranial Hemorrhage / Stroke,,13,13,12,1,0,3,0
+,,Natural Causes (Since 10/25/99),,3,3,1,0,0,0,0
+,,Seizure,,4,4,2,3,0,1,0
+,Non MVA,All Mechanisms,,856,801,629,265,72,240,6
+,,Blunt Injury,,726,678,525,224,54,200,4
+,,Gunshot Wound,,36,36,33,20,15,18,2
+,,Intracranial Hemorrhage / Stroke,,83,77,60,19,2,19,0
+,,Natural Causes (Since 10/25/99),,1,1,1,0,0,0,0
+,,None of the above,,9,8,9,1,1,2,0
+,,Seizure,,1,1,1,1,0,1,0
+,None of the above,All Mechanisms,,3,3,1,2,1,1,0
+,,Blunt Injury,,2,2,0,1,0,0,0
+,,Gunshot Wound,,1,1,1,1,1,1,0
+,Suicide,All Mechanisms,,587,581,528,383,142,313,13
+,,Blunt Injury,,30,30,27,15,12,14,2
+,,Gunshot Wound,,557,551,501,368,130,299,11
+CNS TUMOR,All Circumstances,All Mechanisms,,48,46,43,24,7,21,1
+,,Intracranial Hemorrhage / Stroke,,15,14,13,8,1,8,0
+,,Natural Causes (Since 10/25/99),,21,20,18,12,4,9,1
+,,None of the above,,12,12,12,4,2,4,0
+,Natural Causes (Since 10/25/99),All Mechanisms,,40,38,35,20,5,17,1
+,,Intracranial Hemorrhage / Stroke,,14,13,12,8,1,7,0
+,,Natural Causes (Since 10/25/99),,21,20,18,12,4,9,1
+,,None of the above,,5,5,5,0,0,1,0
+,None of the above,All Mechanisms,,8,8,8,4,2,4,0
+,,Intracranial Hemorrhage / Stroke,,1,1,1,0,0,1,0
+,,None of the above,,7,7,7,4,2,3,0
+OTHER SPECIFY,All Circumstances,All Mechanisms,,972,915,544,146,33,98,2
+,,Asphyxiation,,10,10,6,3,0,2,0
+,,
+,,Blunt Injury,,68,67,50,18,8,12,0
+,,Cardiovascular,,107,97,68,10,2,9,0
+,,Drug Intoxication,,38,35,29,21,3,19,0
+,,Electrical,,1,1,1,0,0,0,0
+,,Gunshot Wound,,29,27,26,20,7,12,1
+,,Intracranial Hemorrhage / Stroke,,39,37,29,4,2,8,0
+,,Natural Causes (Since 10/25/99),,505,476,241,43,5,22,1
+,,None of the above,,154,146,82,21,4,12,0
+,,Seizure,,17,15,10,3,1,2,0
+,,Stab,,4,4,2,3,1,0,0
+,Child Abuse,All Mechanisms,,1,1,0,1,0,0,0
+,,Blunt Injury,,1,1,0,1,0,0,0
+,Homicide,All Mechanisms,,9,9,7,5,1,0,0
+,,Blunt Injury,,1,1,1,0,0,0,0
+,,Gunshot Wound,,4,4,4,2,0,0,0
+,,Stab,,4,4,2,3,1,0,0
+,MVA,All Mechanisms,,47,46,34,11,5,11,0
+,,Blunt Injury,,43,42,32,11,5,11,0
+,,Natural Causes (Since 10/25/99),,1,1,1,0,0,0,0
+,,None of the above,,3,3,1,0,0,0,0
+,Natural Causes (Since 10/25/99),All Mechanisms,,672,630,349,64,8,40,1
+,,Asphyxiation,,2,2,1,0,0,0,0
+,,Cardiovascular,,90,84,55,8,1,9,0
+,,Drug Intoxication,,2,2,1,2,0,1,0
+,,Gunshot Wound,,1,1,1,1,0,1,0
+,,Intracranial Hemorrhage / Stroke,,30,29,22,3,2,5,0
+,,Natural Causes (Since 10/25/99),,496,468,237,43,4,21,1
+,,None of the above,,35,30,22,4,0,1,0
+,,Seizure,,16,14,10,3,1,2,0
+,Non MVA,All Mechanisms,,69,63,51,24,7,17,1
+,,Asphyxiation,,2,2,1,1,0,1,0
+,,Blunt Injury,,20,20,15,3,1,1,0
+,,Cardiovascular,,3,1,3,1,0,0,0
+,,Drug Intoxication,,18,15,15,12,2,11,0
+,,Electrical,,1,1,1,0,0,0,0
+,,Gunshot Wound,,5,5,4,4,3,3,1
+,,Intracranial Hemorrhage / Stroke,,2,1,2,0,0,0,0
+,,Natural Causes (Since 10/25/99),,1,1,0,0,0,0,0
+,,None of the above,,17,17,10,3,1,1,0
+,None of the above,All Mechanisms,,151,143,88,32,8,23,0
+,,Asphyxiation,,3,3,2,1,0,0,0
+,,
+,,Blunt Injury,,2,2,1,2,1,0,0
+,,Cardiovascular,,14,12,10,1,1,0,0
+,,Drug Intoxication,,6,6,5,2,0,2,0
+,,Gunshot Wound,,15,13,14,11,2,7,0
+,,Intracranial Hemorrhage / Stroke,,7,7,5,1,0,3,0
+,,Natural Causes (Since 10/25/99),,7,6,3,0,1,1,0
+,,None of the above,,96,93,48,14,3,10,0
+,,Seizure,,1,1,0,0,0,0,0
+,Suicide,All Mechanisms,,23,23,15,9,4,7,0
+,,Asphyxiation,,3,3,2,1,0,1,0
+,,Blunt Injury,,1,1,1,1,1,0,0
+,,Drug Intoxication,,12,12,8,5,1,5,0
+,,Gunshot Wound,,4,4,3,2,2,1,0
+,,None of the above,,3,3,1,0,0,0,0

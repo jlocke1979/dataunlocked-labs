@@ -16,6 +16,13 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 - **EDGE_MODE:** `all` (plus threshold variants `ge_200`, `ge_100`, `ge_50`, `ge_25` for comparison)
 - **Intent:** Test whether the full retained network reads as regional texture vs. clutter
 
+## Version 1 Final (presentation layout)
+
+- **Title:** Regional Yet Connected; public source line on viz card only
+- **Legend:** Flow volume (transplants) — three contrast line samples
+- **Map:** Albers USA + labeled PR inset; methodology in **Audit (internal)** below graphic
+- **EDGE_MODE:** `all` (circulation field default)
+
 ## Current observation
 
 The all-flows version creates a more complete regional circulation texture; the top-50 map feels too sparse and anecdotal for describing system-level patterns. Coordinate coverage remains a limiting factor (~37% of total flow has both endpoints in the partial node file).

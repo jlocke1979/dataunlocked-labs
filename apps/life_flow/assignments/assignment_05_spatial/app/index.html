@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assignment 05 — D2T Flow Prototype</title>
+    <title>Regional Yet Connected — Organ Transplant Flows</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="page">
       <header class="header">
-        <h1 id="chart-title">Donor Recovery → Transplant Center Flows (Top 50)</h1>
+        <h1 id="chart-title">Regional Yet Connected</h1>
         <p class="subtitle">
-          Proof-of-concept · state centroid coordinates · OPTN D2T all organs
+          Organ transplant flows form a dense national network anchored by regional medical hubs.
         </p>
       </header>
 
@@ -25,48 +25,38 @@
           <aside id="legend-panel" class="legend-panel" aria-label="Legend">
             <h2 class="legend-panel__title">Legend</h2>
 
-            <section class="legend-section">
-              <h3 class="legend-section__heading">Nodes</h3>
-              <ul class="legend-list">
-                <li class="legend-item">
-                  <span class="legend-swatch legend-swatch--source"></span>
-                  <span>Donor recovery (DSA)</span>
-                </li>
-                <li class="legend-item">
-                  <span class="legend-swatch legend-swatch--destination"></span>
-                  <span>Transplant center</span>
-                </li>
-              </ul>
-            </section>
-
-            <section class="legend-section">
-              <h3 class="legend-section__heading">Flows</h3>
-              <p class="legend-note">Line width ∝ transplant count</p>
+            <section class="legend-section legend-section--flows">
+              <h3 class="legend-section__heading">Flow volume (transplants)</h3>
               <div class="legend-flow-scale">
                 <div class="legend-flow-row">
-                  <span class="legend-line legend-line--low"></span>
-                  <span class="legend-flow-label">lower</span>
+                  <span class="legend-line legend-line--high"></span>
+                  <span class="legend-flow-label">Higher volume</span>
                 </div>
                 <div class="legend-flow-row">
-                  <span class="legend-line legend-line--high"></span>
-                  <span class="legend-flow-label">higher</span>
+                  <span class="legend-line legend-line--mid"></span>
+                  <span class="legend-flow-label">Medium volume</span>
+                </div>
+                <div class="legend-flow-row">
+                  <span class="legend-line legend-line--low"></span>
+                  <span class="legend-flow-label">Lower volume</span>
                 </div>
               </div>
             </section>
-
-            <p class="legend-footnote">
-              Coordinates are state centroids (proof-of-concept).
-            </p>
           </aside>
         </div>
+
+        <p class="viz-source">
+          Source: OPTN/UNOS Advanced Reports; donor and transplant flows, 2025. Current
+          waitlist reference data pulled 2026.
+        </p>
       </div>
 
-      <p class="footnote">
-        From <code>assignment_05_spatial/</code>, run
-        <code>python3 -m http.server 8080</code> and open
-        <code>http://localhost:8080/app/</code> (CSVs load via
-        <code>../data/processed/</code>).
-      </p>
+      <section id="audit-panel" class="audit-panel" aria-label="Audit (internal)">
+        <h2 class="audit-panel__heading">Audit (internal)</h2>
+        <div class="audit-panel__body">
+          <ul class="audit-list"></ul>
+        </div>
+      </section>
     </main>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>

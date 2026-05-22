@@ -1,0 +1,2436 @@
+{
+  "OHOU-TX1": {
+    "ok": false,
+    "queries": [
+      "Ohio State University Medical Center, Ohio, USA",
+      "Ohio State University Medical Center, Ohio",
+      "Ohio State University Medical Center, USA"
+    ]
+  },
+  "NYUC-TX1": {
+    "ok": true,
+    "lat": "40.7434",
+    "lon": "-73.9722",
+    "display_name": "NYU Langone Health, 403, East 34th Street, Kips Bay, Manhattan Community Board 6, Manhattan, New York County, New York, 10016, United States",
+    "class": "healthcare",
+    "type": "centre",
+    "matched_query": "NYU Langone Health, New York, USA"
+  },
+  "DCGU-TX1": {
+    "ok": false,
+    "queries": [
+      "Medstar Georgetown Transplant Institute, District of Columbia, USA",
+      "Medstar Georgetown Transplant Institute, District of Columbia",
+      "Medstar Georgetown Transplant Institute, USA"
+    ]
+  },
+  "VAMC-TX1": {
+    "ok": false,
+    "queries": [
+      "VCU Health System Authority, VCUMC, Virginia, USA",
+      "VCU Health System Authority, VCUMC, Virginia",
+      "VCU Health System Authority, VCUMC, USA"
+    ]
+  },
+  "FLSL-TX1": {
+    "ok": true,
+    "lat": "30.2605",
+    "lon": "-81.4448",
+    "display_name": "Mayo Clinic Jacksonville Campus, 4500, Butler Boulevard, Jacksonville, Duval County, Florida, 32224, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Mayo Clinic Hospital Florida, Florida, USA"
+  },
+  "WIUW-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Wisconsin Hospital and Clinics, Wisconsin, USA",
+      "University of Wisconsin Hospital and Clinics, Wisconsin",
+      "University of Wisconsin Hospital and Clinics, USA"
+    ]
+  },
+  "NYCP-TX1": {
+    "ok": false,
+    "queries": [
+      "NY Presbyterian Hospital/Columbia Univ. Medical Center, New York, USA",
+      "NY Presbyterian Hospital/Columbia Univ. Medical Center, New York",
+      "NY Presbyterian Hospital/Columbia Univ. Medical Center, USA"
+    ]
+  },
+  "FLUF-TX1": {
+    "ok": true,
+    "lat": "30.3485",
+    "lon": "-81.6649",
+    "display_name": "UF Health Jacksonville, 655, West 8th Street, Springfield, Jacksonville, Duval County, Florida, 32209, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "UF Health Shands Hospital, Florida, USA"
+  },
+  "MDJH-TX1": {
+    "ok": true,
+    "lat": "39.2964",
+    "lon": "-76.5924",
+    "display_name": "Johns Hopkins Hospital, 1800, Orleans Street, Dunbar-Broadway, Baltimore, Maryland, 21287, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Johns Hopkins Hospital, Maryland, USA"
+  },
+  "NYNS-TX1": {
+    "ok": false,
+    "queries": [
+      "North Shore University Hospital/Northwell Health, New York, USA",
+      "North Shore University Hospital/Northwell Health, New York",
+      "North Shore University Hospital/Northwell Health, USA"
+    ]
+  },
+  "OHCC-TX1": {
+    "ok": false,
+    "queries": [
+      "The Cleveland Clinic Foundation, Ohio, USA",
+      "The Cleveland Clinic Foundation, Ohio",
+      "The Cleveland Clinic Foundation, USA"
+    ]
+  },
+  "CAUC-TX1": {
+    "ok": false,
+    "queries": [
+      "University of California at Los Angeles Medical Center, California, USA",
+      "University of California at Los Angeles Medical Center, California",
+      "University of California at Los Angeles Medical Center, USA"
+    ]
+  },
+  "SCMU-TX1": {
+    "ok": true,
+    "lat": "32.7902",
+    "lon": "-79.9576",
+    "display_name": "Medical University of South Carolina, 171, Ashley Avenue, The Gathering at Morris Square, Cannonborough-Elliotborough, Charleston, Charleston County, South Carolina, 29425, United States",
+    "class": "amenity",
+    "type": "university",
+    "matched_query": "Medical University of South Carolina, South Carolina, USA"
+  },
+  "NCDU-TX1": {
+    "ok": true,
+    "lat": "36.0070",
+    "lon": "-78.9373",
+    "display_name": "Duke University Hospital, 2301, Erwin Road, Crest Street, Durham, Durham County, North Carolina, 27710, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Duke University Hospital, North Carolina, USA"
+  },
+  "CACS-TX1": {
+    "ok": true,
+    "lat": "34.0752",
+    "lon": "-118.3811",
+    "display_name": "Cedars-Sinai Medical Center, 8700, Beverly Boulevard, West Hollywood, Los Angeles County, California, 90048, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Cedars-Sinai Medical Center, California, USA"
+  },
+  "ILNM-TX1": {
+    "ok": true,
+    "lat": "41.8946",
+    "lon": "-87.6215",
+    "display_name": "Northwestern Memorial Hospital, 251, East Huron Street, Magnificent Mile, River North, Near North Side, Chicago, North Chicago Township, Cook County, Illinois, 60611, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Northwestern Memorial Hospital, Illinois, USA"
+  },
+  "GAPH-TX1": {
+    "ok": true,
+    "lat": "33.4713",
+    "lon": "-81.9824",
+    "display_name": "Piedmont Augusta, 1350, Walton Way, Augusta, Richmond County, Georgia, 30901, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Piedmont Hospital, Georgia, USA"
+  },
+  "MOBH-TX1": {
+    "ok": true,
+    "lat": "38.6372",
+    "lon": "-90.2644",
+    "display_name": "Barnes-Jewish Hospital, 1, Barnes Jewish Hospital Plaza, Central West End, Saint Louis, Missouri, 63110, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Barnes-Jewish Hospital, Missouri, USA"
+  },
+  "CASF-TX1": {
+    "ok": false,
+    "queries": [
+      "University of California San Francisco Medical Center, California, USA",
+      "University of California San Francisco Medical Center, California",
+      "University of California San Francisco Medical Center, USA"
+    ]
+  },
+  "PAUP-TX1": {
+    "ok": true,
+    "lat": "39.9499",
+    "lon": "-75.1941",
+    "display_name": "Hospital of the University of Pennsylvania, 3400, Spruce Street, University City, West Philadelphia, Philadelphia, Philadelphia County, Pennsylvania, 19104, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Hospital of the University of Pennsylvania, Pennsylvania, USA"
+  },
+  "NYMS-TX1": {
+    "ok": true,
+    "lat": "40.7332",
+    "lon": "-73.9820",
+    "display_name": "Mount Sinai Beth Israel, East 17th Street, Stuy Town, Manhattan Community Board 6, Manhattan, New York County, New York, 10003, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Mount Sinai Medical Center, New York, USA"
+  },
+  "MAMG-TX1": {
+    "ok": true,
+    "lat": "42.3629",
+    "lon": "-71.0688",
+    "display_name": "Massachusetts General Hospital, 55, Fruit Street, West End, Boston, Suffolk County, Massachusetts, 02114, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Massachusetts General Hospital, Massachusetts, USA"
+  },
+  "FLJM-TX1": {
+    "ok": false,
+    "queries": [
+      "Jackson Memorial Hospital University of Miami School of Medicine, Florida, USA",
+      "Jackson Memorial Hospital University of Miami School of Medicine, Florida",
+      "Jackson Memorial Hospital University of Miami School of Medicine, USA"
+    ]
+  },
+  "CASD-TX1": {
+    "ok": false,
+    "queries": [
+      "University of California San Diego Medical Center, California, USA",
+      "University of California San Diego Medical Center, California",
+      "University of California San Diego Medical Center, USA"
+    ]
+  },
+  "UTLD-TX1": {
+    "ok": true,
+    "lat": "40.6596",
+    "lon": "-111.8912",
+    "display_name": "Intermountain Medical Center, 5121, Cottonwood Street, Murray, Salt Lake County, Utah, 84107, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Intermountain Medical Center, Utah, USA"
+  },
+  "COUC-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Colorado Hospital/Health Science Center, Colorado, USA",
+      "University of Colorado Hospital/Health Science Center, Colorado",
+      "University of Colorado Hospital/Health Science Center, USA"
+    ]
+  },
+  "INIM-TX1": {
+    "ok": true,
+    "lat": "39.7807",
+    "lon": "-86.1590",
+    "display_name": "Indiana University Health, 950, North Meridian Street, St. Joseph, Indianapolis, Marion County, Indiana, 46204, United States",
+    "class": "building",
+    "type": "commercial",
+    "matched_query": "Indiana University Health, Indiana, USA"
+  },
+  "MIUM-TX1": {
+    "ok": true,
+    "lat": "42.2836",
+    "lon": "-83.7312",
+    "display_name": "University of Michigan Medical Center, East Medical Center Drive, Ann Arbor, Washtenaw County, Michigan, 48109, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University of Michigan Medical Center, Michigan, USA"
+  },
+  "MNMC-TX1": {
+    "ok": true,
+    "lat": "44.0193",
+    "lon": "-92.4810",
+    "display_name": "Mayo Clinic Saint Marys Campus, 1216, 2nd Street Southwest, Rochester, Olmsted County, Minnesota, 55902, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Mayo Clinic Hospital Minnesota, Minnesota, USA"
+  },
+  "CASU-TX1": {
+    "ok": true,
+    "lat": "37.2535",
+    "lon": "-121.9516",
+    "display_name": "Stanford Health Care, Los Gatos Boulevard, Vasona Junction, Los Gatos, Santa Clara County, California, 95032, United States",
+    "class": "amenity",
+    "type": "clinic",
+    "matched_query": "Stanford Health Care, California, USA"
+  },
+  "TXSP-TX1": {
+    "ok": false,
+    "queries": [
+      "UT Southwestern Medical Center/William P. Clements Jr. University Hospital, Texas, USA",
+      "UT Southwestern Medical Center/William P. Clements Jr. University Hospital, Texas",
+      "UT Southwestern Medical Center/William P. Clements Jr. University Hospital, USA"
+    ]
+  },
+  "ALUA-TX1": {
+    "ok": true,
+    "lat": "30.6983",
+    "lon": "-88.0775",
+    "display_name": "University of South Alabama Children's and Women's Hospital, 1700, Center Street, Lyons Park, Mobile County Commission District 1, Mobile, Mobile County, Alabama, 36604, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University of Alabama Hospital, Alabama, USA"
+  },
+  "TXTX-TX1": {
+    "ok": true,
+    "lat": "32.7899",
+    "lon": "-96.7779",
+    "display_name": "Baylor University Medical Center, 3500, Gaston Avenue, Dallas, Dallas County, Texas, 75246, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Baylor University Medical Center, Texas, USA"
+  },
+  "MNUM-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Minnesota Medical Center, Fairview, Minnesota, USA",
+      "University of Minnesota Medical Center, Fairview, Minnesota",
+      "University of Minnesota Medical Center, Fairview, USA"
+    ]
+  },
+  "WAUW-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Washington Medical Center, Washington, USA",
+      "University of Washington Medical Center, Washington",
+      "University of Washington Medical Center, USA"
+    ]
+  },
+  "TXHI-TX1": {
+    "ok": false,
+    "queries": [
+      "CHI St. Luke's Health Baylor College of Medicine Medical Center, Texas, USA",
+      "CHI St. Luke's Health Baylor College of Medicine Medical Center, Texas",
+      "CHI St. Luke's Health Baylor College of Medicine Medical Center, USA"
+    ]
+  },
+  "NEUN-TX1": {
+    "ok": false,
+    "queries": [
+      "The Nebraska Medical Center, Nebraska, USA",
+      "The Nebraska Medical Center, Nebraska",
+      "The Nebraska Medical Center, USA"
+    ]
+  },
+  "FLFH-TX1": {
+    "ok": true,
+    "lat": "28.5751",
+    "lon": "-81.3698",
+    "display_name": "AdventHealth Orlando, 601, Scofield Drive, North Orange, Orlando, Orange County, Florida, 32803, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "AdventHealth Orlando, Florida, USA"
+  },
+  "ILUC-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Chicago Medical Center, Illinois, USA",
+      "University of Chicago Medical Center, Illinois",
+      "University of Chicago Medical Center, USA"
+    ]
+  },
+  "NCCM-TX1": {
+    "ok": true,
+    "lat": "35.2038",
+    "lon": "-80.8387",
+    "display_name": "Carolinas Medical Center, 1000, Blythe Boulevard, Midtown, Charlotte, Mecklenburg County, North Carolina, 28203, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Carolinas Medical Center, North Carolina, USA"
+  },
+  "VAUV-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Virginia Health Sciences Center, Virginia, USA",
+      "University of Virginia Health Sciences Center, Virginia",
+      "University of Virginia Health Sciences Center, USA"
+    ]
+  },
+  "LAOF-TX1": {
+    "ok": true,
+    "lat": "29.9611",
+    "lon": "-90.1457",
+    "display_name": "Ochsner Medical Center, 1514, Jefferson Highway, Jefferson, New Orleans, Jefferson Parish, Louisiana, 70121, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Ochsner Foundation Hospital, Louisiana, USA"
+  },
+  "MIHF-TX1": {
+    "ok": true,
+    "lat": "42.3691",
+    "lon": "-83.0854",
+    "display_name": "Henry Ford Hospital, 2799, West Grand Boulevard, Henry Ford, New Center, Detroit, Wayne County, Michigan, 48202, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Henry Ford Hospital, Michigan, USA"
+  },
+  "CALL-TX1": {
+    "ok": true,
+    "lat": "34.0491",
+    "lon": "-117.2634",
+    "display_name": "Loma Linda University Medical Center, 11234, Anderson Street, Loma Linda, San Bernardino County, California, 92354, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Loma Linda University Medical Center, California, USA"
+  },
+  "CAUH-TX1": {
+    "ok": true,
+    "lat": "34.0627",
+    "lon": "-118.2019",
+    "display_name": "Keck Hospital of USC, 1500, San Pablo Street, Lincoln Heights, Los Angeles, Los Angeles County, California, 90033, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Keck Hospital of USC, California, USA"
+  },
+  "TXHS-TX1": {
+    "ok": true,
+    "lat": "29.5142",
+    "lon": "-98.5764",
+    "display_name": "Methodist Specialty and Transplant Hospital, 8026, Floyd Curl Drive, South Texas Medical Center, San Antonio, Bexar County, Texas, 78229, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Methodist Specialty and Transplant Hospital, Texas, USA"
+  },
+  "CAPM-TX1": {
+    "ok": false,
+    "queries": [
+      "California Pacific Medical Center-Van Ness Campus, California, USA",
+      "California Pacific Medical Center-Van Ness Campus, California",
+      "California Pacific Medical Center-Van Ness Campus, USA"
+    ]
+  },
+  "NYMA-TX1": {
+    "ok": true,
+    "lat": "40.8801",
+    "lon": "-73.8798",
+    "display_name": "Montefiore Medical Center West Campus Moses Division Hospital, 111, East 210th Street, Norwood, The Bronx, Bronx County, New York, 10467, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Montefiore Medical Center, New York, USA"
+  },
+  "ILLU-TX1": {
+    "ok": true,
+    "lat": "41.8583",
+    "lon": "-87.8352",
+    "display_name": "Loyola University Medical Center, 2160, South 1st Avenue, Maywood, Proviso Township, Cook County, Illinois, 60153, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Loyola University Medical Center, Illinois, USA"
+  },
+  "NJSB-TX1": {
+    "ok": true,
+    "lat": "40.7635",
+    "lon": "-74.3048",
+    "display_name": "Cooperman Barnabas Medical Center, 94, Old Short Hills Road, Livingston, Essex County, New Jersey, 07039, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Saint Barnabas Medical Center, New Jersey, USA"
+  },
+  "TXBC-TX1": {
+    "ok": false,
+    "queries": [
+      "University Hospital, University of Texas Health Science Center, Texas, USA",
+      "University Hospital, University of Texas Health Science Center, Texas",
+      "University Hospital, University of Texas Health Science Center, USA"
+    ]
+  },
+  "OHUH-TX1": {
+    "ok": true,
+    "lat": "41.5061",
+    "lon": "-81.6051",
+    "display_name": "University Hospitals of Cleveland Heliport, UH Drive, Uptown, University Circle, Cleveland, Cuyahoga County, Ohio, 44106, United States",
+    "class": "aeroway",
+    "type": "helipad",
+    "matched_query": "University Hospitals of Cleveland, Ohio, USA"
+  },
+  "OHUC-TX1": {
+    "ok": true,
+    "lat": "39.1377",
+    "lon": "-84.5031",
+    "display_name": "University of Cincinnati Medical Center, 234, Goodman Drive, Pill Hill, University Heights, Corryville, Cincinnati, Hamilton County, Ohio, 45219, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University of Cincinnati  Medical Center, Ohio, USA"
+  },
+  "UTMC-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Utah Medical Center, Utah, USA",
+      "University of Utah Medical Center, Utah",
+      "University of Utah Medical Center, USA"
+    ]
+  },
+  "CASM-TX1": {
+    "ok": true,
+    "lat": "38.5527",
+    "lon": "-121.4518",
+    "display_name": "University of California, Davis Medical Center, 2315, Stockton Boulevard, Fairgrounds, North Oak Park, Oak Park, Sacramento, Sacramento County, California, 95817, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University of California Davis Medical Center, California, USA"
+  },
+  "NYNY-TX1": {
+    "ok": false,
+    "queries": [
+      "New York-Presbyterian Hospital/Weill Cornell Medical Center, New York, USA",
+      "New York-Presbyterian Hospital/Weill Cornell Medical Center, New York",
+      "New York-Presbyterian Hospital/Weill Cornell Medical Center, USA"
+    ]
+  },
+  "PAPT-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Pittsburgh Medical Center, Pennsylvania, USA",
+      "University of Pittsburgh Medical Center, Pennsylvania",
+      "University of Pittsburgh Medical Center, USA"
+    ]
+  },
+  "FLCC-TX1": {
+    "ok": true,
+    "lat": "26.0825",
+    "lon": "-80.3678",
+    "display_name": "Cleveland Clinic Boulevard, Weston, Broward County, Florida, 33331, United States",
+    "class": "highway",
+    "type": "unclassified",
+    "matched_query": "Cleveland Clinic Florida Weston, Florida, USA"
+  },
+  "ILUI-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Illinois Medical Center, Illinois, USA",
+      "University of Illinois Medical Center, Illinois",
+      "University of Illinois Medical Center, USA"
+    ]
+  },
+  "NJHK-TX1": {
+    "ok": true,
+    "lat": "40.8837",
+    "lon": "-74.0559",
+    "display_name": "Hackensack University Medical Center, 30, Prospect Avenue, Hackensack, Bergen County, New Jersey, 07601, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Hackensack University Medical Center, New Jersey, USA"
+  },
+  "NCMH-TX1": {
+    "ok": false,
+    "queries": [
+      "University of North Carolina Hospitals, North Carolina, USA",
+      "University of North Carolina Hospitals, North Carolina",
+      "University of North Carolina Hospitals, USA"
+    ]
+  },
+  "VAFH-TX1": {
+    "ok": true,
+    "lat": "38.8574",
+    "lon": "-77.2285",
+    "display_name": "Inova Fairfax Hospital, 3300, Gallows Road, Falls Church, Fairfax County, Virginia, 22042, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Inova Fairfax Hospital, Virginia, USA"
+  },
+  "KSUK-TX1": {
+    "ok": true,
+    "lat": "39.0571",
+    "lon": "-94.6095",
+    "display_name": "University of Kansas Medical Center, 3901, Rainbow Boulevard, Rosedale, Kansas City, Wyandotte County, Kansas, 66160, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University of Kansas Hospital, Kansas, USA"
+  },
+  "PATU-TX1": {
+    "ok": true,
+    "lat": "40.0053",
+    "lon": "-75.1508",
+    "display_name": "Temple University Hospital, 3401, North Broad Street, North Philadelphia, Philadelphia, Philadelphia County, Pennsylvania, 19140, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Temple University Hospital, Pennsylvania, USA"
+  },
+  "WISE-TX1": {
+    "ok": true,
+    "lat": "43.0414",
+    "lon": "-88.0246",
+    "display_name": "Froedtert Hospital, 9200, West Wisconsin Avenue, Cannon Park, Milwaukee, Milwaukee County, Wisconsin, 53226, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Froedtert Memorial Lutheran Hospital, Wisconsin, USA"
+  },
+  "TXHD-TX1": {
+    "ok": true,
+    "lat": "32.9121",
+    "lon": "-96.7739",
+    "display_name": "Medical City Dallas Hospital, 7777, Forest Lane, Dallas, Dallas County, Texas, 75243, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Medical City Dallas Hospital, Texas, USA"
+  },
+  "WASM-TX1": {
+    "ok": true,
+    "lat": "47.6087",
+    "lon": "-122.3227",
+    "display_name": "Swedish First Hill Medical Center, 747, Broadway, Madison Valley, First Hill, Seattle, King County, Washington, 98122, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Swedish Medical Center, Washington, USA"
+  },
+  "ORUO-TX1": {
+    "ok": false,
+    "queries": [
+      "Oregon Health and Science University, Oregon, USA",
+      "Oregon Health and Science University, Oregon",
+      "Oregon Health and Science University, USA"
+    ]
+  },
+  "MDUM-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Maryland Medical System, Maryland, USA",
+      "University of Maryland Medical System, Maryland",
+      "University of Maryland Medical System, USA"
+    ]
+  },
+  "CAIM-TX1": {
+    "ok": false,
+    "queries": [
+      "University of California Irvine Medical Center, California, USA",
+      "University of California Irvine Medical Center, California",
+      "University of California Irvine Medical Center, USA"
+    ]
+  },
+  "MABI-TX1": {
+    "ok": true,
+    "lat": "42.2475",
+    "lon": "-71.0030",
+    "display_name": "Beth Israel Deaconess Medical Center, 55, McConville Way, Quincy Center, South Quincy, Quincy, Norfolk County, Massachusetts, 02169, United States",
+    "class": "amenity",
+    "type": "social_facility",
+    "matched_query": "Beth Israel Deaconess Medical Center, Massachusetts, USA"
+  },
+  "TNMH-TX1": {
+    "ok": true,
+    "lat": "39.7912",
+    "lon": "-86.1632",
+    "display_name": "Indiana University Health Methodist Hospital, 1701, Kenneth \"Babyface\" Edmonds Highway, Meridian Highlands, Indianapolis, Marion County, Indiana, 46202, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Methodist University Hospital, USA"
+  },
+  "TXMC-TX1": {
+    "ok": true,
+    "lat": "32.7613",
+    "lon": "-96.8250",
+    "display_name": "Methodist Dallas Medical Center, 1441, North Beckley Avenue, Dallas, Dallas County, Texas, 75203, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Methodist Dallas Medical Center, Texas, USA"
+  },
+  "OKBC-TX1": {
+    "ok": true,
+    "lat": "35.5295",
+    "lon": "-97.5765",
+    "display_name": "INTEGRIS Baptist Medical Center, 3300, Northwest Expressway, Oklahoma City, Oklahoma County, Oklahoma, 73112, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Integris Baptist Medical Center, Oklahoma, USA"
+  },
+  "ARUA-TX1": {
+    "ok": false,
+    "queries": [
+      "UAMS Medical Center, Arkansas, USA",
+      "UAMS Medical Center, Arkansas",
+      "UAMS Medical Center, USA"
+    ]
+  },
+  "KYUK-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Kentucky Medical Center, Kentucky, USA",
+      "University of Kentucky Medical Center, Kentucky",
+      "University of Kentucky Medical Center, USA"
+    ]
+  },
+  "OHCO-TX1": {
+    "ok": true,
+    "lat": "41.6200",
+    "lon": "-83.6170",
+    "display_name": "University of Toledo Medical Center, Library Circle, Toledo, Lucas County, Ohio, 43614, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "University of Toledo Medical Center, Ohio, USA"
+  },
+  "TNST-TX1": {
+    "ok": true,
+    "lat": "36.1297",
+    "lon": "-86.8446",
+    "display_name": "Saint Thomas West Hospital, 4220, Harding Pike, Cherokee Park, Nashville, Davidson County, Middle Tennessee, Tennessee, 37205, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Saint Thomas Hospital, Tennessee, USA"
+  },
+  "PATJ-TX1": {
+    "ok": true,
+    "lat": "39.9493",
+    "lon": "-75.1580",
+    "display_name": "Thomas Jefferson University Hospital, 111, South 11th Street, Washington Square West, Center City, Philadelphia, Philadelphia County, Pennsylvania, 19107, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Thomas Jefferson University Hospital, Pennsylvania, USA"
+  },
+  "NCBG-TX1": {
+    "ok": true,
+    "lat": "36.0898",
+    "lon": "-80.2677",
+    "display_name": "Wake Forest Baptist Medical Center, 1, Medical Center Boulevard, Ardmore, Winston-Salem, Forsyth County, North Carolina, 27157, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Wake Forest Baptist Medical Center, North Carolina, USA"
+  },
+  "NVUM-TX1": {
+    "ok": false,
+    "queries": [
+      "University Medical Center of Southern Nevada, Nevada, USA",
+      "University Medical Center of Southern Nevada, Nevada",
+      "University Medical Center of Southern Nevada, USA"
+    ]
+  },
+  "LATU-TX1": {
+    "ok": true,
+    "lat": "29.9559",
+    "lon": "-90.0763",
+    "display_name": "Tulane Medical Center, 1415, Tulane Avenue, Storyville, New Orleans, Orleans Parish, Louisiana, 70112, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Tulane Medical Center, Louisiana, USA"
+  },
+  "NYFL-TX1": {
+    "ok": false,
+    "queries": [
+      "Strong Memorial Hospital, University of Rochester Medical Center, New York, USA",
+      "Strong Memorial Hospital, University of Rochester Medical Center, New York",
+      "Strong Memorial Hospital, University of Rochester Medical Center, USA"
+    ]
+  },
+  "FLMR-TX1": {
+    "ok": true,
+    "lat": "26.0196",
+    "lon": "-80.1799",
+    "display_name": "Memorial Regional Hospital, 3501, Johnson Street, West Hollywood, Hollywood, Broward County, Florida, 33021, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Memorial Regional Hospital, Florida, USA"
+  },
+  "NYWC-TX1": {
+    "ok": true,
+    "lat": "41.0874",
+    "lon": "-73.8067",
+    "display_name": "Westchester Medical Center, 100, Woods Road, Town of Mount Pleasant, Westchester County, New York, 10595, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Westchester Medical Center, New York, USA"
+  },
+  "MSUM-TX1": {
+    "ok": true,
+    "lat": "32.3309",
+    "lon": "-90.1723",
+    "display_name": "University of Mississippi Medical Center, 2500, North State Street, Fondren, Woodland Hills, Jackson, Hinds County, Mississippi, 39216, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University of Mississippi Medical Center, Mississippi, USA"
+  },
+  "AZGS-TX1": {
+    "ok": true,
+    "lat": "33.4647",
+    "lon": "-112.0586",
+    "display_name": "Banner University Medical Center Phoenix, 1111, East McDowell Road, Central City, Phoenix, Maricopa County, Arizona, 85006, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Banner-University Medical Center Phoenix, Arizona, USA"
+  },
+  "ILPL-TX1": {
+    "ok": true,
+    "lat": "41.8746",
+    "lon": "-87.6691",
+    "display_name": "Rush University Medical Center, 1653, West Congress Parkway, Little Italy, Near West Side, Chicago, West Chicago Township, Cook County, Illinois, 60612, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Rush University Medical Center, Illinois, USA"
+  },
+  "MANM-TX1": {
+    "ok": true,
+    "lat": "42.3497",
+    "lon": "-71.0639",
+    "display_name": "Tufts Medical Center, 800, Washington Street, Church Green, Downtown, Boston, Suffolk County, Massachusetts, 02111, United States",
+    "class": "railway",
+    "type": "station",
+    "matched_query": "Tufts Medical Center, Massachusetts, USA"
+  },
+  "PAAG-TX1": {
+    "ok": true,
+    "lat": "40.4570",
+    "lon": "-80.0033",
+    "display_name": "Allegheny General Hospital, 320, East North Avenue, Allegheny Center, Pittsburgh, Allegheny County, Pennsylvania, 15212, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Allegheny General Hospital, Pennsylvania, USA"
+  },
+  "MAUM-TX1": {
+    "ok": true,
+    "lat": "42.2852",
+    "lon": "-71.7897",
+    "display_name": "UMass Memorial Medical Center - Hahnemann Campus, 281, Lincoln Street, Brittan Square, Worcester, Worcester County, Massachusetts, 01605, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "UMass Memorial Medical Center, Massachusetts, USA"
+  },
+  "MALC-TX1": {
+    "ok": true,
+    "lat": "42.4846",
+    "lon": "-71.2042",
+    "display_name": "Lahey Hospital & Medical Center, 41, Burlington Mall Road, Burlington, Middlesex County, Massachusetts, 01805, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Lahey Clinic Medical Center, Massachusetts, USA"
+  },
+  "AZSJ-TX1": {
+    "ok": false,
+    "queries": [
+      "St. Joseph's Hospital and Medical Center, Arizona, USA",
+      "St. Joseph's Hospital and Medical Center, Arizona",
+      "St. Joseph's Hospital and Medical Center, USA"
+    ]
+  },
+  "CTYN-TX1": {
+    "ok": true,
+    "lat": "41.3046",
+    "lon": "-72.9356",
+    "display_name": "Yale New Haven Hospital, 20, York Street, Dixwell, New Haven, Connecticut, 06510, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Yale New Haven Hospital, Connecticut, USA"
+  },
+  "MAPB-TX1": {
+    "ok": true,
+    "lat": "42.3356",
+    "lon": "-71.1060",
+    "display_name": "Brigham and Women's Hospital, 75, Francis Street, Longwood, Boston, Suffolk County, Massachusetts, 02115, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Brigham and Women's Hospital, Massachusetts, USA"
+  },
+  "PAAE-TX1": {
+    "ok": false,
+    "queries": [
+      "Albert Einstein Medical Center, Pennsylvania, USA",
+      "Albert Einstein Medical Center, Pennsylvania",
+      "Albert Einstein Medical Center, USA"
+    ]
+  },
+  "PALV-TX1": {
+    "ok": true,
+    "lat": "40.5652",
+    "lon": "-75.5220",
+    "display_name": "Lehigh Valley Hospital, 1200, South Cedar Crest Boulevard, Allentown, Lehigh County, Pennsylvania, 18105, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Lehigh Valley Hospital, Pennsylvania, USA"
+  },
+  "TXTC-TX1": {
+    "ok": true,
+    "lat": "29.7069",
+    "lon": "-95.4023",
+    "display_name": "Texas Children's Hospital - Clinical Care Center, 6701, Fannin Street, Texas Medical Center, Houston, Harris County, Texas, 77030, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Texas Children's Hospital, Texas, USA"
+  },
+  "CTHH-TX1": {
+    "ok": true,
+    "lat": "41.7541",
+    "lon": "-72.6794",
+    "display_name": "Hartford Hospital, 80, Seymour Street, Jefferson\u2013Seymour Historic District, Frog Hollow, Coltville, Hartford, Connecticut, 06102, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Hartford Hospital, Connecticut, USA"
+  },
+  "NJLL-TX1": {
+    "ok": false,
+    "queries": [
+      "Virtua Our Lady of Lourdes Hospital, New Jersey, USA",
+      "Virtua Our Lady of Lourdes Hospital, New Jersey",
+      "Virtua Our Lady of Lourdes Hospital, USA"
+    ]
+  },
+  "SCPG-TX1": {
+    "ok": true,
+    "lat": "34.8196",
+    "lon": "-82.4104",
+    "display_name": "Prisma Health Greenville Memorial Hospital, 701, Grove Road, Club Forest, Greenville, Greenville County, South Carolina, 29601, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Prisma Health Greenville Memorial Hospital, South Carolina, USA"
+  },
+  "KYJH-TX1": {
+    "ok": true,
+    "lat": "38.2503",
+    "lon": "-85.7502",
+    "display_name": "Jewish Hospital, 200, Abraham Flexner Way, Louisville, Jefferson County, Kentucky, 40202, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Jewish Hospital, Kentucky, USA"
+  },
+  "FLLM-TX1": {
+    "ok": true,
+    "lat": "27.9599",
+    "lon": "-82.7413",
+    "display_name": "Largo Medical Center Clearwater ER, 2339, Gulf to Bay Boulevard, Clearwater, Pinellas County, Florida, 33765, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Largo Medical Center, Florida, USA"
+  },
+  "MOLH-TX1": {
+    "ok": true,
+    "lat": "39.0483",
+    "lon": "-94.5911",
+    "display_name": "Saint Luke's Hospital of Kansas City, 4440, Wornall Road, Plaza-Westport, Westport, Kansas City, Jackson County, Missouri, 64111, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "St Luke's Hospital of Kansas City, Missouri, USA"
+  },
+  "SCLA-TX1": {
+    "ok": true,
+    "lat": "34.7178",
+    "lon": "-80.7884",
+    "display_name": "MUSC Health Lancaster Medical Center, 800, West Meeting Street, Lancaster, Lancaster County, South Carolina, 29720, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "MUSC Lancaster, South Carolina, USA"
+  },
+  "TXAS-TX1": {
+    "ok": false,
+    "queries": [
+      "Baylor  Scott and White All Saints Medical Center-Fort Worth, Texas, USA",
+      "Baylor  Scott and White All Saints Medical Center-Fort Worth, Texas",
+      "Baylor  Scott and White All Saints Medical Center-Fort Worth, USA"
+    ]
+  },
+  "HIQM-TX1": {
+    "ok": true,
+    "lat": "21.3081",
+    "lon": "-157.8539",
+    "display_name": "The Queen's Medical Center, 1301, Punchbowl Street, Hawaii Capital Historic District, East Honolulu, Honolulu, Honolulu County, Hawaii, 96813, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "The Queen's Medical Center, Hawaii, USA"
+  },
+  "MIBH-TX1": {
+    "ok": false,
+    "queries": [
+      "Corewell Health William Beaumont University Hospital, Michigan, USA",
+      "Corewell Health William Beaumont University Hospital, Michigan",
+      "Corewell Health William Beaumont University Hospital, USA"
+    ]
+  },
+  "NYEC-TX1": {
+    "ok": true,
+    "lat": "42.9263",
+    "lon": "-78.8325",
+    "display_name": "Erie County Medical Center, 462, Grider Street, East Side, Buffalo, Erie County, New York, 14215, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Erie County Medical Center, New York, USA"
+  },
+  "ILVA-TX1": {
+    "ok": false,
+    "queries": [
+      "Edward Hines Jr. Veterans Administration Medical Center, Illinois, USA",
+      "Edward Hines Jr. Veterans Administration Medical Center, Illinois",
+      "Edward Hines Jr. Veterans Administration Medical Center, USA"
+    ]
+  },
+  "COPM-TX1": {
+    "ok": true,
+    "lat": "39.6718",
+    "lon": "-104.9741",
+    "display_name": "AdventHealth Porter Medical Office Building Redevelopment Site, Denver, Colorado, United States",
+    "class": "landuse",
+    "type": "brownfield",
+    "matched_query": "AdventHealth Porter, Colorado, USA"
+  },
+  "IAIV-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Iowa Hospitals and Clinics Transplant Programs, Iowa, USA",
+      "University of Iowa Hospitals and Clinics Transplant Programs, Iowa",
+      "University of Iowa Hospitals and Clinics Transplant Programs, USA"
+    ]
+  },
+  "MISH-TX1": {
+    "ok": false,
+    "queries": [
+      "Corewell Health Grand Rapids Hospitals, Michigan, USA",
+      "Corewell Health Grand Rapids Hospitals, Michigan",
+      "Corewell Health Grand Rapids Hospitals, USA"
+    ]
+  },
+  "NJRW-TX1": {
+    "ok": true,
+    "lat": "40.4953",
+    "lon": "-74.4496",
+    "display_name": "Robert Wood Johnson University Hospital, 1, Little Albany Street, New Brunswick, Middlesex County, New Jersey, 08901, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Robert Wood Johnson University Hospital, New Jersey, USA"
+  },
+  "PRSJ-TX1": {
+    "ok": true,
+    "lat": "18.4096",
+    "lon": "-66.0511",
+    "display_name": "Hospital Auxilio Mutuo, 735, Avenida Juan Ponce de Le\u00f3n, Blondet, Hato Rey Sur, R\u00edo Piedras, San Juan, Puerto Rico, 00919, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Auxilio Mutuo Hospital, Puerto Rico, USA"
+  },
+  "MOSL-TX1": {
+    "ok": true,
+    "lat": "38.6242",
+    "lon": "-90.2392",
+    "display_name": "SSM Health Saint Louis University Hospital, 3635, Vista Avenue, Tiffany, Saint Louis, Missouri, 63110, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "SSM Health Saint Louis University Hospital, Missouri, USA"
+  },
+  "VANG-TX1": {
+    "ok": true,
+    "lat": "36.8625",
+    "lon": "-76.3038",
+    "display_name": "Sentara Norfolk General Hospital, 600, Gresham Drive, Norfolk, Virginia, 23507, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Sentara Norfolk General Hospital, Virginia, USA"
+  },
+  "TXDR-TX1": {
+    "ok": false,
+    "queries": [
+      "Doctor's Hospital at Renaissance, Texas, USA",
+      "Doctor's Hospital at Renaissance, Texas",
+      "Doctor's Hospital at Renaissance, USA"
+    ]
+  },
+  "WASH-TX1": {
+    "ok": false,
+    "queries": [
+      "Providence Sacred Heart Medical Center & Children's Hospital, Washington, USA",
+      "Providence Sacred Heart Medical Center & Children's Hospital, Washington",
+      "Providence Sacred Heart Medical Center & Children's Hospital, USA"
+    ]
+  },
+  "CASH-TX1": {
+    "ok": true,
+    "lat": "32.7997",
+    "lon": "-117.1544",
+    "display_name": "Sharp Memorial Hospital, 7901, Frost Street, Birdland, Serra Mesa, San Diego, San Diego County, California, 92123, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Sharp Memorial Hospital, California, USA"
+  },
+  "LAWK-TX1": {
+    "ok": true,
+    "lat": "32.4849",
+    "lon": "-93.7787",
+    "display_name": "Willis-Knighton Medical Center, 2600, Greenwood Road, Werner Park, Shreveport, Caddo Parish, Louisiana, 71103, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Willis-Knighton Medical Center, Louisiana, USA"
+  },
+  "INSV-TX1": {
+    "ok": true,
+    "lat": "37.9829",
+    "lon": "-87.4389",
+    "display_name": "Ascension St. Vincent Evansville Orthopedic Hospital, Epworth Road, Warrick County, Indiana, 47630, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Ascension St. Vincent Hospital, Indiana, USA"
+  },
+  "NCEC-TX1": {
+    "ok": true,
+    "lat": "35.6076",
+    "lon": "-77.4029",
+    "display_name": "ECU Health Medical Center, 2100, Stantonsburg Road, Medical District, Greenville, Pitt County, North Carolina, 27835, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "ECU Health Medical Center, North Carolina, USA"
+  },
+  "TXPL-TX1": {
+    "ok": true,
+    "lat": "32.7357",
+    "lon": "-97.3451",
+    "display_name": "Medical City Fort Worth, 900, 8th Avenue, Fort Worth, Tarrant County, Texas, 76104, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Medical City Fort Worth, Texas, USA"
+  },
+  "TXSW-TX1": {
+    "ok": false,
+    "queries": [
+      "Scott and White Memorial Hospital, Texas, USA",
+      "Scott and White Memorial Hospital, Texas",
+      "Scott and White Memorial Hospital, USA"
+    ]
+  },
+  "COSL-TX1": {
+    "ok": true,
+    "lat": "39.7472",
+    "lon": "-104.9670",
+    "display_name": "Presbyterian / Saint Luke's Medical Center, 1719, East 19th Avenue, City Park West, Denver, Colorado, 80218, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Presbyterian/St Luke's Medical Center, Colorado, USA"
+  },
+  "WISL-TX1": {
+    "ok": true,
+    "lat": "42.9900",
+    "lon": "-87.9504",
+    "display_name": "Aurora Saint Luke's Medical Center, 2900, West Oklahoma Avenue, Southgate, Milwaukee, Milwaukee County, Wisconsin, 53215, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Aurora St. Luke's Medical Center, Wisconsin, USA"
+  },
+  "WVCA-TX1": {
+    "ok": true,
+    "lat": "38.3301",
+    "lon": "-81.6027",
+    "display_name": "Charleston Area Medical Center, 33rd Street Southeast, Kanawha City, Charleston, Kanawha County, West Virginia, 25304, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Charleston Area Medical Center, West Virginia, USA"
+  },
+  "WAVM-TX1": {
+    "ok": true,
+    "lat": "47.6102",
+    "lon": "-122.3279",
+    "display_name": "Virginia Mason Hospital & Seattle Medical Center, 1100, 9th Avenue, Central Business District, First Hill, Seattle, King County, Washington, 98101, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Virginia Mason Medical Center, Washington, USA"
+  },
+  "PAGM-TX1": {
+    "ok": true,
+    "lat": "40.9681",
+    "lon": "-76.6046",
+    "display_name": "Geisinger Medical Center, 100, North Academy Avenue, Danville, Montour County, Pennsylvania, 17822, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Geisinger Medical Center, Pennsylvania, USA"
+  },
+  "ORGS-TX1": {
+    "ok": false,
+    "queries": [
+      "Legacy Good Samaritan Hospital and Medical Center, Oregon, USA",
+      "Legacy Good Samaritan Hospital and Medical Center, Oregon",
+      "Legacy Good Samaritan Hospital and Medical Center, USA"
+    ]
+  },
+  "CASJ-TX1": {
+    "ok": true,
+    "lat": "33.7821",
+    "lon": "-117.8640",
+    "display_name": "Saint Joseph Hospital, 1100, West Stewart Drive, Orange, Orange County, California, 92868, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Saint Joseph Hospital, California, USA"
+  },
+  "OKMD-TX1": {
+    "ok": true,
+    "lat": "35.4813",
+    "lon": "-97.5011",
+    "display_name": "OU Medical Center, 700, Northeast 13th Street, Oklahoma City, Oklahoma County, Oklahoma, 73104, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "OU Medical Center, Oklahoma, USA"
+  },
+  "MISM-TX1": {
+    "ok": false,
+    "queries": [
+      "Mercy Health Saint Mary's, Michigan, USA",
+      "Mercy Health Saint Mary's, Michigan",
+      "Mercy Health Saint Mary's, USA"
+    ]
+  },
+  "MORH-TX1": {
+    "ok": true,
+    "lat": "39.0099",
+    "lon": "-94.5597",
+    "display_name": "Research Medical Center, 2316, East Meyer Boulevard, Kansas City, Jackson County, Missouri, 64132, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Research Medical Center, Missouri, USA"
+  },
+  "TXJS-TX1": {
+    "ok": true,
+    "lat": "29.3120",
+    "lon": "-94.7763",
+    "display_name": "University of Texas Medical Branch at Galveston, 301, Harborside Drive, Galveston, Galveston County, Texas, 77555, United States",
+    "class": "amenity",
+    "type": "university",
+    "matched_query": "University of Texas Medical Branch at Galveston, Texas, USA"
+  },
+  "DCGW-TX1": {
+    "ok": true,
+    "lat": "38.9014",
+    "lon": "-77.0506",
+    "display_name": "George Washington University Hospital, 900, 23rd Street Northwest, George Washington University, Foggy Bottom, Ward 2, Washington, District of Columbia, 20037, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "George Washington University Hospital, District of Columbia, USA"
+  },
+  "ORVA-TX1": {
+    "ok": false,
+    "queries": [
+      "VA Portland Health Care System, Oregon, USA",
+      "VA Portland Health Care System, Oregon",
+      "VA Portland Health Care System, USA"
+    ]
+  },
+  "CAPC-TX1": {
+    "ok": false,
+    "queries": [
+      "Lucile Salter Packard Children's Hospital at Stanford, California, USA",
+      "Lucile Salter Packard Children's Hospital at Stanford, California",
+      "Lucile Salter Packard Children's Hospital at Stanford, USA"
+    ]
+  },
+  "GAMC-TX1": {
+    "ok": false,
+    "queries": [
+      "Wellstar MCG Health, affiliated with Medical College of Georgia, Georgia, USA",
+      "Wellstar MCG Health, affiliated with Medical College of Georgia, Georgia",
+      "Wellstar MCG Health, affiliated with Medical College of Georgia, USA"
+    ]
+  },
+  "OHCM-TX1": {
+    "ok": true,
+    "lat": "39.1409",
+    "lon": "-84.5023",
+    "display_name": "Cincinnati Children\u2019s Hospital Medical Center, 3333, Burnet Avenue, Avondale, Cincinnati, Hamilton County, Ohio, 45229, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Hospital Medical Center, Ohio, USA"
+  },
+  "TXCM-TX1": {
+    "ok": true,
+    "lat": "32.8095",
+    "lon": "-96.8375",
+    "display_name": "Children's Medical Center of Dallas, 1935, Medical District Drive, Dallas, Dallas County, Texas, 75235, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Medical Center of Dallas, Texas, USA"
+  },
+  "ILCH-TX1": {
+    "ok": true,
+    "lat": "41.7218",
+    "lon": "-87.7302",
+    "display_name": "Advocate Christ Medical Center, 4400, West 95th Street, Oak Lawn, Worth Township, Cook County, Illinois, 60453, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Advocate Christ Medical Center, Illinois, USA"
+  },
+  "NYUM-TX1": {
+    "ok": true,
+    "lat": "43.0408",
+    "lon": "-76.1391",
+    "display_name": "State University of New York Upstate Medical University, 750, East Adams Street, University Hill, City of Syracuse, Onondaga County, New York, 13210, United States",
+    "class": "amenity",
+    "type": "university",
+    "matched_query": "State University of New York Upstate Medical University, New York, USA"
+  },
+  "ILCM-TX1": {
+    "ok": true,
+    "lat": "41.8454",
+    "lon": "-87.9083",
+    "display_name": "Ann & Robert H. Lurie Children's Hospital of Chicago, 60154, Enterprise Drive, Westchester, Proviso Township, Cook County, Illinois, 60154, United States",
+    "class": "amenity",
+    "type": "clinic",
+    "matched_query": "Ann & Robert H. Lurie Children's Hospital of Chicago, Illinois, USA"
+  },
+  "TNUK-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Tennessee Medical Center at Knoxville, Tennessee, USA",
+      "University of Tennessee Medical Center at Knoxville, Tennessee",
+      "University of Tennessee Medical Center at Knoxville, USA"
+    ]
+  },
+  "OHTC-TX1": {
+    "ok": true,
+    "lat": "39.1208",
+    "lon": "-84.5111",
+    "display_name": "The Christ Hospital, 2139, Auburn Avenue, Mount Auburn Historic District, Mount Auburn, Cincinnati, Hamilton County, Ohio, 45219, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "The Christ Hospital, Ohio, USA"
+  },
+  "CACL-TX1": {
+    "ok": true,
+    "lat": "34.0977",
+    "lon": "-118.2901",
+    "display_name": "Children's Hospital Los Angeles, 4650, West Sunset Boulevard, East Hollywood, Los Angeles, Los Angeles County, California, 90029, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Hospital Los Angeles, California, USA"
+  },
+  "TXHH-TX1": {
+    "ok": false,
+    "queries": [
+      "Memorial Hermann Hospital, University of Texas at Houston, Texas, USA",
+      "Memorial Hermann Hospital, University of Texas at Houston, Texas",
+      "Memorial Hermann Hospital, University of Texas at Houston, USA"
+    ]
+  },
+  "PACH-TX1": {
+    "ok": true,
+    "lat": "40.4672",
+    "lon": "-79.9532",
+    "display_name": "UPMC Children's Hospital of Pittsburgh, 4401, Penn Avenue, Central Lawrenceville, Pittsburgh, Allegheny County, Pennsylvania, 15224, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "UPMC Children's Hospital of Pittsburgh, Pennsylvania, USA"
+  },
+  "PAVA-TX1": {
+    "ok": true,
+    "lat": "40.4468",
+    "lon": "-79.9621",
+    "display_name": "VA Pittsburgh Healthcare System - University Drive, University Drive, Terrace Village, Pittsburgh, Allegheny County, Pennsylvania, 15240, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "VA Pittsburgh Healthcare System, Pennsylvania, USA"
+  },
+  "AZUA-TX1": {
+    "ok": true,
+    "lat": "32.2412",
+    "lon": "-110.9456",
+    "display_name": "Banner University Medical Center Tucson, 1501, North Campbell Avenue, North University, Tucson, Pima County, Arizona, 85724, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Banner University Medical Center-Tucson, Arizona, USA"
+  },
+  "CALA-TX1": {
+    "ok": true,
+    "lat": "33.8294",
+    "lon": "-118.2948",
+    "display_name": "Harbor-UCLA Medical Center, 1000, Meyler Street, West Carson, Torrance, Los Angeles County, California, 90502, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Harbor UCLA Medical Center, California, USA"
+  },
+  "MOCH-TX1": {
+    "ok": false,
+    "queries": [
+      "St. Louis Children's Hospital at Washington University Medical Center, Missouri, USA",
+      "St. Louis Children's Hospital at Washington University Medical Center, Missouri",
+      "St. Louis Children's Hospital at Washington University Medical Center, USA"
+    ]
+  },
+  "TXFW-TX1": {
+    "ok": false,
+    "queries": [
+      "Texas Health Harris Methodist Fort Worth Hospital, Texas, USA",
+      "Texas Health Harris Methodist Fort Worth Hospital, Texas",
+      "Texas Health Harris Methodist Fort Worth Hospital, USA"
+    ]
+  },
+  "TXVA-TX1": {
+    "ok": true,
+    "lat": "29.7019",
+    "lon": "-95.3889",
+    "display_name": "Michael E. DeBakey VA Medical Center, 2002, Holcombe Boulevard, Texas Medical Center, Houston, Harris County, Texas, 77030, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Michael E. DeBakey VA Medical Center, Texas, USA"
+  },
+  "NYSB-TX1": {
+    "ok": false,
+    "queries": [
+      "University Hospital of State University of New York at Stony Brook, New York, USA",
+      "University Hospital of State University of New York at Stony Brook, New York",
+      "University Hospital of State University of New York at Stony Brook, USA"
+    ]
+  },
+  "DECC-TX1": {
+    "ok": false,
+    "queries": [
+      "Christiana Care Health Services, Delaware, USA",
+      "Christiana Care Health Services, Delaware",
+      "Christiana Care Health Services, USA"
+    ]
+  },
+  "GAEH-TX1": {
+    "ok": true,
+    "lat": "33.8317",
+    "lon": "-84.3299",
+    "display_name": "Children's Healthcare of Atlanta Arthur M. Blank Hospital, 2220, North Druid Hills Road Northeast, Atlanta, DeKalb County, Georgia, 30329, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children\u2019s Healthcare of Atlanta - Arthur M. Blank Hospital, Georgia, USA"
+  },
+  "ILSF-TX1": {
+    "ok": true,
+    "lat": "40.7024",
+    "lon": "-89.5900",
+    "display_name": "OSF Saint Francis Medical Center, 530, Northeast Glen Oak Avenue, Roanoke-Randolph Street Historic District, Peoria, Peoria County, Illinois, 61637, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "OSF Saint Francis Medical Center, Illinois, USA"
+  },
+  "WACH-TX1": {
+    "ok": true,
+    "lat": "47.6631",
+    "lon": "-122.2825",
+    "display_name": "Seattle Children's Hospital, 4800, Sand Point Way Northeast, Bryant, Laurelhurst, Seattle, King County, Washington, 98105, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Seattle Children's Hospital, Washington, USA"
+  },
+  "MACH-TX1": {
+    "ok": true,
+    "lat": "42.3372",
+    "lon": "-71.1057",
+    "display_name": "Boston Children's Hospital, 300, Longwood Avenue, Longwood, Boston, Suffolk County, Massachusetts, 02115, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Boston Children's Hospital, Massachusetts, USA"
+  },
+  "TXLP-TX1": {
+    "ok": true,
+    "lat": "31.7700",
+    "lon": "-106.4983",
+    "display_name": "Las Palmas Medical Center, 1801, North Oregon Street, El Paso, El Paso County, Texas, 79902, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Las Palmas Medical Center, Texas, USA"
+  },
+  "CAGH-TX1": {
+    "ok": true,
+    "lat": "32.8963",
+    "lon": "-117.2426",
+    "display_name": "Scripps Green Hospital, 10666, North Torrey Pines Road, Torrey Pines, San Diego, San Diego County, California, 92037, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Scripps Green Hospital, California, USA"
+  },
+  "PAHH-TX1": {
+    "ok": false,
+    "queries": [
+      "Pinnacle Health System at Harrisburg Hospital, Pennsylvania, USA",
+      "Pinnacle Health System at Harrisburg Hospital, Pennsylvania",
+      "Pinnacle Health System at Harrisburg Hospital, USA"
+    ]
+  },
+  "NJBI-TX1": {
+    "ok": true,
+    "lat": "40.7103",
+    "lon": "-74.2126",
+    "display_name": "Newark Beth Israel Medical Center, 201, Lyons Avenue, Newark, Essex County, New Jersey, 07112, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Newark Beth Israel Medical Center, New Jersey, USA"
+  },
+  "MNHC-TX1": {
+    "ok": true,
+    "lat": "44.9712",
+    "lon": "-93.2604",
+    "display_name": "Hennepin County Medical Center, 701, Park Avenue South, Elliot Park, Central, Minneapolis, Hennepin County, Minnesota, 55415, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Hennepin County Medical Center, Minnesota, USA"
+  },
+  "NJUH-TX1": {
+    "ok": true,
+    "lat": "40.7405",
+    "lon": "-74.1912",
+    "display_name": "University Hospital, 150, Bergen Street, Newark, Essex County, New Jersey, 07103, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "University Hospital, New Jersey, USA"
+  },
+  "UTPC-TX1": {
+    "ok": true,
+    "lat": "40.7713",
+    "lon": "-111.8389",
+    "display_name": "Primary Children's Hospital, 100, Mario Capecchi Drive, Salt Lake City, Salt Lake County, Utah, 84113, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Primary Children's Hospital, Utah, USA"
+  },
+  "PACP-TX1": {
+    "ok": true,
+    "lat": "39.9477",
+    "lon": "-75.1950",
+    "display_name": "Children's Hospital of Philadelphia, 3401, Civic Center Boulevard, University City, West Philadelphia, Philadelphia, Philadelphia County, Pennsylvania, 19104, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Hospital of Philadelphia, Pennsylvania, USA"
+  },
+  "IAIM-TX1": {
+    "ok": true,
+    "lat": "41.5898",
+    "lon": "-93.6348",
+    "display_name": "Iowa Methodist Medical Center, 1200, Pleasant Street, Sherman Hill, Des Moines, Polk County, Iowa, 50309, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Iowa Methodist Medical Center, Iowa, USA"
+  },
+  "NYDS-TX1": {
+    "ok": false,
+    "queries": [
+      "State University of New York, Downstate Medical Center, New York, USA",
+      "State University of New York, Downstate Medical Center, New York",
+      "State University of New York, Downstate Medical Center, USA"
+    ]
+  },
+  "DCWH-TX1": {
+    "ok": true,
+    "lat": "38.9287",
+    "lon": "-77.0148",
+    "display_name": "Medstar Washington Hospital Center, 110, Irving Street Northwest, Ward 5, Washington, District of Columbia, 20010, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Washington Hospital Center, District of Columbia, USA"
+  },
+  "OHCH-TX1": {
+    "ok": true,
+    "lat": "39.9521",
+    "lon": "-82.9790",
+    "display_name": "Nationwide Children's Hospital, 700, Children's Drive, Livingston Park, German Village, Columbus, Franklin County, Ohio, 43205, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Nationwide Children's Hospital, Ohio, USA"
+  },
+  "OKSJ-TX1": {
+    "ok": true,
+    "lat": "36.1340",
+    "lon": "-95.9689",
+    "display_name": "Ascension Saint John Medical Center, 1923, South Utica Avenue East, Swan Lake, Tulsa, Oklahoma, 74104, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "St John Medical Center, Oklahoma, USA"
+  },
+  "TXPM-TX1": {
+    "ok": false,
+    "queries": [
+      "Parkland Health and Hospital System, Texas, USA",
+      "Parkland Health and Hospital System, Texas",
+      "Parkland Health and Hospital System, USA"
+    ]
+  },
+  "NDSL-TX1": {
+    "ok": true,
+    "lat": "46.8455",
+    "lon": "-96.8768",
+    "display_name": "Sanford Medical Center, 5225, 23rd Avenue South, Amber Valley, Fargo, Cass County, North Dakota, 58122, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Sanford Medical Center Fargo, North Dakota, USA"
+  },
+  "COCH-TX1": {
+    "ok": true,
+    "lat": "39.7452",
+    "lon": "-104.9678",
+    "display_name": "Children's Hospital Colorado Uptown Denver, 1830, Franklin Street, City Park West, Denver, Colorado, 80218, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Hospital Colorado, Colorado, USA"
+  },
+  "NYAM-TX1": {
+    "ok": true,
+    "lat": "42.6533",
+    "lon": "-73.7772",
+    "display_name": "Albany Medical Center Hospital, 43, New Scotland Avenue, Park South, City of Albany, Albany County, New York, 12208, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Albany Medical Center Hospital, New York, USA"
+  },
+  "RIRH-TX1": {
+    "ok": true,
+    "lat": "41.8111",
+    "lon": "-71.4090",
+    "display_name": "Rhode Island Hospital, 593, Eddy Street, Providence, Providence County, Rhode Island, 02903, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Rhode Island Hospital, Rhode Island, USA"
+  },
+  "MABS-TX1": {
+    "ok": true,
+    "lat": "42.1215",
+    "lon": "-72.6030",
+    "display_name": "Baystate Medical Center, 759, Chestnut Street, North End, Memorial Square, Springfield, Hampden County, Massachusetts, 01199, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Baystate Medical Center, Massachusetts, USA"
+  },
+  "NMPH-TX1": {
+    "ok": true,
+    "lat": "35.0809",
+    "lon": "-106.6341",
+    "display_name": "Presbyterian Hospital, 1100, Central Avenue Southeast, Barelas, Albuquerque, Bernalillo County, New Mexico, 87106, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Presbyterian Hospital, New Mexico, USA"
+  },
+  "FLSH-TX1": {
+    "ok": true,
+    "lat": "30.4771",
+    "lon": "-87.2123",
+    "display_name": "Ascension Sacred Heart Women's & Maternity, 5151, North 9th Avenue, Cordova Mall, Cordova Park, Pensacola, Escambia County, Florida, 32504, United States",
+    "class": "amenity",
+    "type": "clinic",
+    "matched_query": "Ascension Sacred Heart Pensacola, Florida, USA"
+  },
+  "MISJ-TX1": {
+    "ok": true,
+    "lat": "42.6705",
+    "lon": "-82.9450",
+    "display_name": "Ascension St. John Medical Center, 23 Mile Road, Macomb Township, Macomb County, Michigan, 48047, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Ascension St. John Hospital, Michigan, USA"
+  },
+  "MNAN-TX1": {
+    "ok": true,
+    "lat": "44.9537",
+    "lon": "-93.2613",
+    "display_name": "Abbott Northwestern Hospital, 800, East 28th Street, Phillips West, Phillips, Minneapolis, Hennepin County, Minnesota, 55407, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Abbott Northwestern Hospital, Minnesota, USA"
+  },
+  "TNEM-TX1": {
+    "ok": false,
+    "queries": [
+      "Erlanger Medical Center, Tennessee, USA",
+      "Erlanger Medical Center, Tennessee",
+      "Erlanger Medical Center, USA"
+    ]
+  },
+  "AZCH-TX1": {
+    "ok": true,
+    "lat": "33.4789",
+    "lon": "-112.0411",
+    "display_name": "Phoenix Children's Hospital, 1919, East Thomas Road, Encanto, Phoenix, Maricopa County, Arizona, 85016, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Phoenix Children's Hospital, Arizona, USA"
+  },
+  "NMAQ-TX1": {
+    "ok": false,
+    "queries": [
+      "University Hospital, University of New Mexico Health Sciences Center, New Mexico, USA",
+      "University Hospital, University of New Mexico Health Sciences Center, New Mexico",
+      "University Hospital, University of New Mexico Health Sciences Center, USA"
+    ]
+  },
+  "ALCH-TX1": {
+    "ok": true,
+    "lat": "33.5047",
+    "lon": "-86.8056",
+    "display_name": "Children's of Alabama, 1600, 7th Avenue South, Five Points South, Birmingham, Jefferson County, Alabama, 35233, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's of Alabama, Alabama, USA"
+  },
+  "VAHD-TX1": {
+    "ok": true,
+    "lat": "37.6033",
+    "lon": "-77.5415",
+    "display_name": "Henrico Doctors' Hospital, 1602, Skipwith Road, Ridge, Richmond, Henrico County, Virginia, 23229, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Henrico Doctors' Hospital, Virginia, USA"
+  },
+  "MABU-TX1": {
+    "ok": true,
+    "lat": "42.3342",
+    "lon": "-71.0746",
+    "display_name": "Boston Medical Center, 1, Albany Street, Roxbury, Boston, Suffolk County, Massachusetts, 02118, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Boston Medical Center, Massachusetts, USA"
+  },
+  "MEMC-TX1": {
+    "ok": true,
+    "lat": "43.6532",
+    "lon": "-70.2763",
+    "display_name": "Maine Medical Center, 22, Bramhall Street, Parkside, West End, Portland, Cumberland County, Maine, 04102, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Maine Medical Center, Maine, USA"
+  },
+  "MOCM-TX1": {
+    "ok": true,
+    "lat": "39.0844",
+    "lon": "-94.5775",
+    "display_name": "Children's Mercy Hospital, 2401, Gillham Road, Downtown Kansas City, Kansas City, Jackson County, Missouri, 64108, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Mercy Hospital, Missouri, USA"
+  },
+  "CAMB-TX1": {
+    "ok": true,
+    "lat": "37.7659",
+    "lon": "-122.3908",
+    "display_name": "UCSF Medical Center at Mission Bay, 1975, 4th Street, Mission Bay, San Francisco, California, 94143, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "UCSF Medical Center at Mission Bay, California, USA"
+  },
+  "DCWR-TX1": {
+    "ok": false,
+    "queries": [
+      "Walter Reed National Military Medical Center at Bethesda, District of Columbia, USA",
+      "Walter Reed National Military Medical Center at Bethesda, District of Columbia",
+      "Walter Reed National Military Medical Center at Bethesda, USA"
+    ]
+  },
+  "ILMM-TX1": {
+    "ok": true,
+    "lat": "42.1222",
+    "lon": "-72.6047",
+    "display_name": "SPRINGFIELD / ATWATER, Springfield Hospital Service Road, North End, Memorial Square, Springfield, Hampden County, Massachusetts, 01199, United States",
+    "class": "highway",
+    "type": "bus_stop",
+    "matched_query": "Springfield Memorial Hospital, USA"
+  },
+  "SDMK-TX1": {
+    "ok": true,
+    "lat": "43.5343",
+    "lon": "-96.7138",
+    "display_name": "Avera McKennan Hospital and University Health Center, 1325, South Cliff Avenue, Sioux Falls, Sioux Falls Township, Minnehaha County, South Dakota, 57105, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Avera McKennan Hospital, South Dakota, USA"
+  },
+  "SDSV-TX1": {
+    "ok": false,
+    "queries": [
+      "Sanford Health/USD Medical Center, South Dakota, USA",
+      "Sanford Health/USD Medical Center, South Dakota",
+      "Sanford Health/USD Medical Center, USA"
+    ]
+  },
+  "WVWU-TX1": {
+    "ok": false,
+    "queries": [
+      "West Virginia University Hospitals Inc., West Virginia, USA",
+      "West Virginia University Hospitals Inc., West Virginia",
+      "West Virginia University Hospitals Inc., USA"
+    ]
+  },
+  "CACH-TX1": {
+    "ok": false,
+    "queries": [
+      "Rady Children's Hospital and Health Center, California, USA",
+      "Rady Children's Hospital and Health Center, California",
+      "Rady Children's Hospital and Health Center, USA"
+    ]
+  },
+  "WICH-TX1": {
+    "ok": true,
+    "lat": "43.0422",
+    "lon": "-88.0235",
+    "display_name": "Children\u2019s Wisconsin, 8915, West Connell Court, Milwaukee, Milwaukee County, Wisconsin, 53226, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Hospital of Wisconsin, Wisconsin, USA"
+  },
+  "TNLB-TX1": {
+    "ok": false,
+    "queries": [
+      "Le Bonheur Children's Medical Center, Tennessee, USA",
+      "Le Bonheur Children's Medical Center, Tennessee",
+      "Le Bonheur Children's Medical Center, USA"
+    ]
+  },
+  "TXDM-TX1": {
+    "ok": false,
+    "queries": [
+      "North Austin Medical Center, Texas, USA",
+      "North Austin Medical Center, Texas",
+      "North Austin Medical Center, USA"
+    ]
+  },
+  "NHDH-TX1": {
+    "ok": false,
+    "queries": [
+      "Mary Hitchcock Memorial Hospital, New Hampshire, USA",
+      "Mary Hitchcock Memorial Hospital, New Hampshire",
+      "Mary Hitchcock Memorial Hospital, USA"
+    ]
+  },
+  "NYVA-TX1": {
+    "ok": false,
+    "queries": [
+      "James J. Peters VA Medical Center, New York, USA",
+      "James J. Peters VA Medical Center, New York",
+      "James J. Peters VA Medical Center, USA"
+    ]
+  },
+  "TXUC-TX1": {
+    "ok": false,
+    "queries": [
+      "University Children's Health, Texas, USA",
+      "University Children's Health, Texas",
+      "University Children's Health, USA"
+    ]
+  },
+  "CASG-TX1": {
+    "ok": true,
+    "lat": "38.5715",
+    "lon": "-121.4687",
+    "display_name": "Sutter Medical Center, Sacramento, 2825, Capitol Avenue, Midtown, Sacramento, Sacramento County, California, 95816, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Sutter Medical Center Sacramento, California, USA"
+  },
+  "MICH-TX1": {
+    "ok": true,
+    "lat": "42.3519",
+    "lon": "-83.0548",
+    "display_name": "Children's Hospital of Michigan, 3901, Beaubien Street, Chinatown, Midtown, Detroit, Wayne County, Michigan, 48201, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Children's Hospital of Michigan, Michigan, USA"
+  },
+  "ORSV-TX1": {
+    "ok": true,
+    "lat": "45.5109",
+    "lon": "-122.7741",
+    "display_name": "Providence Saint Vincent Hospital Heliport, Saint Vincent Medical Center, West Haven, West Haven-Sylvan, Washington County, Oregon, 97225, United States",
+    "class": "aeroway",
+    "type": "helipad",
+    "matched_query": "Providence St. Vincent Medical Center, Oregon, USA"
+  },
+  "PAHE-TX1": {
+    "ok": true,
+    "lat": "40.2654",
+    "lon": "-76.6732",
+    "display_name": "Penn State Hershey, US 422, Hershey West End, Hershey, Derry Township, Dauphin County, Pennsylvania, 17036, United States",
+    "class": "amenity",
+    "type": "university",
+    "matched_query": "Penn State Milton S Hershey Medical Center, Pennsylvania, USA"
+  },
+  "SCCH-TX1": {
+    "ok": false,
+    "queries": [
+      "MUSC Children's Hospital, South Carolina, USA",
+      "MUSC Children's Hospital, South Carolina",
+      "MUSC Children's Hospital, USA"
+    ]
+  },
+  "MOUM-TX1": {
+    "ok": false,
+    "queries": [
+      "University of Missouri Hospital and Clinics, Missouri, USA",
+      "University of Missouri Hospital and Clinics, Missouri",
+      "University of Missouri Hospital and Clinics, USA"
+    ]
+  },
+  "DCCH-TX1": {
+    "ok": false,
+    "queries": [
+      "Children's National Medical Center, District of Columbia, USA",
+      "Children's National Medical Center, District of Columbia",
+      "Children's National Medical Center, USA"
+    ]
+  },
+  "LACH-TX1": {
+    "ok": true,
+    "lat": "30.0064",
+    "lon": "-90.1926",
+    "display_name": "Children's Hospital, 4845, Veterans Memorial Boulevard, Pontchartrain Gardens, Metairie, Jefferson Parish, Louisiana, 70006, United States",
+    "class": "amenity",
+    "type": "clinic",
+    "matched_query": "Children's Hospital, Louisiana, USA"
+  },
+  "NYCC-TX1": {
+    "ok": false,
+    "queries": [
+      "Long Island Jewish Medical Center-Cohen Children's Medical Center, New York, USA",
+      "Long Island Jewish Medical Center-Cohen Children's Medical Center, New York",
+      "Long Island Jewish Medical Center-Cohen Children's Medical Center, USA"
+    ]
+  },
+  "KYKC-TX1": {
+    "ok": true,
+    "lat": "38.2484",
+    "lon": "-85.7497",
+    "display_name": "Norton Children's Hospital, 231, East Chestnut Street, Louisville, Jefferson County, Kentucky, 40202, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Norton Children's Hospital, Kentucky, USA"
+  },
+  "TXDL-TX1": {
+    "ok": false,
+    "queries": [
+      "Dell Children's Medical Center, Texas, USA",
+      "Dell Children's Medical Center, Texas",
+      "Dell Children's Medical Center, USA"
+    ]
+  },
+  "ARBH-TX1": {
+    "ok": true,
+    "lat": "35.4887",
+    "lon": "-92.0578",
+    "display_name": "Judge Claude Dill Office Complex, 2319, Heber Springs, Cleburne County, Arkansas, 72543, United States",
+    "class": "landuse",
+    "type": "commercial",
+    "matched_query": "Baptist Medical Center, Arkansas, USA"
+  },
+  "TNBM-TX1": {
+    "ok": true,
+    "lat": "36.0230",
+    "lon": "-88.4124",
+    "display_name": "Baptist Memorial Hospital, 631, R B Wilson Drive, Huntingdon, Carroll County, West Tennessee, Tennessee, 38344, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Baptist Memorial Hospital, Tennessee, USA"
+  },
+  "TXLM-TX1": {
+    "ok": true,
+    "lat": "33.5769",
+    "lon": "-101.8921",
+    "display_name": "Covenant Medical Center, 3615, 19th Street, Lubbock, Lubbock County, Texas, 79410, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Covenant Medical Center, Texas, USA"
+  },
+  "DEAI-TX1": {
+    "ok": false,
+    "queries": [
+      "Nemours Children's Hospital Delaware, Delaware, USA",
+      "Nemours Children's Hospital Delaware, Delaware",
+      "Nemours Children's Hospital Delaware, USA"
+    ]
+  },
+  "FLHM-TX1": {
+    "ok": true,
+    "lat": "29.2549",
+    "lon": "-81.1199",
+    "display_name": "Halifax Health, 1688, West Granada Boulevard, Ormond Beach, Volusia County, Florida, 32174, United States",
+    "class": "building",
+    "type": "hospital",
+    "matched_query": "Halifax Health, Florida, USA"
+  },
+  "MOCG-TX1": {
+    "ok": true,
+    "lat": "38.6258",
+    "lon": "-90.2385",
+    "display_name": "Cardinal Glennon Children\u2019s Hospital, Saint Louis, Missouri, United States",
+    "class": "landuse",
+    "type": "construction",
+    "matched_query": "Cardinal Glennon Children's Hospital, Missouri, USA"
+  },
+  "NDMC-TX1": {
+    "ok": false,
+    "queries": [
+      "Sanford Bismarck Medical Center, North Dakota, USA",
+      "Sanford Bismarck Medical Center, North Dakota",
+      "Sanford Bismarck Medical Center, USA"
+    ]
+  },
+  "FLJD-TX1": {
+    "ok": false,
+    "queries": [
+      "Memorial Regional Hospital/Joe DiMaggio Children's Hospital, Florida, USA",
+      "Memorial Regional Hospital/Joe DiMaggio Children's Hospital, Florida",
+      "Memorial Regional Hospital/Joe DiMaggio Children's Hospital, USA"
+    ]
+  },
+  "TXCT-TX1": {
+    "ok": true,
+    "lat": "30.3051",
+    "lon": "-97.7461",
+    "display_name": "Seton Medical Center Austin, 1201, West 38th Street, Glen Ridge, Austin, Travis County, Texas, 78705, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Seton Medical Center Austin, Texas, USA"
+  },
+  "TXDS-TX1": {
+    "ok": false,
+    "queries": [
+      "Dell Seton Medical Center at The University of Texas at Austin, Texas, USA",
+      "Dell Seton Medical Center at The University of Texas at Austin, Texas",
+      "Dell Seton Medical Center at The University of Texas at Austin, USA"
+    ]
+  },
+  "ARCH-TX1": {
+    "ok": true,
+    "lat": "34.7408",
+    "lon": "-92.2916",
+    "display_name": "Arkansas Children's Hospital, 1, Children's Way, Little Rock, Big Rock Township, Pulaski County, Arkansas, 72202, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Arkansas Children's Hospital, Arkansas, USA"
+  },
+  "PAPH-TX1": {
+    "ok": true,
+    "lat": "42.1338",
+    "lon": "-80.0873",
+    "display_name": "UPMC Hamot, 201, State Street, Downtown Erie, Erie, Erie County, Pennsylvania, 16550, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "UPMC Hamot, Pennsylvania, USA"
+  },
+  "TXCF-TX1": {
+    "ok": true,
+    "lat": "32.7366",
+    "lon": "-97.3411",
+    "display_name": "Cook Children's Medical Center, 801, 7th Avenue, Fort Worth, Tarrant County, Texas, 76104, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Cook Children's Medical Center, Texas, USA"
+  },
+  "TXDC-TX1": {
+    "ok": true,
+    "lat": "27.7487",
+    "lon": "-97.3865",
+    "display_name": "Driscoll Children's Hospital, 3533, South Alameda Street, Corpus Christi, Nueces County, Texas, 78411, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Driscoll Children's Hospital, Texas, USA"
+  },
+  "IAVA-TX1": {
+    "ok": false,
+    "queries": [
+      "The Iowa City VA Health Care System, Iowa, USA",
+      "The Iowa City VA Health Care System, Iowa",
+      "The Iowa City VA Health Care System, USA"
+    ]
+  },
+  "MIDV-TX1": {
+    "ok": false,
+    "queries": [
+      "Corewell Health Helen DeVos Children's Hospital, Michigan, USA",
+      "Corewell Health Helen DeVos Children's Hospital, Michigan",
+      "Corewell Health Helen DeVos Children's Hospital, USA"
+    ]
+  },
+  "NECH-TX1": {
+    "ok": true,
+    "lat": "41.2608",
+    "lon": "-96.0418",
+    "display_name": "Children's Hospital & Medical Center, 8200, Dodge Street, Omaha, Douglas County, Nebraska, 68114, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children\u2019s Nebraska, Nebraska, USA"
+  },
+  "ALVA-TX1": {
+    "ok": true,
+    "lat": "39.7837",
+    "lon": "-100.4459",
+    "display_name": "United States",
+    "class": "boundary",
+    "type": "administrative",
+    "matched_query": ",, USA"
+  },
+  "FLAC-TX1": {
+    "ok": true,
+    "lat": "27.7629",
+    "lon": "-82.6398",
+    "display_name": "Johns Hopkins All Children's Hospital, 501, 6th Avenue South, Roser Park, Saint Petersburg, Pinellas County, Florida, 33701, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Johns Hopkins All Children's Hospital, Florida, USA"
+  },
+  "OKCM-TX1": {
+    "ok": false,
+    "queries": [
+      "Children's Hospital of Oklahoma, Oklahoma, USA",
+      "Children's Hospital of Oklahoma, Oklahoma",
+      "Children's Hospital of Oklahoma, USA"
+    ]
+  },
+  "PRCC-TX1": {
+    "ok": false,
+    "queries": [
+      "Cardiovascular Center of Puerto Rico and the Caribbean, Puerto Rico, USA",
+      "Cardiovascular Center of Puerto Rico and the Caribbean, Puerto Rico",
+      "Cardiovascular Center of Puerto Rico and the Caribbean, USA"
+    ]
+  },
+  "MNCM-TX1": {
+    "ok": true,
+    "lat": "44.9578",
+    "lon": "-93.2732",
+    "display_name": "Children's Theatre Company, 2400, 3rd Avenue South, Whittier, Powderhorn, Minneapolis, Hennepin County, Minnesota, 55404, United States",
+    "class": "amenity",
+    "type": "theatre",
+    "matched_query": "Children's Minnesota, Minnesota, USA"
+  },
+  "PASC-TX1": {
+    "ok": true,
+    "lat": "40.0063",
+    "lon": "-75.1256",
+    "display_name": "Saint Christopher's Hospital for Children, 160, East Erie Avenue, Juniata, North Philadelphia, Philadelphia, Philadelphia County, Pennsylvania, 19134, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "St. Christopher's Hospital for Children, Pennsylvania, USA"
+  },
+  "VACH-TX1": {
+    "ok": true,
+    "lat": "36.8622",
+    "lon": "-76.3020",
+    "display_name": "Children's Hospital of the King's Daughters, Elizabeth River Trail - Atlantic City Spur, Norfolk, Virginia, 23507, United States",
+    "class": "amenity",
+    "type": "hospital",
+    "matched_query": "Children's Hospital of the King's Daughters, Virginia, USA"
+  },
+  "MAOB-OP1": {
+    "ok": false,
+    "queries": [
+      "New England Organ Bank, Rhode Island, USA",
+      "New England Organ Bank, Rhode Island",
+      "New England Organ Bank, USA"
+    ]
+  },
+  "ILIP-OP1": {
+    "ok": false,
+    "queries": [
+      "Gift of Hope Organ & Tissue Donor Network, Illinois, USA",
+      "Gift of Hope Organ & Tissue Donor Network, Illinois",
+      "Gift of Hope Organ & Tissue Donor Network, USA"
+    ]
+  },
+  "INOP-OP1": {
+    "ok": false,
+    "queries": [
+      "Indiana Donor Network, Indiana, USA",
+      "Indiana Donor Network, Indiana",
+      "Indiana Donor Network, USA"
+    ]
+  },
+  "NYRT-OP1": {
+    "ok": false,
+    "queries": [
+      "LiveOnNY, New York, USA",
+      "LiveOnNY, New York",
+      "LiveOnNY, USA"
+    ]
+  },
+  "PATF-OP1": {
+    "ok": false,
+    "queries": [
+      "Center for Organ Recovery and Education, West Virginia, USA",
+      "Center for Organ Recovery and Education, West Virginia",
+      "Center for Organ Recovery and Education, USA"
+    ]
+  },
+  "MIOP-OP1": {
+    "ok": false,
+    "queries": [
+      "Gift of Life Michigan, Michigan, USA",
+      "Gift of Life Michigan, Michigan",
+      "Gift of Life Michigan, USA"
+    ]
+  },
+  "MWOB-OP1": {
+    "ok": false,
+    "queries": [
+      "Midwest Transplant Network, Missouri, USA",
+      "Midwest Transplant Network, Missouri",
+      "Midwest Transplant Network, USA"
+    ]
+  },
+  "FLWC-OP1": {
+    "ok": false,
+    "queries": [
+      "LifeLink of Florida, Florida, USA",
+      "LifeLink of Florida, Florida",
+      "LifeLink of Florida, USA"
+    ]
+  },
+  "LAOP-OP1": {
+    "ok": false,
+    "queries": [
+      "Louisiana Organ Procurement Agency, Louisiana, USA",
+      "Louisiana Organ Procurement Agency, Louisiana",
+      "Louisiana Organ Procurement Agency, USA"
+    ]
+  },
+  "NCNC-OP1": {
+    "ok": false,
+    "queries": [
+      "HonorBridge, North Carolina, USA",
+      "HonorBridge, North Carolina",
+      "HonorBridge, USA"
+    ]
+  },
+  "KYDA-OP1": {
+    "ok": false,
+    "queries": [
+      "Network for Hope, Ohio, USA",
+      "Network for Hope, Ohio",
+      "Network for Hope, USA"
+    ]
+  },
+  "FLUF-IO1": {
+    "ok": false,
+    "queries": [
+      "LifeQuest Organ Recovery Services, Florida, USA",
+      "LifeQuest Organ Recovery Services, Florida",
+      "LifeQuest Organ Recovery Services, USA"
+    ]
+  },
+  "MOMA-OP1": {
+    "ok": false,
+    "queries": [
+      "Mid-America Transplant Services, Missouri, USA",
+      "Mid-America Transplant Services, Missouri",
+      "Mid-America Transplant Services, USA"
+    ]
+  },
+  "SCOP-OP1": {
+    "ok": false,
+    "queries": [
+      "We Are Sharing Hope SC, South Carolina, USA",
+      "We Are Sharing Hope SC, South Carolina",
+      "We Are Sharing Hope SC, USA"
+    ]
+  },
+  "TXSA-OP1": {
+    "ok": false,
+    "queries": [
+      "Texas Organ Sharing Alliance, Texas, USA",
+      "Texas Organ Sharing Alliance, Texas",
+      "Texas Organ Sharing Alliance, USA"
+    ]
+  },
+  "VATB-OP1": {
+    "ok": true,
+    "lat": "36.7795",
+    "lon": "-76.0930",
+    "display_name": "LifeNet Health, 1864, Concert Drive, Landstown, Virginia Beach, Virginia, 23453, United States",
+    "class": "building",
+    "type": "commercial",
+    "matched_query": "LifeNet Health, Virginia, USA"
+  },
+  "MDPC-OP1": {
+    "ok": false,
+    "queries": [
+      "Infinite Legacy, Virginia, USA",
+      "Infinite Legacy, Virginia",
+      "Infinite Legacy, USA"
+    ]
+  },
+  "NVLV-OP1": {
+    "ok": false,
+    "queries": [
+      "Nevada Donor Network, Nevada, USA",
+      "Nevada Donor Network, Nevada",
+      "Nevada Donor Network, USA"
+    ]
+  },
+  "NJTO-OP1": {
+    "ok": false,
+    "queries": [
+      "New Jersey Organ and Tissue Sharing Network OPO, New Jersey, USA",
+      "New Jersey Organ and Tissue Sharing Network OPO, New Jersey",
+      "New Jersey Organ and Tissue Sharing Network OPO, USA"
+    ]
+  },
+  "FLMP-OP1": {
+    "ok": false,
+    "queries": [
+      "South Florida Donor Network, Florida, USA",
+      "South Florida Donor Network, Florida",
+      "South Florida Donor Network, USA"
+    ]
+  },
+  "ORUO-IO1": {
+    "ok": false,
+    "queries": [
+      "Cascade Life Alliance, Oregon, USA",
+      "Cascade Life Alliance, Oregon",
+      "Cascade Life Alliance, USA"
+    ]
+  },
+  "OKOP-OP1": {
+    "ok": false,
+    "queries": [
+      "LifeShare Transplant Donor Services of Oklahoma, Oklahoma, USA",
+      "LifeShare Transplant Donor Services of Oklahoma, Oklahoma",
+      "LifeShare Transplant Donor Services of Oklahoma, USA"
+    ]
+  },
+  "NCCM-IO1": {
+    "ok": false,
+    "queries": [
+      "LifeShare Carolinas, North Carolina, USA",
+      "LifeShare Carolinas, North Carolina",
+      "LifeShare Carolinas, USA"
+    ]
+  },
+  "ALOB-OP1": {
+    "ok": false,
+    "queries": [
+      "Legacy of Hope, Alabama, USA",
+      "Legacy of Hope, Alabama",
+      "Legacy of Hope, USA"
+    ]
+  },
+  "OHLB-OP1": {
+    "ok": false,
+    "queries": [
+      "Lifebanc, Ohio, USA",
+      "Lifebanc, Ohio",
+      "Lifebanc, USA"
+    ]
+  },
+  "FLFH-IO1": {
+    "ok": false,
+    "queries": [
+      "OurLegacy, Florida, USA",
+      "OurLegacy, Florida",
+      "OurLegacy, USA"
+    ]
+  },
+  "WIUW-IO1": {
+    "ok": false,
+    "queries": [
+      "UW Health Organ and Tissue Donation, Wisconsin, USA",
+      "UW Health Organ and Tissue Donation, Wisconsin",
+      "UW Health Organ and Tissue Donation, USA"
+    ]
+  },
+  "CASD-IO1": {
+    "ok": false,
+    "queries": [
+      "Lifesharing - A Donate Life Organization, California, USA",
+      "Lifesharing - A Donate Life Organization, California",
+      "Lifesharing - A Donate Life Organization, USA"
+    ]
+  },
+  "OHLC-OP1": {
+    "ok": false,
+    "queries": [
+      "Life Connection of Ohio, Ohio, USA",
+      "Life Connection of Ohio, Ohio",
+      "Life Connection of Ohio, USA"
+    ]
+  },
+  "AROR-OP1": {
+    "ok": false,
+    "queries": [
+      "Southern Legacy of Life, Arkansas, USA",
+      "Southern Legacy of Life, Arkansas",
+      "Southern Legacy of Life, USA"
+    ]
+  },
+  "OHLP-OP1": {
+    "ok": false,
+    "queries": [
+      "Lifeline of Ohio, Ohio, USA",
+      "Lifeline of Ohio, Ohio",
+      "Lifeline of Ohio, USA"
+    ]
+  },
+  "CAGS-OP1": {
+    "ok": false,
+    "queries": [
+      "Sierra Donor Services, California, USA",
+      "Sierra Donor Services, California",
+      "Sierra Donor Services, USA"
+    ]
+  },
+  "NYAP-OP1": {
+    "ok": false,
+    "queries": [
+      "Center for Donation and Transplant, New York, USA",
+      "Center for Donation and Transplant, New York",
+      "Center for Donation and Transplant, USA"
+    ]
+  },
+  "IAOP-OP1": {
+    "ok": true,
+    "lat": "41.7510",
+    "lon": "-91.6363",
+    "display_name": "Iowa Donor Network, North Kansas Avenue, North Liberty, Johnson County, Iowa, 52240, United States",
+    "class": "office",
+    "type": "yes",
+    "matched_query": "Iowa Donor Network, Iowa, USA"
+  },
+  "NEOR-OP1": {
+    "ok": false,
+    "queries": [
+      "Live On Nebraska, Nebraska, USA",
+      "Live On Nebraska, Nebraska",
+      "Live On Nebraska, USA"
+    ]
+  },
+  "WIDN-OP1": {
+    "ok": false,
+    "queries": [
+      "Versiti Blood Health, Inc., Wisconsin, USA",
+      "Versiti Blood Health, Inc., Wisconsin",
+      "Versiti Blood Health, Inc., USA"
+    ]
+  },
+  "MSOP-OP1": {
+    "ok": false,
+    "queries": [
+      "Mississippi Organ Recovery Agency, Mississippi, USA",
+      "Mississippi Organ Recovery Agency, Mississippi",
+      "Mississippi Organ Recovery Agency, USA"
+    ]
+  },
+  "NMOP-OP1": {
+    "ok": true,
+    "lat": "35.1011",
+    "lon": "-106.6297",
+    "display_name": "New Mexico Donor Services, 1609, University Boulevard Northeast, Albuquerque, Bernalillo County, New Mexico, 87131, United States",
+    "class": "office",
+    "type": "association",
+    "matched_query": "New Mexico Donor Services, New Mexico, USA"
+  },
+  "TNMS-OP1": {
+    "ok": false,
+    "queries": [
+      "Mid-South Transplant Foundation, Tennessee, USA",
+      "Mid-South Transplant Foundation, Tennessee",
+      "Mid-South Transplant Foundation, USA"
+    ]
+  },
+  "PRLL-OP1": {
+    "ok": false,
+    "queries": [
+      "LifeLink of Puerto Rico, Puerto Rico, USA",
+      "LifeLink of Puerto Rico, Puerto Rico",
+      "LifeLink of Puerto Rico, USA"
+    ]
+  },
+  "NYWN-OP1": {
+    "ok": false,
+    "queries": [
+      "Upstate New York Transplant Services Inc, New York, USA",
+      "Upstate New York Transplant Services Inc, New York",
+      "Upstate New York Transplant Services Inc, USA"
+    ]
+  },
+  "NYFL-IO1": {
+    "ok": false,
+    "queries": [
+      "Finger Lakes Donor Recovery Network, New York, USA",
+      "Finger Lakes Donor Recovery Network, New York",
+      "Finger Lakes Donor Recovery Network, USA"
+    ]
+  },
+  "HIOP-OP1": {
+    "ok": false,
+    "queries": [
+      "Legacy of Life Hawaii, Hawaii, USA",
+      "Legacy of Life Hawaii, Hawaii",
+      "Legacy of Life Hawaii, USA"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+id,type,name,state,region,total_inflow,total_outflow,total_flow,edge_count,lat,lon,coordinate_status,geocode_priority,geocode_query,notes
+NYRT-OP1,source_dsa,LiveOnNY,New York,Region  9,0,1234,1234,103,,,missing,1,"LiveOnNY, New York (organ procurement)",
+PATF-OP1,source_dsa,Center for Organ Recovery and Education,West Virginia,Region  2,0,1093,1093,123,,,missing,1,"Center for Organ Recovery and Education, West Virginia (organ procurement)",
+KYDA-OP1,source_dsa,Network for Hope,Ohio,Region  11,0,798,798,110,,,missing,1,"Network for Hope, Ohio (organ procurement)",
+FLUF-IO1,source_dsa,LifeQuest Organ Recovery Services,Florida,Region  3,0,772,772,81,,,missing,1,"LifeQuest Organ Recovery Services, Florida (organ procurement)",
+VATB-OP1,source_dsa,LifeNet Health,Virginia,Region  11,0,690,690,102,,,missing,1,"LifeNet Health, Virginia (organ procurement)",
+MDPC-OP1,source_dsa,Infinite Legacy,Virginia,Region  11,0,687,687,100,,,missing,1,"Infinite Legacy, Virginia (organ procurement)",
+NVLV-OP1,source_dsa,Nevada Donor Network,Nevada,Region  5,0,679,679,75,,,missing,1,"Nevada Donor Network, Nevada (organ procurement)",
+NJTO-OP1,source_dsa,New Jersey Organ and Tissue Sharing Network OPO,New Jersey,Region  2,0,657,657,96,,,missing,1,"New Jersey Organ and Tissue Sharing Network OPO, New Jersey (organ procurement)",
+ORUO-IO1,source_dsa,Cascade Life Alliance,Oregon,Region  6,0,623,623,78,,,missing,1,"Cascade Life Alliance, Oregon (organ procurement)",
+OKOP-OP1,source_dsa,LifeShare Transplant Donor Services of Oklahoma,Oklahoma,Region  4,0,618,618,95,,,missing,1,"LifeShare Transplant Donor Services of Oklahoma, Oklahoma (organ procurement)",
+NCCM-IO1,source_dsa,LifeShare Carolinas,North Carolina,Region  11,0,590,590,92,,,missing,1,"LifeShare Carolinas, North Carolina (organ procurement)",
+FLFH-IO1,source_dsa,OurLegacy,Florida,Region  3,0,556,556,78,,,missing,1,"OurLegacy, Florida (organ procurement)",
+WIUW-IO1,source_dsa,UW Health Organ and Tissue Donation,Wisconsin,Region  7,0,530,530,92,,,missing,1,"UW Health Organ and Tissue Donation, Wisconsin (organ procurement)",
+CASD-IO1,source_dsa,Lifesharing - A Donate Life Organization,California,Region  5,0,463,463,62,,,missing,1,"Lifesharing - A Donate Life Organization, California (organ procurement)",
+OHLC-OP1,source_dsa,Life Connection of Ohio,Ohio,Region  11,0,409,409,90,,,missing,1,"Life Connection of Ohio, Ohio (organ procurement)",
+AROR-OP1,source_dsa,Southern Legacy of Life,Arkansas,Region  3,0,400,400,77,,,missing,1,"Southern Legacy of Life, Arkansas (organ procurement)",
+OHLP-OP1,source_dsa,Lifeline of Ohio,Ohio,Region  11,0,382,382,77,,,missing,1,"Lifeline of Ohio, Ohio (organ procurement)",
+CAGS-OP1,source_dsa,Sierra Donor Services,California,Region  5,0,377,377,55,,,missing,1,"Sierra Donor Services, California (organ procurement)",
+NYAP-OP1,source_dsa,Center for Donation and Transplant,New York,Region  9,0,346,346,71,,,missing,1,"Center for Donation and Transplant, New York (organ procurement)",
+IAOP-OP1,source_dsa,Iowa Donor Network,Iowa,Region  8,0,338,338,77,,,missing,1,"Iowa Donor Network, Iowa (organ procurement)",
+WIDN-OP1,source_dsa,"Versiti Blood Health, Inc.",Wisconsin,Region  7,0,317,317,71,,,missing,1,"Versiti Blood Health, Inc., Wisconsin (organ procurement)",
+MSOP-OP1,source_dsa,Mississippi Organ Recovery Agency,Mississippi,Region  3,0,314,314,82,,,missing,1,"Mississippi Organ Recovery Agency, Mississippi (organ procurement)",
+NMOP-OP1,source_dsa,New Mexico Donor Services,New Mexico,Region  5,0,259,259,66,,,missing,1,"New Mexico Donor Services, New Mexico (organ procurement)",
+TNMS-OP1,source_dsa,Mid-South Transplant Foundation,Tennessee,Region  11,0,240,240,65,,,missing,1,"Mid-South Transplant Foundation, Tennessee (organ procurement)",
+PRLL-OP1,source_dsa,LifeLink of Puerto Rico,Puerto Rico,Region  3,0,226,226,50,,,missing,1,"LifeLink of Puerto Rico, Puerto Rico (organ procurement)",
+NYWN-OP1,source_dsa,Upstate New York Transplant Services Inc,New York,Region  9,0,199,199,60,,,missing,2,"Upstate New York Transplant Services Inc, New York (organ procurement)",
+NYFL-IO1,source_dsa,Finger Lakes Donor Recovery Network,New York,Region  9,0,179,179,64,,,missing,2,"Finger Lakes Donor Recovery Network, New York (organ procurement)",
+PADV-OP1,source_dsa,Gift of Life Donor Program,Pennsylvania,Region  2,0,1810,1810,124,39.9526,-75.1652,manual_verified,9,"Gift of Life Donor Program, Pennsylvania (organ procurement)",manual_map;city_approx:Philadelphia;high
+CAOP-OP1,source_dsa,OneLegacy,California,Region  5,0,1767,1767,92,34.1336,-117.9073,manual_verified,9,"OneLegacy, California (organ procurement)",manual_map;city_approx:Los Angeles area (OneLegacy);high
+MAOB-OP1,source_dsa,New England Organ Bank,Rhode Island,Region  1,0,1580,1580,109,41.6809,-71.5118,manual_verified,9,"New England Organ Bank, Rhode Island (organ procurement)",manual_map;high
+ILIP-OP1,source_dsa,Gift of Hope Organ & Tissue Donor Network,Illinois,Region  7,0,1386,1386,129,40.3495,-88.9861,manual_verified,9,"Gift of Hope Organ & Tissue Donor Network, Illinois (organ procurement)",manual_map;high
+TXSB-OP1,source_dsa,Southwest Transplant Alliance,Texas,Region  4,0,1372,1372,127,32.7767,-96.7970,manual_verified,9,"Southwest Transplant Alliance, Texas (organ procurement)",manual_map;city_approx:Dallas;high
+INOP-OP1,source_dsa,Indiana Donor Network,Indiana,Region  10,0,1247,1247,124,39.8494,-86.2583,manual_verified,9,"Indiana Donor Network, Indiana (organ procurement)",manual_map;high
+GALL-OP1,source_dsa,LifeLink of Georgia,Georgia,Region  3,0,1245,1245,123,33.7490,-84.3880,manual_verified,9,"LifeLink of Georgia, Georgia (organ procurement)",manual_map;city_approx:Atlanta;high
+WALC-OP1,source_dsa,LifeCenter Northwest,Washington,Region  6,0,1224,1224,113,47.6145,-122.1860,manual_verified,9,"LifeCenter Northwest, Washington (organ procurement)",manual_map;city_approx:Bellevue;high
+TXGC-OP1,source_dsa,LifeGift Organ Donation Center,Texas,Region  4,0,1218,1218,116,29.7604,-95.3698,manual_verified,9,"LifeGift Organ Donation Center, Texas (organ procurement)",manual_map;city_approx:Houston;high
+TNDS-OP1,source_dsa,Tennessee Donor Services,Tennessee,Region  11,0,1212,1212,131,36.1627,-86.7816,manual_verified,9,"Tennessee Donor Services, Tennessee (organ procurement)",manual_map;city_approx:Nashville;high
+CADN-OP1,source_dsa,Donor Network West,California,Region  5,0,1145,1145,79,37.7799,-121.9780,manual_verified,9,"Donor Network West, California (organ procurement)",manual_map;city_approx:San Ramon;medium
+AZOB-OP1,source_dsa,Donor Network of Arizona,Arizona,Region  5,0,1121,1121,89,33.4484,-112.0740,manual_verified,9,"Donor Network of Arizona, Arizona (organ procurement)",manual_map;city_approx:Phoenix;high
+MIOP-OP1,source_dsa,Gift of Life Michigan,Michigan,Region  10,0,1077,1077,125,43.3266,-84.5361,manual_verified,9,"Gift of Life Michigan, Michigan (organ procurement)",manual_map;high
+MWOB-OP1,source_dsa,Midwest Transplant Network,Missouri,Region  8,0,980,980,123,38.4561,-92.2884,manual_verified,9,"Midwest Transplant Network, Missouri (organ procurement)",manual_map;high
+CORS-OP1,source_dsa,Donor Alliance,Colorado,Region  8,0,937,937,108,39.7392,-104.9903,manual_verified,9,"Donor Alliance, Colorado (organ procurement)",manual_map;city_approx:Denver;high
+FLWC-OP1,source_dsa,LifeLink of Florida,Florida,Region  3,0,909,909,80,27.7663,-81.6868,manual_verified,9,"LifeLink of Florida, Florida (organ procurement)",manual_map;high
+LAOP-OP1,source_dsa,Louisiana Organ Procurement Agency,Louisiana,Region  3,0,894,894,92,31.1695,-91.8678,manual_verified,9,"Louisiana Organ Procurement Agency, Louisiana (organ procurement)",manual_map;high
+MNOP-OP1,source_dsa,LifeSource Upper Midwest Organ Procurement Organization,South Dakota,Region  7,0,885,885,113,44.9750,-93.2250,manual_verified,9,"LifeSource Upper Midwest Organ Procurement Organization, South Dakota (organ procurement)",manual_map;city_approx:Minneapolis;medium
+NCNC-OP1,source_dsa,HonorBridge,North Carolina,Region  11,0,822,822,102,35.6301,-79.8064,manual_verified,9,"HonorBridge, North Carolina (organ procurement)",manual_map;high
+MOMA-OP1,source_dsa,Mid-America Transplant Services,Missouri,Region  8,0,719,719,96,38.4561,-92.2884,manual_verified,9,"Mid-America Transplant Services, Missouri (organ procurement)",manual_map;high
+SCOP-OP1,source_dsa,We Are Sharing Hope SC,South Carolina,Region  11,0,713,713,93,33.8569,-80.9450,manual_verified,9,"We Are Sharing Hope SC, South Carolina (organ procurement)",manual_map;high
+TXSA-OP1,source_dsa,Texas Organ Sharing Alliance,Texas,Region  4,0,701,701,94,31.0545,-97.5635,manual_verified,9,"Texas Organ Sharing Alliance, Texas (organ procurement)",manual_map;high
+FLMP-OP1,source_dsa,South Florida Donor Network,Florida,Region  3,0,635,635,62,27.7663,-81.6868,manual_verified,9,"South Florida Donor Network, Florida (organ procurement)",manual_map;high
+ALOB-OP1,source_dsa,Legacy of Hope,Alabama,Region  3,0,585,585,85,32.8067,-86.7911,manual_verified,9,"Legacy of Hope, Alabama (organ procurement)",manual_map;high
+UTOP-OP1,source_dsa,DonorConnect,Utah,Region  5,0,585,585,79,40.7608,-111.8910,manual_verified,9,"DonorConnect, Utah (organ procurement)",manual_map;city_approx:Salt Lake City;high
+OHLB-OP1,source_dsa,Lifebanc,Ohio,Region  11,0,570,570,89,40.3888,-82.7649,manual_verified,9,"Lifebanc, Ohio (organ procurement)",manual_map;high
+NEOR-OP1,source_dsa,Live On Nebraska,Nebraska,Region  8,0,327,327,71,41.1254,-98.2681,manual_verified,9,"Live On Nebraska, Nebraska (organ procurement)",manual_map;high
+HIOP-OP1,source_dsa,Legacy of Life Hawaii,Hawaii,Region  6,0,166,166,30,21.0943,-157.4983,manual_verified,9,"Legacy of Life Hawaii, Hawaii (organ procurement)",manual_map;high

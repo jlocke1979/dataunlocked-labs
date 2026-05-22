@@ -1,9 +1,99 @@
 /**
  * MSDS 455 Assignment 05 — D3 flow map prototype
  *
+ * ORGAN_MODE:
+ *   all, kidney, liver, heart, lung, pancreas, kidney_pancreas, multi_liver_kidney
+ *
+ * LAYOUT_MODE:
+ *   single                 — Iteration 01 single map (+ optional hub emphasis toggle)
+ *   small_multiples        — Iteration 02 comparative 2×4 organ panels
+ *   geography_comparison   — Iteration 03 donor vs transplant geography (2 panels)
+ *
  * EDGE_MODE options:
- *   all, ge_200, ge_100, ge_50, ge_25, top50
+ *   all, ge_200, ge_100, ge_50, ge_25, top50  (top50: all-organ only)
  */
+
+// --- Layout switch ---
+// const LAYOUT_MODE = "single";
+// const LAYOUT_MODE = "small_multiples";
+const LAYOUT_MODE = "geography_comparison";
+
+// --- Organ switch (per-organ D2T experiment; used when LAYOUT_MODE = single) ---
+const ORGAN_MODE = "all";
+// const ORGAN_MODE = "kidney";
+// const ORGAN_MODE = "liver";
+// const ORGAN_MODE = "heart";
+// const ORGAN_MODE = "lung";
+// const ORGAN_MODE = "pancreas";
+// const ORGAN_MODE = "kidney_pancreas";
+// const ORGAN_MODE = "multi_liver_kidney";
+
+/** Single-map hub experiment (not Iteration 03 layout); false = Iteration 01 nodes */
+const SHOW_DESTINATION_HUBS = false;
+// const SHOW_DESTINATION_HUBS = true;
+
+/** Iteration 02 small-multiples panels (shared stroke scale across panels) */
+const SMALL_MULTIPLES_PANELS = [
+  { slug: "all", title: "All organs" },
+  { slug: "kidney", title: "Kidney" },
+  { slug: "liver", title: "Liver" },
+  { slug: "heart", title: "Heart" },
+  { slug: "lung", title: "Lung" },
+  { slug: "pancreas", title: "Pancreas" },
+  { slug: "kidney_pancreas", title: "Kidney–pancreas" },
+  { slug: "multi_liver_kidney", title: "Liver–kidney (multi-organ)" },
+];
+
+const SM_COLS = 2;
+const SM_ROWS = 4;
+const SM_GAP = 14;
+const SM_PANEL_TITLE_DY = 17;
+const SM_FOOTNOTE_STRIP = 12;
+const SM_SVG_WIDTH = 920;
+/** Taller canvas so 2×4 panels stay legible */
+const SM_SVG_HEIGHT = 1120;
+const SM_MARGIN = { top: 10, right: 14, bottom: 10, left: 14 };
+
+/**
+ * Small-multiples encoding (2×4 panels are small — bubbles read clearer than hairlines).
+ *   flows  — shared-weight flow lines (boosted opacity/width)
+ *   bubbles — destination center volume only (shared bubble scale)
+ */
+const SM_VIS_MODE = "bubbles";
+// const SM_VIS_MODE = "flows";
+
+/** Iteration 02 palette: default (slate/teal) or Tufte-style charcoal forest */
+const SM_COLOR_THEME = "charcoal_forest";
+// const SM_COLOR_THEME = "default";
+
+/** Iteration 03 — donor recovery vs transplant center geography (2 panels) */
+const GEOGRAPHY_COMPARISON_PANELS = [
+  {
+    slug: "donor",
+    title: "Donor Recovery Geography",
+    subtitle: "Where organs enter the transplant system",
+    emphasis: "source",
+  },
+  {
+    slug: "transplant",
+    title: "Transplant Center Geography",
+    subtitle: "Where transplant expertise concentrates",
+    emphasis: "destination",
+  },
+];
+
+const GEO_CMP_SVG_WIDTH = 920;
+const GEO_CMP_SVG_HEIGHT = 548;
+const GEO_CMP_COLS = 2;
+const GEO_CMP_GAP = 22;
+const GEO_CMP_MARGIN = { top: 18, right: 14, bottom: 10, left: 14 };
+const GEO_CMP_PANEL_TITLE_DY = 18;
+const GEO_CMP_PANEL_SUBTITLE_DY = 13;
+const GEO_CMP_FOOTNOTE_STRIP = 12;
+
+/** Reference inner width for scaling PR inset box on smaller panels */
+const REF_PANEL_INNER_W = 780;
+const REF_PANEL_GEO_H = 510;
 
 // --- Edge mode switch ---
 const EDGE_MODE = "all";
@@ -13,13 +103,42 @@ const EDGE_MODE = "all";
 //const EDGE_MODE = "ge_25";
 // const EDGE_MODE = "top50";
 
+/** Display labels for title/subtitle copy */
+const ORGAN_MODE_META = {
+  all: { label: "Organ", iteration: "01", edgesEnriched: "../data/processed/d2t_edges_all_organs_enriched.csv" },
+  kidney: { label: "Kidney", iteration: "02" },
+  liver: { label: "Liver", iteration: "02" },
+  heart: { label: "Heart", iteration: "02" },
+  lung: { label: "Lung", iteration: "02" },
+  pancreas: { label: "Pancreas", iteration: "02" },
+  kidney_pancreas: { label: "Kidney–pancreas", iteration: "02" },
+  multi_liver_kidney: { label: "Liver–kidney (multi-organ)", iteration: "02" },
+};
 
+function buildOrganModes() {
+  const modes = {};
+  for (const [slug, meta] of Object.entries(ORGAN_MODE_META)) {
+    const coverageSlug = slug === "all" ? "all-organ" : slug.replace(/_/g, "-");
+    modes[slug] = {
+      iteration: meta.iteration,
+      chartTitle: "Regional Yet Connected",
+      chartSubtitle:
+        slug === "all"
+          ? "Organ transplant flows form a dense national network anchored by regional medical hubs."
+          : `${meta.label} transplant flows form a dense national network anchored by regional medical hubs.`,
+      documentTitle:
+        slug === "all"
+          ? "Regional Yet Connected — Organ Transplant Flows"
+          : `Regional Yet Connected — ${meta.label} Transplant Flows`,
+      edgesEnriched:
+        meta.edgesEnriched ?? `../data/processed/d2t_edges_${slug}_enriched.csv`,
+      coverageLabel: `${coverageSlug} D2T edge list`,
+    };
+  }
+  return modes;
+}
 
-
-
-const CHART_TITLE = "Regional Yet Connected";
-const CHART_SUBTITLE =
-  "Organ transplant flows form a dense national network anchored by regional medical hubs.";
+const ORGAN_MODES = buildOrganModes();
 
 const EDGE_MODES = {
   all: {
@@ -77,11 +196,37 @@ const PUERTO_RICO_INSET_BOX = {
 };
 
 const DATA = {
-  edgesAll: "../data/processed/d2t_edges_all_organs_enriched.csv",
   edgesTop50: "../data/processed/top_50_edges_all_organs.csv",
   nodes: "../data/processed/all_nodes_with_coordinates.csv",
   states: "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
 };
+
+function logOrganRunSummary({
+  organMode,
+  totalFlow,
+  renderedFlow,
+  edgeCount,
+}) {
+  const renderedPct =
+    totalFlow > 0 ? ((renderedFlow / totalFlow) * 100).toFixed(1) : "n/a";
+  console.log("[organ summary]", {
+    organMode,
+    totalFlow,
+    renderedFlow,
+    renderedFlowPercent: renderedPct === "n/a" ? renderedPct : `${renderedPct}%`,
+    edgeCount,
+  });
+}
+
+function resolveOrganConfig() {
+  const organConfig = ORGAN_MODES[ORGAN_MODE];
+  if (!organConfig) {
+    throw new Error(
+      `Unknown ORGAN_MODE "${ORGAN_MODE}". Use: ${Object.keys(ORGAN_MODES).join(", ")}`
+    );
+  }
+  return organConfig;
+}
 
 /** Visual tier keyed to EDGE_MODE. */
 function styleForMode(edgeMode) {
@@ -153,6 +298,9 @@ function styleForMode(edgeMode) {
 
 const JITTER_RADIUS = 2.2;
 
+/** Hub circle radius (px) from total destination inflow in the active edge view */
+const HUB_RADIUS_RANGE = [3, 17];
+
 function geoPointFinite(p) {
   return Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]);
 }
@@ -197,20 +345,89 @@ function inflateBounds(bounds, pad) {
   ];
 }
 
+function inflateBoundsAsymmetric(bounds, { top = 0, right = 0, bottom = 0, left = 0 }) {
+  const [[x0, y0], [x1, y1]] = bounds;
+  return [
+    [x0 - left, y0 - top],
+    [x1 + right, y1 + bottom],
+  ];
+}
+
+function boundsOverlap(a, b) {
+  const [[ax0, ay0], [ax1, ay1]] = a;
+  const [[bx0, by0], [bx1, by1]] = b;
+  return ax0 < bx1 && bx0 < ax1 && ay0 < by1 && by0 < ay1;
+}
+
+/** Pad/gap for AK/HI frames; scales down on smaller geography bands */
+function insetFrameMetricsForGeo(innerW, geoBandHeightPx) {
+  const scale = Math.min(innerW / REF_PANEL_INNER_W, geoBandHeightPx / REF_PANEL_GEO_H);
+  return {
+    pad: Math.max(2, Math.round(3 + 2 * scale)),
+    gap: Math.max(3, Math.round(4 + 2 * scale)),
+  };
+}
+
 /**
  * Alaska & Hawaii frames follow the Albers USA composite positions already on the main map.
+ * Uses a shared bottom baseline and interior gap so padded boxes do not overlap.
  * @returns {{ id: string, bounds: [[number, number], [number, number]] }[]}
  */
-function collectAlaskaHawaiiInsetFrames(statesTopo, path, pad = 5) {
-  const frames = [];
+function collectAlaskaHawaiiInsetFrames(statesTopo, path, pad = 5, gap = 5) {
+  const raw = [];
   for (const id of [STATE_ID_ALASKA, STATE_ID_HAWAII]) {
     const feature = findStateFeatureById(statesTopo, id);
     if (!feature) continue;
     const bounds = path.bounds(feature);
     if (!(Number.isFinite(bounds[0][0]) && Number.isFinite(bounds[1][0]))) continue;
-    frames.push({ id, bounds: inflateBounds(bounds, pad) });
+    raw.push({ id, bounds });
   }
-  return frames;
+  if (raw.length === 0) return [];
+  if (raw.length === 1) {
+    return [{ id: raw[0].id, bounds: inflateBounds(raw[0].bounds, pad) }];
+  }
+
+  const ak = raw.find((r) => r.id === STATE_ID_ALASKA) ?? raw[0];
+  const hi = raw.find((r) => r.id === STATE_ID_HAWAII) ?? raw[1];
+  const sharedBottom = Math.max(ak.bounds[1][1], hi.bounds[1][1]);
+
+  const buildPair = (outerPad, interior) => {
+    const bottomAk = outerPad + (sharedBottom - ak.bounds[1][1]);
+    const bottomHi = outerPad + (sharedBottom - hi.bounds[1][1]);
+    return [
+      inflateBoundsAsymmetric(ak.bounds, {
+        top: outerPad,
+        right: interior,
+        bottom: bottomAk,
+        left: outerPad,
+      }),
+      inflateBoundsAsymmetric(hi.bounds, {
+        top: outerPad,
+        right: outerPad,
+        bottom: bottomHi,
+        left: interior,
+      }),
+    ];
+  };
+
+  let [akBounds, hiBounds] = buildPair(pad, gap / 2);
+
+  let interior = gap / 2;
+  while (boundsOverlap(akBounds, hiBounds) && interior > 0) {
+    interior = Math.max(0, interior - 0.35);
+    [akBounds, hiBounds] = buildPair(pad, interior);
+  }
+
+  let effectivePad = pad;
+  while (boundsOverlap(akBounds, hiBounds) && effectivePad > 1.5) {
+    effectivePad -= 0.5;
+    [akBounds, hiBounds] = buildPair(effectivePad, Math.max(1.5, gap / 2));
+  }
+
+  return [
+    { id: ak.id, bounds: akBounds },
+    { id: hi.id, bounds: hiBounds },
+  ];
 }
 
 /**
@@ -225,15 +442,34 @@ function collectAlaskaHawaiiInsetFrames(statesTopo, path, pad = 5) {
  *   labelY: number,
  * }}
  */
-function buildPuertoRicoInset({ statesTopo, innerW, innerH }) {
+function scalePrInsetBox(innerW, innerH) {
+  const geoH = innerH - GEOGRAPHY_VERTICAL_OFFSET_PX - SM_FOOTNOTE_STRIP;
+  const sx = innerW / REF_PANEL_INNER_W;
+  const sy = geoH / REF_PANEL_GEO_H;
+  return {
+    width: Math.max(34, Math.round(PUERTO_RICO_INSET_BOX.width * sx)),
+    height: Math.max(38, Math.round(PUERTO_RICO_INSET_BOX.height * sy)),
+    marginBottom: Math.round(PUERTO_RICO_INSET_BOX.marginBottom * sy),
+    padding: Math.max(2, Math.round(PUERTO_RICO_INSET_BOX.padding * sx)),
+    labelOffset: 4,
+    edgePad: Math.max(4, Math.round(PUERTO_RICO_INSET_BOX.edgePad * sx)),
+  };
+}
+
+function buildPuertoRicoInset({
+  statesTopo,
+  innerW,
+  innerH,
+  boxConfig = PUERTO_RICO_INSET_BOX,
+  quiet = false,
+}) {
   const prFeature = findPuertoRicoStateFeature(statesTopo);
   if (!prFeature) {
     console.warn("[map inset] Puerto Rico feature missing from US Atlas TopoJSON.");
     return null;
   }
 
-  const { width, height, marginBottom, padding, labelOffset, edgePad = 8 } =
-    PUERTO_RICO_INSET_BOX;
+  const { width, height, marginBottom, padding, labelOffset, edgePad = 8 } = boxConfig;
   const boxX1 = innerW - edgePad;
   const boxX0 = boxX1 - width;
   const boxY0 = innerH - marginBottom - height;
@@ -262,10 +498,12 @@ function buildPuertoRicoInset({ statesTopo, innerW, innerH }) {
     return null;
   }
 
-  console.log("[map inset] Puerto Rico panel (local Albers, fixed box)", {
-    boxBounds,
-    centroidPx: prCentroidPx.map((v) => Number(v.toFixed(2))),
-  });
+  if (!quiet) {
+    console.log("[map inset] Puerto Rico panel (local Albers, fixed box)", {
+      boxBounds,
+      centroidPx: prCentroidPx.map((v) => Number(v.toFixed(2))),
+    });
+  }
 
   return {
     prFeature,
@@ -416,57 +654,482 @@ function assignPositionsWithPuertoRicoOverlay(nodes, projection, innerW, innerH,
   return { projected, insetPlaced };
 }
 
-function edgeFileForMode(modeConfig) {
-  return modeConfig.useTop50File ? DATA.edgesTop50 : DATA.edgesAll;
+function edgeFileForMode(modeConfig, organConfig) {
+  if (modeConfig.useTop50File) {
+    if (ORGAN_MODE !== "all") {
+      console.warn("[map] top50 EDGE_MODE uses all-organ edges only; ORGAN_MODE ignored for file path.");
+    }
+    return DATA.edgesTop50;
+  }
+  return organConfig.edgesEnriched;
 }
 
-function buildStrokeScale(flows, widthRange) {
-  const [lo, hi] = d3.extent(flows);
-  if (!Number.isFinite(lo) || lo === hi) {
+function buildStrokeScale(flows, widthRange, domainOverride = null) {
+  const [lo, hi] =
+    domainOverride ?? d3.extent(flows.filter((f) => Number.isFinite(f) && f > 0));
+  if (!Number.isFinite(lo) || !Number.isFinite(hi) || lo === hi) {
     return () => (widthRange[0] + widthRange[1]) / 2;
   }
   return d3.scaleSqrt().domain([lo, hi]).range(widthRange).clamp(true);
 }
-async function init() {
-  const modeConfig = EDGE_MODES[EDGE_MODE];
-  if (!modeConfig) {
-    throw new Error(
-      `Unknown EDGE_MODE "${EDGE_MODE}". Use: all, ge_200, ge_100, ge_50, ge_25, top50`
+
+function bubbleRadiusRangeForPanel(panelInnerH) {
+  const scale = panelInnerH / REF_PANEL_GEO_H;
+  return [Math.max(2.5, 3.2 * scale), Math.max(7, 15 * scale)];
+}
+
+/** Iteration 03 — atmospheric flows + opacity/node emphasis (no hub bubbles) */
+function styleForGeographyComparison(emphasis, primaryRadiusScale) {
+  return {
+    drawFlows: true,
+    linkStroke: "#4a524c",
+    linkOpacity: emphasis === "source" ? 0.058 : 0.052,
+    widthRange: [0.22, 1.05],
+    showNodes: false,
+    showFlowLegend: false,
+    showInsetFrames: true,
+    showPrLabel: true,
+    showLinkTooltips: false,
+    nodeEmphasis: emphasis,
+    primaryRadiusScale,
+    primaryRadiusMin: 1.35,
+    primaryOpacity: emphasis === "source" ? 0.78 : 0.74,
+    secondaryRadius: 0.8,
+    secondaryOpacity: 0.13,
+  };
+}
+
+function styleForSmallMultiples(panelInnerH) {
+  const rowBoost = SM_ROWS >= 4 ? 1.25 : 1;
+  if (SM_VIS_MODE === "bubbles") {
+    return {
+      /** Faint flow context under destination bubbles */
+      drawFlows: true,
+      linkStroke: "#8a9490",
+      linkOpacity: 0.045,
+      widthRange: [0.22, 0.72],
+      showNodes: false,
+      showFlowLegend: false,
+      showInsetFrames: true,
+      showPrLabel: false,
+      showLinkTooltips: false,
+      bubbleRadiusRange: bubbleRadiusRangeForPanel(panelInnerH),
+      bubbleFillOpacity: 0.55,
+    };
+  }
+  return {
+    drawFlows: true,
+    linkStroke: "#8a9490",
+    linkOpacity: 0.1 * rowBoost,
+    widthRange: [0.34 * rowBoost, 1.35 * rowBoost],
+    showNodes: false,
+    showFlowLegend: false,
+    showInsetFrames: true,
+    showPrLabel: false,
+    showLinkTooltips: false,
+  };
+}
+
+function buildCoordLinksFromRawEdges(rawEdges, nodeById) {
+  const links = [];
+  rawEdges.forEach((e) => {
+    const source = nodeById.get(String(e.source_dsa_id ?? "").trim());
+    const target = nodeById.get(String(e.destination_center_id ?? "").trim());
+    if (workbookRowHasParsableCoordinates(source) && workbookRowHasParsableCoordinates(target)) {
+      links.push({
+        sourceId: e.source_dsa_id,
+        targetId: e.destination_center_id,
+        flow: e.flow_count,
+        source,
+        target,
+      });
+    }
+  });
+  return links;
+}
+
+function filterPlacedLinks(links, puertoRicoInset) {
+  return links.filter((l) => {
+    if (!Number.isFinite(l.source.px) || !Number.isFinite(l.target.px)) return false;
+    if (l.source.projectionFailureFallback || l.target.projectionFailureFallback) return false;
+    const crossesPr =
+      Boolean(l.source.prInsetAnchored) !== Boolean(l.target.prInsetAnchored);
+    if (crossesPr && !puertoRicoInset) return false;
+    return true;
+  });
+}
+
+function drawMapLayers(
+  geoPane,
+  {
+    statesTopo,
+    path,
+    puertoRicoInset,
+    placedLinks,
+    strokeScale,
+    style,
+    placedNodes,
+    edgeMode,
+    layerOptions = {},
+  }
+) {
+  const showInsetFrames = layerOptions.showInsetFrames ?? true;
+  const showPrLabel = layerOptions.showPrLabel ?? true;
+  const showNodes = layerOptions.showNodes ?? false;
+  const showHubs = layerOptions.showHubs ?? false;
+  const showLinkTooltips = layerOptions.showLinkTooltips ?? false;
+
+  const statesFc = geoFeatureCollection(statesTopo);
+  const insetMetrics = layerOptions.insetFrameMetrics ?? { pad: 5, gap: 5 };
+  const alaskaHawaiiInsetFrames = collectAlaskaHawaiiInsetFrames(
+    statesTopo,
+    path,
+    insetMetrics.pad,
+    insetMetrics.gap
+  );
+
+  geoPane
+    .append("g")
+    .attr("class", "states")
+    .selectAll("path")
+    .data(statesFc.features)
+    .join("path")
+    .attr("class", "state")
+    .attr("d", path);
+
+  if (puertoRicoInset) {
+    geoPane
+      .append("g")
+      .attr("class", "pr-geography-inset")
+      .append("path")
+      .datum(puertoRicoInset.prFeature)
+      .attr("class", "state state--pr-inset")
+      .attr("d", puertoRicoInset.prPath);
+  }
+
+  if (showInsetFrames) {
+    const insetFrameLayer = geoPane.append("g").attr("class", "inset-frames");
+    alaskaHawaiiInsetFrames.forEach((frame) => {
+      appendInsetFrame(
+        insetFrameLayer,
+        frame.bounds,
+        `inset-frame inset-frame--${frame.id === STATE_ID_ALASKA ? "alaska" : "hawaii"}`
+      );
+    });
+    if (puertoRicoInset) {
+      appendInsetFrame(insetFrameLayer, puertoRicoInset.boxBounds, "inset-frame inset-frame--pr");
+      if (showPrLabel) {
+        geoPane
+          .append("text")
+          .attr("class", "inset-label")
+          .attr("x", puertoRicoInset.labelX)
+          .attr("y", puertoRicoInset.labelY)
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "baseline")
+          .text("Puerto Rico");
+      }
+    }
+  }
+
+  const drawFlows = layerOptions.drawFlows !== false && placedLinks.length > 0;
+  if (drawFlows) {
+    const linkSel = geoPane
+      .append("g")
+      .attr("class", "links")
+      .selectAll("path")
+      .data(placedLinks)
+      .join("path")
+      .attr("class", "link")
+      .attr("d", (d) => curvedLink(d.source, d.target))
+      .attr("stroke-width", (d) => strokeScale(d.flow));
+
+    if (style.linkStroke) {
+      linkSel.attr("stroke", style.linkStroke);
+    }
+    if (style.linkOpacity != null) {
+      linkSel.attr("stroke-opacity", style.linkOpacity);
+    }
+
+    if (showLinkTooltips && edgeMode !== "all") {
+      linkSel.append("title").text(
+        (d) => `${d.sourceId} → ${d.targetId}\n${d.flow} transplants`
+      );
+    }
+  }
+
+  if (showHubs) {
+    const hubLinks = layerOptions.hubLinks ?? placedLinks;
+    drawDestinationHubs(geoPane, placedNodes, hubLinks, layerOptions.hubDrawOptions);
+  } else if (layerOptions.nodeEmphasis) {
+    drawEmphasisNodes(geoPane, placedNodes, layerOptions.nodeEmphasis, style, layerOptions.flowWeights);
+  } else if (showNodes && style.showNodes) {
+    const nodeG = geoPane.append("g").attr("class", "nodes").attr("opacity", style.nodeOpacity);
+    nodeG
+      .selectAll("circle.source")
+      .data(placedNodes.filter((n) => n.type === "source_dsa"))
+      .join("circle")
+      .attr("class", "node node--source")
+      .attr("cx", (d) => d.px)
+      .attr("cy", (d) => d.py)
+      .attr("r", style.sourceRadius)
+      .append("title")
+      .text((d) => `${d.id}\n${d.name}\n${d.state}`);
+    nodeG
+      .selectAll("circle.destination")
+      .data(placedNodes.filter((n) => n.type === "transplant_center"))
+      .join("circle")
+      .attr("class", "node node--destination")
+      .attr("cx", (d) => d.px)
+      .attr("cy", (d) => d.py)
+      .attr("r", style.destinationRadius)
+      .append("title")
+      .text((d) => `${d.id}\n${d.name}\n${d.state}`);
+  }
+}
+
+function computeSmallMultiplesPanelSize() {
+  const gridW = SM_SVG_WIDTH - SM_MARGIN.left - SM_MARGIN.right - SM_GAP * (SM_COLS - 1);
+  const gridH =
+    SM_SVG_HEIGHT -
+    SM_MARGIN.top -
+    SM_MARGIN.bottom -
+    SM_GAP * (SM_ROWS - 1) -
+    SM_ROWS * SM_PANEL_TITLE_DY;
+  return {
+    panelInnerW: gridW / SM_COLS,
+    panelInnerH: gridH / SM_ROWS,
+  };
+}
+
+async function initSmallMultiples() {
+  const { panelInnerW, panelInnerH } = computeSmallMultiplesPanelSize();
+  const smStyle = styleForSmallMultiples(panelInnerH);
+  const geoFitHeightPx = panelInnerH - SM_FOOTNOTE_STRIP - GEOGRAPHY_VERTICAL_OFFSET_PX;
+
+  const subtitleBubbles =
+    "Organ-specific transplant center concentration — circle area uses a shared scale across panels.";
+  const subtitleFlows =
+    "Organ-specific flow patterns — line weight uses a shared scale across panels (boosted for 2×4 layout).";
+
+  document.title = "Regional Yet Connected — Organ Flow Comparison";
+  d3.select("#chart-title").text("Regional Yet Connected");
+  d3.select(".subtitle").text(SM_VIS_MODE === "bubbles" ? subtitleBubbles : subtitleFlows);
+  const paletteClass =
+    SM_COLOR_THEME === "charcoal_forest" ? "palette-charcoal-forest" : "palette-default";
+  d3.select("body").attr(
+    "class",
+    [
+      "layout-small-multiples",
+      "iteration-02-sm",
+      "edge-mode-all",
+      "organ-mode-comparison",
+      `sm-vis-${SM_VIS_MODE}`,
+      paletteClass,
+    ].join(" ")
+  );
+  d3.select(".viz-card").attr("data-iteration", "02-sm-final");
+  d3.select("#legend-panel").style("display", "none");
+  d3.select("#audit-panel").style("display", "none");
+
+  const edgePaths = SMALL_MULTIPLES_PANELS.map((p) => ORGAN_MODES[p.slug].edgesEnriched);
+  const [nodes, statesTopo, ...rawEdgeSets] = await Promise.all([
+    d3.csv(DATA.nodes, d3.autoType),
+    d3.json(DATA.states),
+    ...edgePaths.map((path) => d3.csv(path, d3.autoType)),
+  ]);
+
+  const nodeById = new Map(nodes.map((n) => [n.id, n]));
+  const projection = d3
+    .geoAlbersUsa()
+    .fitSize([panelInnerW, geoFitHeightPx], geoFeatureCollection(statesTopo));
+  const path = d3.geoPath(projection);
+  const prInset = buildPuertoRicoInset({
+    statesTopo,
+    innerW: panelInnerW,
+    innerH: geoFitHeightPx,
+    boxConfig: scalePrInsetBox(panelInnerW, geoFitHeightPx),
+    quiet: true,
+  });
+
+  assignPositionsWithPuertoRicoOverlay(nodes, projection, panelInnerW, geoFitHeightPx, prInset);
+  const placedNodes = nodes.filter((n) => Number.isFinite(n.px));
+
+  const panelData = SMALL_MULTIPLES_PANELS.map((panel, i) => {
+    const coordLinks = buildCoordLinksFromRawEdges(rawEdgeSets[i], nodeById);
+    const eligibleFlow = d3.sum(coordLinks, (l) => Number(l.flow) || 0);
+    const placedLinks = filterPlacedLinks(coordLinks, prInset);
+    const renderedFlow = d3.sum(placedLinks, (l) => Number(l.flow) || 0);
+    const renderedFlowPercent =
+      eligibleFlow > 0 ? (renderedFlow / eligibleFlow) * 100 : null;
+    return {
+      ...panel,
+      placedLinks,
+      eligibleFlow,
+      renderedFlow,
+      renderedFlowPercent,
+      edgeCount: placedLinks.length,
+    };
+  });
+
+  const allFlows = panelData.flatMap((p) => p.placedLinks.map((l) => l.flow));
+  const sharedFlowDomain = d3.extent(allFlows.filter((f) => f > 0));
+  const strokeScale = buildStrokeScale(allFlows, smStyle.widthRange, sharedFlowDomain);
+
+  let sharedBubbleRadiusScale = null;
+  let sharedBubbleDomain = null;
+  if (SM_VIS_MODE === "bubbles") {
+    const allInflows = [];
+    panelData.forEach((p) => {
+      for (const v of buildDestinationInflowFromLinks(p.placedLinks).values()) {
+        if (v > 0) allInflows.push(v);
+      }
+    });
+    sharedBubbleDomain = d3.extent(allInflows);
+    sharedBubbleRadiusScale = buildStrokeScale(
+      allInflows,
+      smStyle.bubbleRadiusRange,
+      sharedBubbleDomain
     );
   }
 
-  const edgePath = edgeFileForMode(modeConfig);
+  console.log("[small multiples] layout:", LAYOUT_MODE, "| vis:", SM_VIS_MODE);
+  if (SM_VIS_MODE === "flows") {
+    console.log("[small multiples] shared stroke domain (flow_count):", sharedFlowDomain);
+  } else {
+    console.log("[small multiples] shared bubble domain (inflow):", sharedBubbleDomain);
+  }
+  panelData.forEach((p) => {
+    console.log(`[small multiples] organ mode: ${p.slug}`);
+    console.log(`[small multiples] ${p.slug}:`, {
+      title: p.title,
+      edgeCount: p.edgeCount,
+      totalFlow: p.eligibleFlow,
+      renderedFlow: p.renderedFlow,
+      renderedFlowPercent:
+        p.renderedFlowPercent != null ? `${p.renderedFlowPercent.toFixed(1)}%` : "n/a",
+    });
+  });
 
-  console.log("Edge mode:", EDGE_MODE);
-  console.log("Edge file:", edgePath);
-  console.log("  resolved:", new URL(edgePath, window.location.href).href);
+  const sourceNote =
+    SM_VIS_MODE === "bubbles"
+      ? "Source: OPTN/UNOS Advanced Reports; donor and transplant flows, 2025. Current waitlist reference data pulled 2026. Circle size = transplant center inflow (shared scale)."
+      : "Source: OPTN/UNOS Advanced Reports; donor and transplant flows, 2025. Current waitlist reference data pulled 2026. Line weight = flow volume (shared scale).";
+  d3.select(".viz-source").text(sourceNote);
 
-  d3.select("#chart-title").text(CHART_TITLE);
-  d3.select(".subtitle").text(CHART_SUBTITLE);
-  d3.select("body").attr("class", `edge-mode-${EDGE_MODE}`);
+  const svg = d3
+    .select("#chart")
+    .append("svg")
+    .attr("viewBox", [0, 0, SM_SVG_WIDTH, SM_SVG_HEIGHT])
+    .attr("role", "img")
+    .attr("class", `map-svg map-svg--small-multiples map-svg--sm-${SM_VIS_MODE}`);
 
-  const [rawEdges, allOrganD2TCoverageEdges, nodes, statesTopo] = await Promise.all([
+  const root = svg.append("g").attr("transform", `translate(${SM_MARGIN.left},${SM_MARGIN.top})`);
+
+  panelData.forEach((panel, idx) => {
+    const col = idx % SM_COLS;
+    const row = Math.floor(idx / SM_COLS);
+    const originX = col * (panelInnerW + SM_GAP);
+    const originY = row * (panelInnerH + SM_GAP + SM_PANEL_TITLE_DY);
+
+    const panelG = root
+      .append("g")
+      .attr("class", `sm-panel sm-panel--${panel.slug}`)
+      .attr("transform", `translate(${originX},${originY})`);
+
+    panelG
+      .append("text")
+      .attr("class", "sm-panel-title")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("alignment-baseline", "hanging")
+      .text(panel.title);
+
+    const geoPane = panelG
+      .append("g")
+      .attr("class", "map-geo-pane")
+      .attr("transform", `translate(0,${SM_PANEL_TITLE_DY + GEOGRAPHY_VERTICAL_OFFSET_PX})`);
+
+    drawMapLayers(geoPane, {
+      statesTopo,
+      path,
+      puertoRicoInset: prInset,
+      placedLinks: panel.placedLinks,
+      strokeScale,
+      style: smStyle,
+      placedNodes,
+      edgeMode: "all",
+      layerOptions: {
+        insetFrameMetrics: insetFrameMetricsForGeo(panelInnerW, geoFitHeightPx),
+        drawFlows: smStyle.drawFlows !== false,
+        hubLinks: panel.placedLinks,
+        showInsetFrames: smStyle.showInsetFrames,
+        showPrLabel: smStyle.showPrLabel,
+        showNodes: false,
+        showHubs: SM_VIS_MODE === "bubbles",
+        showLinkTooltips: false,
+        hubDrawOptions: {
+          radiusScale: sharedBubbleRadiusScale,
+          radiusRange: smStyle.bubbleRadiusRange,
+          fillOpacity: smStyle.bubbleFillOpacity,
+          quiet: true,
+        },
+      },
+    });
+  });
+}
+
+function computeGeographyComparisonPanelSize() {
+  const gridW =
+    GEO_CMP_SVG_WIDTH - GEO_CMP_MARGIN.left - GEO_CMP_MARGIN.right - GEO_CMP_GAP * (GEO_CMP_COLS - 1);
+  const gridH =
+    GEO_CMP_SVG_HEIGHT -
+    GEO_CMP_MARGIN.top -
+    GEO_CMP_MARGIN.bottom -
+    GEO_CMP_PANEL_TITLE_DY -
+    GEO_CMP_PANEL_SUBTITLE_DY;
+  return {
+    panelInnerW: gridW / GEO_CMP_COLS,
+    panelInnerH: gridH,
+  };
+}
+
+async function initGeographyComparison() {
+  const organConfig = ORGAN_MODES[ORGAN_MODE] ?? ORGAN_MODES.all;
+  const { panelInnerW, panelInnerH } = computeGeographyComparisonPanelSize();
+  const geoFitHeightPx = panelInnerH - GEO_CMP_FOOTNOTE_STRIP - GEOGRAPHY_VERTICAL_OFFSET_PX;
+
+  document.title = "Regional Yet Connected — Donor vs Transplant Geography";
+  d3.select("#chart-title").text("Regional Yet Connected");
+  d3.select(".subtitle").text(
+    "Donor recovery infrastructure and transplant-center concentration as distinct but related geographies."
+  );
+  d3.select("body").attr(
+    "class",
+    [
+      "layout-geography-comparison",
+      "iteration-03-geo",
+      "palette-charcoal-forest",
+      `organ-mode-${ORGAN_MODE}`,
+      "edge-mode-all",
+    ].join(" ")
+  );
+  d3.select(".viz-card").attr("data-iteration", "03-geo");
+  d3.select("#legend-panel").style("display", "none");
+  d3.select("#audit-panel").style("display", "");
+
+  const edgePath = organConfig.edgesEnriched;
+  const coverageEdgePath = organConfig.edgesEnriched;
+  const [rawEdges, coverageEdges, nodes, statesTopo] = await Promise.all([
     d3.csv(edgePath, d3.autoType),
-    d3.csv(DATA.edgesAll, d3.autoType),
+    d3.csv(coverageEdgePath, d3.autoType),
     d3.csv(DATA.nodes, d3.autoType),
     d3.json(DATA.states),
   ]);
 
-  console.log("Using full node coordinate dataset");
-  console.log(
-    `[map metrics] View edge file (${EDGE_MODE}) rows:`,
-    rawEdges.length,
-    "| Full all-organ list rows:",
-    allOrganD2TCoverageEdges.length
-  );
-  console.log("Nodes loaded:", nodes.length);
-
   const nodeById = new Map(nodes.map((n) => [n.id, n]));
-
-  /** Denominator/numerator aligned with scripts/check_coordinate_coverage.py (`d2t_edges_all_organs_enriched.csv`). */
   let coverageTotalFlow = 0;
   let coordinateEligibleFlow = 0;
-  allOrganD2TCoverageEdges.forEach((e) => {
+  coverageEdges.forEach((e) => {
     const flowCount = Number(e.flow_count);
     if (!Number.isFinite(flowCount)) return;
     coverageTotalFlow += flowCount;
@@ -479,7 +1142,224 @@ async function init() {
   const pctCoordinateEligible =
     coverageTotalFlow > 0 ? (coordinateEligibleFlow / coverageTotalFlow) * 100 : null;
 
-  console.log("[map metrics] Total flow (all-organ D2T edge list denominator):", coverageTotalFlow);
+  const coordLinks = buildCoordLinksFromRawEdges(rawEdges, nodeById);
+  const projection = d3
+    .geoAlbersUsa()
+    .fitSize([panelInnerW, geoFitHeightPx], geoFeatureCollection(statesTopo));
+  const path = d3.geoPath(projection);
+  const prInset = buildPuertoRicoInset({
+    statesTopo,
+    innerW: panelInnerW,
+    innerH: geoFitHeightPx,
+    boxConfig: scalePrInsetBox(panelInnerW, geoFitHeightPx),
+    quiet: true,
+  });
+
+  assignPositionsWithPuertoRicoOverlay(nodes, projection, panelInnerW, geoFitHeightPx, prInset);
+  const placedNodes = nodes.filter((n) => Number.isFinite(n.px));
+  const placedLinks = filterPlacedLinks(coordLinks, prInset);
+  const renderedFlow = d3.sum(placedLinks, (l) => Number(l.flow) || 0);
+  const eligibleFlow = d3.sum(coordLinks, (l) => Number(l.flow) || 0);
+  const projectionOnlyWithheldFlow = Math.max(0, eligibleFlow - renderedFlow);
+
+  logOrganRunSummary({
+    organMode: ORGAN_MODE,
+    totalFlow: eligibleFlow,
+    renderedFlow,
+    edgeCount: placedLinks.length,
+  });
+
+  const allFlows = placedLinks.map((l) => l.flow);
+  const sharedFlowDomain = d3.extent(allFlows.filter((f) => f > 0));
+  const baseStyle = styleForGeographyComparison("source", null);
+  const sharedStrokeScale = buildStrokeScale(allFlows, baseStyle.widthRange, sharedFlowDomain);
+
+  const sourceOutflow = buildSourceOutflowFromLinks(placedLinks);
+  const destInflow = buildDestinationInflowFromLinks(placedLinks);
+  const sourceFlows = [...sourceOutflow.values()].filter((v) => v > 0);
+  const destFlows = [...destInflow.values()].filter((v) => v > 0);
+  const sourceRadiusScale = buildStrokeScale(sourceFlows, [1.35, 3.1], d3.extent(sourceFlows));
+  const destRadiusScale = buildStrokeScale(destFlows, [1.35, 3.1], d3.extent(destFlows));
+
+  console.log("[geography comparison] layout:", LAYOUT_MODE, "| organ:", ORGAN_MODE);
+  console.log("[geography comparison] shared flow domain:", sharedFlowDomain);
+  console.log("[geography comparison] edges drawn:", placedLinks.length);
+
+  d3.select(".viz-source").text(
+    "Source: OPTN/UNOS Advanced Reports; donor and transplant flows, 2025. Current waitlist reference data pulled 2026. Same projection and flow scale on both panels; node size reflects endpoint-weighted volume."
+  );
+
+  const svg = d3
+    .select("#chart")
+    .append("svg")
+    .attr("viewBox", [0, 0, GEO_CMP_SVG_WIDTH, GEO_CMP_SVG_HEIGHT])
+    .attr("role", "img")
+    .attr("class", "map-svg map-svg--geography-comparison");
+
+  const root = svg
+    .append("g")
+    .attr("transform", `translate(${GEO_CMP_MARGIN.left},${GEO_CMP_MARGIN.top})`);
+
+  GEOGRAPHY_COMPARISON_PANELS.forEach((panel, idx) => {
+    const originX = idx * (panelInnerW + GEO_CMP_GAP);
+    const panelG = root
+      .append("g")
+      .attr("class", `geo-cmp-panel geo-cmp-panel--${panel.slug}`)
+      .attr("transform", `translate(${originX},0)`);
+
+    panelG
+      .append("text")
+      .attr("class", "geo-cmp-panel-title")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("alignment-baseline", "hanging")
+      .text(panel.title);
+
+    panelG
+      .append("text")
+      .attr("class", "geo-cmp-panel-subtitle")
+      .attr("x", 0)
+      .attr("y", GEO_CMP_PANEL_TITLE_DY)
+      .attr("alignment-baseline", "hanging")
+      .text(panel.subtitle);
+
+    const geoPane = panelG
+      .append("g")
+      .attr("class", "map-geo-pane")
+      .attr(
+        "transform",
+        `translate(0,${GEO_CMP_PANEL_TITLE_DY + GEO_CMP_PANEL_SUBTITLE_DY + GEOGRAPHY_VERTICAL_OFFSET_PX})`
+      );
+
+    const flowWeights = panel.emphasis === "source" ? sourceOutflow : destInflow;
+    const primaryRadiusScale =
+      panel.emphasis === "source" ? sourceRadiusScale : destRadiusScale;
+    const panelStyle = styleForGeographyComparison(panel.emphasis, primaryRadiusScale);
+
+    drawMapLayers(geoPane, {
+      statesTopo,
+      path,
+      puertoRicoInset: prInset,
+      placedLinks,
+      strokeScale: sharedStrokeScale,
+      style: panelStyle,
+      placedNodes,
+      edgeMode: "all",
+      layerOptions: {
+        insetFrameMetrics: insetFrameMetricsForGeo(panelInnerW, geoFitHeightPx),
+        drawFlows: true,
+        nodeEmphasis: panel.emphasis,
+        flowWeights,
+        showInsetFrames: true,
+        showPrLabel: idx === GEOGRAPHY_COMPARISON_PANELS.length - 1,
+        showNodes: false,
+        showHubs: false,
+        showLinkTooltips: false,
+      },
+    });
+  });
+
+  renderAuditPanel({
+    edgeMode: "all",
+    organConfig: { ...organConfig, iteration: "03-geo" },
+    d2tFlowCoverageMetrics:
+      pctCoordinateEligible != null
+        ? {
+            pctCoordinateEligible,
+            coverageTotalFlow,
+            coordinateEligibleFlow,
+            coverageLabel: organConfig.coverageLabel,
+          }
+        : null,
+    projectionOnlyWithheldFlow,
+    coverageTotalFlow,
+    geographyComparison: true,
+  });
+}
+
+async function init() {
+  if (LAYOUT_MODE === "small_multiples") {
+    return initSmallMultiples();
+  }
+  if (LAYOUT_MODE === "geography_comparison") {
+    return initGeographyComparison();
+  }
+
+  const organConfig = resolveOrganConfig();
+  const modeConfig = EDGE_MODES[EDGE_MODE];
+  if (!modeConfig) {
+    throw new Error(
+      `Unknown EDGE_MODE "${EDGE_MODE}". Use: all, ge_200, ge_100, ge_50, ge_25, top50`
+    );
+  }
+
+  const edgePath = edgeFileForMode(modeConfig, organConfig);
+  const coverageEdgePath = organConfig.edgesEnriched;
+
+  console.log("Organ mode:", ORGAN_MODE);
+  console.log("Edge mode:", EDGE_MODE, `(iteration ${organConfig.iteration})`);
+  console.log("Edge file:", edgePath);
+  console.log("  resolved:", new URL(edgePath, window.location.href).href);
+
+  document.title = organConfig.documentTitle;
+  d3.select("#chart-title").text(organConfig.chartTitle);
+  d3.select(".subtitle").text(organConfig.chartSubtitle);
+  const displayIteration = SHOW_DESTINATION_HUBS ? "hub" : organConfig.iteration;
+  d3.select("body").attr(
+    "class",
+    [
+      "layout-single",
+      `organ-mode-${ORGAN_MODE}`,
+      `edge-mode-${EDGE_MODE}`,
+      `iteration-${displayIteration}`,
+      SHOW_DESTINATION_HUBS ? "destination-hubs-on" : "",
+    ]
+      .filter(Boolean)
+      .join(" ")
+  );
+  d3.select(".viz-card").attr("data-iteration", displayIteration);
+  if (SHOW_DESTINATION_HUBS) {
+    console.log("Destination hubs: ON (single-map hub experiment)");
+  }
+
+  const [rawEdges, coverageEdges, nodes, statesTopo] = await Promise.all([
+    d3.csv(edgePath, d3.autoType),
+    d3.csv(coverageEdgePath, d3.autoType),
+    d3.csv(DATA.nodes, d3.autoType),
+    d3.json(DATA.states),
+  ]);
+
+  console.log("Using full node coordinate dataset");
+  console.log(
+    `[map metrics] View edge file (${ORGAN_MODE}/${EDGE_MODE}) rows:`,
+    rawEdges.length,
+    "| Coverage list rows:",
+    coverageEdges.length
+  );
+  console.log("Nodes loaded:", nodes.length);
+
+  const nodeById = new Map(nodes.map((n) => [n.id, n]));
+
+  /** Denominator/numerator aligned with scripts/check_coordinate_coverage.py (`d2t_edges_all_organs_enriched.csv`). */
+  let coverageTotalFlow = 0;
+  let coordinateEligibleFlow = 0;
+  coverageEdges.forEach((e) => {
+    const flowCount = Number(e.flow_count);
+    if (!Number.isFinite(flowCount)) return;
+    coverageTotalFlow += flowCount;
+    const src = nodeById.get(String(e.source_dsa_id ?? "").trim());
+    const tgt = nodeById.get(String(e.destination_center_id ?? "").trim());
+    if (workbookRowHasParsableCoordinates(src) && workbookRowHasParsableCoordinates(tgt)) {
+      coordinateEligibleFlow += flowCount;
+    }
+  });
+  const pctCoordinateEligible =
+    coverageTotalFlow > 0 ? (coordinateEligibleFlow / coverageTotalFlow) * 100 : null;
+
+  console.log(
+    `[map metrics] Total flow (${organConfig.coverageLabel} denominator):`,
+    coverageTotalFlow
+  );
   console.log(
     "[map metrics] Coverage numerator — transplant volume where both endpoints are geocoded (matches check_coordinate_coverage.py):",
     coordinateEligibleFlow
@@ -537,6 +1417,7 @@ async function init() {
     links,
     statesTopo,
     edgeMode: EDGE_MODE,
+    organConfig,
     modeConfig,
     d2tFlowCoverageMetrics:
       pctCoordinateEligible != null && EDGE_MODE !== "top50"
@@ -544,6 +1425,7 @@ async function init() {
             pctCoordinateEligible,
             coverageTotalFlow,
             coordinateEligibleFlow,
+            coverageLabel: organConfig.coverageLabel,
           }
         : null,
     coordinateEligibleViewportFlow: viewportCoordinateEligibleFlow,
@@ -556,6 +1438,7 @@ function render({
   links,
   statesTopo,
   edgeMode,
+  organConfig,
   modeConfig,
   d2tFlowCoverageMetrics,
   coordinateEligibleViewportFlow,
@@ -589,10 +1472,9 @@ function render({
   const placedLinks = links.filter((l) => {
     if (!Number.isFinite(l.source.px) || !Number.isFinite(l.target.px)) return false;
     if (l.source.projectionFailureFallback || l.target.projectionFailureFallback) return false;
-
-    const touchesPuertoInset =
+    const crossesPr =
       Boolean(l.source.prInsetAnchored) !== Boolean(l.target.prInsetAnchored);
-    if (touchesPuertoInset && !puertoRicoInset) {
+    if (crossesPr && !puertoRicoInset) {
       omittedPuertoRicoArcs += 1;
       omittedPuertoRicoArcFlow += l.flow;
       return false;
@@ -609,6 +1491,12 @@ function render({
   }
 
   const drawnFlowSum = d3.sum(placedLinks, (l) => Number(l.flow) || 0);
+  logOrganRunSummary({
+    organMode: ORGAN_MODE,
+    totalFlow: coverageTotalFlow,
+    renderedFlow: drawnFlowSum,
+    edgeCount: placedLinks.length,
+  });
   console.log("[map metrics] Rendered flow (slice actually drawn after projection/inset filters):", drawnFlowSum);
   let projectionOnlyWithheldFlow = 0;
   if (
@@ -645,101 +1533,29 @@ function render({
     .attr("class", "map-geo-pane")
     .attr("transform", `translate(0,${GEOGRAPHY_VERTICAL_OFFSET_PX})`);
 
-  const statesFc = geoFeatureCollection(statesTopo);
-  const alaskaHawaiiInsetFrames = collectAlaskaHawaiiInsetFrames(statesTopo, path);
-
-  geoPane
-    .append("g")
-    .attr("class", "states")
-    .selectAll("path")
-    .data(statesFc.features)
-    .join("path")
-    .attr("class", "state")
-    .attr("d", path);
-
-  if (puertoRicoInset) {
-    geoPane
-      .append("g")
-      .attr("class", "pr-geography-inset")
-      .append("path")
-      .datum(puertoRicoInset.prFeature)
-      .attr("class", "state state--pr-inset")
-      .attr("d", puertoRicoInset.prPath);
-  }
-
-  const insetFrameLayer = geoPane.append("g").attr("class", "inset-frames");
-  alaskaHawaiiInsetFrames.forEach((frame) => {
-    appendInsetFrame(
-      insetFrameLayer,
-      frame.bounds,
-      `inset-frame inset-frame--${frame.id === STATE_ID_ALASKA ? "alaska" : "hawaii"}`
-    );
+  drawMapLayers(geoPane, {
+    statesTopo,
+    path,
+    puertoRicoInset,
+    placedLinks,
+    strokeScale,
+    style,
+    placedNodes,
+    edgeMode,
+    layerOptions: {
+      insetFrameMetrics: insetFrameMetricsForGeo(innerW, geoFitHeightPx),
+      showInsetFrames: true,
+      showPrLabel: true,
+      showNodes: style.showNodes && !SHOW_DESTINATION_HUBS,
+      showHubs: SHOW_DESTINATION_HUBS,
+      showLinkTooltips: edgeMode !== "all",
+    },
   });
-  if (puertoRicoInset) {
-    appendInsetFrame(insetFrameLayer, puertoRicoInset.boxBounds, "inset-frame inset-frame--pr");
 
-    geoPane
-      .append("text")
-      .attr("class", "inset-label")
-      .attr("x", puertoRicoInset.labelX)
-      .attr("y", puertoRicoInset.labelY)
-      .attr("text-anchor", "middle")
-      .attr("alignment-baseline", "baseline")
-      .text("Puerto Rico");
-  }
-
-  const linkSel = geoPane
-    .append("g")
-    .attr("class", "links")
-    .selectAll("path")
-    .data(placedLinks)
-    .join("path")
-    .attr("class", "link")
-    .attr("d", (d) => curvedLink(d.source, d.target))
-    .attr("stroke-width", (d) => strokeScale(d.flow));
-
-  if (style.linkStroke) {
-    linkSel.attr("stroke", style.linkStroke);
-  }
-  if (style.linkOpacity != null) {
-    linkSel.attr("stroke-opacity", style.linkOpacity);
-  }
-
-  if (edgeMode !== "all") {
-    linkSel.append("title").text(
-      (d) => `${d.sourceId} → ${d.targetId}\n${d.flow} transplants`
-    );
-  }
-
-  if (style.showNodes) {
-    const nodeG = geoPane.append("g").attr("class", "nodes").attr("opacity", style.nodeOpacity);
-
-    nodeG
-      .selectAll("circle.source")
-      .data(placedNodes.filter((n) => n.type === "source_dsa"))
-      .join("circle")
-      .attr("class", "node node--source")
-      .attr("cx", (d) => d.px)
-      .attr("cy", (d) => d.py)
-      .attr("r", style.sourceRadius)
-      .append("title")
-      .text((d) => `${d.id}\n${d.name}\n${d.state}`);
-
-    nodeG
-      .selectAll("circle.destination")
-      .data(placedNodes.filter((n) => n.type === "transplant_center"))
-      .join("circle")
-      .attr("class", "node node--destination")
-      .attr("cx", (d) => d.px)
-      .attr("cy", (d) => d.py)
-      .attr("r", style.destinationRadius)
-      .append("title")
-      .text((d) => `${d.id}\n${d.name}\n${d.state}`);
-  }
-
-  renderLegendPanel({ strokeScale, style });
+  renderLegendPanel({ strokeScale, style, hubInflowExtent: getHubInflowExtent(placedLinks) });
   renderAuditPanel({
     edgeMode,
+    organConfig,
     d2tFlowCoverageMetrics,
     projectionOnlyWithheldFlow,
     coverageTotalFlow,
@@ -803,6 +1619,130 @@ function curvedLink(source, target) {
   return `M${sx},${sy} Q${cx},${cy} ${tx},${ty}`;
 }
 
+/** Sum outflow (recovery volume) per donor/OPO source from edges in the current view */
+function buildSourceOutflowFromLinks(links) {
+  const bySource = new Map();
+  links.forEach((l) => {
+    const srcId = String(l.source?.id ?? l.sourceId ?? "").trim();
+    if (!srcId) return;
+    bySource.set(srcId, (bySource.get(srcId) || 0) + (Number(l.flow) || 0));
+  });
+  return bySource;
+}
+
+/** Sum inflow (transplant volume) per destination from edges in the current view */
+function buildDestinationInflowFromLinks(links) {
+  const byDest = new Map();
+  links.forEach((l) => {
+    const destId = String(l.target?.id ?? l.targetId ?? "").trim();
+    if (!destId) return;
+    byDest.set(destId, (byDest.get(destId) || 0) + (Number(l.flow) || 0));
+  });
+  return byDest;
+}
+
+function getHubInflowExtent(links) {
+  const inflow = buildDestinationInflowFromLinks(links);
+  const values = [...inflow.values()].filter((v) => v > 0);
+  if (!values.length) return null;
+  return d3.extent(values);
+}
+
+/** Iteration 03 — primary endpoint emphasized; opposite endpoint subdued (no hub bubbles) */
+function drawEmphasisNodes(geoPane, placedNodes, emphasis, style, flowWeights) {
+  const sources = placedNodes.filter((n) => n.type === "source_dsa");
+  const destinations = placedNodes.filter((n) => n.type === "transplant_center");
+  const primaryNodes = emphasis === "source" ? sources : destinations;
+  const secondaryNodes = emphasis === "source" ? destinations : sources;
+  const primaryClass = emphasis === "source" ? "source" : "destination";
+  const secondaryClass = emphasis === "source" ? "destination" : "source";
+  const radiusScale = style.primaryRadiusScale ?? (() => style.primaryRadiusMin);
+
+  const nodeG = geoPane.append("g").attr("class", `nodes nodes--geo-cmp-${emphasis}`);
+
+  nodeG
+    .selectAll(`circle.node--muted-${secondaryClass}`)
+    .data(secondaryNodes)
+    .join("circle")
+    .attr("class", `node node--muted node--${secondaryClass}`)
+    .attr("cx", (d) => d.px)
+    .attr("cy", (d) => d.py)
+    .attr("r", style.secondaryRadius)
+    .attr("fill-opacity", style.secondaryOpacity)
+    .append("title")
+    .text((d) => `${d.id}\n${d.name}\n${d.state}`);
+
+  nodeG
+    .selectAll(`circle.node--primary-${primaryClass}`)
+    .data(primaryNodes)
+    .join("circle")
+    .attr("class", `node node--primary node--${primaryClass}`)
+    .attr("cx", (d) => d.px)
+    .attr("cy", (d) => d.py)
+    .attr("r", (d) => {
+      const w = flowWeights.get(String(d.id).trim()) || 0;
+      return w > 0 ? radiusScale(w) : style.primaryRadiusMin;
+    })
+    .attr("fill-opacity", style.primaryOpacity)
+    .append("title")
+    .text((d) => {
+      const w = flowWeights.get(String(d.id).trim()) || 0;
+      return `${d.id}\n${d.name}\n${d.state}\nVolume: ${w.toLocaleString()}`;
+    });
+}
+
+function drawDestinationHubs(geoPane, placedNodes, placedLinks, options = {}) {
+  const {
+    radiusScale = null,
+    radiusRange = HUB_RADIUS_RANGE,
+    fillOpacity = 0.4,
+    quiet = false,
+  } = options;
+
+  const inflowByDest = buildDestinationInflowFromLinks(placedLinks);
+  const hubData = placedNodes
+    .filter((n) => n.type === "transplant_center")
+    .map((n) => ({
+      node: n,
+      id: n.id,
+      name: n.name,
+      state: n.state,
+      px: n.px,
+      py: n.py,
+      inflow: inflowByDest.get(String(n.id).trim()) || 0,
+    }))
+    .filter((d) => d.inflow > 0);
+
+  const inflows = hubData.map((d) => d.inflow);
+  const hubRadius =
+    radiusScale ?? buildStrokeScale(inflows, radiusRange);
+
+  geoPane
+    .append("g")
+    .attr("class", "destination-hubs")
+    .selectAll("circle")
+    .data(hubData)
+    .join("circle")
+    .attr("class", "hub")
+    .attr("cx", (d) => d.px)
+    .attr("cy", (d) => d.py)
+    .attr("r", (d) => hubRadius(d.inflow))
+    .attr("fill-opacity", fillOpacity)
+    .append("title")
+    .text(
+      (d) => `${d.id}\n${d.name}\n${d.state}\n${d.inflow.toLocaleString()} transplants (inflow)`
+    );
+
+  if (!quiet) {
+    console.log(
+      "[destination hubs] centers drawn:",
+      hubData.length,
+      "| inflow range:",
+      inflows.length ? d3.extent(inflows) : "n/a"
+    );
+  }
+}
+
 /** Legend sample strokes — higher contrast than map circulation field */
 const LEGEND_LINE_STYLES = {
   high: { color: "#2f5f6e", opacity: 1 },
@@ -810,11 +1750,21 @@ const LEGEND_LINE_STYLES = {
   low: { color: "#5a8494", opacity: 0.72 },
 };
 
-function renderLegendPanel({ strokeScale, style }) {
+function renderLegendPanel({ strokeScale, style, hubInflowExtent }) {
   const legend = d3.select("#legend-panel");
   legend
     .select(".legend-section--flows")
     .style("display", style.showFlowLegend ? null : "none");
+
+  const hubSection = legend.select(".legend-section--hubs");
+  hubSection.style("display", SHOW_DESTINATION_HUBS ? null : "none");
+
+  if (SHOW_DESTINATION_HUBS && hubInflowExtent) {
+    const [lo, hi] = hubInflowExtent;
+    const hubLegendRadius = buildStrokeScale([lo, hi], HUB_RADIUS_RANGE);
+    d3.select(".legend-hub--low").attr("r", hubLegendRadius(lo));
+    d3.select(".legend-hub--high").attr("r", hubLegendRadius(hi));
+  }
 
   const applyLineStyle = (selector, widthPx, tier) => {
     const tierStyle = LEGEND_LINE_STYLES[tier];
@@ -841,16 +1791,32 @@ function renderLegendPanel({ strokeScale, style }) {
 
 function renderAuditPanel({
   edgeMode,
+  organConfig,
   d2tFlowCoverageMetrics,
   projectionOnlyWithheldFlow,
   coverageTotalFlow,
+  geographyComparison = false,
 }) {
   const notes = [];
 
+  notes.push(
+    `Iteration ${organConfig.iteration} · ORGAN_MODE=${ORGAN_MODE} · EDGE_MODE=${edgeMode}`
+  );
+
+  if (geographyComparison) {
+    notes.push(
+      "Layout: side-by-side donor recovery (left) vs transplant center (right); shared projection, flow scale, and edge file."
+    );
+    notes.push(
+      "Encoding: subtle circulation field; node opacity and sqrt-scaled size emphasize the active endpoint per panel (no hub bubbles)."
+    );
+  }
+
   if (d2tFlowCoverageMetrics != null && edgeMode !== "top50") {
     const pct = d2tFlowCoverageMetrics.pctCoordinateEligible;
+    const label = d2tFlowCoverageMetrics.coverageLabel ?? organConfig.coverageLabel;
     notes.push(
-      `Coverage: Rendered flows represent ${pct.toFixed(1)}% of transplant volume in the all-organ D2T edge list.`
+      `Coverage: Rendered flows represent ${pct.toFixed(1)}% of transplant volume in the ${label}.`
     );
   }
 
@@ -864,7 +1830,9 @@ function renderAuditPanel({
   notes.push(
     "Insets: Alaska and Hawaii follow the Albers USA composite; Puerto Rico is shown in inset, not to scale. Contiguous mainland ↔ Puerto Rico flows are omitted."
   );
-  notes.push("Line opacity on map encodes density of flows in full-network view.");
+  if (!geographyComparison) {
+    notes.push("Line opacity on map encodes density of flows in full-network view.");
+  }
 
   d3.select("#audit-panel")
     .select(".audit-list")

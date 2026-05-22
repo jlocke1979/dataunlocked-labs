@@ -175,6 +175,27 @@ def main() -> None:
     )
     process_file(EDGES_TOP50, OUTPUT_TOP50, dsa_lookup, center_lookup, "Top 50")
 
+    skip_stems = {"d2t_edges_all_organs"}
+    organ_inputs = sorted(
+        p
+        for p in PROCESSED.glob("d2t_edges_*.csv")
+        if p.stem not in skip_stems and not p.stem.endswith("_enriched")
+    )
+    if organ_inputs:
+        print("\nPer-organ edge lists:")
+    for input_path in organ_inputs:
+        slug = input_path.stem.replace("d2t_edges_", "", 1)
+        output_path = PROCESSED / f"d2t_edges_{slug}_enriched.csv"
+        process_file(
+            input_path,
+            output_path,
+            dsa_lookup,
+            center_lookup,
+            slug.replace("_", " "),
+        )
+    if not organ_inputs:
+        print("\nNo per-organ edges found (run: python3 scripts/build_organ_d2t_edges.py --all)")
+
     print_top_edges(all_enriched)
 
 

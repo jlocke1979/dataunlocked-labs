@@ -11,9 +11,27 @@
   --legend-link-high: #2f5f6e;
   --legend-link-mid: #3d6d7d;
   --legend-link-low: #5a8494;
+  --hub-fill: #2f5568;
+  --hub-stroke: #7a9aab;
   --source: #1a7f6e;
   --destination: #c45c3e;
   --border: #ddd8ce;
+}
+
+/** Tufte-style charcoal forest (Iteration 02b / 03) */
+body.palette-charcoal-forest {
+  --text: #1e2421;
+  --muted: #5a635c;
+  --land: #e6e3dc;
+  --land-stroke: #c2bdb4;
+  --link: #3d4540;
+  --legend-link-high: #2a322e;
+  --legend-link-mid: #3a433e;
+  --legend-link-low: #5a635c;
+  --hub-fill: #2f3834;
+  --hub-stroke: #6d7670;
+  --source: #3d4540;
+  --destination: #525c56;
 }
 
 * {
@@ -64,6 +82,32 @@ body {
 .viz-layout {
   display: flex;
   align-items: stretch;
+}
+
+body.layout-small-multiples .viz-layout,
+body.layout-geography-comparison .viz-layout {
+  display: block;
+}
+
+body.layout-small-multiples .legend-panel {
+  display: none !important;
+}
+
+body.layout-small-multiples #audit-panel {
+  display: none !important;
+}
+
+body.layout-geography-comparison .legend-panel {
+  display: none !important;
+}
+
+body.layout-small-multiples .page,
+body.layout-geography-comparison .page {
+  max-width: 960px;
+}
+
+body.layout-small-multiples .subtitle {
+  max-width: none;
 }
 
 .chart-map {
@@ -162,6 +206,50 @@ body {
   font-size: 0.75rem;
 }
 
+.legend-section--hubs {
+  display: none;
+}
+
+.legend-hub-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.legend-hub-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.legend-hub-svg {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.legend-hub {
+  fill: var(--hub-fill);
+  fill-opacity: 0.42;
+  stroke: var(--hub-stroke);
+  stroke-width: 0.9;
+}
+
+.legend-hub-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.destination-hubs .hub {
+  fill: var(--hub-fill);
+  fill-opacity: 0.4;
+  stroke: var(--hub-stroke);
+  stroke-width: 0.9;
+  pointer-events: all;
+}
+
 .viz-source {
   margin: 0;
   padding: 0.5rem 0.85rem 0.65rem;
@@ -240,6 +328,43 @@ body {
   stroke-width: 1.2;
 }
 
+.map-svg--geography-comparison .link {
+  stroke: var(--link);
+  stroke-opacity: 0.055;
+}
+
+.map-svg--geography-comparison .node--primary {
+  fill: #2f3834;
+  stroke: #f7f5f0;
+  stroke-width: 0.85;
+}
+
+.map-svg--geography-comparison .node--muted {
+  fill: #8a9490;
+  stroke: #f7f5f0;
+  stroke-width: 0.5;
+}
+
+.geo-cmp-panel-title {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.geo-cmp-panel-subtitle {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 9.5px;
+  font-weight: 400;
+  fill: var(--muted);
+}
+
+body.palette-charcoal-forest .map-svg--small-multiples .destination-hubs .hub {
+  fill: var(--hub-fill);
+  stroke: var(--hub-stroke);
+}
+
 .map-note {
   font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 11px;
@@ -256,6 +381,33 @@ body {
   max-width: 720px;
   font-size: 10px;
   line-height: 1.35;
+}
+
+.sm-panel-title {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.map-svg--small-multiples.map-svg--sm-flows .link {
+  stroke-opacity: 0.1;
+}
+
+.map-svg--small-multiples.map-svg--sm-bubbles .link {
+  stroke-opacity: 0.045;
+}
+
+.map-svg--small-multiples.map-svg--sm-bubbles .destination-hubs .hub {
+  fill: var(--hub-fill);
+  fill-opacity: 0.55;
+  stroke: var(--hub-stroke);
+  stroke-width: 0.95;
+}
+
+.map-svg--small-multiples .inset-label {
+  display: none;
 }
 
 .inset-frame {

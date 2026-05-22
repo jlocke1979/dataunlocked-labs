@@ -204,6 +204,18 @@ body {
   stroke-width: 1.2;
 }
 
+.map-note {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 11px;
+  fill: var(--muted);
+  pointer-events: none;
+}
+
+.map-note--coverage {
+  font-size: 10px;
+  opacity: 0.85;
+}
+
 .error {
   padding: 1rem;
   color: #8b2e2e;

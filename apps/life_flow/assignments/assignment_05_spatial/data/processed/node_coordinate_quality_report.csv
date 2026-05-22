@@ -1,302 +1,302 @@
 id,type,name,state,lat,lon,coordinate_quality,notes
-MAOB-OP1,source_dsa,New England Organ Bank,Rhode Island,41.6809,-71.5118,state_centroid,
-ILIP-OP1,source_dsa,Gift of Hope Organ & Tissue Donor Network,Illinois,40.3495,-88.9861,state_centroid,
-INOP-OP1,source_dsa,Indiana Donor Network,Indiana,39.8494,-86.2583,state_centroid,
-NYRT-OP1,source_dsa,LiveOnNY,New York,,,missing,
-PATF-OP1,source_dsa,Center for Organ Recovery and Education,West Virginia,,,missing,
-MIOP-OP1,source_dsa,Gift of Life Michigan,Michigan,43.3266,-84.5361,state_centroid,
-MWOB-OP1,source_dsa,Midwest Transplant Network,Missouri,38.4561,-92.2884,state_centroid,
-FLWC-OP1,source_dsa,LifeLink of Florida,Florida,27.7663,-81.6868,state_centroid,
-LAOP-OP1,source_dsa,Louisiana Organ Procurement Agency,Louisiana,31.1695,-91.8678,state_centroid,
-TNVU-TX1,transplant_center,Vanderbilt University Medical Center,Tennessee,35.7478,-86.6923,state_centroid,
-NCNC-OP1,source_dsa,HonorBridge,North Carolina,35.6301,-79.8064,state_centroid,
-OHCC-TX1,transplant_center,The Cleveland Clinic Foundation,Ohio,40.3888,-82.7649,state_centroid,
-KYDA-OP1,source_dsa,Network for Hope,Ohio,,,missing,
-FLUF-IO1,source_dsa,LifeQuest Organ Recovery Services,Florida,,,missing,
-FLTG-TX1,transplant_center,Tampa General Hospital,Florida,27.7663,-81.6868,state_centroid,
-MOMA-OP1,source_dsa,Mid-America Transplant Services,Missouri,38.4561,-92.2884,state_centroid,
-SCOP-OP1,source_dsa,We Are Sharing Hope SC,South Carolina,33.8569,-80.945,state_centroid,
-TXSA-OP1,source_dsa,Texas Organ Sharing Alliance,Texas,31.0545,-97.5635,state_centroid,
-VATB-OP1,source_dsa,LifeNet Health,Virginia,,,missing,
-MDPC-OP1,source_dsa,Infinite Legacy,Virginia,,,missing,
-NVLV-OP1,source_dsa,Nevada Donor Network,Nevada,,,missing,
-NJTO-OP1,source_dsa,New Jersey Organ and Tissue Sharing Network OPO,New Jersey,,,missing,
-FLMP-OP1,source_dsa,South Florida Donor Network,Florida,27.7663,-81.6868,state_centroid,
-ORUO-IO1,source_dsa,Cascade Life Alliance,Oregon,,,missing,
-CAUC-TX1,transplant_center,University of California at Los Angeles Medical Center,California,36.1162,-119.6816,state_centroid,
-OKOP-OP1,source_dsa,LifeShare Transplant Donor Services of Oklahoma,Oklahoma,,,missing,
-SCMU-TX1,transplant_center,Medical University of South Carolina,South Carolina,33.8569,-80.945,state_centroid,
-NCDU-TX1,transplant_center,Duke University Hospital,North Carolina,35.6301,-79.8064,state_centroid,
-CACS-TX1,transplant_center,Cedars-Sinai Medical Center,California,36.1162,-119.6816,state_centroid,
-ILNM-TX1,transplant_center,Northwestern Memorial Hospital,Illinois,40.3495,-88.9861,state_centroid,
-NCCM-IO1,source_dsa,LifeShare Carolinas,North Carolina,,,missing,
+ALCH-TX1,transplant_center,Children's of Alabama,Alabama,33.5047,-86.8056,facility_or_city,nominatim_batch;review
 ALOB-OP1,source_dsa,Legacy of Hope,Alabama,32.8067,-86.7911,state_centroid,
-OHLB-OP1,source_dsa,Lifebanc,Ohio,40.3888,-82.7649,state_centroid,
-GAPH-TX1,transplant_center,Piedmont Hospital,Georgia,33.0406,-83.6431,state_centroid,
-FLFH-IO1,source_dsa,OurLegacy,Florida,,,missing,
-MOBH-TX1,transplant_center,Barnes-Jewish Hospital,Missouri,38.4561,-92.2884,state_centroid,
-CASF-TX1,transplant_center,University of California San Francisco Medical Center,California,36.1162,-119.6816,state_centroid,
-OHOU-TX1,transplant_center,Ohio State University Medical Center,Ohio,,,missing,
-WIUW-IO1,source_dsa,UW Health Organ and Tissue Donation,Wisconsin,,,missing,
-PAUP-TX1,transplant_center,Hospital of the University of Pennsylvania,Pennsylvania,40.5908,-77.2098,state_centroid,
-NYUC-TX1,transplant_center,NYU Langone Health,New York,,,missing,
-DCGU-TX1,transplant_center,Medstar Georgetown Transplant Institute,District of Columbia,,,missing,
-NYMS-TX1,transplant_center,Mount Sinai Medical Center,New York,42.1657,-74.9481,state_centroid,
-MAMG-TX1,transplant_center,Massachusetts General Hospital,Massachusetts,42.2302,-71.5301,state_centroid,
-FLJM-TX1,transplant_center,Jackson Memorial Hospital University of Miami School of Medicine,Florida,27.7663,-81.6868,state_centroid,
-VAMC-TX1,transplant_center,"VCU Health System Authority, VCUMC",Virginia,,,missing,
-FLSL-TX1,transplant_center,Mayo Clinic Hospital Florida,Florida,,,missing,
-CASD-IO1,source_dsa,Lifesharing - A Donate Life Organization,California,,,missing,
-CASD-TX1,transplant_center,University of California San Diego Medical Center,California,36.1162,-119.6816,state_centroid,
-UTLD-TX1,transplant_center,Intermountain Medical Center,Utah,40.15,-111.8624,state_centroid,
-WIUW-TX1,transplant_center,University of Wisconsin Hospital and Clinics,Wisconsin,,,missing,
-COUC-TX1,transplant_center,University of Colorado Hospital/Health Science Center,Colorado,39.0598,-105.3111,state_centroid,
-INIM-TX1,transplant_center,Indiana University Health,Indiana,39.8494,-86.2583,state_centroid,
-MIUM-TX1,transplant_center,University of Michigan Medical Center,Michigan,43.3266,-84.5361,state_centroid,
-MNMC-TX1,transplant_center,Mayo Clinic Hospital Minnesota,Minnesota,45.6945,-93.9002,state_centroid,
-NYCP-TX1,transplant_center,NY Presbyterian Hospital/Columbia Univ. Medical Center,New York,,,missing,
-CASU-TX1,transplant_center,Stanford Health Care,California,36.1162,-119.6816,state_centroid,
-OHLC-OP1,source_dsa,Life Connection of Ohio,Ohio,,,missing,
-TXSP-TX1,transplant_center,UT Southwestern Medical Center/William P. Clements Jr. University Hospital,Texas,31.0545,-97.5635,state_centroid,
-FLUF-TX1,transplant_center,UF Health Shands Hospital,Florida,,,missing,
-ALUA-TX1,transplant_center,University of Alabama Hospital,Alabama,32.8067,-86.7911,state_centroid,
-AROR-OP1,source_dsa,Southern Legacy of Life,Arkansas,,,missing,
-TXTX-TX1,transplant_center,Baylor University Medical Center,Texas,31.0545,-97.5635,state_centroid,
-MDJH-TX1,transplant_center,Johns Hopkins Hospital,Maryland,,,missing,
-MNUM-TX1,transplant_center,"University of Minnesota Medical Center, Fairview",Minnesota,45.6945,-93.9002,state_centroid,
-WAUW-TX1,transplant_center,University of Washington Medical Center,Washington,47.4009,-121.4905,state_centroid,
-OHLP-OP1,source_dsa,Lifeline of Ohio,Ohio,,,missing,
-CAGS-OP1,source_dsa,Sierra Donor Services,California,,,missing,
-TXHI-TX1,transplant_center,CHI St. Luke's Health Baylor College of Medicine Medical Center,Texas,31.0545,-97.5635,state_centroid,
-NYNS-TX1,transplant_center,North Shore University Hospital/Northwell Health,New York,,,missing,
-NEUN-TX1,transplant_center,The Nebraska Medical Center,Nebraska,41.1254,-98.2681,state_centroid,
-FLFH-TX1,transplant_center,AdventHealth Orlando,Florida,,,missing,
-NYAP-OP1,source_dsa,Center for Donation and Transplant,New York,,,missing,
-ILUC-TX1,transplant_center,University of Chicago Medical Center,Illinois,40.3495,-88.9861,state_centroid,
-IAOP-OP1,source_dsa,Iowa Donor Network,Iowa,,,missing,
-NCCM-TX1,transplant_center,Carolinas Medical Center,North Carolina,,,missing,
-VAUV-TX1,transplant_center,University of Virginia Health Sciences Center,Virginia,,,missing,
-LAOF-TX1,transplant_center,Ochsner Foundation Hospital,Louisiana,31.1695,-91.8678,state_centroid,
-NEOR-OP1,source_dsa,Live On Nebraska,Nebraska,41.1254,-98.2681,state_centroid,
-MIHF-TX1,transplant_center,Henry Ford Hospital,Michigan,43.3266,-84.5361,state_centroid,
-CALL-TX1,transplant_center,Loma Linda University Medical Center,California,36.1162,-119.6816,state_centroid,
-CAUH-TX1,transplant_center,Keck Hospital of USC,California,36.1162,-119.6816,state_centroid,
-TXHS-TX1,transplant_center,Methodist Specialty and Transplant Hospital,Texas,31.0545,-97.5635,state_centroid,
-WIDN-OP1,source_dsa,"Versiti Blood Health, Inc.",Wisconsin,,,missing,
-MSOP-OP1,source_dsa,Mississippi Organ Recovery Agency,Mississippi,,,missing,
-CAPM-TX1,transplant_center,California Pacific Medical Center-Van Ness Campus,California,36.1162,-119.6816,state_centroid,
-NYMA-TX1,transplant_center,Montefiore Medical Center,New York,,,missing,
-ILLU-TX1,transplant_center,Loyola University Medical Center,Illinois,,,missing,
-NJSB-TX1,transplant_center,Saint Barnabas Medical Center,New Jersey,,,missing,
-TXBC-TX1,transplant_center,"University Hospital, University of Texas Health Science Center",Texas,,,missing,
-OHUH-TX1,transplant_center,University Hospitals of Cleveland,Ohio,,,missing,
-NMOP-OP1,source_dsa,New Mexico Donor Services,New Mexico,,,missing,
-OHUC-TX1,transplant_center,University of Cincinnati  Medical Center,Ohio,,,missing,
-UTMC-TX1,transplant_center,University of Utah Medical Center,Utah,40.15,-111.8624,state_centroid,
-CASM-TX1,transplant_center,University of California Davis Medical Center,California,36.1162,-119.6816,state_centroid,
-NYNY-TX1,transplant_center,New York-Presbyterian Hospital/Weill Cornell Medical Center,New York,,,missing,
-PAPT-TX1,transplant_center,University of Pittsburgh Medical Center,Pennsylvania,,,missing,
-FLCC-TX1,transplant_center,Cleveland Clinic Florida Weston,Florida,,,missing,
-ILUI-TX1,transplant_center,University of Illinois Medical Center,Illinois,,,missing,
-NJHK-TX1,transplant_center,Hackensack University Medical Center,New Jersey,,,missing,
-NCMH-TX1,transplant_center,University of North Carolina Hospitals,North Carolina,,,missing,
-VAFH-TX1,transplant_center,Inova Fairfax Hospital,Virginia,,,missing,
-TNMS-OP1,source_dsa,Mid-South Transplant Foundation,Tennessee,,,missing,
-KSUK-TX1,transplant_center,University of Kansas Hospital,Kansas,38.5266,-96.7265,state_centroid,
-PATU-TX1,transplant_center,Temple University Hospital,Pennsylvania,,,missing,
-PRLL-OP1,source_dsa,LifeLink of Puerto Rico,Puerto Rico,,,missing,
-WISE-TX1,transplant_center,Froedtert Memorial Lutheran Hospital,Wisconsin,,,missing,
-TXHD-TX1,transplant_center,Medical City Dallas Hospital,Texas,,,missing,
-WASM-TX1,transplant_center,Swedish Medical Center,Washington,47.4009,-121.4905,state_centroid,
-ORUO-TX1,transplant_center,Oregon Health and Science University,Oregon,44.572,-122.0709,state_centroid,
-MDUM-TX1,transplant_center,University of Maryland Medical System,Maryland,,,missing,
-CAIM-TX1,transplant_center,University of California Irvine Medical Center,California,36.1162,-119.6816,state_centroid,
-MABI-TX1,transplant_center,Beth Israel Deaconess Medical Center,Massachusetts,,,missing,
-TNMH-TX1,transplant_center,Methodist University Hospital,Tennessee,,,missing,
-TXMC-TX1,transplant_center,Methodist Dallas Medical Center,Texas,,,missing,
-OKBC-TX1,transplant_center,Integris Baptist Medical Center,Oklahoma,,,missing,
+ALUA-TX1,transplant_center,University of Alabama Hospital,Alabama,30.6983,-88.0775,facility_or_city,nominatim_batch;review
+ALVA-TX1,transplant_center,,,39.7837,-100.4459,facility_or_city,nominatim_batch;review
+ARBH-TX1,transplant_center,Baptist Medical Center,Arkansas,35.4887,-92.0578,facility_or_city,nominatim_batch;review
+ARCH-TX1,transplant_center,Arkansas Children's Hospital,Arkansas,34.7408,-92.2916,facility_or_city,nominatim_batch;review
+AROR-OP1,source_dsa,Southern Legacy of Life,Arkansas,34.7415246,-92.38724277,facility_or_city,
 ARUA-TX1,transplant_center,UAMS Medical Center,Arkansas,,,missing,
-NYWN-OP1,source_dsa,Upstate New York Transplant Services Inc,New York,,,missing,
-KYUK-TX1,transplant_center,University of Kentucky Medical Center,Kentucky,,,missing,
-OHCO-TX1,transplant_center,University of Toledo Medical Center,Ohio,,,missing,
-TNST-TX1,transplant_center,Saint Thomas Hospital,Tennessee,,,missing,
-PATJ-TX1,transplant_center,Thomas Jefferson University Hospital,Pennsylvania,,,missing,
-NCBG-TX1,transplant_center,Wake Forest Baptist Medical Center,North Carolina,,,missing,
-NVUM-TX1,transplant_center,University Medical Center of Southern Nevada,Nevada,,,missing,
-NYFL-IO1,source_dsa,Finger Lakes Donor Recovery Network,New York,,,missing,
-LATU-TX1,transplant_center,Tulane Medical Center,Louisiana,,,missing,
-NYFL-TX1,transplant_center,"Strong Memorial Hospital, University of Rochester Medical Center",New York,,,missing,
-FLMR-TX1,transplant_center,Memorial Regional Hospital,Florida,,,missing,
-NYWC-TX1,transplant_center,Westchester Medical Center,New York,,,missing,
-MSUM-TX1,transplant_center,University of Mississippi Medical Center,Mississippi,,,missing,
-HIOP-OP1,source_dsa,Legacy of Life Hawaii,Hawaii,21.0943,-157.4983,state_centroid,
-AZGS-TX1,transplant_center,Banner-University Medical Center Phoenix,Arizona,,,missing,
-ILPL-TX1,transplant_center,Rush University Medical Center,Illinois,,,missing,
-MANM-TX1,transplant_center,Tufts Medical Center,Massachusetts,,,missing,
-PAAG-TX1,transplant_center,Allegheny General Hospital,Pennsylvania,,,missing,
-MAUM-TX1,transplant_center,UMass Memorial Medical Center,Massachusetts,,,missing,
-MALC-TX1,transplant_center,Lahey Clinic Medical Center,Massachusetts,,,missing,
-AZSJ-TX1,transplant_center,St. Joseph's Hospital and Medical Center,Arizona,,,missing,
-CTYN-TX1,transplant_center,Yale New Haven Hospital,Connecticut,,,missing,
-MAPB-TX1,transplant_center,Brigham and Women's Hospital,Massachusetts,,,missing,
-PAAE-TX1,transplant_center,Albert Einstein Medical Center,Pennsylvania,,,missing,
-PALV-TX1,transplant_center,Lehigh Valley Hospital,Pennsylvania,,,missing,
-TXTC-TX1,transplant_center,Texas Children's Hospital,Texas,,,missing,
-CTHH-TX1,transplant_center,Hartford Hospital,Connecticut,,,missing,
-NJLL-TX1,transplant_center,Virtua Our Lady of Lourdes Hospital,New Jersey,,,missing,
-SCPG-TX1,transplant_center,Prisma Health Greenville Memorial Hospital,South Carolina,,,missing,
-KYJH-TX1,transplant_center,Jewish Hospital,Kentucky,,,missing,
-FLLM-TX1,transplant_center,Largo Medical Center,Florida,,,missing,
-MOLH-TX1,transplant_center,St Luke's Hospital of Kansas City,Missouri,,,missing,
-SCLA-TX1,transplant_center,MUSC Lancaster,South Carolina,,,missing,
-TXAS-TX1,transplant_center,Baylor  Scott and White All Saints Medical Center-Fort Worth,Texas,,,missing,
-HIQM-TX1,transplant_center,The Queen's Medical Center,Hawaii,21.0943,-157.4983,state_centroid,
-MIBH-TX1,transplant_center,Corewell Health William Beaumont University Hospital,Michigan,,,missing,
-NYEC-TX1,transplant_center,Erie County Medical Center,New York,,,missing,
-ILVA-TX1,transplant_center,Edward Hines Jr. Veterans Administration Medical Center,Illinois,,,missing,
-COPM-TX1,transplant_center,AdventHealth Porter,Colorado,,,missing,
-IAIV-TX1,transplant_center,University of Iowa Hospitals and Clinics Transplant Programs,Iowa,,,missing,
-MISH-TX1,transplant_center,Corewell Health Grand Rapids Hospitals,Michigan,,,missing,
-NJRW-TX1,transplant_center,Robert Wood Johnson University Hospital,New Jersey,,,missing,
-PRSJ-TX1,transplant_center,Auxilio Mutuo Hospital,Puerto Rico,,,missing,
-MOSL-TX1,transplant_center,SSM Health Saint Louis University Hospital,Missouri,,,missing,
-VANG-TX1,transplant_center,Sentara Norfolk General Hospital,Virginia,,,missing,
-TXDR-TX1,transplant_center,Doctor's Hospital at Renaissance,Texas,,,missing,
-WASH-TX1,transplant_center,Providence Sacred Heart Medical Center & Children's Hospital,Washington,,,missing,
-CASH-TX1,transplant_center,Sharp Memorial Hospital,California,,,missing,
-LAWK-TX1,transplant_center,Willis-Knighton Medical Center,Louisiana,,,missing,
-INSV-TX1,transplant_center,Ascension St. Vincent Hospital,Indiana,,,missing,
-NCEC-TX1,transplant_center,ECU Health Medical Center,North Carolina,,,missing,
-TXPL-TX1,transplant_center,Medical City Fort Worth,Texas,,,missing,
-TXSW-TX1,transplant_center,Scott and White Memorial Hospital,Texas,,,missing,
-COSL-TX1,transplant_center,Presbyterian/St Luke's Medical Center,Colorado,,,missing,
-WISL-TX1,transplant_center,Aurora St. Luke's Medical Center,Wisconsin,,,missing,
-WVCA-TX1,transplant_center,Charleston Area Medical Center,West Virginia,,,missing,
-WAVM-TX1,transplant_center,Virginia Mason Medical Center,Washington,,,missing,
-PAGM-TX1,transplant_center,Geisinger Medical Center,Pennsylvania,,,missing,
-ORGS-TX1,transplant_center,Legacy Good Samaritan Hospital and Medical Center,Oregon,,,missing,
-CASJ-TX1,transplant_center,Saint Joseph Hospital,California,,,missing,
-OKMD-TX1,transplant_center,OU Medical Center,Oklahoma,,,missing,
-MISM-TX1,transplant_center,Mercy Health Saint Mary's,Michigan,,,missing,
-MORH-TX1,transplant_center,Research Medical Center,Missouri,,,missing,
-TXJS-TX1,transplant_center,University of Texas Medical Branch at Galveston,Texas,,,missing,
-DCGW-TX1,transplant_center,George Washington University Hospital,District of Columbia,,,missing,
-ORVA-TX1,transplant_center,VA Portland Health Care System,Oregon,,,missing,
-CAPC-TX1,transplant_center,Lucile Salter Packard Children's Hospital at Stanford,California,,,missing,
-GAMC-TX1,transplant_center,"Wellstar MCG Health, affiliated with Medical College of Georgia",Georgia,,,missing,
-OHCM-TX1,transplant_center,Children's Hospital Medical Center,Ohio,,,missing,
-TXCM-TX1,transplant_center,Children's Medical Center of Dallas,Texas,,,missing,
-ILCH-TX1,transplant_center,Advocate Christ Medical Center,Illinois,,,missing,
-NYUM-TX1,transplant_center,State University of New York Upstate Medical University,New York,,,missing,
-ILCM-TX1,transplant_center,Ann & Robert H. Lurie Children's Hospital of Chicago,Illinois,,,missing,
-TNUK-TX1,transplant_center,University of Tennessee Medical Center at Knoxville,Tennessee,,,missing,
-OHTC-TX1,transplant_center,The Christ Hospital,Ohio,,,missing,
-CACL-TX1,transplant_center,Children's Hospital Los Angeles,California,,,missing,
-TXHH-TX1,transplant_center,"Memorial Hermann Hospital, University of Texas at Houston",Texas,,,missing,
-PACH-TX1,transplant_center,UPMC Children's Hospital of Pittsburgh,Pennsylvania,,,missing,
-PAVA-TX1,transplant_center,VA Pittsburgh Healthcare System,Pennsylvania,,,missing,
-AZUA-TX1,transplant_center,Banner University Medical Center-Tucson,Arizona,,,missing,
-CALA-TX1,transplant_center,Harbor UCLA Medical Center,California,,,missing,
-PADV-OP1,source_dsa,Gift of Life Donor Program,Pennsylvania,39.9526,-75.1652,city_approx,city_approx:Philadelphia;high
-CAOP-OP1,source_dsa,OneLegacy,California,34.1336,-117.9073,city_approx,city_approx:Los Angeles area (OneLegacy);high
-TXSB-OP1,source_dsa,Southwest Transplant Alliance,Texas,32.7767,-96.797,city_approx,city_approx:Dallas;high
-GALL-OP1,source_dsa,LifeLink of Georgia,Georgia,33.749,-84.388,city_approx,city_approx:Atlanta;high
-WALC-OP1,source_dsa,LifeCenter Northwest,Washington,47.6145,-122.186,city_approx,city_approx:Bellevue;high
-TXGC-OP1,source_dsa,LifeGift Organ Donation Center,Texas,29.7604,-95.3698,city_approx,city_approx:Houston;high
-TNDS-OP1,source_dsa,Tennessee Donor Services,Tennessee,36.1627,-86.7816,city_approx,city_approx:Nashville;high
-CADN-OP1,source_dsa,Donor Network West,California,37.7799,-121.978,city_approx,city_approx:San Ramon;medium
-AZOB-OP1,source_dsa,Donor Network of Arizona,Arizona,33.4484,-112.074,city_approx,city_approx:Phoenix;high
-CORS-OP1,source_dsa,Donor Alliance,Colorado,39.7392,-104.9903,city_approx,city_approx:Denver;high
-MNOP-OP1,source_dsa,LifeSource Upper Midwest Organ Procurement Organization,South Dakota,44.975,-93.225,city_approx,city_approx:Minneapolis;medium
+AZCH-TX1,transplant_center,Phoenix Children's Hospital,Arizona,33.4789,-112.0411,facility_or_city,nominatim_batch;review
+AZGS-TX1,transplant_center,Banner-University Medical Center Phoenix,Arizona,33.4647,-112.0586,facility_or_city,nominatim_batch;review
 AZMC-TX1,transplant_center,Mayo Clinic Hospital Arizona,Arizona,33.5044,-112.074,city_approx,city_approx:Phoenix;high
-GAEM-TX1,transplant_center,Emory University Hospital,Georgia,33.7925,-84.3244,city_approx,city_approx:Atlanta;high
-TXMH-TX1,transplant_center,Houston Methodist Hospital,Texas,29.7097,-95.3984,city_approx,city_approx:Houston;high
-UTOP-OP1,source_dsa,DonorConnect,Utah,40.7608,-111.891,city_approx,city_approx:Salt Lake City;high
-MOCH-TX1,transplant_center,St. Louis Children's Hospital at Washington University Medical Center,Missouri,,,missing,
-TXFW-TX1,transplant_center,Texas Health Harris Methodist Fort Worth Hospital,Texas,,,missing,
-TXVA-TX1,transplant_center,Michael E. DeBakey VA Medical Center,Texas,,,missing,
-NYSB-TX1,transplant_center,University Hospital of State University of New York at Stony Brook,New York,,,missing,
-DECC-TX1,transplant_center,Christiana Care Health Services,Delaware,,,missing,
-GAEH-TX1,transplant_center,Children’s Healthcare of Atlanta - Arthur M. Blank Hospital,Georgia,,,missing,
-ILSF-TX1,transplant_center,OSF Saint Francis Medical Center,Illinois,,,missing,
-WACH-TX1,transplant_center,Seattle Children's Hospital,Washington,,,missing,
-MACH-TX1,transplant_center,Boston Children's Hospital,Massachusetts,,,missing,
-TXLP-TX1,transplant_center,Las Palmas Medical Center,Texas,,,missing,
-CAGH-TX1,transplant_center,Scripps Green Hospital,California,,,missing,
-PAHH-TX1,transplant_center,Pinnacle Health System at Harrisburg Hospital,Pennsylvania,,,missing,
-NJBI-TX1,transplant_center,Newark Beth Israel Medical Center,New Jersey,,,missing,
-MNHC-TX1,transplant_center,Hennepin County Medical Center,Minnesota,,,missing,
-NJUH-TX1,transplant_center,University Hospital,New Jersey,,,missing,
-UTPC-TX1,transplant_center,Primary Children's Hospital,Utah,,,missing,
-PACP-TX1,transplant_center,Children's Hospital of Philadelphia,Pennsylvania,,,missing,
-IAIM-TX1,transplant_center,Iowa Methodist Medical Center,Iowa,,,missing,
-NYDS-TX1,transplant_center,"State University of New York, Downstate Medical Center",New York,,,missing,
-DCWH-TX1,transplant_center,Washington Hospital Center,District of Columbia,,,missing,
-OHCH-TX1,transplant_center,Nationwide Children's Hospital,Ohio,,,missing,
-OKSJ-TX1,transplant_center,St John Medical Center,Oklahoma,,,missing,
-TXPM-TX1,transplant_center,Parkland Health and Hospital System,Texas,,,missing,
-NDSL-TX1,transplant_center,Sanford Medical Center Fargo,North Dakota,,,missing,
-COCH-TX1,transplant_center,Children's Hospital Colorado,Colorado,,,missing,
-NYAM-TX1,transplant_center,Albany Medical Center Hospital,New York,,,missing,
-RIRH-TX1,transplant_center,Rhode Island Hospital,Rhode Island,,,missing,
-MABS-TX1,transplant_center,Baystate Medical Center,Massachusetts,,,missing,
-NMPH-TX1,transplant_center,Presbyterian Hospital,New Mexico,,,missing,
-FLSH-TX1,transplant_center,Ascension Sacred Heart Pensacola,Florida,,,missing,
-MISJ-TX1,transplant_center,Ascension St. John Hospital,Michigan,,,missing,
-MNAN-TX1,transplant_center,Abbott Northwestern Hospital,Minnesota,,,missing,
-TNEM-TX1,transplant_center,Erlanger Medical Center,Tennessee,,,missing,
-AZCH-TX1,transplant_center,Phoenix Children's Hospital,Arizona,,,missing,
-NMAQ-TX1,transplant_center,"University Hospital, University of New Mexico Health Sciences Center",New Mexico,,,missing,
-ALCH-TX1,transplant_center,Children's of Alabama,Alabama,,,missing,
-VAHD-TX1,transplant_center,Henrico Doctors' Hospital,Virginia,,,missing,
-MABU-TX1,transplant_center,Boston Medical Center,Massachusetts,,,missing,
-MEMC-TX1,transplant_center,Maine Medical Center,Maine,,,missing,
-MOCM-TX1,transplant_center,Children's Mercy Hospital,Missouri,,,missing,
-CAMB-TX1,transplant_center,UCSF Medical Center at Mission Bay,California,,,missing,
-DCWR-TX1,transplant_center,Walter Reed National Military Medical Center at Bethesda,District of Columbia,,,missing,
-ILMM-TX1,transplant_center,Springfield Memorial Hospital,Illinois,,,missing,
-SDMK-TX1,transplant_center,Avera McKennan Hospital,South Dakota,,,missing,
-SDSV-TX1,transplant_center,Sanford Health/USD Medical Center,South Dakota,,,missing,
-WVWU-TX1,transplant_center,West Virginia University Hospitals Inc.,West Virginia,,,missing,
+AZOB-OP1,source_dsa,Donor Network of Arizona,Arizona,33.4484,-112.074,city_approx,city_approx:Phoenix;high
+AZSJ-TX1,transplant_center,St. Joseph's Hospital and Medical Center,Arizona,,,missing,
+AZUA-TX1,transplant_center,Banner University Medical Center-Tucson,Arizona,32.2412,-110.9456,facility_or_city,nominatim_batch;review
 CACH-TX1,transplant_center,Rady Children's Hospital and Health Center,California,,,missing,
-WICH-TX1,transplant_center,Children's Hospital of Wisconsin,Wisconsin,,,missing,
-TNLB-TX1,transplant_center,Le Bonheur Children's Medical Center,Tennessee,,,missing,
-TXDM-TX1,transplant_center,North Austin Medical Center,Texas,,,missing,
-NHDH-TX1,transplant_center,Mary Hitchcock Memorial Hospital,New Hampshire,,,missing,
-NYVA-TX1,transplant_center,James J. Peters VA Medical Center,New York,,,missing,
-TXUC-TX1,transplant_center,University Children's Health,Texas,,,missing,
-CASG-TX1,transplant_center,Sutter Medical Center Sacramento,California,,,missing,
-MICH-TX1,transplant_center,Children's Hospital of Michigan,Michigan,,,missing,
-ORSV-TX1,transplant_center,Providence St. Vincent Medical Center,Oregon,,,missing,
-PAHE-TX1,transplant_center,Penn State Milton S Hershey Medical Center,Pennsylvania,,,missing,
-SCCH-TX1,transplant_center,MUSC Children's Hospital,South Carolina,,,missing,
-MOUM-TX1,transplant_center,University of Missouri Hospital and Clinics,Missouri,,,missing,
-DCCH-TX1,transplant_center,Children's National Medical Center,District of Columbia,,,missing,
-LACH-TX1,transplant_center,Children's Hospital,Louisiana,,,missing,
-NYCC-TX1,transplant_center,Long Island Jewish Medical Center-Cohen Children's Medical Center,New York,,,missing,
-KYKC-TX1,transplant_center,Norton Children's Hospital,Kentucky,,,missing,
-TXDL-TX1,transplant_center,Dell Children's Medical Center,Texas,,,missing,
-ARBH-TX1,transplant_center,Baptist Medical Center,Arkansas,,,missing,
-TNBM-TX1,transplant_center,Baptist Memorial Hospital,Tennessee,,,missing,
-TXLM-TX1,transplant_center,Covenant Medical Center,Texas,,,missing,
+CACL-TX1,transplant_center,Children's Hospital Los Angeles,California,34.0977,-118.2901,facility_or_city,nominatim_batch;review
+CACS-TX1,transplant_center,Cedars-Sinai Medical Center,California,34.0752,-118.3811,facility_or_city,nominatim_batch;review
+CADN-OP1,source_dsa,Donor Network West,California,37.7799,-121.978,city_approx,city_approx:San Ramon;medium
+CAGH-TX1,transplant_center,Scripps Green Hospital,California,32.8963,-117.2426,facility_or_city,nominatim_batch;review
+CAGS-OP1,source_dsa,Sierra Donor Services,California,38.57218225,-121.5812911,facility_or_city,
+CAIM-TX1,transplant_center,University of California Irvine Medical Center,California,36.1162,-119.6816,state_centroid,
+CALA-TX1,transplant_center,Harbor UCLA Medical Center,California,33.8294,-118.2948,facility_or_city,nominatim_batch;review
+CALL-TX1,transplant_center,Loma Linda University Medical Center,California,34.0491,-117.2634,facility_or_city,nominatim_batch;review
+CAMB-TX1,transplant_center,UCSF Medical Center at Mission Bay,California,37.7659,-122.3908,facility_or_city,nominatim_batch;review
+CAOP-OP1,source_dsa,OneLegacy,California,34.1336,-117.9073,city_approx,city_approx:Los Angeles area (OneLegacy);high
+CAPC-TX1,transplant_center,Lucile Salter Packard Children's Hospital at Stanford,California,,,missing,
+CAPM-TX1,transplant_center,California Pacific Medical Center-Van Ness Campus,California,36.1162,-119.6816,state_centroid,
+CASD-IO1,source_dsa,Lifesharing - A Donate Life Organization,California,32.77816608,-117.1604675,facility_or_city,
+CASD-TX1,transplant_center,University of California San Diego Medical Center,California,36.1162,-119.6816,state_centroid,
+CASF-TX1,transplant_center,University of California San Francisco Medical Center,California,36.1162,-119.6816,state_centroid,
+CASG-TX1,transplant_center,Sutter Medical Center Sacramento,California,38.5715,-121.4687,facility_or_city,nominatim_batch;review
+CASH-TX1,transplant_center,Sharp Memorial Hospital,California,32.7997,-117.1544,facility_or_city,nominatim_batch;review
+CASJ-TX1,transplant_center,Saint Joseph Hospital,California,33.7821,-117.864,facility_or_city,nominatim_batch;review
+CASM-TX1,transplant_center,University of California Davis Medical Center,California,38.5527,-121.4518,facility_or_city,nominatim_batch;review
+CASU-TX1,transplant_center,Stanford Health Care,California,37.2535,-121.9516,facility_or_city,nominatim_batch;review
+CAUC-TX1,transplant_center,University of California at Los Angeles Medical Center,California,36.1162,-119.6816,state_centroid,
+CAUH-TX1,transplant_center,Keck Hospital of USC,California,34.0627,-118.2019,facility_or_city,nominatim_batch;review
+COCH-TX1,transplant_center,Children's Hospital Colorado,Colorado,39.7452,-104.9678,facility_or_city,nominatim_batch;review
+COPM-TX1,transplant_center,AdventHealth Porter,Colorado,39.6718,-104.9741,facility_or_city,nominatim_batch;review
+CORS-OP1,source_dsa,Donor Alliance,Colorado,39.7392,-104.9903,city_approx,city_approx:Denver;high
+COSL-TX1,transplant_center,Presbyterian/St Luke's Medical Center,Colorado,39.7472,-104.967,facility_or_city,nominatim_batch;review
+COUC-TX1,transplant_center,University of Colorado Hospital/Health Science Center,Colorado,39.0598,-105.3111,state_centroid,
+CTHH-TX1,transplant_center,Hartford Hospital,Connecticut,41.7541,-72.6794,facility_or_city,nominatim_batch;review
+CTYN-TX1,transplant_center,Yale New Haven Hospital,Connecticut,41.3046,-72.9356,facility_or_city,nominatim_batch;review
+DCCH-TX1,transplant_center,Children's National Medical Center,District of Columbia,39.01895865,-77.00368746,facility_or_city,
+DCGU-TX1,transplant_center,Medstar Georgetown Transplant Institute,District of Columbia,,,missing,
+DCGW-TX1,transplant_center,George Washington University Hospital,District of Columbia,38.9014,-77.0506,facility_or_city,nominatim_batch;review
+DCWH-TX1,transplant_center,Washington Hospital Center,District of Columbia,38.9287,-77.0148,facility_or_city,nominatim_batch;review
+DCWR-TX1,transplant_center,Walter Reed National Military Medical Center at Bethesda,District of Columbia,,,missing,
 DEAI-TX1,transplant_center,Nemours Children's Hospital Delaware,Delaware,,,missing,
-FLHM-TX1,transplant_center,Halifax Health,Florida,,,missing,
-MOCG-TX1,transplant_center,Cardinal Glennon Children's Hospital,Missouri,,,missing,
-NDMC-TX1,transplant_center,Sanford Bismarck Medical Center,North Dakota,,,missing,
+DECC-TX1,transplant_center,Christiana Care Health Services,Delaware,,,missing,
+FLAC-TX1,transplant_center,Johns Hopkins All Children's Hospital,Florida,27.7629,-82.6398,facility_or_city,nominatim_batch;review
+FLCC-TX1,transplant_center,Cleveland Clinic Florida Weston,Florida,26.0825,-80.3678,facility_or_city,nominatim_batch;review
+FLFH-IO1,source_dsa,OurLegacy,Florida,28.62762036,-81.36449594,facility_or_city,
+FLFH-TX1,transplant_center,AdventHealth Orlando,Florida,28.5751,-81.3698,facility_or_city,nominatim_batch;review
+FLHM-TX1,transplant_center,Halifax Health,Florida,29.2549,-81.1199,facility_or_city,nominatim_batch;review
 FLJD-TX1,transplant_center,Memorial Regional Hospital/Joe DiMaggio Children's Hospital,Florida,,,missing,
-TXCT-TX1,transplant_center,Seton Medical Center Austin,Texas,,,missing,
-TXDS-TX1,transplant_center,Dell Seton Medical Center at The University of Texas at Austin,Texas,,,missing,
-ARCH-TX1,transplant_center,Arkansas Children's Hospital,Arkansas,,,missing,
-PAPH-TX1,transplant_center,UPMC Hamot,Pennsylvania,,,missing,
-TXCF-TX1,transplant_center,Cook Children's Medical Center,Texas,,,missing,
-TXDC-TX1,transplant_center,Driscoll Children's Hospital,Texas,,,missing,
+FLJM-TX1,transplant_center,Jackson Memorial Hospital University of Miami School of Medicine,Florida,27.7663,-81.6868,state_centroid,
+FLLM-TX1,transplant_center,Largo Medical Center,Florida,27.9599,-82.7413,facility_or_city,nominatim_batch;review
+FLMP-OP1,source_dsa,South Florida Donor Network,Florida,27.7663,-81.6868,state_centroid,
+FLMR-TX1,transplant_center,Memorial Regional Hospital,Florida,26.0196,-80.1799,facility_or_city,nominatim_batch;review
+FLSH-TX1,transplant_center,Ascension Sacred Heart Pensacola,Florida,30.4771,-87.2123,facility_or_city,nominatim_batch;review
+FLSL-TX1,transplant_center,Mayo Clinic Hospital Florida,Florida,30.2605,-81.4448,facility_or_city,nominatim_batch;review
+FLTG-TX1,transplant_center,Tampa General Hospital,Florida,27.9375,-82.4589,facility_or_city,nominatim_batch;review
+FLUF-IO1,source_dsa,LifeQuest Organ Recovery Services,Florida,29.69012337,-82.35312633,facility_or_city,
+FLUF-TX1,transplant_center,UF Health Shands Hospital,Florida,30.3485,-81.6649,facility_or_city,nominatim_batch;review
+FLWC-OP1,source_dsa,LifeLink of Florida,Florida,27.7663,-81.6868,state_centroid,
+GAEH-TX1,transplant_center,Children’s Healthcare of Atlanta - Arthur M. Blank Hospital,Georgia,33.8317,-84.3299,facility_or_city,nominatim_batch;review
+GAEM-TX1,transplant_center,Emory University Hospital,Georgia,33.7925,-84.3244,city_approx,city_approx:Atlanta;high
+GALL-OP1,source_dsa,LifeLink of Georgia,Georgia,33.749,-84.388,city_approx,city_approx:Atlanta;high
+GAMC-TX1,transplant_center,"Wellstar MCG Health, affiliated with Medical College of Georgia",Georgia,,,missing,
+GAPH-TX1,transplant_center,Piedmont Hospital,Georgia,33.4713,-81.9824,facility_or_city,nominatim_batch;review
+HIOP-OP1,source_dsa,Legacy of Life Hawaii,Hawaii,21.0943,-157.4983,state_centroid,
+HIQM-TX1,transplant_center,The Queen's Medical Center,Hawaii,21.3081,-157.8539,facility_or_city,nominatim_batch;review
+IAIM-TX1,transplant_center,Iowa Methodist Medical Center,Iowa,41.5898,-93.6348,facility_or_city,nominatim_batch;review
+IAIV-TX1,transplant_center,University of Iowa Hospitals and Clinics Transplant Programs,Iowa,,,missing,
+IAOP-OP1,source_dsa,Iowa Donor Network,Iowa,41.75772576,-91.60725481,facility_or_city,nominatim_batch;review
 IAVA-TX1,transplant_center,The Iowa City VA Health Care System,Iowa,,,missing,
+ILCH-TX1,transplant_center,Advocate Christ Medical Center,Illinois,41.7218,-87.7302,facility_or_city,nominatim_batch;review
+ILCM-TX1,transplant_center,Ann & Robert H. Lurie Children's Hospital of Chicago,Illinois,41.8454,-87.9083,facility_or_city,nominatim_batch;review
+ILIP-OP1,source_dsa,Gift of Hope Organ & Tissue Donor Network,Illinois,41.96585537,-88.02764348,facility_or_city,
+ILLU-TX1,transplant_center,Loyola University Medical Center,Illinois,41.8583,-87.8352,facility_or_city,nominatim_batch;review
+ILMM-TX1,transplant_center,Springfield Memorial Hospital,Illinois,42.1222,-72.6047,facility_or_city,nominatim_batch;review
+ILNM-TX1,transplant_center,Northwestern Memorial Hospital,Illinois,41.8946,-87.6215,facility_or_city,nominatim_batch;review
+ILPL-TX1,transplant_center,Rush University Medical Center,Illinois,41.8746,-87.6691,facility_or_city,nominatim_batch;review
+ILSF-TX1,transplant_center,OSF Saint Francis Medical Center,Illinois,40.7024,-89.59,facility_or_city,nominatim_batch;review
+ILUC-TX1,transplant_center,University of Chicago Medical Center,Illinois,40.3495,-88.9861,state_centroid,
+ILUI-TX1,transplant_center,University of Illinois Medical Center,Illinois,41.86895068,-87.67097915,facility_or_city,
+ILVA-TX1,transplant_center,Edward Hines Jr. Veterans Administration Medical Center,Illinois,,,missing,
+INIM-TX1,transplant_center,Indiana University Health,Indiana,39.7807,-86.159,facility_or_city,nominatim_batch;review
+INOP-OP1,source_dsa,Indiana Donor Network,Indiana,39.82306352,-86.2224039,facility_or_city,
+INSV-TX1,transplant_center,Ascension St. Vincent Hospital,Indiana,37.9829,-87.4389,facility_or_city,nominatim_batch;review
+KSUK-TX1,transplant_center,University of Kansas Hospital,Kansas,39.0571,-94.6095,facility_or_city,nominatim_batch;review
+KYDA-OP1,source_dsa,Network for Hope,Ohio,39.11344331,-84.50205257,facility_or_city,
+KYJH-TX1,transplant_center,Jewish Hospital,Kentucky,38.2503,-85.7502,facility_or_city,nominatim_batch;review
+KYKC-TX1,transplant_center,Norton Children's Hospital,Kentucky,38.2484,-85.7497,facility_or_city,nominatim_batch;review
+KYUK-TX1,transplant_center,University of Kentucky Medical Center,Kentucky,,,missing,
+LACH-TX1,transplant_center,Children's Hospital,Louisiana,30.0064,-90.1926,facility_or_city,nominatim_batch;review
+LAOF-TX1,transplant_center,Ochsner Foundation Hospital,Louisiana,29.9611,-90.1457,facility_or_city,nominatim_batch;review
+LAOP-OP1,source_dsa,Louisiana Organ Procurement Agency,Louisiana,31.1695,-91.8678,state_centroid,
+LATU-TX1,transplant_center,Tulane Medical Center,Louisiana,29.9559,-90.0763,facility_or_city,nominatim_batch;review
+LAWK-TX1,transplant_center,Willis-Knighton Medical Center,Louisiana,32.4849,-93.7787,facility_or_city,nominatim_batch;review
+MABI-TX1,transplant_center,Beth Israel Deaconess Medical Center,Massachusetts,42.2475,-71.003,facility_or_city,nominatim_batch;review
+MABS-TX1,transplant_center,Baystate Medical Center,Massachusetts,42.1215,-72.603,facility_or_city,nominatim_batch;review
+MABU-TX1,transplant_center,Boston Medical Center,Massachusetts,42.3342,-71.0746,facility_or_city,nominatim_batch;review
+MACH-TX1,transplant_center,Boston Children's Hospital,Massachusetts,42.3372,-71.1057,facility_or_city,nominatim_batch;review
+MALC-TX1,transplant_center,Lahey Clinic Medical Center,Massachusetts,42.4846,-71.2042,facility_or_city,nominatim_batch;review
+MAMG-TX1,transplant_center,Massachusetts General Hospital,Massachusetts,42.3629,-71.0688,facility_or_city,nominatim_batch;review
+MANM-TX1,transplant_center,Tufts Medical Center,Massachusetts,42.3497,-71.0639,facility_or_city,nominatim_batch;review
+MAOB-OP1,source_dsa,New England Organ Bank,Rhode Island,42.39484928,-71.26684871,facility_or_city,
+MAPB-TX1,transplant_center,Brigham and Women's Hospital,Massachusetts,42.3356,-71.106,facility_or_city,nominatim_batch;review
+MAUM-TX1,transplant_center,UMass Memorial Medical Center,Massachusetts,42.2852,-71.7897,facility_or_city,nominatim_batch;review
+MDJH-TX1,transplant_center,Johns Hopkins Hospital,Maryland,39.2964,-76.5924,facility_or_city,nominatim_batch;review
+MDPC-OP1,source_dsa,Infinite Legacy,Virginia,39.25411644,-76.6709627,facility_or_city,
+MDUM-TX1,transplant_center,University of Maryland Medical System,Maryland,39.2875087,-76.61880565,facility_or_city,
+MEMC-TX1,transplant_center,Maine Medical Center,Maine,43.6532,-70.2763,facility_or_city,nominatim_batch;review
+MIBH-TX1,transplant_center,Corewell Health William Beaumont University Hospital,Michigan,,,missing,
+MICH-TX1,transplant_center,Children's Hospital of Michigan,Michigan,42.3519,-83.0548,facility_or_city,nominatim_batch;review
 MIDV-TX1,transplant_center,Corewell Health Helen DeVos Children's Hospital,Michigan,,,missing,
-NECH-TX1,transplant_center,Children’s Nebraska,Nebraska,,,missing,
-ALVA-TX1,transplant_center,,,,,missing,
-FLAC-TX1,transplant_center,Johns Hopkins All Children's Hospital,Florida,,,missing,
+MIHF-TX1,transplant_center,Henry Ford Hospital,Michigan,42.3691,-83.0854,facility_or_city,nominatim_batch;review
+MIOP-OP1,source_dsa,Gift of Life Michigan,Michigan,43.3266,-84.5361,state_centroid,
+MISH-TX1,transplant_center,Corewell Health Grand Rapids Hospitals,Michigan,,,missing,
+MISJ-TX1,transplant_center,Ascension St. John Hospital,Michigan,42.6705,-82.945,facility_or_city,nominatim_batch;review
+MISM-TX1,transplant_center,Mercy Health Saint Mary's,Michigan,,,missing,
+MIUM-TX1,transplant_center,University of Michigan Medical Center,Michigan,42.2836,-83.7312,facility_or_city,nominatim_batch;review
+MNAN-TX1,transplant_center,Abbott Northwestern Hospital,Minnesota,44.9537,-93.2613,facility_or_city,nominatim_batch;review
+MNCM-TX1,transplant_center,Children's Minnesota,Minnesota,44.9578,-93.2732,facility_or_city,nominatim_batch;review
+MNHC-TX1,transplant_center,Hennepin County Medical Center,Minnesota,44.9712,-93.2604,facility_or_city,nominatim_batch;review
+MNMC-TX1,transplant_center,Mayo Clinic Hospital Minnesota,Minnesota,44.0193,-92.481,facility_or_city,nominatim_batch;review
+MNOP-OP1,source_dsa,LifeSource Upper Midwest Organ Procurement Organization,South Dakota,44.975,-93.225,city_approx,city_approx:Minneapolis;medium
+MNUM-TX1,transplant_center,"University of Minnesota Medical Center, Fairview",Minnesota,45.6945,-93.9002,state_centroid,
+MOBH-TX1,transplant_center,Barnes-Jewish Hospital,Missouri,38.6372,-90.2644,facility_or_city,nominatim_batch;review
+MOCG-TX1,transplant_center,Cardinal Glennon Children's Hospital,Missouri,38.6258,-90.2385,facility_or_city,nominatim_batch;review
+MOCH-TX1,transplant_center,St. Louis Children's Hospital at Washington University Medical Center,Missouri,,,missing,
+MOCM-TX1,transplant_center,Children's Mercy Hospital,Missouri,39.0844,-94.5775,facility_or_city,nominatim_batch;review
+MOLH-TX1,transplant_center,St Luke's Hospital of Kansas City,Missouri,39.0483,-94.5911,facility_or_city,nominatim_batch;review
+MOMA-OP1,source_dsa,Mid-America Transplant Services,Missouri,38.4561,-92.2884,state_centroid,
+MORH-TX1,transplant_center,Research Medical Center,Missouri,39.0099,-94.5597,facility_or_city,nominatim_batch;review
+MOSL-TX1,transplant_center,SSM Health Saint Louis University Hospital,Missouri,38.6242,-90.2392,facility_or_city,nominatim_batch;review
+MOUM-TX1,transplant_center,University of Missouri Hospital and Clinics,Missouri,,,missing,
+MSOP-OP1,source_dsa,Mississippi Organ Recovery Agency,Mississippi,32.34084316,-90.08360611,facility_or_city,
+MSUM-TX1,transplant_center,University of Mississippi Medical Center,Mississippi,32.3309,-90.1723,facility_or_city,nominatim_batch;review
+MWOB-OP1,source_dsa,Midwest Transplant Network,Missouri,38.4561,-92.2884,state_centroid,
+NCBG-TX1,transplant_center,Wake Forest Baptist Medical Center,North Carolina,36.0898,-80.2677,facility_or_city,nominatim_batch;review
+NCCM-IO1,source_dsa,LifeShare Carolinas,North Carolina,35.23275037,-80.80502804,facility_or_city,
+NCCM-TX1,transplant_center,Carolinas Medical Center,North Carolina,35.2038,-80.8387,facility_or_city,nominatim_batch;review
+NCDU-TX1,transplant_center,Duke University Hospital,North Carolina,36.007,-78.9373,facility_or_city,nominatim_batch;review
+NCEC-TX1,transplant_center,ECU Health Medical Center,North Carolina,35.6076,-77.4029,facility_or_city,nominatim_batch;review
+NCMH-TX1,transplant_center,University of North Carolina Hospitals,North Carolina,35.90516262,-79.05060405,facility_or_city,
+NCNC-OP1,source_dsa,HonorBridge,North Carolina,35.6301,-79.8064,state_centroid,
+NDMC-TX1,transplant_center,Sanford Bismarck Medical Center,North Dakota,,,missing,
+NDSL-TX1,transplant_center,Sanford Medical Center Fargo,North Dakota,46.8455,-96.8768,facility_or_city,nominatim_batch;review
+NECH-TX1,transplant_center,Children’s Nebraska,Nebraska,41.2608,-96.0418,facility_or_city,nominatim_batch;review
+NEOR-OP1,source_dsa,Live On Nebraska,Nebraska,41.1254,-98.2681,state_centroid,
+NEUN-TX1,transplant_center,The Nebraska Medical Center,Nebraska,41.1254,-98.2681,state_centroid,
+NHDH-TX1,transplant_center,Mary Hitchcock Memorial Hospital,New Hampshire,,,missing,
+NJBI-TX1,transplant_center,Newark Beth Israel Medical Center,New Jersey,40.7103,-74.2126,facility_or_city,nominatim_batch;review
+NJHK-TX1,transplant_center,Hackensack University Medical Center,New Jersey,40.8837,-74.0559,facility_or_city,nominatim_batch;review
+NJLL-TX1,transplant_center,Virtua Our Lady of Lourdes Hospital,New Jersey,,,missing,
+NJRW-TX1,transplant_center,Robert Wood Johnson University Hospital,New Jersey,40.4953,-74.4496,facility_or_city,nominatim_batch;review
+NJSB-TX1,transplant_center,Saint Barnabas Medical Center,New Jersey,40.7635,-74.3048,facility_or_city,nominatim_batch;review
+NJTO-OP1,source_dsa,New Jersey Organ and Tissue Sharing Network OPO,New Jersey,40.69804716,-74.4087004,facility_or_city,
+NJUH-TX1,transplant_center,University Hospital,New Jersey,40.7405,-74.1912,facility_or_city,nominatim_batch;review
+NMAQ-TX1,transplant_center,"University Hospital, University of New Mexico Health Sciences Center",New Mexico,,,missing,
+NMOP-OP1,source_dsa,New Mexico Donor Services,New Mexico,35.10128358,-106.6290061,facility_or_city,nominatim_batch;review
+NMPH-TX1,transplant_center,Presbyterian Hospital,New Mexico,35.0809,-106.6341,facility_or_city,nominatim_batch;review
+NVLV-OP1,source_dsa,Nevada Donor Network,Nevada,36.14398958,-115.1230829,facility_or_city,
+NVUM-TX1,transplant_center,University Medical Center of Southern Nevada,Nevada,,,missing,
+NYAM-TX1,transplant_center,Albany Medical Center Hospital,New York,42.6533,-73.7772,facility_or_city,nominatim_batch;review
+NYAP-OP1,source_dsa,Center for Donation and Transplant,New York,42.86592369,-73.87060841,facility_or_city,
+NYCC-TX1,transplant_center,Long Island Jewish Medical Center-Cohen Children's Medical Center,New York,,,missing,
+NYCP-TX1,transplant_center,NY Presbyterian Hospital/Columbia Univ. Medical Center,New York,40.84165863,-73.9413664,facility_or_city,
+NYDS-TX1,transplant_center,"State University of New York, Downstate Medical Center",New York,,,missing,
+NYEC-TX1,transplant_center,Erie County Medical Center,New York,42.9263,-78.8325,facility_or_city,nominatim_batch;review
+NYFL-IO1,source_dsa,Finger Lakes Donor Recovery Network,New York,43.10813801,-77.6165735,facility_or_city,
+NYFL-TX1,transplant_center,"Strong Memorial Hospital, University of Rochester Medical Center",New York,,,missing,
+NYMA-TX1,transplant_center,Montefiore Medical Center,New York,40.8801,-73.8798,facility_or_city,nominatim_batch;review
+NYMS-TX1,transplant_center,Mount Sinai Medical Center,New York,40.7332,-73.982,facility_or_city,nominatim_batch;review
+NYNS-TX1,transplant_center,North Shore University Hospital/Northwell Health,New York,40.77568579,-73.70078841,facility_or_city,
+NYNY-TX1,transplant_center,New York-Presbyterian Hospital/Weill Cornell Medical Center,New York,40.76923355,-73.9495698,facility_or_city,
+NYRT-OP1,source_dsa,LiveOnNY,New York,40.7429828,-73.93605254,facility_or_city,
+NYSB-TX1,transplant_center,University Hospital of State University of New York at Stony Brook,New York,,,missing,
+NYUC-TX1,transplant_center,NYU Langone Health,New York,40.7434,-73.9722,facility_or_city,nominatim_batch;review
+NYUM-TX1,transplant_center,State University of New York Upstate Medical University,New York,43.0408,-76.1391,facility_or_city,nominatim_batch;review
+NYVA-TX1,transplant_center,James J. Peters VA Medical Center,New York,,,missing,
+NYWC-TX1,transplant_center,Westchester Medical Center,New York,41.0874,-73.8067,facility_or_city,nominatim_batch;review
+NYWN-OP1,source_dsa,Upstate New York Transplant Services Inc,New York,42.84581276,-78.72121115,facility_or_city,
+OHCC-TX1,transplant_center,The Cleveland Clinic Foundation,Ohio,40.3888,-82.7649,state_centroid,
+OHCH-TX1,transplant_center,Nationwide Children's Hospital,Ohio,39.9521,-82.979,facility_or_city,nominatim_batch;review
+OHCM-TX1,transplant_center,Children's Hospital Medical Center,Ohio,39.1409,-84.5023,facility_or_city,nominatim_batch;review
+OHCO-TX1,transplant_center,University of Toledo Medical Center,Ohio,41.62,-83.617,facility_or_city,nominatim_batch;review
+OHLB-OP1,source_dsa,Lifebanc,Ohio,40.3888,-82.7649,state_centroid,
+OHLC-OP1,source_dsa,Life Connection of Ohio,Ohio,39.72310005,-84.12086538,facility_or_city,
+OHLP-OP1,source_dsa,Lifeline of Ohio,Ohio,39.99879521,", -83.02856946798758",missing,
+OHOU-TX1,transplant_center,Ohio State University Medical Center,Ohio,39.99532765,-83.01800713,facility_or_city,
+OHTC-TX1,transplant_center,The Christ Hospital,Ohio,39.1208,-84.5111,facility_or_city,nominatim_batch;review
+OHUC-TX1,transplant_center,University of Cincinnati  Medical Center,Ohio,39.1377,-84.5031,facility_or_city,nominatim_batch;review
+OHUH-TX1,transplant_center,University Hospitals of Cleveland,Ohio,41.5061,-81.6051,facility_or_city,nominatim_batch;review
+OKBC-TX1,transplant_center,Integris Baptist Medical Center,Oklahoma,35.5295,-97.5765,facility_or_city,nominatim_batch;review
 OKCM-TX1,transplant_center,Children's Hospital of Oklahoma,Oklahoma,,,missing,
+OKMD-TX1,transplant_center,OU Medical Center,Oklahoma,35.4813,-97.5011,facility_or_city,nominatim_batch;review
+OKOP-OP1,source_dsa,LifeShare Transplant Donor Services of Oklahoma,Oklahoma,35.54487416,-97.60448495,facility_or_city,
+OKSJ-TX1,transplant_center,St John Medical Center,Oklahoma,36.134,-95.9689,facility_or_city,nominatim_batch;review
+ORGS-TX1,transplant_center,Legacy Good Samaritan Hospital and Medical Center,Oregon,,,missing,
+ORSV-TX1,transplant_center,Providence St. Vincent Medical Center,Oregon,45.5109,-122.7741,facility_or_city,nominatim_batch;review
+ORUO-IO1,source_dsa,Cascade Life Alliance,Oregon,45.50434306,-122.6794311,facility_or_city,
+ORUO-TX1,transplant_center,Oregon Health and Science University,Oregon,44.572,-122.0709,state_centroid,
+ORVA-TX1,transplant_center,VA Portland Health Care System,Oregon,,,missing,
+PAAE-TX1,transplant_center,Albert Einstein Medical Center,Pennsylvania,,,missing,
+PAAG-TX1,transplant_center,Allegheny General Hospital,Pennsylvania,40.457,-80.0033,facility_or_city,nominatim_batch;review
+PACH-TX1,transplant_center,UPMC Children's Hospital of Pittsburgh,Pennsylvania,40.4672,-79.9532,facility_or_city,nominatim_batch;review
+PACP-TX1,transplant_center,Children's Hospital of Philadelphia,Pennsylvania,39.9477,-75.195,facility_or_city,nominatim_batch;review
+PADV-OP1,source_dsa,Gift of Life Donor Program,Pennsylvania,39.9526,-75.1652,city_approx,city_approx:Philadelphia;high
+PAGM-TX1,transplant_center,Geisinger Medical Center,Pennsylvania,40.9681,-76.6046,facility_or_city,nominatim_batch;review
+PAHE-TX1,transplant_center,Penn State Milton S Hershey Medical Center,Pennsylvania,40.2654,-76.6732,facility_or_city,nominatim_batch;review
+PAHH-TX1,transplant_center,Pinnacle Health System at Harrisburg Hospital,Pennsylvania,,,missing,
+PALV-TX1,transplant_center,Lehigh Valley Hospital,Pennsylvania,40.5652,-75.522,facility_or_city,nominatim_batch;review
+PAPH-TX1,transplant_center,UPMC Hamot,Pennsylvania,42.1338,-80.0873,facility_or_city,nominatim_batch;review
+PAPT-TX1,transplant_center,University of Pittsburgh Medical Center,Pennsylvania,40.44775906,79.94969228,facility_or_city,
+PASC-TX1,transplant_center,St. Christopher's Hospital for Children,Pennsylvania,40.0063,-75.1256,facility_or_city,nominatim_batch;review
+PATF-OP1,source_dsa,Center for Organ Recovery and Education,West Virginia,40.50468733,-79.86555062,facility_or_city,
+PATJ-TX1,transplant_center,Thomas Jefferson University Hospital,Pennsylvania,39.9493,-75.158,facility_or_city,nominatim_batch;review
+PATU-TX1,transplant_center,Temple University Hospital,Pennsylvania,40.0053,-75.1508,facility_or_city,nominatim_batch;review
+PAUP-TX1,transplant_center,Hospital of the University of Pennsylvania,Pennsylvania,39.9499,-75.1941,facility_or_city,nominatim_batch;review
+PAVA-TX1,transplant_center,VA Pittsburgh Healthcare System,Pennsylvania,40.4468,-79.9621,facility_or_city,nominatim_batch;review
 PRCC-TX1,transplant_center,Cardiovascular Center of Puerto Rico and the Caribbean,Puerto Rico,,,missing,
-MNCM-TX1,transplant_center,Children's Minnesota,Minnesota,,,missing,
-PASC-TX1,transplant_center,St. Christopher's Hospital for Children,Pennsylvania,,,missing,
-VACH-TX1,transplant_center,Children's Hospital of the King's Daughters,Virginia,,,missing,
+PRLL-OP1,source_dsa,LifeLink of Puerto Rico,Puerto Rico,18.41646954,-66.1008055,facility_or_city,
+PRSJ-TX1,transplant_center,Auxilio Mutuo Hospital,Puerto Rico,18.4096,-66.0511,facility_or_city,nominatim_batch;review
+RIRH-TX1,transplant_center,Rhode Island Hospital,Rhode Island,41.8111,-71.409,facility_or_city,nominatim_batch;review
+SCCH-TX1,transplant_center,MUSC Children's Hospital,South Carolina,,,missing,
+SCLA-TX1,transplant_center,MUSC Lancaster,South Carolina,34.7178,-80.7884,facility_or_city,nominatim_batch;review
+SCMU-TX1,transplant_center,Medical University of South Carolina,South Carolina,32.7902,-79.9576,facility_or_city,nominatim_batch;review
+SCOP-OP1,source_dsa,We Are Sharing Hope SC,South Carolina,33.8569,-80.945,state_centroid,
+SCPG-TX1,transplant_center,Prisma Health Greenville Memorial Hospital,South Carolina,34.8196,-82.4104,facility_or_city,nominatim_batch;review
+SDMK-TX1,transplant_center,Avera McKennan Hospital,South Dakota,43.5343,-96.7138,facility_or_city,nominatim_batch;review
+SDSV-TX1,transplant_center,Sanford Health/USD Medical Center,South Dakota,,,missing,
+TNBM-TX1,transplant_center,Baptist Memorial Hospital,Tennessee,36.023,-88.4124,facility_or_city,nominatim_batch;review
+TNDS-OP1,source_dsa,Tennessee Donor Services,Tennessee,36.1627,-86.7816,city_approx,city_approx:Nashville;high
+TNEM-TX1,transplant_center,Erlanger Medical Center,Tennessee,,,missing,
+TNLB-TX1,transplant_center,Le Bonheur Children's Medical Center,Tennessee,,,missing,
+TNMH-TX1,transplant_center,Methodist University Hospital,Tennessee,39.7912,-86.1632,facility_or_city,nominatim_batch;review
+TNMS-OP1,source_dsa,Mid-South Transplant Foundation,Tennessee,35.12849654,-89.7942581,facility_or_city,
+TNST-TX1,transplant_center,Saint Thomas Hospital,Tennessee,36.1297,-86.8446,facility_or_city,nominatim_batch;review
+TNUK-TX1,transplant_center,University of Tennessee Medical Center at Knoxville,Tennessee,,,missing,
+TNVU-TX1,transplant_center,Vanderbilt University Medical Center,Tennessee,36.1409,-86.8016,facility_or_city,nominatim_batch;review
+TXAS-TX1,transplant_center,Baylor  Scott and White All Saints Medical Center-Fort Worth,Texas,,,missing,
+TXBC-TX1,transplant_center,"University Hospital, University of Texas Health Science Center",Texas,,,missing,
+TXCF-TX1,transplant_center,Cook Children's Medical Center,Texas,32.7366,-97.3411,facility_or_city,nominatim_batch;review
+TXCM-TX1,transplant_center,Children's Medical Center of Dallas,Texas,32.8095,-96.8375,facility_or_city,nominatim_batch;review
+TXCT-TX1,transplant_center,Seton Medical Center Austin,Texas,30.3051,-97.7461,facility_or_city,nominatim_batch;review
+TXDC-TX1,transplant_center,Driscoll Children's Hospital,Texas,27.7487,-97.3865,facility_or_city,nominatim_batch;review
+TXDL-TX1,transplant_center,Dell Children's Medical Center,Texas,,,missing,
+TXDM-TX1,transplant_center,North Austin Medical Center,Texas,,,missing,
+TXDR-TX1,transplant_center,Doctor's Hospital at Renaissance,Texas,,,missing,
+TXDS-TX1,transplant_center,Dell Seton Medical Center at The University of Texas at Austin,Texas,,,missing,
+TXFW-TX1,transplant_center,Texas Health Harris Methodist Fort Worth Hospital,Texas,,,missing,
+TXGC-OP1,source_dsa,LifeGift Organ Donation Center,Texas,29.7604,-95.3698,city_approx,city_approx:Houston;high
+TXHD-TX1,transplant_center,Medical City Dallas Hospital,Texas,32.9121,-96.7739,facility_or_city,nominatim_batch;review
+TXHH-TX1,transplant_center,"Memorial Hermann Hospital, University of Texas at Houston",Texas,,,missing,
+TXHI-TX1,transplant_center,CHI St. Luke's Health Baylor College of Medicine Medical Center,Texas,31.0545,-97.5635,state_centroid,
+TXHS-TX1,transplant_center,Methodist Specialty and Transplant Hospital,Texas,29.5142,-98.5764,facility_or_city,nominatim_batch;review
+TXJS-TX1,transplant_center,University of Texas Medical Branch at Galveston,Texas,29.312,-94.7763,facility_or_city,nominatim_batch;review
+TXLM-TX1,transplant_center,Covenant Medical Center,Texas,33.5769,-101.8921,facility_or_city,nominatim_batch;review
+TXLP-TX1,transplant_center,Las Palmas Medical Center,Texas,31.77,-106.4983,facility_or_city,nominatim_batch;review
+TXMC-TX1,transplant_center,Methodist Dallas Medical Center,Texas,32.7613,-96.825,facility_or_city,nominatim_batch;review
+TXMH-TX1,transplant_center,Houston Methodist Hospital,Texas,29.7097,-95.3984,city_approx,city_approx:Houston;high
+TXPL-TX1,transplant_center,Medical City Fort Worth,Texas,32.7357,-97.3451,facility_or_city,nominatim_batch;review
+TXPM-TX1,transplant_center,Parkland Health and Hospital System,Texas,,,missing,
+TXSA-OP1,source_dsa,Texas Organ Sharing Alliance,Texas,31.0545,-97.5635,state_centroid,
+TXSB-OP1,source_dsa,Southwest Transplant Alliance,Texas,32.7767,-96.797,city_approx,city_approx:Dallas;high
+TXSP-TX1,transplant_center,UT Southwestern Medical Center/William P. Clements Jr. University Hospital,Texas,31.0545,-97.5635,state_centroid,
+TXSW-TX1,transplant_center,Scott and White Memorial Hospital,Texas,,,missing,
+TXTC-TX1,transplant_center,Texas Children's Hospital,Texas,29.7069,-95.4023,facility_or_city,nominatim_batch;review
+TXTX-TX1,transplant_center,Baylor University Medical Center,Texas,32.7899,-96.7779,facility_or_city,nominatim_batch;review
+TXUC-TX1,transplant_center,University Children's Health,Texas,,,missing,
+TXVA-TX1,transplant_center,Michael E. DeBakey VA Medical Center,Texas,29.7019,-95.3889,facility_or_city,nominatim_batch;review
+UTLD-TX1,transplant_center,Intermountain Medical Center,Utah,40.6596,-111.8912,facility_or_city,nominatim_batch;review
+UTMC-TX1,transplant_center,University of Utah Medical Center,Utah,40.15,-111.8624,state_centroid,
+UTOP-OP1,source_dsa,DonorConnect,Utah,40.7608,-111.891,city_approx,city_approx:Salt Lake City;high
+UTPC-TX1,transplant_center,Primary Children's Hospital,Utah,40.7713,-111.8389,facility_or_city,nominatim_batch;review
+VACH-TX1,transplant_center,Children's Hospital of the King's Daughters,Virginia,36.8622,-76.302,facility_or_city,nominatim_batch;review
+VAFH-TX1,transplant_center,Inova Fairfax Hospital,Virginia,38.8574,-77.2285,facility_or_city,nominatim_batch;review
+VAHD-TX1,transplant_center,Henrico Doctors' Hospital,Virginia,37.6033,-77.5415,facility_or_city,nominatim_batch;review
+VAMC-TX1,transplant_center,"VCU Health System Authority, VCUMC",Virginia,38.9746776,-77.01194674,facility_or_city,
+VANG-TX1,transplant_center,Sentara Norfolk General Hospital,Virginia,36.8625,-76.3038,facility_or_city,nominatim_batch;review
+VATB-OP1,source_dsa,LifeNet Health,Virginia,36.82675397,-76.06499027,facility_or_city,nominatim_batch;review
+VAUV-TX1,transplant_center,University of Virginia Health Sciences Center,Virginia,38.03128677,-78.4985556,facility_or_city,
+WACH-TX1,transplant_center,Seattle Children's Hospital,Washington,47.6631,-122.2825,facility_or_city,nominatim_batch;review
+WALC-OP1,source_dsa,LifeCenter Northwest,Washington,47.6145,-122.186,city_approx,city_approx:Bellevue;high
+WASH-TX1,transplant_center,Providence Sacred Heart Medical Center & Children's Hospital,Washington,,,missing,
+WASM-TX1,transplant_center,Swedish Medical Center,Washington,47.6087,-122.3227,facility_or_city,nominatim_batch;review
+WAUW-TX1,transplant_center,University of Washington Medical Center,Washington,47.4009,-121.4905,state_centroid,
+WAVM-TX1,transplant_center,Virginia Mason Medical Center,Washington,47.6102,-122.3279,facility_or_city,nominatim_batch;review
+WICH-TX1,transplant_center,Children's Hospital of Wisconsin,Wisconsin,43.0422,-88.0235,facility_or_city,nominatim_batch;review
+WIDN-OP1,source_dsa,"Versiti Blood Health, Inc.",Wisconsin,43.06708375,-87.85239188,facility_or_city,
+WISE-TX1,transplant_center,Froedtert Memorial Lutheran Hospital,Wisconsin,43.0414,-88.0246,facility_or_city,nominatim_batch;review
+WISL-TX1,transplant_center,Aurora St. Luke's Medical Center,Wisconsin,42.99,-87.9504,facility_or_city,nominatim_batch;review
+WIUW-IO1,source_dsa,UW Health Organ and Tissue Donation,Wisconsin,43.05818585,-89.4686318,facility_or_city,
+WIUW-TX1,transplant_center,University of Wisconsin Hospital and Clinics,Wisconsin,43.07700626,-89.43127545,facility_or_city,
+WVCA-TX1,transplant_center,Charleston Area Medical Center,West Virginia,38.3301,-81.6027,facility_or_city,nominatim_batch;review
+WVWU-TX1,transplant_center,West Virginia University Hospitals Inc.,West Virginia,,,missing,

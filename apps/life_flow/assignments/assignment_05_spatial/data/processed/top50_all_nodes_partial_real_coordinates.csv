@@ -73,3 +73,6 @@ UTOP-OP1,source_dsa,DonorConnect,Utah,Region  5,40.7608,-111.8910,city_approx:Sa
 WALC-OP1,source_dsa,LifeCenter Northwest,Washington,Region  6,47.6145,-122.1860,city_approx:Bellevue;high
 WASM-TX1,transplant_center,Swedish Medical Center,Washington,Region  6,47.4009,-121.4905,
 WAUW-TX1,transplant_center,University of Washington Medical Center,Washington,Region  6,47.4009,-121.4905,
+PRCC-TX1,transplant_center,Cardiovascular Center of Puerto Rico and the Caribbean,Puerto Rico,Region  3,,,no_coordinates_in_partial_table
+PRLL-OP1,source_dsa,LifeLink of Puerto Rico,Puerto Rico,Region  3,18.41646954,-66.1008055,facility_or_city
+PRSJ-TX1,transplant_center,Auxilio Mutuo Hospital,Puerto Rico,Region  3,18.4096,-66.0511,facility_or_city

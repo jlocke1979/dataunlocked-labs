@@ -1,9 +1,9 @@
 """
-Report coordinate coverage for full D2T edge list vs partial node coordinates.
+Report coordinate coverage for full D2T edge list vs node coordinates.
 
 Inputs:
   data/processed/d2t_edges_all_organs_enriched.csv
-  data/processed/top50_all_nodes_partial_real_coordinates.csv
+  data/processed/all_nodes_with_coordinates.csv
 
 Outputs:
   data/processed/missing_source_nodes_by_flow.csv
@@ -20,7 +20,7 @@ BASE = Path(__file__).resolve().parents[1]
 PROCESSED = BASE / "data/processed"
 
 EDGES_CSV = PROCESSED / "d2t_edges_all_organs_enriched.csv"
-NODES_CSV = PROCESSED / "top50_all_nodes_partial_real_coordinates.csv"
+NODES_CSV = PROCESSED / "all_nodes_with_coordinates.csv"
 MISSING_SOURCE_CSV = PROCESSED / "missing_source_nodes_by_flow.csv"
 MISSING_DESTINATION_CSV = PROCESSED / "missing_destination_nodes_by_flow.csv"
 
@@ -134,6 +134,8 @@ def main() -> None:
     print(f"  total edges: {total_edges}")
     print(f"  edges with both source and destination coordinates: {retained_edges}")
     print(f"  percent of edges retained: {pct_edges:.1f}%")
+    print(f"  total flow_count in all-organ D2T list (denominator): {total_flow}")
+    print(f"  flow_count retained with both endpoints geocoded (numerator): {retained_flow}")
     print(f"  percent of flow_count retained: {pct_flow:.1f}%")
     print()
     print(f"  missing source IDs: {len(missing_sources)}")

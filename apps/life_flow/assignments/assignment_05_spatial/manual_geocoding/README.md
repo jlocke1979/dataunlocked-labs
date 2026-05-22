@@ -7,6 +7,7 @@ Organized workflow to put **real lat/lon on every DSA and transplant center** in
 | File | Role |
 |------|------|
 | `all_nodes_geocoded.csv` | **Your working copy** — fill `lat`, `lon`, `notes` here |
+| `geocoding_review_priority.csv` | **Spreadsheet-first review list** — generated; see § below |
 | `../data/processed/all_nodes_for_geocoding.csv` | Regenerated queue (priority-sorted); reference only |
 | `../data/processed/all_sources_for_geocoding.csv` | OPOs only (55) — optional batch |
 | `../data/processed/all_destinations_for_geocoding.csv` | Transplant centers only (246) — optional batch |
@@ -89,6 +90,21 @@ Writes `data/processed/all_nodes_with_coordinates.csv` for the D3 app (wire when
 python3 scripts/check_coordinate_coverage.py
 python3 scripts/check_node_coordinate_quality.py
 ```
+
+### 5. (Optional) Assignment 5 — prioritized review CSV for Sheets/Excel
+
+For the spatial map workload, regenerate a compact queue ranked by **`total_flow`**, constrained to rows that either lack coordinates or still need verification (same rules as batch `needs_spot_check` — `nominatim_batch;review` until you add **`manual_map`** to `notes` in **`all_nodes_geocoded.csv`**).
+
+```bash
+python3 scripts/build_geocoding_review_priority.py
+```
+
+- **Reads** `data/processed/missing_destination_nodes_by_flow.csv`, `missing_source_nodes_by_flow.csv`, and **`all_nodes_geocoded.csv`**.
+- **Writes** `manual_geocoding/geocoding_review_priority.csv` with columns **`suggested_search`**, placeholders **`manual_city` / `manual_state` / `manual_lat` / `manual_lon` / `review_notes`**, plus **current lat/lon** from the workbook.
+- **Preserves** filled manual/review columns when you re-run the script (merged by `id`).
+- **Omits** nodes already **`manual`**, **`manual_verified`**, or with **`manual_map`** in `notes`.
+
+Copy edits back into **`all_nodes_geocoded.csv`** (or paste into **`apply_manual_geocoding`** flow when you extend that script).
 
 ## Column guide (`all_nodes_geocoded.csv`)
 

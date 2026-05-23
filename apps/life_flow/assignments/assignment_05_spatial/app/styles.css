@@ -101,6 +101,427 @@ body.layout-geography-comparison .legend-panel {
   display: none !important;
 }
 
+body.layout-dot-map #audit-panel,
+body.layout-dot-map-volume #audit-panel {
+  display: none !important;
+}
+
+body:not(.layout-dot-map-volume) #audit-notes-panel {
+  display: none !important;
+}
+
+/* —— Iteration 05: proportional volume bubbles (2 panels) —— */
+body.layout-dot-map-volume.palette-dot-map-volume {
+  --lf-museum-white: #f7f7f4;
+  --lf-charcoal-forest: #202623;
+  --lf-deep-ash-stone: #666660;
+  --lf-state-outline: #d6d4ce;
+  --lf-frame-neutral: #eeede9;
+  --dot-donor: #8fa9b8;
+  --dot-transplant: #3f6275;
+  --dot-fill-opacity: 0.82;
+
+  --font-display: "Book Antiqua", "Palatino Linotype", Georgia, serif;
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-label: "Calisto MT", Georgia, serif;
+
+  --bg: var(--lf-frame-neutral);
+  --panel: var(--lf-frame-neutral);
+  --map-canvas: var(--lf-frame-neutral);
+  --text: var(--lf-charcoal-forest);
+  --land: var(--lf-museum-white);
+  --land-stroke: var(--lf-state-outline);
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume #chart-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .viz-card {
+  border-color: var(--lf-state-outline);
+  box-shadow: 0 2px 10px rgba(32, 38, 35, 0.05);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .chart-map {
+  background: var(--map-canvas);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-panel {
+  background: var(--panel);
+  border-left-color: var(--lf-state-outline);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-panel__title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-panel-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-panel-subtitle {
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .state,
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .state--pr-inset {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+  stroke-width: 0.65;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .inset-frame {
+  stroke: var(--lf-state-outline);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .inset-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node {
+  stroke: none;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--donor {
+  fill: var(--dot-donor);
+  fill-opacity: var(--dot-fill-opacity);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--transplant {
+  fill: var(--dot-transplant);
+  fill-opacity: var(--dot-fill-opacity);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--donor {
+  color: var(--dot-donor);
+  font-weight: 600;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--transplant {
+  color: var(--dot-transplant);
+  font-weight: 600;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--donor {
+  background: var(--dot-donor);
+  opacity: var(--dot-fill-opacity);
+  border: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--transplant {
+  background: var(--dot-transplant);
+  opacity: var(--dot-fill-opacity);
+  border: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-dot-note,
+body.layout-dot-map-volume.palette-dot-map-volume .viz-source {
+  font-family: var(--font-label);
+  font-size: 10px;
+  color: var(--lf-deep-ash-stone);
+  line-height: 1.45;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .viz-source {
+  padding: 0.55rem 0.75rem 0.65rem;
+  border-top: 1px solid var(--lf-state-outline);
+  text-align: left;
+}
+
+body.layout-dot-map-volume .audit-notes-panel {
+  margin-top: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--lf-state-outline);
+  border-radius: 6px;
+  background: #f0efeb;
+  box-shadow: 0 1px 4px rgba(32, 38, 35, 0.04);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__heading {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--lf-deep-ash-stone);
+  text-align: left;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-panel {
+  flex: 0 0 212px;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-heading {
+  margin: 0.65rem 0 0.45rem;
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group {
+  margin-bottom: 0.55rem;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group__heading {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-nested {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-nested__svg {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring {
+  fill-opacity: 1;
+  stroke-width: 1.35;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Concentric stroke rings — all tiers readable (not map fill colors) */
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--donor {
+  fill: none;
+  stroke: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--transplant {
+  fill: var(--lf-museum-white);
+  stroke: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex: 1;
+  min-width: 0;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier {
+  font-family: var(--font-label);
+  font-size: 9px;
+  line-height: 1.35;
+  color: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__name {
+  font-weight: 600;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__eq {
+  margin: 0 0.12rem;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__value {
+  white-space: nowrap;
+}
+
+body.layout-dot-map-volume .page {
+  max-width: 960px;
+}
+
+/* —— Iteration 04: Life Flow dot map (museum white land, warm neutral frame) —— */
+body.layout-dot-map.palette-dot-map {
+  --lf-museum-white: #f7f7f4;
+  --lf-charcoal-forest: #202623;
+  --lf-deep-ash-stone: #666660;
+
+  --font-display: "Book Antiqua", "Palatino Linotype", Georgia, serif;
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-label: "Calisto MT", Georgia, serif;
+
+  --lf-state-outline: #d6d4ce;
+  --lf-frame-neutral: #eeede9;
+  --bg: var(--lf-frame-neutral);
+  --panel: var(--lf-frame-neutral);
+  --map-canvas: var(--lf-frame-neutral);
+  --text: var(--lf-charcoal-forest);
+  --land: var(--lf-museum-white);
+  --land-stroke: var(--lf-state-outline);
+  --border: var(--lf-state-outline);
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+body.layout-dot-map.palette-dot-map #chart-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--lf-charcoal-forest);
+  letter-spacing: 0.01em;
+}
+
+body.layout-dot-map.palette-dot-map .subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map.palette-dot-map .viz-card {
+  border-color: var(--lf-state-outline);
+  box-shadow: 0 2px 10px rgba(32, 38, 35, 0.05);
+}
+
+body.layout-dot-map.palette-dot-map .chart-map {
+  background: var(--map-canvas);
+}
+
+body.layout-dot-map.palette-dot-map .legend-panel {
+  background: var(--panel);
+  border-left-color: var(--lf-state-outline);
+}
+
+body.layout-dot-map.palette-dot-map .legend-panel__title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map.palette-dot-map .legend-section--dot-map .legend-flow-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+body.layout-dot-map.palette-dot-map .legend-flow-label--donor,
+body.layout-dot-map.palette-dot-map .legend-flow-label--transplant {
+  color: var(--lf-charcoal-forest);
+  font-weight: 600;
+}
+
+body.layout-dot-map.palette-dot-map .viz-source,
+body.layout-dot-map.palette-dot-map .viz-notes {
+  font-family: var(--font-label);
+  font-size: 10px;
+  color: var(--lf-deep-ash-stone);
+  line-height: 1.45;
+  margin: 0;
+  padding: 0.45rem 0.75rem 0;
+}
+
+body.layout-dot-map.palette-dot-map .viz-source {
+  font-style: normal;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--lf-state-outline);
+}
+
+body.layout-dot-map.palette-dot-map .viz-notes {
+  font-style: italic;
+  padding-bottom: 0.65rem;
+}
+
+body:not(.layout-dot-map):not(.layout-dot-map-volume) .viz-notes {
+  display: none;
+}
+
+body.layout-dot-map.palette-dot-map .map-svg--dot-map .state {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+  stroke-width: 0.65;
+}
+
+body.layout-dot-map.palette-dot-map .map-svg--dot-map .state--pr-inset {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+}
+
+body.layout-dot-map.palette-dot-map .map-svg--dot-map .inset-frame {
+  stroke: var(--lf-state-outline);
+}
+
+body.layout-dot-map.palette-dot-map .map-svg--dot-map .inset-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+/** Donor: open ring; transplant: solid charcoal */
+body.layout-dot-map.palette-dot-map .map-svg--dot-map .dot-node--donor {
+  fill: var(--lf-museum-white);
+  stroke: var(--lf-charcoal-forest);
+  stroke-width: 0.8;
+}
+
+body.layout-dot-map.palette-dot-map .map-svg--dot-map .dot-node--transplant {
+  fill: var(--lf-charcoal-forest);
+  stroke: none;
+}
+
+body.layout-dot-map.palette-dot-map .legend-dot {
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+}
+
+body.layout-dot-map.palette-dot-map .legend-dot--donor {
+  background: var(--lf-museum-white);
+  border: 1px solid var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map.palette-dot-map .legend-dot--transplant {
+  background: var(--lf-charcoal-forest);
+  border: none;
+}
+
 body.layout-small-multiples .page,
 body.layout-geography-comparison .page {
   max-width: 960px;
@@ -358,6 +779,29 @@ body.layout-small-multiples .subtitle {
   font-size: 9.5px;
   font-weight: 400;
   fill: var(--muted);
+}
+
+.legend-section--dot-map {
+  margin-bottom: 0;
+}
+
+.legend-dot-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.legend-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot-note {
+  margin: 0.5rem 0 0;
+  line-height: 1.35;
 }
 
 body.palette-charcoal-forest .map-svg--small-multiples .destination-hubs .hub {

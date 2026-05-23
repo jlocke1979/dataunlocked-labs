@@ -7,7 +7,9 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 | **01 / v1 Final** | `single` | Presentation all-flow map + legend |
 | **02 Final** | `small_multiples` | 2×4 organ comparison (frozen) |
 | **02b** | `small_multiples` + `SM_COLOR_THEME = "charcoal_forest"` | Tufte monochrome small multiples |
-| **03** | `geography_comparison` | Donor recovery vs transplant center (2 panels) |
+| **03** | `geography_comparison` | Donor recovery vs transplant center (2 panels, subtle flows) |
+| **04** | `dot_map` | Single-map donor + transplant dots — no arcs (`iteration_04/`) |
+| **05** | `dot_map_volume` | 2-panel proportional bubbles by volume (`iteration_05/`) |
 | **Hub experiment** | `single` + `SHOW_DESTINATION_HUBS` | Hub circles on one map (see `iteration_03_hub_emphasis/`) |
 
 ## Iteration 1: Top 50 flow map
@@ -30,6 +32,20 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 - **Panels:** Donor recovery (left) · Transplant centers (right); shared projection and flow scale
 - **Encoding:** Charcoal forest monochrome; subtle flows; endpoint-weighted nodes (no hub bubbles)
 - **Folder:** `outputs/iterations/iteration_03/`
+
+## Iteration 05: Proportional volume bubbles
+
+- **Switch:** `LAYOUT_MODE = "dot_map_volume"`
+- **Data:** `d2t_source_summary.csv`, `d2t_destination_summary.csv`, `all_nodes_with_coordinates.csv`
+- **Panels:** Donor recovery (left) · Transplant centers (right)
+- **Folder:** `outputs/iterations/iteration_05/`
+
+## Iteration 04: Dot-map prototype
+
+- **Switch:** `LAYOUT_MODE = "dot_map"`
+- **Data:** `all_nodes_with_coordinates.csv` only (no edge files)
+- **Map:** Donor recovery (gray) and transplant centers (slate) on one Albers USA map
+- **Folder:** `outputs/iterations/iteration_04/`
 
 ## Hub emphasis (single-map experiment)
 

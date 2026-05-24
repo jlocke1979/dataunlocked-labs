@@ -10,6 +10,7 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 | **03** | `geography_comparison` | Donor recovery vs transplant center (2 panels, subtle flows) |
 | **04** | `dot_map` | Single-map donor + transplant dots — no arcs (`iteration_04/`) |
 | **05** | `dot_map_volume` | 2-panel proportional bubbles by volume (`iteration_05/`) |
+| **06** | `dot_map_volume_singles` | Stacked full-width volume singles (`iteration_06/`) |
 | **Hub experiment** | `single` + `SHOW_DESTINATION_HUBS` | Hub circles on one map (see `iteration_03_hub_emphasis/`) |
 
 ## Iteration 1: Top 50 flow map
@@ -32,6 +33,12 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 - **Panels:** Donor recovery (left) · Transplant centers (right); shared projection and flow scale
 - **Encoding:** Charcoal forest monochrome; subtle flows; endpoint-weighted nodes (no hub bubbles)
 - **Folder:** `outputs/iterations/iteration_03/`
+
+## Iteration 06: Stacked volume singles
+
+- **Switch:** `LAYOUT_MODE = "dot_map_volume_singles"`
+- **Layout:** Full-width donor map, then full-width transplant map (stacked)
+- **Folder:** `outputs/iterations/iteration_06/`
 
 ## Iteration 05: Proportional volume bubbles
 

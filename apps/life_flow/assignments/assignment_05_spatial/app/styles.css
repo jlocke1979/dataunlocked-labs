@@ -102,16 +102,20 @@ body.layout-geography-comparison .legend-panel {
 }
 
 body.layout-dot-map #audit-panel,
-body.layout-dot-map-volume #audit-panel {
+body.layout-dot-map-volume #audit-panel,
+body.layout-dot-map-volume-singles #audit-panel,
+body.layout-dot-map-volume-unified #audit-panel {
   display: none !important;
 }
 
-body:not(.layout-dot-map-volume) #audit-notes-panel {
+body:not(.layout-dot-map-volume):not(.layout-dot-map-volume-singles):not(.layout-dot-map-volume-unified) #audit-notes-panel {
   display: none !important;
 }
 
 /* —— Iteration 05: proportional volume bubbles (2 panels) —— */
-body.layout-dot-map-volume.palette-dot-map-volume {
+body.layout-dot-map-volume.palette-dot-map-volume,
+body.layout-dot-map-volume-singles.palette-dot-map-volume,
+body.layout-dot-map-volume-unified.palette-dot-map-volume {
   --lf-museum-white: #f7f7f4;
   --lf-charcoal-forest: #202623;
   --lf-deep-ash-stone: #666660;
@@ -136,100 +140,143 @@ body.layout-dot-map-volume.palette-dot-map-volume {
   color: var(--text);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume #chart-title {
+body.layout-dot-map-volume.palette-dot-map-volume #chart-title ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume #chart-title,
+body.layout-dot-map-volume-unified.palette-dot-map-volume #chart-title{
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 700;
   color: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .subtitle {
+body.layout-dot-map-volume.palette-dot-map-volume .subtitle ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .subtitle,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .subtitle{
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.5;
   color: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .viz-card {
+body.layout-dot-map-volume.palette-dot-map-volume .viz-card ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .viz-card,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .viz-card{
   border-color: var(--lf-state-outline);
   box-shadow: 0 2px 10px rgba(32, 38, 35, 0.05);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .chart-map {
+body.layout-dot-map-volume.palette-dot-map-volume .chart-map ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .chart-map,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .chart-map{
   background: var(--map-canvas);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-panel {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-panel ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-panel,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-panel{
   background: var(--panel);
   border-left-color: var(--lf-state-outline);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-panel__title {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-panel__title ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-panel__title,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-panel__title{
   font-family: var(--font-display);
   font-size: 16px;
   color: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-panel-title {
+body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-panel-title ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .dot-map-volume-panel-title,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .dot-map-volume-panel-title{
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 600;
   fill: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-panel-subtitle {
+body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-panel-subtitle,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .dot-map-volume-panel-subtitle,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .dot-map-volume-panel-subtitle{
+  margin: 0;
   font-family: var(--font-label);
   font-size: 9.5px;
-  fill: var(--lf-deep-ash-stone);
+  line-height: 1.35;
+  color: var(--lf-deep-ash-stone);
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .state,
-body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .state--pr-inset {
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .state--pr-inset,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .state,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .state,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .state--pr-inset,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .state--pr-inset{
   fill: var(--land);
   stroke: var(--land-stroke);
   stroke-width: 0.65;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .inset-frame {
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .inset-frame,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .inset-frame,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .inset-frame{
   stroke: var(--lf-state-outline);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .inset-label {
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .inset-label,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .inset-label,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .inset-label{
   font-family: var(--font-label);
   font-size: 11px;
   fill: var(--lf-deep-ash-stone);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node {
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .dot-node,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .dot-node{
   stroke: none;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--donor {
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--donor,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .dot-node--donor,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .dot-node--donor{
   fill: var(--dot-donor);
   fill-opacity: var(--dot-fill-opacity);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--transplant {
+body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--transplant,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .dot-node--transplant,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .dot-node--transplant{
   fill: var(--dot-transplant);
   fill-opacity: var(--dot-fill-opacity);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label{
   font-family: var(--font-label);
-  font-size: 11px;
+  font-size: 10px;
+  line-height: 1.35;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--donor {
-  color: var(--dot-donor);
-  font-weight: 600;
+body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--organ-tint,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-flow-label--organ-tint,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-flow-label--organ-tint{
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--transplant {
-  color: var(--dot-transplant);
-  font-weight: 600;
+body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--donor.legend-flow-label--organ-tint,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-flow-label--donor.legend-flow-label--organ-tint,,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-flow-label--donor.legend-flow-label--organ-tint,
+body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--transplant.legend-flow-label--organ-tint,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-flow-label--transplant.legend-flow-label--organ-tint,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-flow-label--transplant.legend-flow-label--organ-tint{
+  font-weight: 400;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--donor {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--donor ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot--donor,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot--donor{
   background: var(--dot-donor);
   opacity: var(--dot-fill-opacity);
   border: none;
@@ -238,7 +285,9 @@ body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--donor {
   border-radius: 50%;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--transplant {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--transplant ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot--transplant,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot--transplant{
   background: var(--dot-transplant);
   opacity: var(--dot-fill-opacity);
   border: none;
@@ -248,20 +297,28 @@ body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--transplant {
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .legend-dot-note,
-body.layout-dot-map-volume.palette-dot-map-volume .viz-source {
+body.layout-dot-map-volume.palette-dot-map-volume .viz-source,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot-note,,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot-note,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .viz-source,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .viz-source{
   font-family: var(--font-label);
   font-size: 10px;
   color: var(--lf-deep-ash-stone);
   line-height: 1.45;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .viz-source {
+body.layout-dot-map-volume.palette-dot-map-volume .viz-source ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .viz-source,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .viz-source{
   padding: 0.55rem 0.75rem 0.65rem;
   border-top: 1px solid var(--lf-state-outline);
   text-align: left;
 }
 
-body.layout-dot-map-volume .audit-notes-panel {
+body.layout-dot-map-volume .audit-notes-panel,
+body.layout-dot-map-volume-singles .audit-notes-panel,
+body.layout-dot-map-volume-unified .audit-notes-panel {
   margin-top: 0.65rem;
   padding: 0.65rem 0.75rem;
   border: 1px solid var(--lf-state-outline);
@@ -270,7 +327,9 @@ body.layout-dot-map-volume .audit-notes-panel {
   box-shadow: 0 1px 4px rgba(32, 38, 35, 0.04);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__heading {
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__heading ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__heading{
   margin: 0 0 0.35rem;
   font-family: var(--font-label);
   font-size: 10px;
@@ -280,7 +339,9 @@ body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__heading {
   color: var(--lf-deep-ash-stone);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body {
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body{
   margin: 0;
   font-family: var(--font-label);
   font-size: 10px;
@@ -290,11 +351,165 @@ body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body {
   text-align: left;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-panel {
-  flex: 0 0 212px;
+body.layout-dot-map-volume.palette-dot-map-volume .legend-panel ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-panel,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-panel{
+  flex: 0 0 172px;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-heading {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-section--dot-map-volume .legend-dot-note ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-section--dot-map-volume .legend-dot-note,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-section--dot-map-volume .legend-dot-note{
+  margin: 0.55rem 0 0;
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  font-style: italic;
+  color: var(--lf-deep-ash-stone);
+  line-height: 1.35;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-picker,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-picker,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker{
+  margin-top: 0.75rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--lf-state-outline);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-picker__heading,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-picker__heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker__heading{
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-picker__list,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-picker__list,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker__list{
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  margin-top: 0.35rem;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip{
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.28rem 0.4rem;
+  border: 1px solid var(--lf-state-outline);
+  border-radius: 3px;
+  background: transparent;
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip__swatch,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip__swatch,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip__swatch{
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(32, 38, 35, 0.15);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip.is-inactive .organ-volume-chip__label,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip.is-inactive .organ-volume-chip__label,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip.is-inactive .organ-volume-chip__label{
+  color: #a8a8a2;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip.is-active .organ-volume-chip__label,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip.is-active .organ-volume-chip__label,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip.is-active .organ-volume-chip__label{
+  color: var(--lf-charcoal-forest);
+  font-weight: 600;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip.is-active,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip.is-active,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip.is-active{
+  border-color: var(--lf-charcoal-forest);
+  background: var(--lf-museum-white);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--organ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-ring--organ,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-ring--organ{
+  vector-effect: non-scaling-stroke;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-dot-note--organ-color,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot-note--organ-color,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot-note--organ-color{
+  margin-top: 0.35rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip--all,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip--all,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip--all{
+  margin-bottom: 0.15rem;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip.is-active,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip.is-active,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip.is-active{
+  color: var(--lf-charcoal-forest);
+  border-color: var(--lf-charcoal-forest);
+  background: var(--lf-museum-white);
+  font-weight: 600;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip.is-inactive,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip.is-inactive,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip.is-inactive{
+  color: #a8a8a2;
+  border-color: #e0ded8;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip.is-inactive:hover,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-chip.is-inactive:hover,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-chip.is-inactive:hover{
+  color: var(--lf-deep-ash-stone);
+  border-color: var(--lf-state-outline);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .panel-volume-legend__tier ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .panel-volume-legend__tier,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .panel-volume-legend__tier{
+  font-family: var(--font-label);
+  font-size: 9px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .dot-map-volume-shared-note ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .dot-map-volume-shared-note,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .dot-map-volume-shared-note{
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-style: italic;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-heading ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-heading{
   margin: 0.65rem 0 0.45rem;
   font-family: var(--font-label);
   font-size: 11px;
@@ -302,11 +517,15 @@ body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-heading {
   color: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-group,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-group{
   margin-bottom: 0.55rem;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group__heading {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group__heading ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-group__heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-group__heading{
   margin: 0 0 0.3rem;
   font-family: var(--font-label);
   font-size: 9.5px;
@@ -314,35 +533,47 @@ body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-group__heading 
   color: var(--lf-deep-ash-stone);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-nested {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-nested ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-nested,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-nested{
   display: flex;
   align-items: center;
   gap: 0.45rem;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-nested__svg {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-nested__svg ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-nested__svg,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-nested__svg{
   flex-shrink: 0;
   overflow: visible;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-ring,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-ring{
   fill-opacity: 1;
   stroke-width: 1.35;
   vector-effect: non-scaling-stroke;
 }
 
 /* Concentric stroke rings — all tiers readable (not map fill colors) */
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--donor {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--donor ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-ring--donor,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-ring--donor{
   fill: none;
   stroke: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--transplant {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--transplant ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-ring--transplant,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-ring--transplant{
   fill: var(--lf-museum-white);
   stroke: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier-list {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier-list ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-tier-list,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-tier-list{
   margin: 0;
   padding: 0;
   list-style: none;
@@ -350,28 +581,110 @@ body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier-list {
   min-width: 0;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-tier,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-tier{
   font-family: var(--font-label);
   font-size: 9px;
   line-height: 1.35;
   color: var(--lf-deep-ash-stone);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__name {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__name ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-tier__name,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-tier__name{
   font-weight: 600;
   color: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__eq {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__eq ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-tier__eq,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-tier__eq{
   margin: 0 0.12rem;
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__value {
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-tier__value ,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-tier__value,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-tier__value{
   white-space: nowrap;
 }
 
-body.layout-dot-map-volume .page {
+body.layout-dot-map-volume .page,
+body.layout-dot-map-volume-singles .page,
+body.layout-dot-map-volume-unified .page,
+body.layout-dot-map-volume-unified .page {
   max-width: 960px;
+}
+
+/* —— Iteration 07: unified single map —— */
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .state,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .state--pr-inset {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+  stroke-width: 0.65;
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale {
+  margin-top: 0.55rem;
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__heading {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__svg {
+  display: block;
+  overflow: visible;
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__tier {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 600;
+  fill: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__value {
+  font-family: var(--font-label);
+  font-size: 8.5px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__count {
+  font-family: var(--font-label);
+  font-size: 8.5px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .site-type-picker {
+  margin-top: 0.75rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--lf-state-outline);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker {
+  margin-top: 0.55rem;
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .panel-volume-legend__value--linear {
+  font-family: var(--font-label);
+  font-size: 8.5px;
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .panel-volume-legend__tier--linear {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 600;
+  fill: var(--lf-charcoal-forest);
+}
+
+body.layout-dot-map-volume-unified.palette-dot-map-volume .panel-volume-legend--linear {
+  pointer-events: none;
 }
 
 /* —— Iteration 04: Life Flow dot map (museum white land, warm neutral frame) —— */
@@ -469,7 +782,7 @@ body.layout-dot-map.palette-dot-map .viz-notes {
   padding-bottom: 0.65rem;
 }
 
-body:not(.layout-dot-map):not(.layout-dot-map-volume) .viz-notes {
+body:not(.layout-dot-map):not(.layout-dot-map-volume):not(.layout-dot-map-volume-singles) .viz-notes {
   display: none;
 }
 

@@ -10,6 +10,8 @@
  *   geography_comparison   — Iteration 03 donor vs transplant geography (2 panels)
  *   dot_map                — Iteration 04 simplified dot maps (no flows)
  *   dot_map_volume         — Iteration 05 proportional bubbles (2 panels)
+ *   dot_map_volume_singles — Iteration 06 proportional bubbles (stacked singles)
+ *   dot_map_volume_unified  — Iteration 07 single map, global scale, site toggle
  *
  * EDGE_MODE options:
  *   all, ge_200, ge_100, ge_50, ge_25, top50  (top50: all-organ only)
@@ -20,7 +22,9 @@
 // const LAYOUT_MODE = "small_multiples";
 // const LAYOUT_MODE = "geography_comparison";
 // const LAYOUT_MODE = "dot_map";
-const LAYOUT_MODE = "dot_map_volume";
+// const LAYOUT_MODE = "dot_map_volume";
+// const LAYOUT_MODE = "dot_map_volume_singles";
+const LAYOUT_MODE = "dot_map_volume_unified";
 
 // --- Organ switch (per-organ D2T experiment; used when LAYOUT_MODE = single) ---
 const ORGAN_MODE = "all";
@@ -95,37 +99,235 @@ const GEO_CMP_PANEL_TITLE_DY = 18;
 const GEO_CMP_PANEL_SUBTITLE_DY = 13;
 const GEO_CMP_FOOTNOTE_STRIP = 12;
 
+/** Translates coastline + overlays slightly downward inside the geography band */
+const GEOGRAPHY_VERTICAL_OFFSET_PX = 22;
+
 /** Iteration 04 — combined dot map (donor + transplant sites, no flow arcs) */
 const DOT_MAP_DOT_RADIUS = 1.72;
 /** Match co-located OPO + transplant center sites (shared geocode in node file) */
 const DUAL_ROLE_COORD_DECIMALS = 4;
 
-/** Iteration 05 — proportional volume bubbles (2 panels, all organs) */
+/** Iteration 05 / 06 — proportional volume bubbles (shared panel defs, all organs) */
 const DOT_MAP_VOLUME_PANELS = [
   {
     slug: "donor",
     title: "Donor Recovery Organizations",
-    subtitle: "Bubble area = total donor outflow",
+    conclusion:
+      "Donor recovery volume spreads across procurement regions serving population basins nationwide.",
     nodeType: "source_dsa",
+    legendUnit: { singular: "donation", plural: "donations" },
   },
   {
     slug: "transplant",
     title: "Transplant Centers",
-    subtitle: "Bubble area = total transplant inflow",
+    conclusion:
+      "Much of transplant center capacity concentrates in major population centers throughout the U.S.",
     nodeType: "transplant_center",
+    legendUnit: { singular: "transplant", plural: "transplants" },
   },
 ];
 
+const DOT_VOL_MAIN_SUBTITLE =
+  "Transplant capacity clusters in population centers, while donor recovery follows a broader regional footprint.";
+
 const DOT_VOL_SVG_WIDTH = GEO_CMP_SVG_WIDTH;
-const DOT_VOL_SVG_HEIGHT = GEO_CMP_SVG_HEIGHT;
+const DOT_VOL_PANEL_LEGEND_STRIP = 54;
+const DOT_VOL_SHARED_NOTE_STRIP = 14;
+const DOT_VOL_SVG_HEIGHT =
+  GEO_CMP_SVG_HEIGHT + DOT_VOL_PANEL_LEGEND_STRIP + DOT_VOL_SHARED_NOTE_STRIP - GEO_CMP_FOOTNOTE_STRIP;
 const DOT_VOL_COLS = 2;
 const DOT_VOL_GAP = GEO_CMP_GAP;
 const DOT_VOL_MARGIN = GEO_CMP_MARGIN;
 const DOT_VOL_PANEL_TITLE_DY = GEO_CMP_PANEL_TITLE_DY;
-const DOT_VOL_PANEL_SUBTITLE_DY = GEO_CMP_PANEL_SUBTITLE_DY;
-const DOT_VOL_FOOTNOTE_STRIP = GEO_CMP_FOOTNOTE_STRIP;
+/** Room for wrapped conclusion line(s) under panel title */
+const DOT_VOL_PANEL_SUBTITLE_BLOCK = 30;
 /** Restrained sqrt radius range (px) per panel */
 const DOT_VOL_RADIUS_RANGE = [2.6, 10.8];
+const DOT_VOL_VOLUME_NOTE =
+  "Sqrt-scaled within each panel from min to max volume; all organs, 2025.";
+
+/** Editorial organ palette — charcoal default + per-organ hues */
+const ORGAN_VOLUME_COLORS = {
+  all: "#202623",
+  heart: "#9A4C54",
+  liver: "#B07A3B",
+  lung: "#6E92A8",
+  kidney: "#4F8A83",
+  pancreas: "#7A668F",
+  kidney_pancreas: "#3E6B73",
+  multi_liver_kidney: "#8B6B3F",
+  intestine: "#7C8561",
+  multi_organ_other: "#5B6675",
+};
+
+/** Per-organ volume picker (all + 7 organ-specific modes, alphabetical after All) */
+const ORGAN_VOLUME_OPTIONS = [
+  { slug: "all", label: "All organs", color: ORGAN_VOLUME_COLORS.all },
+  { slug: "heart", label: "Heart", color: ORGAN_VOLUME_COLORS.heart },
+  { slug: "kidney", label: "Kidney", color: ORGAN_VOLUME_COLORS.kidney },
+  { slug: "kidney_pancreas", label: "Kidney–pancreas", color: ORGAN_VOLUME_COLORS.kidney_pancreas },
+  { slug: "liver", label: "Liver", color: ORGAN_VOLUME_COLORS.liver },
+  { slug: "multi_liver_kidney", label: "Liver–kidney", color: ORGAN_VOLUME_COLORS.multi_liver_kidney },
+  { slug: "lung", label: "Lung", color: ORGAN_VOLUME_COLORS.lung },
+  { slug: "pancreas", label: "Pancreas", color: ORGAN_VOLUME_COLORS.pancreas },
+];
+
+/** Donor bubbles lighter via lower opacity; transplant uses full organ color */
+const ORGAN_VOLUME_DOT_OPACITY = { donor: 0.42, transplant: 0.86 };
+
+/** Active organ for volume maps; switch slug to test per-organ views (first alpha: heart) */
+const ORGAN_VOLUME_MODE = "all";
+// const ORGAN_VOLUME_MODE = "heart";
+
+/** Iteration 06 — full-width single maps stacked vertically */
+const DOT_VOL_SINGLE_SVG_WIDTH = GEO_CMP_SVG_WIDTH;
+const DOT_VOL_SINGLE_GEO_HEIGHT = 318;
+const DOT_VOL_SINGLE_STACK_GAP = 26;
+const DOT_VOL_SINGLE_ROW_HEADER_DY =
+  DOT_VOL_PANEL_TITLE_DY + DOT_VOL_PANEL_SUBTITLE_BLOCK + GEOGRAPHY_VERTICAL_OFFSET_PX;
+const DOT_VOL_SINGLE_ROW_HEIGHT =
+  DOT_VOL_SINGLE_ROW_HEADER_DY + DOT_VOL_SINGLE_GEO_HEIGHT + DOT_VOL_PANEL_LEGEND_STRIP;
+const DOT_VOL_SINGLE_SVG_HEIGHT =
+  DOT_VOL_MARGIN.top +
+  DOT_VOL_MARGIN.bottom +
+  2 * DOT_VOL_SINGLE_ROW_HEIGHT +
+  DOT_VOL_SINGLE_STACK_GAP +
+  DOT_VOL_SHARED_NOTE_STRIP;
+
+/** Iteration 07 — single map, global volume scale, transplant default */
+const DOT_VOL_UNIFIED_SITE = "transplant";
+const DOT_VOL_SITE_OPTIONS = [
+  { slug: "transplant", label: "Transplant centers" },
+  { slug: "donor", label: "Donor recovery orgs" },
+];
+const DOT_VOL_UNIFIED_SVG_WIDTH = GEO_CMP_SVG_WIDTH;
+const DOT_VOL_UNIFIED_GEO_HEIGHT = 468;
+const DOT_VOL_UNIFIED_NOTE_STRIP = 14;
+const DOT_VOL_UNIFIED_ROW_HEADER_DY =
+  DOT_VOL_PANEL_TITLE_DY + DOT_VOL_PANEL_SUBTITLE_BLOCK + GEOGRAPHY_VERTICAL_OFFSET_PX;
+const DOT_VOL_UNIFIED_SVG_HEIGHT =
+  DOT_VOL_MARGIN.top +
+  DOT_VOL_MARGIN.bottom +
+  DOT_VOL_UNIFIED_ROW_HEADER_DY +
+  DOT_VOL_UNIFIED_GEO_HEIGHT +
+  DOT_VOL_UNIFIED_NOTE_STRIP;
+/** Global sqrt range — shared across organ views for comparable bubble sizes */
+const DOT_VOL_UNIFIED_RADIUS_RANGE = [2.4, 15.2];
+/** Sidebar legend bubble sizes (same domain, smaller display) */
+const SIDEBAR_VOL_LEGEND_RADIUS_RANGE = [3.2, 11.5];
+const DOT_VOL_UNIFIED_DOT_OPACITY = { donor: 0.64, transplant: 0.92 };
+const DOT_VOL_UNIFIED_SUBTITLE =
+  "Bubble size uses one national scale across organ types; switch site type or organ to compare.";
+const DOT_VOL_UNIFIED_VOLUME_NOTE =
+  "Sqrt-scaled to global min–max across organ types; {context}, 2025.";
+
+/** Iteration 07 — editorial page copy by organ + site (5–8 word lede) */
+const DOT_VOL_UNIFIED_HEADLINES = {
+  all: {
+    transplant: {
+      title: "Where Transplants Happen",
+      subtitle: "Metro markets carry most national volume.",
+      mapTitle: "Transplant centers",
+    },
+    donor: {
+      title: "Where Donors Are Recovered",
+      subtitle: "Procurement spans regions beyond transplant hubs.",
+      mapTitle: "Donor recovery organizations",
+    },
+  },
+  heart: {
+    transplant: {
+      title: "Heart Transplant Capacity",
+      subtitle: "Volume concentrates in established cardiac programs.",
+      mapTitle: "Heart transplant centers",
+    },
+    donor: {
+      title: "Heart Donor Recovery",
+      subtitle: "Donors spread widely; few OPOs lead volume.",
+      mapTitle: "Heart donor recovery",
+    },
+  },
+  kidney: {
+    transplant: {
+      title: "Kidney Transplant Capacity",
+      subtitle: "Coastal and Midwest metros dominate volume.",
+      mapTitle: "Kidney transplant centers",
+    },
+    donor: {
+      title: "Kidney Donor Recovery",
+      subtitle: "Broad OPO network; peaks in population belts.",
+      mapTitle: "Kidney donor recovery",
+    },
+  },
+  liver: {
+    transplant: {
+      title: "Liver Transplant Capacity",
+      subtitle: "Academic centers anchor most program volume.",
+      mapTitle: "Liver transplant centers",
+    },
+    donor: {
+      title: "Liver Donor Recovery",
+      subtitle: "Regional OPOs feed urban transplant hubs.",
+      mapTitle: "Liver donor recovery",
+    },
+  },
+  lung: {
+    transplant: {
+      title: "Lung Transplant Capacity",
+      subtitle: "Specialized centers hold most national volume.",
+      mapTitle: "Lung transplant centers",
+    },
+    donor: {
+      title: "Lung Donor Recovery",
+      subtitle: "Donor flow mirrors transplant program geography.",
+      mapTitle: "Lung donor recovery",
+    },
+  },
+  pancreas: {
+    transplant: {
+      title: "Pancreas Transplant Capacity",
+      subtitle: "Few programs; volume highly concentrated.",
+      mapTitle: "Pancreas transplant centers",
+    },
+    donor: {
+      title: "Pancreas Donor Recovery",
+      subtitle: "Low volume spread across regional OPOs.",
+      mapTitle: "Pancreas donor recovery",
+    },
+  },
+  kidney_pancreas: {
+    transplant: {
+      title: "Kidney–Pancreas Capacity",
+      subtitle: "Small program count; top centers lead.",
+      mapTitle: "Kidney–pancreas transplant centers",
+    },
+    donor: {
+      title: "Kidney–Pancreas Donor Recovery",
+      subtitle: "Recovery tracks multi-organ OPO capacity.",
+      mapTitle: "Kidney–pancreas donor recovery",
+    },
+  },
+  multi_liver_kidney: {
+    transplant: {
+      title: "Multi-Organ Transplant Capacity",
+      subtitle: "Rare procedures; elite centers dominate.",
+      mapTitle: "Multi-organ transplant centers",
+    },
+    donor: {
+      title: "Multi-Organ Donor Recovery",
+      subtitle: "Low counts tied to major OPO regions.",
+      mapTitle: "Multi-organ donor recovery",
+    },
+  },
+};
+
+function unifiedVolumeHeadline(organSlug, siteSlug) {
+  const organCopy = DOT_VOL_UNIFIED_HEADLINES[organSlug] ?? DOT_VOL_UNIFIED_HEADLINES.all;
+  return organCopy[siteSlug] ?? organCopy.transplant;
+}
+
+/** Cached [min, max] node volume per site type across all organ datasets */
+let globalVolumeExtents = null;
 
 /** Reference inner width for scaling PR inset box on smaller panels */
 const REF_PANEL_INNER_W = 780;
@@ -211,9 +413,6 @@ const MAP_FOOTNOTE_STRIP_HEIGHT = 28;
 /** Full SVG height includes footnote strip (map geography uses area above strip) */
 const MAP_HEIGHT = 560 + MAP_FOOTNOTE_STRIP_HEIGHT;
 const MARGIN = { top: 20, right: 20, bottom: 20, left: 20 };
-
-/** Translates coastline + overlays slightly downward inside the geography band */
-const GEOGRAPHY_VERTICAL_OFFSET_PX = 22;
 
 /** US Atlas state ids for inset framing on the Albers USA composite */
 const STATE_ID_ALASKA = "02";
@@ -905,8 +1104,18 @@ function drawMapLayers(
     drawDotMapNodes(geoPane, placedNodes, "transplant_center", dotR);
     drawDotMapNodes(geoPane, placedNodes, "source_dsa", dotR);
   } else if (layerOptions.dotMapProportional) {
-    const { nodeType, volumeById, radiusScale, roleClass } = layerOptions.dotMapProportional;
-    drawProportionalDotMapNodes(geoPane, placedNodes, nodeType, volumeById, radiusScale, roleClass);
+    const { nodeType, volumeById, radiusScale, roleClass, organSlug, opacityMap } =
+      layerOptions.dotMapProportional;
+    drawProportionalDotMapNodes(
+      geoPane,
+      placedNodes,
+      nodeType,
+      volumeById,
+      radiusScale,
+      roleClass,
+      organSlug,
+      opacityMap
+    );
   } else if (layerOptions.dotNodeType) {
     drawDotMapNodes(geoPane, placedNodes, layerOptions.dotNodeType, layerOptions.dotRadius ?? DOT_MAP_DOT_RADIUS);
   } else if (showNodes && style.showNodes) {
@@ -1347,7 +1556,7 @@ function computeDotMapVolumePanelSize() {
     gap: DOT_VOL_GAP,
     cols: DOT_VOL_COLS,
     panelTitleDy: DOT_VOL_PANEL_TITLE_DY,
-    panelSubtitleDy: DOT_VOL_PANEL_SUBTITLE_DY,
+    panelSubtitleDy: DOT_VOL_PANEL_SUBTITLE_BLOCK,
   });
 }
 
@@ -1375,36 +1584,128 @@ function buildRadiusScaleForVolumes(volumeById, placedNodes, nodeType, radiusRan
   return buildStrokeScale(volumes, radiusRange, d3.extent(volumes));
 }
 
-async function initDotMapVolume() {
-  const { panelInnerW, panelInnerH } = computeDotMapVolumePanelSize();
-  const geoFitHeightPx = panelInnerH - DOT_VOL_FOOTNOTE_STRIP - GEOGRAPHY_VERTICAL_OFFSET_PX;
-
-  document.title = "Transplant System Sites — Volume by Geography";
-  d3.select("#chart-title").text("Transplant System Sites");
-  d3.select(".subtitle").text(
-    "Donor recovery and transplant center geography with bubble area scaled to total activity volume (all organs, 2025)."
-  );
-  d3.select("body").attr(
-    "class",
-    ["layout-dot-map-volume", "iteration-05-volume", "palette-dot-map-volume"].join(" ")
-  );
-  d3.select(".viz-card").attr("data-iteration", "05-volume");
-  d3.select("#audit-panel").style("display", "none");
-
-  const [nodes, statesTopo, sourceSummary, destinationSummary] = await Promise.all([
+async function prepareDotMapVolumeData(organSlug = "all") {
+  const [nodesRaw, statesTopo] = await Promise.all([
     d3.csv(DATA.nodes, d3.autoType),
     d3.json(DATA.states),
+  ]);
+  const nodes = nodesRaw.map((n) => ({ ...n }));
+
+  if (organSlug === "all") {
+    const [sourceSummary, destinationSummary] = await Promise.all([
+      d3.csv(DATA.sourceSummary, d3.autoType),
+      d3.csv(DATA.destinationSummary, d3.autoType),
+    ]);
+    return {
+      nodes,
+      statesTopo,
+      organSlug,
+      sourceVolumeById: buildVolumeLookup(sourceSummary, "source_dsa_id", "total_outflow"),
+      destinationVolumeById: buildVolumeLookup(
+        destinationSummary,
+        "destination_center_id",
+        "total_inflow"
+      ),
+    };
+  }
+
+  const edgePath =
+    ORGAN_MODES[organSlug]?.edgesEnriched ??
+    `../data/processed/d2t_edges_${organSlug}_enriched.csv`;
+  const edges = await d3.csv(edgePath, d3.autoType);
+  const { sourceVolumeById, destinationVolumeById } = buildVolumeLookupsFromEdges(edges);
+  return { nodes, statesTopo, organSlug, sourceVolumeById, destinationVolumeById };
+}
+
+function buildVolumeLookupsFromEdges(edges) {
+  const sourceVolumeById = new Map();
+  const destinationVolumeById = new Map();
+  edges.forEach((row) => {
+    const flow = Number(row.flow_count);
+    if (!Number.isFinite(flow) || flow <= 0) return;
+    const src = String(row.source_dsa_id ?? "").trim();
+    const dst = String(row.destination_center_id ?? "").trim();
+    if (src) sourceVolumeById.set(src, (sourceVolumeById.get(src) ?? 0) + flow);
+    if (dst) destinationVolumeById.set(dst, (destinationVolumeById.get(dst) ?? 0) + flow);
+  });
+  return { sourceVolumeById, destinationVolumeById };
+}
+
+async function ensureGlobalVolumeExtents() {
+  if (globalVolumeExtents) return globalVolumeExtents;
+
+  const sourceVolumes = [];
+  const destinationVolumes = [];
+
+  const [sourceSummary, destinationSummary] = await Promise.all([
     d3.csv(DATA.sourceSummary, d3.autoType),
     d3.csv(DATA.destinationSummary, d3.autoType),
   ]);
+  sourceSummary.forEach((row) => {
+    const v = Number(row.total_outflow);
+    if (Number.isFinite(v) && v > 0) sourceVolumes.push(v);
+  });
+  destinationSummary.forEach((row) => {
+    const v = Number(row.total_inflow);
+    if (Number.isFinite(v) && v > 0) destinationVolumes.push(v);
+  });
 
-  const sourceVolumeById = buildVolumeLookup(sourceSummary, "source_dsa_id", "total_outflow");
-  const destinationVolumeById = buildVolumeLookup(
-    destinationSummary,
-    "destination_center_id",
-    "total_inflow"
+  const organSlugs = ORGAN_VOLUME_OPTIONS.filter((o) => o.slug !== "all").map((o) => o.slug);
+  await Promise.all(
+    organSlugs.map(async (slug) => {
+      const edgePath =
+        ORGAN_MODES[slug]?.edgesEnriched ??
+        `../data/processed/d2t_edges_${slug}_enriched.csv`;
+      const edges = await d3.csv(edgePath, d3.autoType);
+      const { sourceVolumeById, destinationVolumeById } = buildVolumeLookupsFromEdges(edges);
+      sourceVolumeById.forEach((v) => sourceVolumes.push(v));
+      destinationVolumeById.forEach((v) => destinationVolumes.push(v));
+    })
   );
 
+  globalVolumeExtents = {
+    source_dsa: d3.extent(sourceVolumes.filter((v) => v > 0)),
+    transplant_center: d3.extent(destinationVolumes.filter((v) => v > 0)),
+  };
+  return globalVolumeExtents;
+}
+
+function buildGlobalRadiusScale(nodeType, radiusRange = DOT_VOL_UNIFIED_RADIUS_RANGE) {
+  const domain = globalVolumeExtents?.[nodeType];
+  if (!domain || !Number.isFinite(domain[0]) || !Number.isFinite(domain[1])) {
+    return () => radiusRange[0];
+  }
+  return buildStrokeScale([], radiusRange, domain);
+}
+
+function organVolumeLabel(slug) {
+  return ORGAN_VOLUME_OPTIONS.find((o) => o.slug === slug)?.label ?? slug;
+}
+
+function organVolumeColor(slug) {
+  return ORGAN_VOLUME_OPTIONS.find((o) => o.slug === slug)?.color ?? null;
+}
+
+function organVolumeUsesPalette(slug) {
+  return Boolean(slug && organVolumeColor(slug));
+}
+
+function applyOrganVolumeDotStyle(circleSelection, organSlug, roleClass, opacityMap = ORGAN_VOLUME_DOT_OPACITY) {
+  if (!organVolumeUsesPalette(organSlug)) return circleSelection;
+  return circleSelection
+    .style("fill", organVolumeColor(organSlug))
+    .style("fill-opacity", opacityMap[roleClass] ?? 0.7)
+    .style("stroke", "none");
+}
+
+function buildDotMapVolumeMapContext({
+  nodes,
+  statesTopo,
+  sourceVolumeById,
+  destinationVolumeById,
+  panelInnerW,
+  geoFitHeightPx,
+}) {
   const projection = d3
     .geoAlbersUsa()
     .fitSize([panelInnerW, geoFitHeightPx], geoFeatureCollection(statesTopo));
@@ -1433,19 +1734,174 @@ async function initDotMapVolume() {
     "transplant_center"
   );
 
-  const donorPlaced = placedNodes.filter(
-    (n) => n.type === "source_dsa" && (sourceVolumeById.get(String(n.id).trim()) ?? 0) > 0
-  ).length;
-  const transplantPlaced = placedNodes.filter(
-    (n) =>
-      n.type === "transplant_center" && (destinationVolumeById.get(String(n.id).trim()) ?? 0) > 0
-  ).length;
+  return {
+    projection,
+    path,
+    prInset,
+    placedNodes,
+    donorRadiusScale,
+    transplantRadiusScale,
+  };
+}
 
-  console.log("[dot map volume] donor bubbles:", donorPlaced, "| transplant bubbles:", transplantPlaced);
+function drawDotMapVolumePanelBlock(
+  containerG,
+  panel,
+  {
+    originX = 0,
+    originY = 0,
+    panelInnerW,
+    geoFitHeightPx,
+    panelHeaderDy,
+    statesTopo,
+    path,
+    prInset,
+    placedNodes,
+    sourceVolumeById,
+    destinationVolumeById,
+    donorRadiusScale,
+    transplantRadiusScale,
+    showPrLabel = false,
+    organSlug = "all",
+    legendStyle = "nested",
+    opacityMap = ORGAN_VOLUME_DOT_OPACITY,
+  }
+) {
+  const volumeById = panel.nodeType === "source_dsa" ? sourceVolumeById : destinationVolumeById;
+  const radiusScale =
+    panel.nodeType === "source_dsa" ? donorRadiusScale : transplantRadiusScale;
+  const roleClass = panel.nodeType === "source_dsa" ? "donor" : "transplant";
 
+  const panelG = containerG
+    .append("g")
+    .attr("class", `dot-map-volume-panel dot-map-volume-panel--${panel.slug}`)
+    .attr("transform", `translate(${originX},${originY})`);
+
+  panelG
+    .append("text")
+    .attr("class", "dot-map-volume-panel-title")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("alignment-baseline", "hanging")
+    .text(panel.title);
+
+  if (panel.conclusion) {
+    panelG
+      .append("foreignObject")
+      .attr("class", "dot-map-volume-panel-subtitle-wrap")
+      .attr("x", 0)
+      .attr("y", DOT_VOL_PANEL_TITLE_DY - 1)
+      .attr("width", panelInnerW)
+      .attr("height", DOT_VOL_PANEL_SUBTITLE_BLOCK)
+      .append("xhtml:p")
+      .attr("class", "dot-map-volume-panel-subtitle")
+      .text(panel.conclusion);
+  }
+
+  const geoPane = panelG
+    .append("g")
+    .attr("class", "map-geo-pane")
+    .attr("transform", `translate(0,${panelHeaderDy})`);
+
+  drawMapLayers(geoPane, {
+    statesTopo,
+    path,
+    puertoRicoInset: prInset,
+    placedLinks: [],
+    strokeScale: () => 0,
+    style: {},
+    placedNodes,
+    edgeMode: "all",
+    layerOptions: {
+      drawFlows: false,
+        dotMapProportional: {
+          nodeType: panel.nodeType,
+          volumeById,
+          radiusScale,
+          roleClass,
+          organSlug,
+          opacityMap,
+        },
+      insetFrameMetrics: insetFrameMetricsForGeo(panelInnerW, geoFitHeightPx),
+      showInsetFrames: true,
+      showPrLabel,
+      showNodes: false,
+      showHubs: false,
+      showLinkTooltips: false,
+    },
+  });
+
+  const legendDraw = legendStyle === "linear" ? drawLinearVolumeLegendSvg : drawPanelVolumeLegendSvg;
+  if (legendStyle !== "none") {
+    legendDraw(panelG, {
+      radiusScale,
+      roleClass,
+      unit: panel.legendUnit,
+      legendY: panelHeaderDy + geoFitHeightPx + 6,
+      organSlug,
+      opacityMap,
+    });
+  }
+
+  return panelG;
+}
+
+function applyDotMapVolumePageChrome({ bodyClass, iterationAttr, titleSuffix = "" }) {
+  document.title = `Transplant System Sites — Volume by Geography${titleSuffix}`;
+  d3.select("#chart-title").text("Transplant System Sites");
+  d3.select(".subtitle").text(DOT_VOL_MAIN_SUBTITLE);
+  d3.select("body").attr("class", bodyClass);
+  d3.select(".viz-card").attr("data-iteration", iterationAttr);
+  d3.select("#audit-panel").style("display", "none");
   d3.select(".viz-notes").attr("hidden", true);
   renderDotMapVolumeFooter();
-  renderDotMapVolumeLegend({ donorRadiusScale, transplantRadiusScale });
+}
+
+async function initDotMapVolume() {
+  await renderDotMapVolumeDualView(ORGAN_VOLUME_MODE);
+}
+
+async function renderDotMapVolumeDualView(organSlug) {
+  resetVizSurface();
+
+  const { panelInnerW, panelInnerH } = computeDotMapVolumePanelSize();
+  const panelHeaderDy =
+    DOT_VOL_PANEL_TITLE_DY + DOT_VOL_PANEL_SUBTITLE_BLOCK + GEOGRAPHY_VERTICAL_OFFSET_PX;
+  const geoFitHeightPx =
+    panelInnerH - DOT_VOL_PANEL_LEGEND_STRIP - DOT_VOL_SHARED_NOTE_STRIP;
+
+  applyDotMapVolumePageChrome({
+    bodyClass: ["layout-dot-map-volume", "iteration-05-volume", "palette-dot-map-volume"].join(" "),
+    iterationAttr: "05-volume",
+  });
+  renderDotMapVolumeLegend("dual", organSlug);
+  renderOrganVolumePicker(organSlug, renderDotMapVolumeDualView);
+
+  const { nodes, statesTopo, sourceVolumeById, destinationVolumeById } =
+    await prepareDotMapVolumeData(organSlug);
+  const mapContext = buildDotMapVolumeMapContext({
+    nodes,
+    statesTopo,
+    sourceVolumeById,
+    destinationVolumeById,
+    panelInnerW,
+    geoFitHeightPx,
+  });
+  const { path, prInset, placedNodes, donorRadiusScale, transplantRadiusScale } = mapContext;
+
+  console.log(
+    "[dot map volume] organ:",
+    organSlug,
+    "| donor bubbles:",
+    placedNodes.filter(
+      (n) => n.type === "source_dsa" && (sourceVolumeById.get(String(n.id).trim()) ?? 0) > 0
+    ).length,
+    "| transplant bubbles:",
+    placedNodes.filter(
+      (n) =>
+        n.type === "transplant_center" && (destinationVolumeById.get(String(n.id).trim()) ?? 0) > 0
+    ).length
+  );
 
   const svg = d3
     .select("#chart")
@@ -1459,67 +1915,221 @@ async function initDotMapVolume() {
     .attr("transform", `translate(${DOT_VOL_MARGIN.left},${DOT_VOL_MARGIN.top})`);
 
   DOT_MAP_VOLUME_PANELS.forEach((panel, idx) => {
-    const originX = idx * (panelInnerW + DOT_VOL_GAP);
-    const volumeById = panel.nodeType === "source_dsa" ? sourceVolumeById : destinationVolumeById;
-    const radiusScale =
-      panel.nodeType === "source_dsa" ? donorRadiusScale : transplantRadiusScale;
-    const roleClass = panel.nodeType === "source_dsa" ? "donor" : "transplant";
-
-    const panelG = root
-      .append("g")
-      .attr("class", `dot-map-volume-panel dot-map-volume-panel--${panel.slug}`)
-      .attr("transform", `translate(${originX},0)`);
-
-    panelG
-      .append("text")
-      .attr("class", "dot-map-volume-panel-title")
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("alignment-baseline", "hanging")
-      .text(panel.title);
-
-    panelG
-      .append("text")
-      .attr("class", "dot-map-volume-panel-subtitle")
-      .attr("x", 0)
-      .attr("y", DOT_VOL_PANEL_TITLE_DY)
-      .attr("alignment-baseline", "hanging")
-      .text(panel.subtitle);
-
-    const geoPane = panelG
-      .append("g")
-      .attr("class", "map-geo-pane")
-      .attr(
-        "transform",
-        `translate(0,${DOT_VOL_PANEL_TITLE_DY + DOT_VOL_PANEL_SUBTITLE_DY + GEOGRAPHY_VERTICAL_OFFSET_PX})`
-      );
-
-    drawMapLayers(geoPane, {
+    drawDotMapVolumePanelBlock(root, panel, {
+      originX: idx * (panelInnerW + DOT_VOL_GAP),
+      originY: 0,
+      panelInnerW,
+      geoFitHeightPx,
+      panelHeaderDy,
       statesTopo,
       path,
-      puertoRicoInset: prInset,
-      placedLinks: [],
-      strokeScale: () => 0,
-      style: {},
+      prInset,
       placedNodes,
-      edgeMode: "all",
-      layerOptions: {
-        drawFlows: false,
-        dotMapProportional: {
-          nodeType: panel.nodeType,
-          volumeById,
-          radiusScale,
-          roleClass,
-        },
-        insetFrameMetrics: insetFrameMetricsForGeo(panelInnerW, geoFitHeightPx),
-        showInsetFrames: true,
-        showPrLabel: idx === DOT_MAP_VOLUME_PANELS.length - 1,
-        showNodes: false,
-        showHubs: false,
-        showLinkTooltips: false,
-      },
+      sourceVolumeById,
+      destinationVolumeById,
+      donorRadiusScale,
+      transplantRadiusScale,
+      showPrLabel: idx === DOT_MAP_VOLUME_PANELS.length - 1,
+      organSlug,
     });
   });
+
+  root
+    .append("text")
+    .attr("class", "dot-map-volume-shared-note")
+    .attr("x", 0)
+    .attr("y", panelHeaderDy + geoFitHeightPx + DOT_VOL_PANEL_LEGEND_STRIP + 10)
+    .attr("alignment-baseline", "hanging")
+    .text(
+      organSlug === "all"
+        ? DOT_VOL_VOLUME_NOTE
+        : `${DOT_VOL_VOLUME_NOTE.replace("all organs", organVolumeLabel(organSlug).toLowerCase())}`
+    );
+}
+
+async function initDotMapVolumeSingles() {
+  await renderDotMapVolumeSinglesView(ORGAN_VOLUME_MODE);
+}
+
+async function renderDotMapVolumeSinglesView(organSlug) {
+  resetVizSurface();
+
+  const panelInnerW = DOT_VOL_SINGLE_SVG_WIDTH - DOT_VOL_MARGIN.left - DOT_VOL_MARGIN.right;
+  const geoFitHeightPx = DOT_VOL_SINGLE_GEO_HEIGHT;
+  const panelHeaderDy = DOT_VOL_SINGLE_ROW_HEADER_DY;
+
+  applyDotMapVolumePageChrome({
+    bodyClass: [
+      "layout-dot-map-volume-singles",
+      "iteration-06-volume-singles",
+      "palette-dot-map-volume",
+    ].join(" "),
+    iterationAttr: "06-volume-singles",
+    titleSuffix: " (singles)",
+  });
+  renderDotMapVolumeLegend("singles", organSlug);
+  renderOrganVolumePicker(organSlug, renderDotMapVolumeSinglesView);
+
+  const { nodes, statesTopo, sourceVolumeById, destinationVolumeById } =
+    await prepareDotMapVolumeData(organSlug);
+  const mapContext = buildDotMapVolumeMapContext({
+    nodes,
+    statesTopo,
+    sourceVolumeById,
+    destinationVolumeById,
+    panelInnerW,
+    geoFitHeightPx,
+  });
+  const { path, prInset, placedNodes, donorRadiusScale, transplantRadiusScale } = mapContext;
+
+  console.log("[dot map volume singles] organ:", organSlug, "| layout:", LAYOUT_MODE);
+
+  const svg = d3
+    .select("#chart")
+    .append("svg")
+    .attr("viewBox", [0, 0, DOT_VOL_SINGLE_SVG_WIDTH, DOT_VOL_SINGLE_SVG_HEIGHT])
+    .attr("role", "img")
+    .attr("class", "map-svg map-svg--dot-map-volume-singles");
+
+  const root = svg
+    .append("g")
+    .attr("transform", `translate(${DOT_VOL_MARGIN.left},${DOT_VOL_MARGIN.top})`);
+
+  DOT_MAP_VOLUME_PANELS.forEach((panel, idx) => {
+    drawDotMapVolumePanelBlock(root, panel, {
+      originY: idx * (DOT_VOL_SINGLE_ROW_HEIGHT + DOT_VOL_SINGLE_STACK_GAP),
+      panelInnerW,
+      geoFitHeightPx,
+      panelHeaderDy,
+      statesTopo,
+      path,
+      prInset,
+      placedNodes,
+      sourceVolumeById,
+      destinationVolumeById,
+      donorRadiusScale,
+      transplantRadiusScale,
+      showPrLabel: idx === DOT_MAP_VOLUME_PANELS.length - 1,
+      organSlug,
+    });
+  });
+
+  const sharedNoteY = 2 * DOT_VOL_SINGLE_ROW_HEIGHT + DOT_VOL_SINGLE_STACK_GAP + 8;
+  root
+    .append("text")
+    .attr("class", "dot-map-volume-shared-note")
+    .attr("x", 0)
+    .attr("y", sharedNoteY)
+    .attr("alignment-baseline", "hanging")
+    .text(
+      organSlug === "all"
+        ? DOT_VOL_VOLUME_NOTE
+        : `${DOT_VOL_VOLUME_NOTE.replace("all organs", organVolumeLabel(organSlug).toLowerCase())}`
+    );
+}
+
+async function initDotMapVolumeUnified() {
+  await ensureGlobalVolumeExtents();
+  await renderDotMapVolumeUnifiedView(ORGAN_VOLUME_MODE, DOT_VOL_UNIFIED_SITE);
+}
+
+async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
+  resetVizSurface();
+  await ensureGlobalVolumeExtents();
+
+  const panel =
+    DOT_MAP_VOLUME_PANELS.find((p) => p.slug === siteSlug) ?? DOT_MAP_VOLUME_PANELS[1];
+  const panelInnerW = DOT_VOL_UNIFIED_SVG_WIDTH - DOT_VOL_MARGIN.left - DOT_VOL_MARGIN.right;
+  const geoFitHeightPx = DOT_VOL_UNIFIED_GEO_HEIGHT;
+  const panelHeaderDy = DOT_VOL_UNIFIED_ROW_HEADER_DY;
+
+  const headline = unifiedVolumeHeadline(organSlug, siteSlug);
+
+  applyDotMapVolumePageChrome({
+    bodyClass: [
+      "layout-dot-map-volume-unified",
+      "iteration-07-volume-unified",
+      "palette-dot-map-volume",
+    ].join(" "),
+    iterationAttr: "07-volume-unified",
+    titleSuffix: "",
+  });
+  d3.select("#chart-title").text(headline.title);
+  d3.select(".subtitle").text(headline.subtitle);
+  renderDotMapVolumeUnifiedLegend(organSlug, siteSlug);
+  renderSiteTypePicker(siteSlug, (nextSite) =>
+    renderDotMapVolumeUnifiedView(organSlug, nextSite)
+  );
+  renderOrganVolumePicker(organSlug, (nextOrgan) =>
+    renderDotMapVolumeUnifiedView(nextOrgan, siteSlug)
+  );
+
+  const { nodes, statesTopo, sourceVolumeById, destinationVolumeById } =
+    await prepareDotMapVolumeData(organSlug);
+  const mapContext = buildDotMapVolumeMapContext({
+    nodes,
+    statesTopo,
+    sourceVolumeById,
+    destinationVolumeById,
+    panelInnerW,
+    geoFitHeightPx,
+  });
+  const { path, prInset, placedNodes } = mapContext;
+  const radiusScale = buildGlobalRadiusScale(panel.nodeType);
+
+  console.log(
+    "[dot map volume unified] organ:",
+    organSlug,
+    "| site:",
+    siteSlug,
+    "| global domain:",
+    radiusScale.domain?.()
+  );
+
+  const svg = d3
+    .select("#chart")
+    .append("svg")
+    .attr("viewBox", [0, 0, DOT_VOL_UNIFIED_SVG_WIDTH, DOT_VOL_UNIFIED_SVG_HEIGHT])
+    .attr("role", "img")
+    .attr("class", "map-svg map-svg--dot-map-volume-unified");
+
+  const root = svg
+    .append("g")
+    .attr("transform", `translate(${DOT_VOL_MARGIN.left},${DOT_VOL_MARGIN.top})`);
+
+  drawDotMapVolumePanelBlock(root, { ...panel, title: headline.mapTitle, conclusion: "" }, {
+    panelInnerW,
+    geoFitHeightPx,
+    panelHeaderDy,
+    statesTopo,
+    path,
+    prInset,
+    placedNodes,
+    sourceVolumeById,
+    destinationVolumeById,
+    donorRadiusScale: radiusScale,
+    transplantRadiusScale: radiusScale,
+    showPrLabel: true,
+    organSlug,
+    legendStyle: "none",
+    opacityMap: DOT_VOL_UNIFIED_DOT_OPACITY,
+  });
+
+  const siteLabel = siteSlug === "donor" ? "donor recovery orgs" : "transplant centers";
+  const organLabel =
+    organSlug === "all" ? "all organs" : organVolumeLabel(organSlug).toLowerCase();
+  const noteContext = `${siteLabel}, ${organLabel}`;
+  root
+    .append("text")
+    .attr("class", "dot-map-volume-shared-note")
+    .attr("x", 0)
+    .attr("y", panelHeaderDy + geoFitHeightPx + 4)
+    .attr("alignment-baseline", "hanging")
+    .text(DOT_VOL_UNIFIED_VOLUME_NOTE.replace("{context}", noteContext));
+
+  d3.select("#audit-notes-panel .audit-notes-panel__body").text(
+    "Bubble area uses a global sqrt scale shared across organ types so sizes are comparable when switching organs. Positions from geocoded node file. No flow lines."
+  );
 }
 
 async function initDotMap() {
@@ -1630,8 +2240,13 @@ async function initDotMap() {
   });
 }
 
+function resetVizSurface() {
+  d3.select("#chart").selectAll("*").remove();
+}
+
 async function init() {
   hideAuditNotesPanel();
+  resetVizSurface();
 
   if (LAYOUT_MODE === "small_multiples") {
     return initSmallMultiples();
@@ -1644,6 +2259,12 @@ async function init() {
   }
   if (LAYOUT_MODE === "dot_map_volume") {
     return initDotMapVolume();
+  }
+  if (LAYOUT_MODE === "dot_map_volume_singles") {
+    return initDotMapVolumeSingles();
+  }
+  if (LAYOUT_MODE === "dot_map_volume_unified") {
+    return initDotMapVolumeUnified();
   }
 
   const organConfig = resolveOrganConfig();
@@ -2055,7 +2676,16 @@ function buildDualRoleSiteIndex(placedNodes) {
 }
 
 /** Iteration 05 — sqrt-scaled bubbles by total volume (no outlines) */
-function drawProportionalDotMapNodes(geoPane, placedNodes, nodeType, volumeById, radiusScale, roleClass) {
+function drawProportionalDotMapNodes(
+  geoPane,
+  placedNodes,
+  nodeType,
+  volumeById,
+  radiusScale,
+  roleClass,
+  organSlug = "all",
+  opacityMap = ORGAN_VOLUME_DOT_OPACITY
+) {
   const data = placedNodes
     .filter((n) => n.type === nodeType)
     .map((n) => ({
@@ -2064,7 +2694,7 @@ function drawProportionalDotMapNodes(geoPane, placedNodes, nodeType, volumeById,
     }))
     .filter((d) => d.volume > 0);
 
-  geoPane
+  const circles = geoPane
     .append("g")
     .attr("class", `dot-map-nodes dot-map-nodes--${roleClass}`)
     .selectAll("circle")
@@ -2073,7 +2703,11 @@ function drawProportionalDotMapNodes(geoPane, placedNodes, nodeType, volumeById,
     .attr("class", `dot-node dot-node--${roleClass} dot-node--scaled`)
     .attr("cx", (d) => d.node.px)
     .attr("cy", (d) => d.node.py)
-    .attr("r", (d) => radiusScale(d.volume))
+    .attr("r", (d) => radiusScale(d.volume));
+
+  applyOrganVolumeDotStyle(circles, organSlug, roleClass, opacityMap);
+
+  circles
     .append("title")
     .text(
       (d) =>
@@ -2137,79 +2771,372 @@ function volumeLegendBreaks(radiusScale) {
   }));
 }
 
-function renderVolumeLegendNestedGroup({ radiusScale, heading, unitNoun, fillClass }) {
-  const unit = typeof unitNoun === "string" ? { singular: unitNoun, plural: `${unitNoun}s` } : unitNoun;
+/** Nested volume scale drawn in SVG beneath each map panel */
+function drawPanelVolumeLegendSvg(panelG, { radiusScale, roleClass, unit, legendY, organSlug = "all" }) {
   const breaks = volumeLegendBreaks(radiusScale);
-  if (!breaks.length) {
-    return `<div class="legend-volume-group"><p class="legend-volume-group__heading">${heading}</p><p class="legend-dot-note">No volume data</p></div>`;
-  }
+  if (!breaks.length) return;
+
+  const unitObj = typeof unit === "string" ? { singular: unit, plural: `${unit}s` } : unit;
+  const useOrganPalette = organVolumeUsesPalette(organSlug);
+  const organFill = useOrganPalette ? organVolumeColor(organSlug) : null;
+  const organOpacity = ORGAN_VOLUME_DOT_OPACITY[roleClass] ?? 0.7;
+
+  const legendG = panelG
+    .append("g")
+    .attr("class", `panel-volume-legend panel-volume-legend--${roleClass}`)
+    .attr("transform", `translate(0,${legendY})`);
 
   const maxR = d3.max(breaks, (d) => d.r) ?? DOT_VOL_RADIUS_RANGE[1];
   const pad = 3;
-  const svgSize = Math.ceil(maxR * 2 + pad * 2);
-  const cx = svgSize / 2;
-  const cy = svgSize / 2;
+  const graphicSize = maxR * 2 + pad * 2;
+  const cx = maxR + pad;
+  const cy = maxR + pad;
 
-  const rings = [...breaks]
+  const graphic = legendG.append("g").attr("class", "panel-volume-legend__rings");
+  [...breaks]
     .sort((a, b) => b.r - a.r)
-    .map(
-      (b) =>
-        `<circle class="legend-volume-ring ${fillClass}" cx="${cx}" cy="${cy}" r="${b.r.toFixed(2)}" />`
-    )
-    .join("");
+    .forEach((b) => {
+      const ring = graphic
+        .append("circle")
+        .attr("class", `legend-volume-ring legend-volume-ring--${roleClass}`)
+        .attr("cx", cx)
+        .attr("cy", cy)
+        .attr("r", b.r);
+      if (useOrganPalette) {
+        ring
+          .attr("class", "legend-volume-ring legend-volume-ring--organ")
+          .style("fill", organFill)
+          .style("fill-opacity", organOpacity)
+          .style("stroke", organFill)
+          .style("stroke-opacity", Math.min(1, organOpacity + 0.2))
+          .style("stroke-width", "1.1px");
+      }
+    });
 
-  const tiers = [...breaks]
-    .sort((a, b) => b.value - a.value)
-    .map(
-      (b) => `
-      <li class="legend-volume-tier">
-        <span class="legend-volume-tier__name">${b.tier}</span>
-        <span class="legend-volume-tier__eq">=</span>
-        <span class="legend-volume-tier__value">${volumeQuantityLabel(b.value, unit.singular, unit.plural)}</span>
-      </li>`
-    )
-    .join("");
-
-  return `
-    <div class="legend-volume-group">
-      <p class="legend-volume-group__heading">${heading}</p>
-      <div class="legend-volume-nested">
-        <svg class="legend-volume-nested__svg" width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}" aria-hidden="true">
-          ${rings}
-        </svg>
-        <ol class="legend-volume-tier-list">${tiers}</ol>
-      </div>
-    </div>`;
+  const tiers = [...breaks].sort((a, b) => b.value - a.value);
+  const labelX = graphicSize + 8;
+  const lineDy = 11;
+  const labelStartY = cy - ((tiers.length - 1) * lineDy) / 2;
+  tiers.forEach((b, i) => {
+    legendG
+      .append("text")
+      .attr("class", "panel-volume-legend__tier")
+      .attr("x", labelX)
+      .attr("y", labelStartY + i * lineDy)
+      .attr("alignment-baseline", "middle")
+      .text(`${b.tier} = ${volumeQuantityLabel(b.value, unitObj.singular, unitObj.plural)}`);
+  });
 }
 
-function renderDotMapVolumeLegend({ donorRadiusScale, transplantRadiusScale }) {
+/** Iteration 07 — horizontal Min / Mid / Max scale */
+function drawLinearVolumeLegendSvg(
+  panelG,
+  { radiusScale, roleClass, unit, legendY, organSlug = "all", opacityMap = ORGAN_VOLUME_DOT_OPACITY }
+) {
+  const domain = radiusScale.domain?.();
+  if (!domain || domain.length < 2) return;
+  let [lo, hi] = domain;
+  if (!Number.isFinite(lo) || !Number.isFinite(hi)) return;
+  if (lo === hi) hi = lo + 1;
+
+  const midValue = lo + (hi - lo) / 2;
+  const breaks = [
+    { tier: "Min", value: lo, r: radiusScale(lo) },
+    { tier: "Mid", value: midValue, r: radiusScale(midValue) },
+    { tier: "Max", value: hi, r: radiusScale(hi) },
+  ];
+
+  const unitObj = typeof unit === "string" ? { singular: unit, plural: `${unit}s` } : unit;
+  const useOrganPalette = organVolumeUsesPalette(organSlug);
+  const organFill = useOrganPalette ? organVolumeColor(organSlug) : null;
+  const organOpacity = opacityMap[roleClass] ?? 0.75;
+
+  const legendG = panelG
+    .append("g")
+    .attr("class", `panel-volume-legend panel-volume-legend--linear panel-volume-legend--${roleClass}`)
+    .attr("transform", `translate(0,${legendY})`);
+
+  const row = legendG.append("g").attr("class", "panel-volume-legend__linear-row");
+  const pad = 4;
+  const colGap = 10;
+  let xCursor = 0;
+
+  breaks.forEach((b) => {
+    const colW = b.r * 2 + pad * 2 + colGap;
+    const cx = pad + b.r;
+    const cy = pad + b.r;
+
+    const col = row
+      .append("g")
+      .attr("class", "panel-volume-legend__linear-item")
+      .attr("transform", `translate(${xCursor},0)`);
+
+    const circle = col
+      .append("circle")
+      .attr("class", `legend-volume-ring legend-volume-ring--${roleClass}`)
+      .attr("cx", cx)
+      .attr("cy", cy)
+      .attr("r", b.r);
+
+    if (useOrganPalette) {
+      circle
+        .attr("class", "legend-volume-ring legend-volume-ring--organ")
+        .style("fill", organFill)
+        .style("fill-opacity", organOpacity)
+        .style("stroke", organFill)
+        .style("stroke-opacity", Math.min(1, organOpacity + 0.15))
+        .style("stroke-width", "1px");
+    }
+
+    col
+      .append("text")
+      .attr("class", "panel-volume-legend__tier panel-volume-legend__tier--linear")
+      .attr("x", cx)
+      .attr("y", cy + b.r + 11)
+      .attr("text-anchor", "middle")
+      .text(b.tier);
+
+    col
+      .append("text")
+      .attr("class", "panel-volume-legend__value panel-volume-legend__value--linear")
+      .attr("x", cx)
+      .attr("y", cy + b.r + 22)
+      .attr("text-anchor", "middle")
+      .text(volumeQuantityLabel(b.value, unitObj.singular, unitObj.plural));
+
+    xCursor += colW;
+  });
+}
+
+function appendOrganVolumeChip(parent, opt, activeSlug, onSelect) {
+  const isActive = activeSlug === opt.slug;
+  const btn = parent
+    .append("button")
+    .attr("type", "button")
+    .attr(
+      "class",
+      `organ-volume-chip${opt.slug === "all" ? " organ-volume-chip--all" : ""}${isActive ? " is-active" : " is-inactive"}`
+    )
+    .attr("data-organ", opt.slug)
+    .on("click", () => {
+      if (activeSlug !== opt.slug) onSelect(opt.slug);
+    });
+
+  if (opt.color) {
+    btn
+      .append("span")
+      .attr("class", "organ-volume-chip__swatch")
+      .attr("style", `background:${opt.color}`);
+  }
+
+  btn.append("span").attr("class", "organ-volume-chip__label").text(opt.label);
+}
+
+function renderOrganVolumePicker(activeSlug, onSelect) {
+  const panel = d3.select("#legend-panel");
+  panel.select(".organ-volume-picker").remove();
+
+  const picker = panel
+    .append("section")
+    .attr("class", "organ-volume-picker")
+    .attr("aria-label", "Organ volume filter");
+
+  picker.append("p").attr("class", "organ-volume-picker__heading").text("View by organ");
+
+  const [allOption, ...organOptions] = ORGAN_VOLUME_OPTIONS;
+
+  appendOrganVolumeChip(picker, allOption, activeSlug, onSelect);
+
+  const list = picker.append("div").attr("class", "organ-volume-picker__list");
+  organOptions.forEach((opt) => appendOrganVolumeChip(list, opt, activeSlug, onSelect));
+}
+
+function renderSiteTypePicker(activeSite, onSelect) {
+  const panel = d3.select("#legend-panel");
+  panel.select(".site-type-picker").remove();
+
+  const picker = panel
+    .append("section")
+    .attr("class", "site-type-picker")
+    .attr("aria-label", "Site type filter");
+
+  picker.append("p").attr("class", "organ-volume-picker__heading").text("Site type");
+
+  DOT_VOL_SITE_OPTIONS.forEach((opt) =>
+    appendOrganVolumeChip(picker, { slug: opt.slug, label: opt.label, color: null }, activeSite, onSelect)
+  );
+}
+
+function renderDotMapVolumeUnifiedLegend(organSlug, siteSlug) {
   const panel = d3.select("#legend-panel");
   panel.style("display", "");
+  const panelDef =
+    DOT_MAP_VOLUME_PANELS.find((p) => p.slug === siteSlug) ?? DOT_MAP_VOLUME_PANELS[1];
+  const roleClass = siteSlug === "donor" ? "donor" : "transplant";
+  const siteLabel =
+    siteSlug === "donor" ? "Donor recovery organization" : "Transplant center";
+  const organNote =
+    organVolumeUsesPalette(organSlug) && organSlug !== "all"
+      ? organVolumeLabel(organSlug)
+      : null;
+
   panel.html(`
     <h2 class="legend-panel__title">Legend</h2>
     <section class="legend-section legend-section--dot-map-volume" aria-label="Map legend">
       <div class="legend-dot-row">
-        <span class="legend-dot legend-dot--donor" aria-hidden="true"></span>
-        <span class="legend-flow-label legend-flow-label--donor">Donor recovery organization (OPO)</span>
+        <span class="legend-dot legend-dot--${roleClass}" aria-hidden="true"${legendDotSwatchAttrs(organSlug, roleClass)}></span>
+        <span class="legend-flow-label legend-flow-label--${roleClass} legend-flow-label--organ-tint"${legendFlowLabelStyleAttrs(organSlug, roleClass)}>${siteLabel}</span>
+      </div>
+    </section>
+  `);
+
+  const legendSection = panel.select(".legend-section--dot-map-volume");
+  appendSidebarVolumeScale(legendSection, {
+    organSlug,
+    siteSlug,
+    roleClass,
+    unit: panelDef.legendUnit,
+    nodeType: panelDef.nodeType,
+  });
+
+  if (organNote) {
+    legendSection
+      .append("p")
+      .attr("class", "legend-dot-note legend-dot-note--organ-color")
+      .text(`Organ color: ${organNote}`);
+  }
+}
+
+function appendSidebarVolumeScale(parent, { organSlug, siteSlug, roleClass, unit, nodeType }) {
+  parent.select(".legend-volume-scale").remove();
+
+  const radiusScale = buildGlobalRadiusScale(nodeType, SIDEBAR_VOL_LEGEND_RADIUS_RANGE);
+  const domain = radiusScale.domain?.();
+  if (!domain || domain.length < 2) return;
+
+  let [lo, hi] = domain;
+  if (!Number.isFinite(lo) || !Number.isFinite(hi)) return;
+  if (lo === hi) hi = lo + 1;
+
+  const breaks = [
+    { tier: "Min", value: lo, r: radiusScale(lo) },
+    { tier: "Max", value: hi, r: radiusScale(hi) },
+  ];
+
+  const useOrganPalette = organVolumeUsesPalette(organSlug);
+  const organFill = useOrganPalette ? organVolumeColor(organSlug) : null;
+  const organOpacity = DOT_VOL_UNIFIED_DOT_OPACITY[roleClass] ?? 0.75;
+
+  const scaleSection = parent
+    .append("div")
+    .attr("class", "legend-volume-scale")
+    .attr("aria-label", "Volume scale");
+
+  scaleSection.append("p").attr("class", "legend-volume-scale__heading").text("Volume scale");
+
+  const pad = 4;
+  const colGap = 14;
+  const maxR = d3.max(breaks, (d) => d.r) ?? SIDEBAR_VOL_LEGEND_RADIUS_RANGE[1];
+  const colW = maxR * 2 + pad * 2 + colGap;
+  const svgW = colW * breaks.length - colGap;
+  const sharedCy = pad + maxR;
+  const tierY = sharedCy + maxR + 10;
+  const countY = sharedCy + maxR + 21;
+  const svgH = countY + 6;
+
+  const svg = scaleSection
+    .append("svg")
+    .attr("class", "legend-volume-scale__svg")
+    .attr("width", svgW)
+    .attr("height", svgH)
+    .attr("viewBox", [0, 0, svgW, svgH]);
+
+  breaks.forEach((b, i) => {
+    const cx = i * colW + pad + maxR;
+    const countLabel = `(${formatVolumeCount(roundVolumeForLabel(b.value))})`;
+
+    const col = svg.append("g").attr("class", "legend-volume-scale__col");
+
+    const circle = col
+      .append("circle")
+      .attr("class", `legend-volume-ring legend-volume-ring--${roleClass}`)
+      .attr("cx", cx)
+      .attr("cy", sharedCy)
+      .attr("r", b.r);
+
+    if (useOrganPalette) {
+      circle
+        .style("fill", organFill)
+        .style("fill-opacity", organOpacity)
+        .style("stroke", organFill)
+        .style("stroke-opacity", Math.min(1, organOpacity + 0.12))
+        .style("stroke-width", "1px");
+    }
+
+    col
+      .append("text")
+      .attr("class", "legend-volume-scale__tier")
+      .attr("x", cx)
+      .attr("y", tierY)
+      .attr("text-anchor", "middle")
+      .text(b.tier);
+
+    col
+      .append("text")
+      .attr("class", "legend-volume-scale__count")
+      .attr("x", cx)
+      .attr("y", countY)
+      .attr("text-anchor", "middle")
+      .text(countLabel);
+  });
+}
+
+function organLegendTint(organSlug, roleClass) {
+  const color = organVolumeColor(organSlug);
+  const opacity = ORGAN_VOLUME_DOT_OPACITY[roleClass] ?? 0.7;
+  return { color, opacity };
+}
+
+function legendDotSwatchAttrs(organSlug, roleClass) {
+  if (!organVolumeUsesPalette(organSlug)) return "";
+  const { color, opacity } = organLegendTint(organSlug, roleClass);
+  return ` style="background:${color};opacity:${opacity}"`;
+}
+
+function legendFlowLabelStyleAttrs(organSlug, roleClass) {
+  if (!organVolumeUsesPalette(organSlug)) return "";
+  const { color, opacity } = organLegendTint(organSlug, roleClass);
+  return ` style="color:${color};opacity:${opacity}"`;
+}
+
+function renderDotMapVolumeLegend(variant = "dual", organSlug = "all") {
+  const panel = d3.select("#legend-panel");
+  panel.style("display", "");
+  const donorLabel =
+    variant === "singles" ? "Donor recovery organization" : "Donor recovery (left)";
+  const transplantLabel =
+    variant === "singles" ? "Transplant center" : "Transplant center (right)";
+  const note =
+    variant === "singles"
+      ? "Each map shows one site type; volume scale sits below that map."
+      : "Volume scales appear under each map.";
+  const organNote =
+    organVolumeUsesPalette(organSlug) && organSlug !== "all"
+      ? `<p class="legend-dot-note legend-dot-note--organ-color">Organ color: ${organVolumeLabel(organSlug)}</p>`
+      : "";
+  panel.html(`
+    <h2 class="legend-panel__title">Legend</h2>
+    <section class="legend-section legend-section--dot-map-volume" aria-label="Map legend">
+      <div class="legend-dot-row">
+        <span class="legend-dot legend-dot--donor" aria-hidden="true"${legendDotSwatchAttrs(organSlug, "donor")}></span>
+        <span class="legend-flow-label legend-flow-label--donor legend-flow-label--organ-tint"${legendFlowLabelStyleAttrs(organSlug, "donor")}>${donorLabel}</span>
       </div>
       <div class="legend-dot-row">
-        <span class="legend-dot legend-dot--transplant" aria-hidden="true"></span>
-        <span class="legend-flow-label legend-flow-label--transplant">Transplant center</span>
+        <span class="legend-dot legend-dot--transplant" aria-hidden="true"${legendDotSwatchAttrs(organSlug, "transplant")}></span>
+        <span class="legend-flow-label legend-flow-label--transplant legend-flow-label--organ-tint"${legendFlowLabelStyleAttrs(organSlug, "transplant")}>${transplantLabel}</span>
       </div>
-      <p class="legend-volume-heading">Bubble size = total volume</p>
-      ${renderVolumeLegendNestedGroup({
-        radiusScale: donorRadiusScale,
-        heading: "Left panel (donor outflow)",
-        unitNoun: { singular: "donation", plural: "donations" },
-        fillClass: "legend-volume-ring--donor",
-      })}
-      ${renderVolumeLegendNestedGroup({
-        radiusScale: transplantRadiusScale,
-        heading: "Right panel (transplant inflow)",
-        unitNoun: { singular: "transplant", plural: "transplants" },
-        fillClass: "legend-volume-ring--transplant",
-      })}
-      <p class="legend-dot-note">Radii use sqrt scale from panel min to max; all organs, 2025.</p>
+      <p class="legend-dot-note">${note}</p>
+      ${organNote}
     </section>
   `);
 }

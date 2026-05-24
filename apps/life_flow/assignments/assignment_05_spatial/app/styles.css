@@ -236,6 +236,47 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volu
   stroke: none;
 }
 
+body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .dot-node--interactive {
+  pointer-events: all;
+  cursor: default;
+}
+
+.volume-map-tooltip {
+  position: fixed;
+  z-index: 40;
+  max-width: 16rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--lf-state-outline);
+  border-radius: 2px;
+  background: var(--lf-museum-white);
+  box-shadow: 0 1px 4px rgba(32, 38, 35, 0.12);
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: var(--lf-charcoal-forest);
+  pointer-events: none;
+}
+
+.volume-map-tooltip[hidden] {
+  display: none !important;
+}
+
+.volume-map-tooltip.is-visible {
+  display: block;
+}
+
+.volume-map-tooltip__name {
+  display: block;
+  font-weight: 400;
+  color: var(--lf-charcoal-forest);
+}
+
+.volume-map-tooltip__volume {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--lf-deep-ash-stone);
+}
+
 body.layout-dot-map-volume.palette-dot-map-volume .map-svg--dot-map-volume .dot-node--donor,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .map-svg--dot-map-volume-singles .dot-node--donor,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volume-unified .dot-node--donor{
@@ -250,28 +291,24 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volu
   fill-opacity: var(--dot-fill-opacity);
 }
 
+body.layout-dot-map-volume .legend-section--flows,
+body.layout-dot-map-volume .legend-section--hubs,
+body.layout-dot-map-volume-singles .legend-section--flows,
+body.layout-dot-map-volume-singles .legend-section--hubs,
+body.layout-dot-map-volume-unified .legend-section--flows,
+body.layout-dot-map-volume-unified .legend-section--hubs {
+  display: none !important;
+}
+
 body.layout-dot-map-volume.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label{
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-section--dot-map-volume .legend-flow-label {
   font-family: var(--font-label);
   font-size: 10px;
   line-height: 1.35;
-}
-
-body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--organ-tint,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-flow-label--organ-tint,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-flow-label--organ-tint{
   font-weight: 400;
   letter-spacing: 0.01em;
-}
-
-body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--donor.legend-flow-label--organ-tint,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-flow-label--donor.legend-flow-label--organ-tint,,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-flow-label--donor.legend-flow-label--organ-tint,
-body.layout-dot-map-volume.palette-dot-map-volume .legend-flow-label--transplant.legend-flow-label--organ-tint,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-flow-label--transplant.legend-flow-label--organ-tint,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-flow-label--transplant.legend-flow-label--organ-tint{
-  font-weight: 400;
+  color: var(--lf-charcoal-forest);
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .legend-dot--donor ,
@@ -298,7 +335,7 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot--transplan
 
 body.layout-dot-map-volume.palette-dot-map-volume .legend-dot-note,
 body.layout-dot-map-volume.palette-dot-map-volume .viz-source,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot-note,,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot-note,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot-note,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .viz-source,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .viz-source{
@@ -320,6 +357,16 @@ body.layout-dot-map-volume .audit-notes-panel,
 body.layout-dot-map-volume-singles .audit-notes-panel,
 body.layout-dot-map-volume-unified .audit-notes-panel {
   margin-top: 0.65rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__details,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__details,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__details {
   padding: 0.65rem 0.75rem;
   border: 1px solid var(--lf-state-outline);
   border-radius: 6px;
@@ -327,28 +374,89 @@ body.layout-dot-map-volume-unified .audit-notes-panel {
   box-shadow: 0 1px 4px rgba(32, 38, 35, 0.04);
 }
 
-body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__heading ,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__heading,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__heading{
-  margin: 0 0 0.35rem;
-  font-family: var(--font-label);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__summary,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__summary,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__summary {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
   color: var(--lf-deep-ash-stone);
+  cursor: pointer;
+  list-style: none;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__summary::-webkit-details-marker,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__summary::-webkit-details-marker,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__summary::-webkit-details-marker {
+  display: none;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__summary::before,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__summary::before,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__summary::before {
+  content: "▸ ";
+  color: var(--lf-deep-ash-stone);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__details[open] .audit-notes-panel__summary::before,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__details[open] .audit-notes-panel__summary::before,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__details[open] .audit-notes-panel__summary::before {
+  content: "▾ ";
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__details[open] .audit-notes-panel__body,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__details[open] .audit-notes-panel__body,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__details[open] .audit-notes-panel__body {
+  margin-top: 0.5rem;
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body ,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body{
   margin: 0;
-  font-family: var(--font-label);
-  font-size: 10px;
-  font-style: italic;
-  line-height: 1.45;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
   color: var(--lf-deep-ash-stone);
   text-align: left;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body p,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body p,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body p {
+  margin: 0 0 0.5em;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body p:last-child,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body p:last-child,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body p:last-child {
+  margin-bottom: 0;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body ul,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body ul,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body ul {
+  margin: 0 0 0.5em;
+  padding-left: 1.1em;
+  list-style: disc;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body li,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body li,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body li {
+  margin: 0 0 0.25em;
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .audit-notes-panel__body strong,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .audit-notes-panel__body strong,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .audit-notes-panel__body strong {
+  font-weight: 600;
+  font-style: normal;
+  color: var(--lf-deep-ash-stone);
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .legend-panel ,
@@ -378,7 +486,10 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker{
 
 body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-picker__heading,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .organ-volume-picker__heading,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker__heading{
+body.layout-dot-map-volume-unified.palette-dot-map-volume .organ-volume-picker__heading,
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale .organ-volume-picker__heading,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale .organ-volume-picker__heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale .organ-volume-picker__heading {
   margin: 0;
   font-family: var(--font-label);
   font-size: 9.5px;
@@ -450,15 +561,6 @@ body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-ring--organ,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-ring--organ,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-ring--organ{
   vector-effect: non-scaling-stroke;
-}
-
-body.layout-dot-map-volume.palette-dot-map-volume .legend-dot-note--organ-color,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-dot-note--organ-color,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-dot-note--organ-color{
-  margin-top: 0.35rem;
-  font-style: normal;
-  font-weight: 600;
-  color: var(--lf-charcoal-forest);
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .organ-volume-chip--all,
@@ -624,23 +726,34 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .map-svg--dot-map-volu
   stroke-width: 0.65;
 }
 
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale {
   margin-top: 0.55rem;
 }
 
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__heading {
-  margin: 0 0 0.35rem;
-  font-family: var(--font-label);
-  font-size: 9.5px;
-  font-weight: 600;
-  color: var(--lf-charcoal-forest);
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale .organ-volume-picker__heading,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale .organ-volume-picker__heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale .organ-volume-picker__heading {
+  margin-bottom: calc(0.35rem + 0.125in);
 }
 
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__svg,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__svg,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__svg {
   display: block;
+  margin: 0.15rem auto 0;
   overflow: visible;
 }
 
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__col:first-child,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__col:first-child,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__col:first-child {
+  transform: translateX(-0.25in);
+}
+
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__tier,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__tier,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__tier {
   font-family: var(--font-label);
   font-size: 9px;
@@ -648,12 +761,8 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__
   fill: var(--lf-charcoal-forest);
 }
 
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__value {
-  font-family: var(--font-label);
-  font-size: 8.5px;
-  fill: var(--lf-deep-ash-stone);
-}
-
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__count,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__count,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__count {
   font-family: var(--font-label);
   font-size: 8.5px;

@@ -8,10 +8,10 @@ Organized workflow to put **real lat/lon on every DSA and transplant center** in
 |------|------|
 | `all_nodes_geocoded.csv` | **Your working copy** — fill `lat`, `lon`, `notes` here |
 | `geocoding_review_priority.csv` | **Spreadsheet-first review list** — generated; see § below |
-| `../data/processed/all_nodes_for_geocoding.csv` | Regenerated queue (priority-sorted); reference only |
-| `../data/processed/all_sources_for_geocoding.csv` | OPOs only (55) — optional batch |
-| `../data/processed/all_destinations_for_geocoding.csv` | Transplant centers only (246) — optional batch |
-| `../data/processed/all_nodes_with_coordinates.csv` | **Output** after you apply manual edits |
+| `../../processed/all_nodes_for_geocoding.csv` | Regenerated queue (priority-sorted); reference only |
+| `../../processed/all_sources_for_geocoding.csv` | OPOs only (55) — optional batch |
+| `../../processed/all_destinations_for_geocoding.csv` | Transplant centers only (246) — optional batch |
+| `../../processed/all_nodes_with_coordinates.csv` | **Output** after you apply manual edits |
 
 ## Fastest path (~200 nodes in a few minutes)
 
@@ -63,7 +63,7 @@ python3 scripts/build_all_nodes_for_geocoding.py
 - Seeds coords from `top50_all_nodes_partial_real_coordinates.csv` where available.
 - Sorts by `geocode_priority` (1 = urgent) and `total_flow`.
 
-On first run, copies the queue into **`manual_geocoding/all_nodes_geocoded.csv`**. That file is **never overwritten** — your edits are safe.
+On first run, copies the queue into **`data/reference/manual_geocoding/all_nodes_geocoded.csv`**. That file is **never overwritten** — your edits are safe.
 
 ### 2. Geocode in batches (recommended order)
 
@@ -100,7 +100,7 @@ python3 scripts/build_geocoding_review_priority.py
 ```
 
 - **Reads** `data/processed/missing_destination_nodes_by_flow.csv`, `missing_source_nodes_by_flow.csv`, and **`all_nodes_geocoded.csv`**.
-- **Writes** `manual_geocoding/geocoding_review_priority.csv` with columns **`suggested_search`**, placeholders **`manual_city` / `manual_state` / `manual_lat` / `manual_lon` / `review_notes`**, plus **current lat/lon** from the workbook.
+- **Writes** `data/reference/manual_geocoding/geocoding_review_priority.csv` with columns **`suggested_search`**, placeholders **`manual_city` / `manual_state` / `manual_lat` / `manual_lon` / `review_notes`**, plus **current lat/lon** from the workbook.
 - **Preserves** filled manual/review columns when you re-run the script (merged by `id`).
 - **Omits** nodes already **`manual`**, **`manual_verified`**, or with **`manual_map`** in `notes`.
 

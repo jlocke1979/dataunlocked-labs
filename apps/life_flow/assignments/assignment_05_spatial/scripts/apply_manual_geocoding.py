@@ -2,7 +2,7 @@
 Apply completed manual geocoding workbook to production node coordinate file.
 
 Input:
-  manual_geocoding/all_nodes_geocoded.csv
+  data/reference/manual_geocoding/all_nodes_geocoded.csv
 
 Output:
   data/processed/all_nodes_with_coordinates.csv

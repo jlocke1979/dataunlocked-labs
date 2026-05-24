@@ -1,13 +1,13 @@
 """
-Build manual_geocoding/geocoding_review_priority.csv — prioritized editable queue for Assignment 5.
+Build data/reference/manual_geocoding/geocoding_review_priority.csv — prioritized editable queue for Assignment 5.
 
 Reads:
   - data/processed/missing_destination_nodes_by_flow.csv (reference + coverage check)
   - data/processed/missing_source_nodes_by_flow.csv
-  - manual_geocoding/all_nodes_geocoded.csv (source of truth for attributes / status)
+  - data/reference/manual_geocoding/all_nodes_geocoded.csv (source of truth for attributes / status)
 
 Writes:
-  - manual_geocoding/geocoding_review_priority.csv
+  - data/reference/manual_geocoding/geocoding_review_priority.csv
 
 Rows included: blank lat/lon, coordinate_status=missing, or batch/notes flagged needs_review —
 excluding nodes already manual / manual_verified or with manual_map in notes (verified edits).

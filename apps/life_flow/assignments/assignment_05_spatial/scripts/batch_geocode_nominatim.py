@@ -1,7 +1,7 @@
 """
 Batch geocode nodes via OpenStreetMap Nominatim (free, no API key).
 
-Fills lat/lon in manual_geocoding/all_nodes_geocoded.csv for rows that still
+Fills lat/lon in data/reference/manual_geocoding/all_nodes_geocoded.csv for rows that still
 need coordinates. Results should be spot-checked (especially hospitals).
 
 Policy: max 1 request/second — ~3–4 minutes for 200 nodes.

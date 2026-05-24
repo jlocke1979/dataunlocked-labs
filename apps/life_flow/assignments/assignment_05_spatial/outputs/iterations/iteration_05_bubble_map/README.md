@@ -2,6 +2,8 @@
 
 Two-panel layout encoding geographic concentration through restrained bubble area.
 
+**Submission:** The graded final view builds on this iteration via **Iteration 07** (`dot_map_volume_unified`) — single map, global scale, organ filter, and sidebar volume legend. See `outputs/iterations/iteration_07_volume_unified/README.md`.
+
 ## Enable
 
 In `app/main.js`:

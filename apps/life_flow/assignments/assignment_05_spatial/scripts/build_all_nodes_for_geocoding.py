@@ -9,7 +9,7 @@ Outputs:
   data/processed/all_nodes_for_geocoding.csv
   data/processed/all_sources_for_geocoding.csv
   data/processed/all_destinations_for_geocoding.csv
-  manual_geocoding/all_nodes_geocoded.csv  (created once; preserved on reruns)
+  data/reference/manual_geocoding/all_nodes_geocoded.csv  (created once; preserved on reruns)
 
 Run:
   python3 scripts/build_all_nodes_for_geocoding.py

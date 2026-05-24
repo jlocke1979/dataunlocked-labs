@@ -54,7 +54,7 @@ Open `http://localhost:8080/app/`
 
 Save presentation captures here:
 
-- `outputs/iterations/iteration_02/kidney_flow_map_v1.png` (full page or viz-card crop)
+- `outputs/iterations/iterations02_network_map_by_organ/kidney_flow_map_v1.png` (full page or viz-card crop)
 - Optional: `kidney_flow_map_v1.pdf`
 
 Target selector: `.viz-card[data-iteration="02"]` or `body.organ-mode-kidney`

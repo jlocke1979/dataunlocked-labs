@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Regional Yet Connected — Organ Transplant Flows</title>
-    <link rel="stylesheet" href="styles.css?v=20260523-13" />
+    <title>Transplant System Sites — Volume by Geography</title>
+    <link rel="stylesheet" href="styles.css?v=20260523-26" />
   </head>
   <body>
     <main class="page">
       <header class="header">
-        <h1 id="chart-title">Regional Yet Connected</h1>
-        <p class="subtitle">
-          Organ transplant flows form a dense national network anchored by regional medical hubs.
-        </p>
+        <h1 id="chart-title">Transplant System Sites</h1>
+        <p class="subtitle">Loading map…</p>
       </header>
 
       <div class="viz-card">
@@ -64,10 +62,7 @@
           </aside>
         </div>
 
-        <p class="viz-source">
-          Source: OPTN/UNOS Advanced Reports; donor and transplant flows, 2025. Current
-          waitlist reference data pulled 2026.
-        </p>
+        <p class="viz-source">Source: OPTN/UNOS Advanced Reports, 2025.</p>
         <p class="viz-notes" hidden></p>
       </div>
 
@@ -77,8 +72,10 @@
         hidden
         aria-label="Audit notes"
       >
-        <h2 class="audit-notes-panel__heading">Audit Notes</h2>
-        <p class="audit-notes-panel__body"></p>
+        <details class="audit-notes-panel__details">
+          <summary class="audit-notes-panel__summary">Audit notes</summary>
+          <div class="audit-notes-panel__body"></div>
+        </details>
       </section>
 
       <section id="audit-panel" class="audit-panel" aria-label="Audit (internal)">
@@ -91,6 +88,6 @@
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-    <script src="main.js?v=20260523-16"></script>
+    <script src="main.js?v=20260523-26"></script>
   </body>
 </html>

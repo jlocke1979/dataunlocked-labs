@@ -1,8 +1,8 @@
 """
 Summarize geocoding progress and list all rows that still need real coordinates.
 
-Reads: manual_geocoding/all_nodes_geocoded.csv
-Writes: manual_geocoding/still_needs_work.csv  (full queue for manual map / retry)
+Reads: data/reference/manual_geocoding/all_nodes_geocoded.csv
+Writes: data/reference/manual_geocoding/still_needs_work.csv  (full queue for manual map / retry)
 """
 
 from __future__ import annotations
@@ -102,7 +102,7 @@ def main() -> None:
         in ("facility_or_city", "manual_verified", "city_approx")
     )
 
-    print("Geocoding status — manual_geocoding/all_nodes_geocoded.csv")
+    print("Geocoding status — data/reference/manual_geocoding/all_nodes_geocoded.csv")
     print(f"  Total nodes: {len(rows)}")
     print()
     print("  By coordinate_status (column L):")

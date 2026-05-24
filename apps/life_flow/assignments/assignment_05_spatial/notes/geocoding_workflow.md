@@ -30,7 +30,7 @@ build_all_nodes_for_geocoding.py  ◄── seed: top50_all_nodes_partial_real_c
         ├── data/processed/all_sources_for_geocoding.csv
         ├── data/processed/all_destinations_for_geocoding.csv
         │
-        └── manual_geocoding/all_nodes_geocoded.csv      (YOU EDIT — created once)
+        └── data/reference/manual_geocoding/all_nodes_geocoded.csv      (YOU EDIT — created once)
                     │
                     ▼
         apply_manual_geocoding.py
@@ -67,4 +67,4 @@ High-impact missing nodes (from coverage script) include `NYRT-OP1`, `OHOU-TX1`,
 2. Re-run `check_coordinate_coverage.py` — target **much higher** than 37% flow retained.
 3. Update `outputs/iterations/iteration_notes.md` with a new iteration entry.
 
-See also: `manual_geocoding/README.md`
+See also: `data/reference/manual_geocoding/README.md`

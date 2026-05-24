@@ -9,7 +9,7 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parents[1]
 PROCESSED = BASE / "data/processed"
-MANUAL_DIR = BASE / "manual_geocoding"
+MANUAL_DIR = BASE / "data/reference/manual_geocoding"
 
 # Keep in sync with add_state_centroid_coordinates.py
 STATE_CENTROIDS: dict[str, tuple[float, float]] = {

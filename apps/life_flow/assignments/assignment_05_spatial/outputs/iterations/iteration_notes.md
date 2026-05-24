@@ -11,6 +11,7 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 | **04** | `dot_map` | Single-map donor + transplant dots — no arcs (`iteration_04/`) |
 | **05** | `dot_map_volume` | 2-panel proportional bubbles by volume (`iteration_05/`) |
 | **06** | `dot_map_volume_singles` | Stacked full-width volume singles (`iteration_06/`) |
+| **07 (submission)** | `dot_map_volume_unified` | Single-map explorer: global scale, site toggle, organ filter (`iteration_07_volume_unified/`) |
 | **Hub experiment** | `single` + `SHOW_DESTINATION_HUBS` | Hub circles on one map (see `iteration_03_hub_emphasis/`) |
 
 ## Iteration 1: Top 50 flow map
@@ -39,6 +40,14 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 - **Switch:** `LAYOUT_MODE = "dot_map_volume_singles"`
 - **Layout:** Full-width donor map, then full-width transplant map (stacked)
 - **Folder:** `outputs/iterations/iteration_06/`
+
+## Iteration 07: Unified volume explorer (submission candidate)
+
+- **Switch:** `LAYOUT_MODE = "dot_map_volume_unified"` (default in `app/main.js`)
+- **Layout:** One map; transplant centers default; donor recovery toggle; organ picker
+- **Scale:** Global sqrt min–max per site type (comparable across organs)
+- **Folder:** `outputs/iterations/iteration_07_volume_unified/`
+- **Lineage:** Extends Iteration 05 proportional bubbles; drops dual-panel clutter and per-organ-only scaling
 
 ## Iteration 05: Proportional volume bubbles
 
@@ -79,7 +88,7 @@ Snapshot folder for D3 flow-map prototypes (`app/main.js`). Coordinates are part
 - **Nodes:** shared `all_nodes_with_coordinates.csv`
 - **Console:** `[organ summary]` logs organ mode, total flow, rendered flow %, edge count
 - **Visuals:** same projection, legend, and layout as Iteration 01 / v1 Final
-- **Screenshot target:** `outputs/iterations/iteration_02/`
+- **Screenshot target:** `outputs/iterations/iterations02_network_map_by_organ/`
 
 ## Version 1 Final (presentation layout)
 

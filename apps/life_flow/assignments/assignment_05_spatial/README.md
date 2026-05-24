@@ -1,75 +1,76 @@
-# MSDS 455 – Assignment 05 (Spatial  Data)
+# MSDS 455 Assignment 05 — Spatial Data
 
-## Overview
+**Source:** OPTN/UNOS Advanced Reports, 2025 (donor-to-transplant center flows and site volumes).
 
-This project examines _
+## Project Summary
 
+This assignment maps the U.S. organ transplant system in geographic space. Starting from donor-to-transplant (D2T) flow tables, we geocoded donor recovery organizations and transplant centers, then iterated on layout and encoding in D3. The **submission build** is a single-map **proportional bubble explorer**: bubble area reflects 2025 transplant or donation volume at each site, with toggles for site type (transplant center vs donor recovery) and organ. Earlier prototypes tested dense flow networks, per-organ comparisons, geography splits, and dot maps before settling on volume-scaled bubbles and a unified global scale.
 
-__ using OPTN waitlist data. Exploratory visual analysis tested several relational encodings before converging on a single comparative view.
+## Key Iterations
 
-The **final visualization** is 
+Detailed notes and screenshots live in `outputs/iterations/` (see `iteration_notes.md`).
 
----
+| # | Focus | Layout mode (`app/main.js`) | Output folder (examples) |
+|---|--------|----------------------------|---------------------------|
+| **01** | Dense all-organ flow network | `single` | `iteration_01_network_map_all_organs/` |
+| **02** | Per-organ flow maps & 2×4 small multiples | `single`, `small_multiples` | `iterations02_network_map_by_organ/`, `iteration_02b_small_multiples/` |
+| **03** | Donor vs transplant geography; bubble/arc variants | `geography_comparison` | `iteration_03a_Bubble_and_Arcs/`, `iteration_03b_Bubbles_and_Less_Arcs/` |
+| **04** | Simple dot map (sites only, no flows) | `dot_map` | `iteration_04_dot_map/` |
+| **05** | Proportional volume bubbles (dual panel) | `dot_map_volume` | `iteration_05_bubble_map/` |
+| **06** | Stacked full-width volume singles | `dot_map_volume_singles` | (documented in `iteration_notes.md`) |
+| **07** | **Unified explorer (submission)** — one map, organ filter, global sqrt scale | `dot_map_volume_unified` | `app/` (see `iteration_notes.md`; extends `iteration_05_bubble_map/`) |
 
-## Key Insight
+Iteration 07 extends Iteration 05: comparable bubble sizes across organs, sidebar legend, collapsible audit notes, and interactive tooltips on the unified map.
 
-- *
-- *
----
+## How to Launch
 
-## Final Visualization
+From the assignment root (`assignment_05_spatial/`):
 
-**Chart:** *Distribution of wait times by organ* (burden-sorted heatmap)
-
-**Public view (GitHub Pages):**  
-https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/index_assignment_04.html
-
-| Artifact | Location |
-
-
-
-
-
-
-Palette: Charcoal Forrest sequential scale on Museum White, with Life Flow typography and OPTN source citation.
-
----
-
-## Project Structure
-
+```bash
+python3 -m http.server 8080
 ```
 
+Then open either:
+
+- **`http://localhost:8080/app/`** — interactive map (recommended), or  
+- **`click_here_to_start.html`** at the assignment root (redirects to `app/`).
+
+The submission layout is the default in code:
+
+```js
+const LAYOUT_MODE = "dot_map_volume_unified";
 ```
 
----
+To preview an earlier iteration, change `LAYOUT_MODE` in `app/main.js`, save, and hard-refresh. If styles or script look stale, bump the cache query on `app/index.html` (e.g. `?v=20260523-26` on `styles.css` and `main.js`).
 
-## Data Source
+**Static deliverables:** `outputs/final/final_slide.pdf` and `outputs/final/click_here_to_start.html` (same app entry; serve from assignment root so relative paths resolve).
 
-**Citation:** Organ Procurement and Transplantation Network (OPTN). 2025. OPTN Advanced Reports.
+## Repository Structure
 
-**Primary report (final chart):** ``
+```
+assignment_05_spatial/
+├── app/                          # D3 visualization (main.js, styles.css, index.html)
+├── click_here_to_start.html      # Shortcut to app/
+├── data/
+│   ├── processed/                # Nodes, D2T edges, organ summaries (CSV)
+│   ├── raw/                      # OPTN source extracts
+│   └── reference/
+│       └── manual_geocoding/     # Hand-verified coordinates workbook
+├── notebook/                     # EDA and design notes (Jupyter)
+├── notes/                        # Geocoding workflow documentation
+├── outputs/
+│   ├── final/                    # final_slide.pdf, launch HTML
+│   ├── iterations/               # Screenshots + iteration_notes.md
+│   └── Appendix A: Final_Bubble_by_Organ/   # Per-organ bubble appendix exports
+├── scripts/                      # Build edges, geocode, coverage checks
+└── README.md
+```
 
-**References:**
+## Other References
 
-- OPTN / HRSA: https://www.hrsa.gov/optn  
-- Data & reports: https://www.hrsa.gov/optn/data/data-reports  
-- Advanced report builder: https://hrsa.unos.org/data/view-data-reports/build-advanced/
-
-Report definitions and recreation notes: `data/notes/`
-
----
-
-## Exploratory Data Analysis
----
-
-## Notes / Limitations
-
-
-
----
-
-## AI Disclosure
-
-AI tools were used for coding assistance, debugging, and iterative visualization refinement. Tools used are OpenAI (ChatGPT 4.5) as well as Cursor.ai for architecture.  Grammarly was used for editing and spell Check. 
-
-Analytical decisions, data interpretation, source selection, and final design choices were reviewed and directed by the author.
+| Resource | Location |
+|----------|----------|
+| Iteration history | `outputs/iterations/iteration_notes.md` |
+| EDA | `notebook/eda_assignment05_spatial.ipynb` |
+| Geocoding pipeline | `notes/geocoding_workflow.md`, `scripts/apply_manual_geocoding.py` |
+| Processed nodes (map) | `data/processed/all_nodes_with_coordinates.csv` |

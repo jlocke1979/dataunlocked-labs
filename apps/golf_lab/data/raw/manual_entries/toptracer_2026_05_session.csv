@@ -1,0 +1,10 @@
+session_id,date,source_image,club,shot_number,flat_carry_yd,total_yd,ball_speed_mph,launch_deg,apex_ft,landing_deg,curve_ft,curve_dir,offline_ft,offline_dir,notes,exclude_flag
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,1,80,80,76,33,75,58,11,R,36,R,good wedge flight,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,2,78,83,72,23,39,39,40,L,81,L,big pull/curve,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,3,76,82,70,24,37,36,31,L,80,L,big pull/curve,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,4,67,68,64,31,48,49,0,R,2,R,solid directional shot,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,5,55,57,56,34,40,48,0,R,1,R,short but straight,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,6,42,45,48,41,33,47,0,L,22,R,short high contact,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,7,35,71,66,7,4,9,5,R,52,R,thin/bladed,TRUE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,8,55,57,55,41,46,50,2,L,20,R,short high contact,FALSE
+toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,9,39,43,46,41,30,48,1,L,28,R,short high contact,FALSE

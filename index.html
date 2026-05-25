@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>DataUnlocked Labs</title>
 
   <style>
@@ -18,66 +19,80 @@
       margin-bottom: 0;
     }
 
+    .intro {
+      color: #444;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      max-width: 720px;
+    }
+
     .subtitle {
       color: #666;
-      margin-top: 8px;
+      margin-top: 0;
       margin-bottom: 36px;
+      font-size: 0.95rem;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 24px;
+      align-items: stretch;
     }
 
     .card {
+      display: flex;
+      flex-direction: column;
       border: 1px solid #ddd;
       border-radius: 14px;
       padding: 20px;
       text-decoration: none;
       color: inherit;
       background: #fafafa;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card:hover {
       background: #f2f2f2;
       transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     }
 
     .card h2 {
       margin-top: 0;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
     }
 
     .card p {
       color: #555;
-      margin-bottom: 18px;
+      margin: 0 0 16px;
+      flex: 1;
     }
 
     .preview-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
+      margin-top: auto;
     }
 
-    .preview-grid img {
+    .preview-grid img,
+    .preview-single img {
       width: 100%;
       border-radius: 10px;
       border: 1px solid #ccc;
-      background: white;
+      background: #fff;
+      display: block;
     }
 
-    .coming-soon {
-      height: 220px;
+    .card-meta {
+      margin-top: auto;
+      padding: 14px 16px;
       border-radius: 10px;
-      border: 1px dashed #bbb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
+      border: 1px solid #e0e0e0;
       background: #fff;
-      font-size: 0.95rem;
+      color: #666;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -86,59 +101,74 @@
 
   <h1>DataUnlocked Labs</h1>
 
+  <p class="intro">
+    A portfolio of personal analytics and visualization work: coursework prototypes,
+    golf performance charts, and small interactive tools. Each card links to a static
+    or browser-based demo suitable for GitHub Pages.
+  </p>
+
   <p class="subtitle">
-    Personal data projects, prototypes, analytics experiments, and visualization work.
+    Open a project below. Image previews use files shipped in this repository.
   </p>
 
   <div class="cards">
 
-    <!-- Golf Analytics -->
-    <a class="card" href="apps/golf_analytics/">
-      <h2>Golf Analytics</h2>
-
-      <p>
-        Golf Pad score trends, rolling averages, blow-up hole tracking,
-        penalties, and performance heatmaps.
-      </p>
-
-      <div class="preview-grid">
-
-        <img src="apps/golf_analytics/visuals/final_outputs/score_vs_par_heatmap_green_purple.png"
-             alt="Score vs Par Heatmap">
-
-        <img src="apps/golf_analytics/visuals/final_outputs/blowup_heatmap_red.png"
-             alt="Blow-Up Hole Heatmap">
-
-        <img src="apps/golf_analytics/visuals/final_outputs/adjusted_18_score_rolling_average.png"
-             alt="Adjusted 18 Score Rolling Average">
-
-      </div>
-    </a>
-
     <!-- Life Flow -->
     <a class="card" href="apps/life_flow/app/">
       <h2>Life Flow</h2>
-
       <p>
-        Organ transplant data visualization and narrative storytelling project.
+        MSDS spatial assignment — OPTN transplant system sites as proportional
+        bubble maps with organ and site-type filters.
       </p>
+      <div class="preview-single">
+        <img
+          src="apps/life_flow/assignments/assignment_05_spatial/outputs/iterations/iteration_05_bubble_map/iteration05_final.png"
+          alt="Life Flow proportional bubble map preview"
+        />
+      </div>
+    </a>
 
-      <div class="coming-soon">
-        Preview coming soon
+    <!-- Golf Analytics -->
+    <a class="card" href="apps/golf_analytics/">
+      <h2>Golf Analytics</h2>
+      <p>
+        Golf Pad score trends, blow-up holes, and performance heatmaps from
+        round-level exports.
+      </p>
+      <div class="preview-grid">
+        <img
+          src="apps/golf_analytics/visuals/score_vs_par_heatmap_green_purple.png"
+          alt="Score vs par heatmap"
+        />
+        <img
+          src="apps/golf_analytics/visuals/blowup_heatmap_red.png"
+          alt="Blow-up hole heatmap"
+        />
+        <img
+          src="apps/golf_analytics/visuals/raw_score_by_round_labeled_holes.png"
+          alt="Raw score by round"
+        />
       </div>
     </a>
 
     <!-- Pass Decision -->
     <a class="card" href="apps/pass_decision/pass_decision.html">
       <h2>Pass Decision</h2>
-
       <p>
-        Golf course pass and membership decision analytics tool.
+        Interactive season-pass vs pay-as-you-play calculator for golf membership
+        decisions (D3 sliders).
       </p>
+      <p class="card-meta">Interactive demo — no static preview image in repo.</p>
+    </a>
 
-      <div class="coming-soon">
-        Preview coming soon
-      </div>
+    <!-- Golf Fitting Lab -->
+    <a class="card" href="labs/golf/fitting-dispersion.html">
+      <h2>Golf Fitting Lab</h2>
+      <p>
+        Lab exercise on shot dispersion and fitting scenarios (D3 experiment under
+        <code>labs/golf/</code>).
+      </p>
+      <p class="card-meta">Open lab page — no preview image in repo.</p>
     </a>
 
   </div>

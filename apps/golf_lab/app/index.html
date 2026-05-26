@@ -108,7 +108,7 @@ bindChartToggle("toggle-scatter", "panel-scatter");
 
 const barSvg = d3.select("#bar-chart");
 
-d3.csv("/apps/golf_lab/data/processed/club_summary.csv").then(raw => {
+d3.csv("../data/processed/club_summary.csv").then(raw => {
 
   let data = raw
     .map(d => ({
@@ -174,7 +174,7 @@ function isExcluded(flag) {
   return v === "true" || v === "1" || v === "yes";
 }
 
-d3.csv("/apps/golf_lab/data/processed/shots_clean.csv").then(raw => {
+d3.csv("../data/processed/shots_clean.csv").then(raw => {
 
   const shots = raw
     .filter(d => !isExcluded(d.exclude_flag))

@@ -1,0 +1,31 @@
+date,course,tee,completed_holes,gross_score,gross_over_par,rating,slope,penalties,score_differential,differential_type
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,,18,119,47,,,6,47.0,estimate_over_par
+2025-09-12,Newman Golf Course,,9,58,22,,,2,,nine_hole
+2025-09-14,Howard D. Kellogg Golf Course - Executive,White,9,56,22,64.8,105,2,,nine_hole
+2025-09-28,Quail Meadows Golf Club,,9,59,23,,,1,,nine_hole
+2025-10-03,Madison Golf Course,,18,97,28,,,2,28.0,estimate_over_par
+2025-10-05,Newman Golf Course,,18,128,56,,,6,56.0,estimate_over_par
+2025-10-10,Newman Golf Course,,9,61,25,,,1,,nine_hole
+2025-10-12,Newman Golf Course,,18,133,61,,,0,61.0,estimate_over_par
+2025-10-15,Quail Meadows Golf Club,,9,54,18,,,1,,nine_hole
+2025-10-17,Quail Meadows Golf Club,,9,56,20,,,1,,nine_hole
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,,13,79,28,,,2,,incomplete
+2025-11-05,Newman Golf Course,,9,60,24,,,2,,nine_hole
+2026-02-13,Howard D. Kellogg Golf Course - Executive,White,9,56,22,64.8,105,1,,nine_hole
+2026-02-15,Howard D. Kellogg Golf Course - Executive,White,9,55,21,64.8,105,1,,nine_hole
+2026-02-16,Newman Golf Course,Gold,9,60,24,66.9,117,1,,nine_hole
+2026-02-17,Newman Golf Course,Gold,9,60,24,66.9,117,1,,nine_hole
+2026-02-19,Newman Golf Course,Gold,9,65,29,66.9,117,4,,nine_hole
+2026-02-24,Newman Golf Course,Gold,9,61,25,66.9,117,3,,nine_hole
+2026-02-25,Newman Golf Course,White,9,73,37,70.9,127,4,,nine_hole
+2026-03-06,Newman Golf Course,White,18,117,45,70.9,127,4,41.0,whs_18
+2026-03-31,Isle Dauphine Golf Club,White,9,74,38,69.5,120,6,,nine_hole
+2026-04-03,Orange Beach Golf Center - Orange Beach,White,9,57,30,53.2,86,0,,nine_hole
+2026-04-14,Newman Golf Course,White,18,135,63,70.9,127,8,57.0,whs_18
+2026-04-23,Newman Golf Course,White,18,114,42,70.9,127,1,38.3,whs_18
+2026-04-25,Madison Golf Course,White,9,62,27,63.8,92,0,,nine_hole
+2026-05-05,Newman Golf Course,White,9,56,20,70.9,127,0,,nine_hole
+2026-05-07,Newman Golf Course,White,17,113,44,70.9,127,4,,incomplete
+2026-05-12,Newman Golf Course,White,9,56,20,70.9,127,4,,nine_hole
+2026-05-20,Madison Golf Course,White,9,54,20,63.8,92,0,,nine_hole
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,Red,9,51,15,65.5,116,1,,nine_hole

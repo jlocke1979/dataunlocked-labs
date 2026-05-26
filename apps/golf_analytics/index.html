@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Golf Analytics — Round &amp; Course Views</title>
+  <title>Golf Analytics — Interactive Dashboard</title>
   <style>
     :root {
       --bg: #f7f5f0;
@@ -15,11 +15,11 @@
       --accent-green: #3d6b5a;
       --accent-rose: #9a5c52;
       --placeholder: #8a8478;
+      --notable-bg: rgba(154, 92, 82, 0.06);
+      --controls-bg: #f0efe9;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -30,157 +30,367 @@
     }
 
     .page {
-      max-width: 980px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 2.25rem 1.5rem 3rem;
+      padding: 2rem 1.5rem 3rem;
     }
 
     .site-header {
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
       border-bottom: 1px solid var(--border);
     }
-
     .site-header h1 {
       margin: 0 0 0.35rem;
       font-size: 1.75rem;
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: var(--text);
     }
-
     .site-header .lede {
       margin: 0;
       max-width: 40rem;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     .view-index {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      margin: 1.25rem 0 0;
+      gap: 0.45rem 1rem;
+      margin: 1rem 0 0;
       padding: 0;
       list-style: none;
-      font-size: 0.8125rem;
+      font-size: 0.8rem;
     }
-
     .view-index a {
       color: var(--accent-slate);
       text-decoration: none;
       border-bottom: 1px solid transparent;
     }
+    .view-index a:hover { border-bottom-color: var(--accent-slate); }
 
-    .view-index a:hover {
-      border-bottom-color: var(--accent-slate);
-    }
-
-    .view {
-      margin-bottom: 2.5rem;
-    }
-
-    .view-header {
-      margin-bottom: 1rem;
-    }
-
+    .view { margin-bottom: 2.25rem; }
+    .view-header { margin-bottom: 1rem; }
     .view-header h2 {
       margin: 0 0 0.25rem;
       font-size: 1.2rem;
       font-weight: 600;
-      color: var(--text);
     }
-
     .view-header p {
       margin: 0;
-      max-width: 42rem;
+      max-width: 44rem;
       color: var(--muted);
       font-size: 0.875rem;
     }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .summary-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 2px 8px rgba(32, 38, 35, 0.04);
+    }
+    .summary-card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-green);
+    }
+    .summary-value {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+    .summary-detail {
+      margin: 0.25rem 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .controls-section { margin-bottom: 2rem; }
+    .controls-shell {
+      background: var(--controls-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem 1.15rem;
+    }
+    .controls-shell > .controls-heading {
+      margin: 0 0 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-slate);
+    }
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 0.75rem 1.25rem;
+    }
+    .control-group {
+      margin: 0;
+      padding: 0.65rem 0.75rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .control-group legend {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+      padding: 0;
+    }
+    .control-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .control-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .control-options input { accent-color: var(--accent-green); }
+
+    #dashboard-error {
+      margin: 0 0 1.25rem;
+      padding: 0.85rem 1rem;
+      background: #f5ebe8;
+      border: 1px solid #d4b8b2;
+      border-radius: 6px;
+      color: var(--accent-rose);
+      font-size: 0.875rem;
+    }
+    #dashboard-error[hidden] { display: none; }
 
     .card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.25rem 1.35rem 1.35rem;
+      padding: 1.2rem 1.3rem 1.3rem;
       box-shadow: 0 2px 10px rgba(32, 38, 35, 0.05);
     }
-
-    .card + .card {
-      margin-top: 1rem;
-    }
+    .card + .card { margin-top: 1rem; }
 
     .card-label {
       display: inline-block;
-      margin: 0 0 0.75rem;
-      font-size: 0.7rem;
+      margin: 0 0 0.65rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      color: var(--accent-slate);
+    }
+    .card-label.live { color: var(--accent-green); }
+    .card-label.legacy { color: var(--placeholder); }
+
+    .subsection-title {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .handicap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .handicap-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+    }
+    .handicap-card-primary {
+      border-left: 3px solid var(--accent-slate);
+    }
+    .handicap-card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       color: var(--accent-green);
     }
-
-    .card-label.placeholder {
-      color: var(--placeholder);
-    }
-
-    .card-label.analysis {
-      color: var(--accent-rose);
-    }
-
-    figure {
+    .handicap-value {
       margin: 0;
+      font-size: 1.75rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .handicap-detail {
+      margin: 0.35rem 0 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .handicap-formula {
+      margin: 0 0 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .future-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .future-box {
+      padding: 0.7rem 0.85rem;
+      background: #f0efe9;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .future-box strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.72rem;
+      margin-bottom: 0.2rem;
+    }
+    .future-box-muted { opacity: 0.92; }
+    .handicap-table .row-used { background: rgba(61, 107, 90, 0.08); }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      overflow-x: auto;
+    }
+    .chart-wrap svg {
+      display: block;
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+    }
+    #chart-heatmap svg {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+    }
+    .chart-empty {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
     }
 
+    .chart-tooltip {
+      position: absolute;
+      pointer-events: none;
+      padding: 0.45rem 0.6rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(32, 38, 35, 0.12);
+      opacity: 0;
+      transition: opacity 0.1s;
+      z-index: 2;
+      max-width: 240px;
+    }
+    .chart-tooltip.visible { opacity: 1; }
+
+    .heatmap-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.85rem;
+      margin-top: 0.85rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .heatmap-legend .legend-title {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-slate);
+    }
+    .legend-swatch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .legend-swatch i {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      font-style: normal;
+    }
+    .legend-note {
+      flex: 1 1 100%;
+      font-size: 0.7rem;
+    }
+
+    .table-toolbar { margin-bottom: 0.65rem; }
+    .btn-text {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.8rem;
+      color: var(--accent-slate);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .btn-text:hover { color: var(--accent-green); }
+
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .rank-table th,
+    .rank-table td {
+      padding: 0.45rem 0.55rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .rank-table th {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .rank-table .col-rank { width: 2.5rem; color: var(--muted); }
+    .rank-table .col-score {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+    .rank-table tr.row-notable { background: var(--notable-bg); }
+
+    figure { margin: 0; }
     figure img {
       display: block;
       width: 100%;
       max-width: 900px;
       height: auto;
       border-radius: 4px;
+      opacity: 0.9;
     }
-
     figcaption {
-      margin-top: 0.65rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .callout {
-      margin: 0 0 1rem;
-      padding: 0.9rem 1rem;
-      background: #f0efe9;
-      border-left: 3px solid var(--accent-slate);
-      border-radius: 0 6px 6px 0;
-      font-size: 0.875rem;
-      color: var(--text);
-    }
-
-    .callout strong {
-      color: var(--accent-green);
-      font-weight: 600;
-    }
-
-    .callout .target-score {
-      font-variant-numeric: tabular-nums;
-      color: var(--accent-rose);
-      font-weight: 600;
-    }
-
-    .future-grid {
-      display: grid;
-      gap: 0.75rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .future-grid li {
-      padding: 0.75rem 1rem;
-      background: #f0efe9;
-      border: 1px dashed var(--border);
-      border-radius: 6px;
-      font-size: 0.85rem;
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
       color: var(--muted);
     }
 
@@ -198,137 +408,152 @@
     <header class="site-header">
       <h1>Golf Analytics</h1>
       <p class="lede">
-        Canonical public dashboard for personal Golf Pad rounds—static chart exports
-        organized by analytical view. Live parsing and skill metrics arrive with
-        processed exports.
+        Interactive 9-hole analysis from processed GolfPad exports.
       </p>
-      <ul class="view-index" aria-label="Dashboard views">
-        <li><a href="#round-timeline">Round Timeline</a></li>
-        <li><a href="#best-nine">Best 9-Hole Records</a></li>
-        <li><a href="#course-distribution">Course Distribution</a></li>
-        <li><a href="#hole-analysis">Hole / Blow-Up Analysis</a></li>
-        <li><a href="#future-skills">Future Skill Views</a></li>
+      <ul class="view-index" aria-label="Sections">
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#round-timeline">Timeline</a></li>
+        <li><a href="#course-distribution">Courses</a></li>
+        <li><a href="#round-records">Rounds Table</a></li>
+        <li><a href="#hole-heatmaps">Heatmaps</a></li>
+        <li><a href="#handicap">Handicap</a></li>
+        <li><a href="#penalties">Penalties</a></li>
       </ul>
     </header>
 
-    <section class="view" id="round-timeline">
+    <p id="dashboard-error" hidden></p>
+
+    <section class="view" id="summary">
       <div class="view-header">
-        <h2>1. Round Timeline</h2>
-        <p>Raw score by round with hole labels—primary trend line across recorded rounds.</p>
+        <h2>Summary</h2>
+        <p>Key benchmarks from the current export. Kellogg 51 (2026-05-24 front) is noted in tooltips where it appears.</p>
       </div>
-      <article class="card">
-        <span class="card-label">Published chart</span>
-        <figure>
-          <img
-            src="visuals/raw_score_by_round_labeled_holes.png"
-            alt="Raw score by round with labeled holes"
-            width="900"
-          />
-          <figcaption>Exported from Golf Pad round history; updates when charts are regenerated.</figcaption>
-        </figure>
-      </article>
+      <div class="summary-grid" id="summary-cards"></div>
     </section>
 
-    <section class="view" id="best-nine">
+    <section class="controls-section" aria-label="Dashboard filters">
+      <div class="controls-shell" id="controls-panel">
+        <p class="controls-heading">Filters</p>
+        <div class="controls-grid">
+          <fieldset class="control-group">
+            <legend>X-axis</legend>
+            <div class="control-options">
+              <label><input type="radio" name="xMode" data-control value="equal" checked /> Equal rounds</label>
+              <label><input type="radio" name="xMode" data-control value="date" /> Date</label>
+            </div>
+          </fieldset>
+          <fieldset class="control-group">
+            <legend>Metric</legend>
+            <div class="control-options">
+              <label><input type="radio" name="metric" data-control value="score" checked /> Score</label>
+              <label><input type="radio" name="metric" data-control value="score_vs_par" /> vs par</label>
+            </div>
+          </fieldset>
+          <fieldset class="control-group">
+            <legend>Rolling avg</legend>
+            <div class="control-options">
+              <label><input type="radio" name="rolling" data-control value="off" checked /> Off</label>
+              <label><input type="radio" name="rolling" data-control value="5" /> 5-round</label>
+              <label><input type="radio" name="rolling" data-control value="10" /> 10-round</label>
+            </div>
+          </fieldset>
+          <fieldset class="control-group">
+            <legend>Format</legend>
+            <div class="control-options">
+              <label><input type="radio" name="holeFormat" data-control value="nine" checked /> 9-hole</label>
+              <label><input type="radio" name="holeFormat" data-control value="eighteen" /> 18-hole</label>
+            </div>
+          </fieldset>
+          <fieldset class="control-group">
+            <legend>Course</legend>
+            <div class="control-options">
+              <label><input type="radio" name="courseFilter" data-control value="all" checked /> All</label>
+              <label><input type="radio" name="courseFilter" data-control value="newman" /> Newman</label>
+              <label><input type="radio" name="courseFilter" data-control value="kellogg" /> Kellogg</label>
+              <label><input type="radio" name="courseFilter" data-control value="madison" /> Madison</label>
+              <label><input type="radio" name="courseFilter" data-control value="quail" /> Quail Meadows</label>
+              <label><input type="radio" name="courseFilter" data-control value="other" /> Other</label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="round-timeline">
       <div class="view-header">
-        <h2>2. Best 9-Hole Records</h2>
-        <p>Front/back nine bests and benchmark checks against known standout rounds.</p>
+        <h2>Round Timeline</h2>
+        <p>Subtle line and points; hover for details. Click to select across views.</p>
       </div>
       <article class="card">
-        <span class="card-label">Best 9-hole check</span>
-        <p class="callout">
-          Once Golf Pad export is parsed, this dashboard will compare recorded front/back
-          nine scores against the Kellogg Championship front 9 benchmark:
-          <span class="target-score">51</span>.
-          Until then, no automated best-nine table is shown—only the declared target above.
-        </p>
-        <p style="margin: 0; font-size: 0.85rem; color: var(--muted);">
-          Recorded rounds and nine-hole splits will populate here after
-          <code>data/processed/</code> is built from export CSVs.
-        </p>
+        <div class="chart-wrap" id="chart-timeline">
+          <div class="chart-tooltip"></div>
+        </div>
       </article>
     </section>
 
     <section class="view" id="course-distribution">
       <div class="view-header">
-        <h2>3. Course Distribution</h2>
-        <p>How scores spread across courses—stepping stone toward per-course histograms.</p>
+        <h2>Course Distribution</h2>
+        <p>Jittered dot plot by course—filters apply.</p>
       </div>
       <article class="card">
-        <span class="card-label placeholder">Placeholder — future histogram views</span>
-        <figure>
-          <img
-            src="visuals/score_distribution_by_course.png"
-            alt="Score distribution by course (interim export)"
-            width="900"
-          />
-          <figcaption>
-            Interim course-level distribution chart. Will be replaced or supplemented by
-            dedicated histogram views per course when the pipeline is live.
-          </figcaption>
-        </figure>
+        <div class="chart-wrap" id="chart-courses">
+          <div class="chart-tooltip"></div>
+        </div>
       </article>
     </section>
 
-    <section class="view" id="hole-analysis">
+    <section class="view" id="round-records">
       <div class="view-header">
-        <h2>4. Hole / Blow-Up Analysis</h2>
-        <p>Score vs. par patterns and blow-up hole concentration across the bag.</p>
+        <h2>Rounds Table</h2>
+        <p>Default top 10 by lowest score (vs par tiebreaker).</p>
       </div>
       <article class="card">
-        <span class="card-label analysis">Score vs. par (grouped v3)</span>
-        <figure>
-          <img
-            src="visuals/score_vs_par_heatmap_green_purple_grouped_v3.png"
-            alt="Score vs par heatmap, grouped variant v3"
-            width="900"
-          />
-          <figcaption>Current grouped heatmap export (green / purple palette).</figcaption>
-        </figure>
-      </article>
-      <article class="card">
-        <span class="card-label analysis">Double-bogey target emphasis</span>
-        <figure>
-          <img
-            src="visuals/score_vs_par_heatmap_double_bogey_target.png"
-            alt="Score vs par heatmap highlighting double-bogey targets"
-            width="900"
-          />
-          <figcaption>Companion view stressing double-bogey and worse outcomes.</figcaption>
-        </figure>
-      </article>
-      <article class="card">
-        <span class="card-label analysis">Blow-up holes</span>
-        <figure>
-          <img
-            src="visuals/blowup_heatmap_red.png"
-            alt="Blow-up hole heatmap"
-            width="900"
-          />
-          <figcaption>Where blow-up holes cluster across rounds.</figcaption>
-        </figure>
+        <div id="table-rounds"></div>
       </article>
     </section>
 
-    <section class="view" id="future-skills">
+    <section class="view" id="hole-heatmaps">
       <div class="view-header">
-        <h2>5. Future Skill Views</h2>
-        <p>Putting, approach, scrambling, and strokes-gained style panels—reserved for parsed shot and stat exports.</p>
+        <h2>Hole Heatmaps</h2>
+        <p>Interactive score-vs-par grid — hover cells for strokes and round penalties when available.</p>
       </div>
       <article class="card">
-        <span class="card-label placeholder">Planned views</span>
-        <ul class="future-grid">
-          <li>Putting vs. GIR — not yet exported</li>
-          <li>Scrambling and up-and-down — awaiting processed tables</li>
-          <li>Fairway / approach dispersion — requires lie and distance fields</li>
-          <li>Strokes-gained style summaries — future pipeline only</li>
-        </ul>
+        <span class="card-label live">Score vs par by hole</span>
+        <div class="chart-wrap" id="chart-heatmap">
+          <div class="chart-tooltip"></div>
+        </div>
+        <div class="heatmap-legend" id="heatmap-legend"></div>
+      </article>
+    </section>
+
+    <section class="view" id="handicap">
+      <div class="view-header">
+        <h2>Handicap Calculations</h2>
+        <p>World Handicap System index from GolfPad rounds export — rating and slope when available.</p>
+      </div>
+      <article class="card">
+        <div id="handicap-panel"></div>
+      </article>
+    </section>
+
+    <section class="view" id="penalties">
+      <div class="view-header">
+        <h2>Penalties</h2>
+        <p>Round penalty counts from GolfPad — scatter vs gross score. Penalty counts also appear in heatmap tooltips when matched to that nine or 18.</p>
+      </div>
+      <article class="card">
+        <div id="penalties-panel"></div>
       </article>
     </section>
 
     <footer class="site-footer">
-      Static gallery · charts in <code>visuals/</code> · no live ETL in this folder yet.
+      D3 v7 · processed CSVs in <code>data/processed/</code> ·
+      <code>python3 -m http.server 8080</code> → <code>/apps/golf_analytics/</code>
     </footer>
   </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

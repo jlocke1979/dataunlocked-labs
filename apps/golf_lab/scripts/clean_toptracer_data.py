@@ -8,6 +8,9 @@ out_path = BASE / "data/processed/shots_clean.csv"
 
 df = pd.read_csv(raw_path)
 
+# Toptracer labels gap wedge as GW; normalize to AW for consistency
+df["club"] = df["club"].astype(str).str.strip().str.upper().replace({"GW": "AW"})
+
 numeric_cols = [
     "flat_carry_yd","total_yd","ball_speed_mph","launch_deg",
     "apex_ft","landing_deg","curve_ft","offline_ft"

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Golf Lab</title>
+  <link rel="icon" href="data:,">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+    h1 { margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 20px; }
+    .chart-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      margin-bottom: 24px;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    .chart-controls label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .chart-panel { margin-bottom: 40px; }
+    .chart-panel.hidden { display: none; }
+    .chart-panel svg { background: white; border: 1px solid #ddd; display: block; }
+    .chart-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+    .tooltip {
+      position: absolute;
+      padding: 8px 10px;
+      background: rgba(30, 30, 30, 0.92);
+      color: #fff;
+      font-size: 12px;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+<h1>Golf Lab</h1>
+<div class="subtitle">Toptracer swing analytics</div>
+
+<div class="chart-controls">
+  <label>
+    <input type="checkbox" id="toggle-bar" checked>
+    Average carry by club
+  </label>
+  <label>
+    <input type="checkbox" id="toggle-scatter">
+    Shot space: direction × carry × speed
+  </label>
+</div>
+
+<section id="panel-bar" class="chart-panel">
+  <div class="chart-title">Average carry by club</div>
+  <svg id="bar-chart" width="1000" height="500"></svg>
+</section>
+
+<section id="panel-scatter" class="chart-panel">
+  <div class="chart-title">Shot Space: Direction × Carry × Speed</div>
+  <svg id="scatter-chart" width="1000" height="500"></svg>
+</section>
+
+<div class="tooltip"></div>
+
+<script>
+const clubOrder = [
+  "DR", "3W", "5W", "7W", "5H", "4H", "3H",
+  "6I", "7I", "8I", "9I",
+  "PW", "AW", "SW", "LW", "PT"
+];
+
+const clubPalette = [
+  "#65b74f", "#7c5fcb", "#b7b43e", "#c947a3", "#41864d", "#dd4067",
+  "#53c1a9", "#cc5433", "#658ccd", "#da9234", "#cf87db", "#83843c",
+  "#94528a", "#ba7d4d", "#e3859f", "#a74a57"
+];
+
+const clubColor = d3.scaleOrdinal()
+  .domain(clubOrder)
+  .range(clubPalette);
+
+function normalizeClub(club) {
+  const c = String(club).trim().toUpperCase();
+  return c === "GW" ? "AW" : c;
+}
+
+function bindChartToggle(checkboxId, panelId) {
+  const checkbox = document.getElementById(checkboxId);
+  const panel = document.getElementById(panelId);
+  const sync = () => panel.classList.toggle("hidden", !checkbox.checked);
+  checkbox.addEventListener("change", sync);
+  sync();
+}
+
+bindChartToggle("toggle-bar", "panel-bar");
+bindChartToggle("toggle-scatter", "panel-scatter");
+
+const barSvg = d3.select("#bar-chart");
+
+d3.csv("/apps/golf_lab/data/processed/club_summary.csv").then(raw => {
+
+  let data = raw
+    .map(d => ({
+      ...d,
+      club: normalizeClub(d.club),
+      carry_avg: Number(d.carry_avg)
+    }))
+    .filter(d => d.club && !Number.isNaN(d.carry_avg))
+    .sort((a, b) => {
+      const ai = clubOrder.includes(a.club) ? clubOrder.indexOf(a.club) : 999;
+      const bi = clubOrder.includes(b.club) ? clubOrder.indexOf(b.club) : 999;
+      return ai - bi;
+    });
+
+  const width = 1000;
+  const height = 500;
+  const margin = { top: 40, right: 40, bottom: 80, left: 80 };
+
+  const x = d3.scaleBand()
+    .domain(data.map(d => d.club))
+    .range([margin.left, width - margin.right])
+    .padding(0.3);
+
+  const y = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.carry_avg) + 20])
+    .nice()
+    .range([height - margin.bottom, margin.top]);
+
+  barSvg.selectAll("*").remove();
+
+  barSvg.selectAll("rect")
+    .data(data)
+    .join("rect")
+    .attr("x", d => x(d.club))
+    .attr("y", d => y(d.carry_avg))
+    .attr("width", x.bandwidth())
+    .attr("height", d => height - margin.bottom - y(d.carry_avg))
+    .attr("fill", d => clubColor(d.club));
+
+  barSvg.append("g")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x));
+
+  barSvg.append("g")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y));
+
+  barSvg.selectAll(".label")
+    .data(data)
+    .join("text")
+    .attr("x", d => x(d.club) + x.bandwidth() / 2)
+    .attr("y", d => y(d.carry_avg) - 8)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 12)
+    .text(d => d.carry_avg.toFixed(1));
+});
+
+const scatterSvg = d3.select("#scatter-chart");
+const tooltip = d3.select(".tooltip");
+
+function isExcluded(flag) {
+  const v = String(flag).trim().toLowerCase();
+  return v === "true" || v === "1" || v === "yes";
+}
+
+d3.csv("/apps/golf_lab/data/processed/shots_clean.csv").then(raw => {
+
+  const shots = raw
+    .filter(d => !isExcluded(d.exclude_flag))
+    .map(d => ({
+      club: normalizeClub(d.club),
+      flat_carry_yd: Number(d.flat_carry_yd),
+      ball_speed_mph: Number(d.ball_speed_mph),
+      launch_deg: Number(d.launch_deg),
+      apex_ft: Number(d.apex_ft),
+      offline_signed_ft: Number(d.offline_signed_ft)
+    }))
+    .filter(d =>
+      d.club &&
+      !Number.isNaN(d.flat_carry_yd) &&
+      !Number.isNaN(d.offline_signed_ft) &&
+      !Number.isNaN(d.ball_speed_mph)
+    );
+
+  const width = 1000;
+  const height = 500;
+  const margin = { top: 50, right: 120, bottom: 60, left: 70 };
+
+  const clubs = clubOrder.filter(c => shots.some(d => d.club === c));
+
+  const maxOffline = d3.max(shots, d => Math.abs(d.offline_signed_ft)) || 1;
+
+  const x = d3.scaleLinear()
+    .domain([-maxOffline, maxOffline])
+    .nice()
+    .range([margin.left, width - margin.right]);
+
+  const y = d3.scaleLinear()
+    .domain([0, d3.max(shots, d => d.flat_carry_yd) + 10])
+    .nice()
+    .range([height - margin.bottom, margin.top]);
+
+  const r = d3.scaleSqrt()
+    .domain(d3.extent(shots, d => d.ball_speed_mph))
+    .range([3, 10]);
+
+  scatterSvg.selectAll("*").remove();
+
+  scatterSvg.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x));
+
+  scatterSvg.append("g")
+    .attr("class", "y-axis")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y));
+
+  scatterSvg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 12)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 12)
+    .text("Offline (ft) — left (−) / right (+)");
+
+  scatterSvg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -(height / 2))
+    .attr("y", 18)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 12)
+    .text("Flat carry (yd)");
+
+  scatterSvg.append("line")
+    .attr("x1", x(0))
+    .attr("x2", x(0))
+    .attr("y1", margin.top)
+    .attr("y2", height - margin.bottom)
+    .attr("stroke", "#999")
+    .attr("stroke-dasharray", "4,4");
+
+  scatterSvg.selectAll("circle")
+    .data(shots)
+    .join("circle")
+    .attr("cx", d => x(d.offline_signed_ft))
+    .attr("cy", d => y(d.flat_carry_yd))
+    .attr("r", d => r(d.ball_speed_mph))
+    .attr("fill", d => clubColor(d.club))
+    .attr("opacity", 0.85)
+    .attr("stroke", "#333")
+    .attr("stroke-width", 0.5)
+    .on("mouseover", (event, d) => {
+      tooltip
+        .style("opacity", 1)
+        .html(
+          `<strong>${d.club}</strong><br>` +
+          `Carry: ${d.flat_carry_yd.toFixed(1)} yd<br>` +
+          `Ball speed: ${d.ball_speed_mph.toFixed(1)} mph<br>` +
+          `Launch: ${d.launch_deg.toFixed(1)}°<br>` +
+          `Apex: ${d.apex_ft.toFixed(1)} ft<br>` +
+          `Offline: ${d.offline_signed_ft.toFixed(1)} ft`
+        );
+    })
+    .on("mousemove", event => {
+      tooltip
+        .style("left", `${event.pageX + 12}px`)
+        .style("top", `${event.pageY - 28}px`);
+    })
+    .on("mouseout", () => tooltip.style("opacity", 0));
+
+  const legend = scatterSvg.append("g")
+    .attr("transform", `translate(${width - margin.right + 16},${margin.top})`);
+
+  clubs.forEach((club, i) => {
+    const row = legend.append("g")
+      .attr("transform", `translate(0,${i * 18})`);
+    row.append("circle")
+      .attr("r", 5)
+      .attr("cx", 5)
+      .attr("cy", 0)
+      .attr("fill", clubColor(club));
+    row.append("text")
+      .attr("x", 16)
+      .attr("y", 4)
+      .attr("font-size", 11)
+      .text(club);
+  });
+});
+</script>
+</body>
+</html>

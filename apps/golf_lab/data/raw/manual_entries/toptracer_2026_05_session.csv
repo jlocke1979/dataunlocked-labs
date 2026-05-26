@@ -1,10 +1,63 @@
 session_id,date,source_image,club,shot_number,flat_carry_yd,total_yd,ball_speed_mph,launch_deg,apex_ft,landing_deg,curve_ft,curve_dir,offline_ft,offline_dir,notes,exclude_flag
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,1,80,80,76,33,75,58,11,R,36,R,good wedge flight,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,2,78,83,72,23,39,39,40,L,81,L,big pull/curve,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,3,76,82,70,24,37,36,31,L,80,L,big pull/curve,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,4,67,68,64,31,48,49,0,R,2,R,solid directional shot,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,5,55,57,56,34,40,48,0,R,1,R,short but straight,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,6,42,45,48,41,33,47,0,L,22,R,short high contact,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,7,35,71,66,7,4,9,5,R,52,R,thin/bladed,TRUE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,8,55,57,55,41,46,50,2,L,20,R,short high contact,FALSE
-toptracer_2026_05,2026-05-03,IMG_7636.jpeg,PW,9,39,43,46,41,30,48,1,L,28,R,short high contact,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,1,80,80,76,33,75,58,11,R,36,R,good wedge flight,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,2,78,83,72,23,39,39,40,L,81,L,big pull/curve,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,3,76,82,70,24,37,36,31,L,80,L,big pull/curve,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,4,67,68,64,31,48,49,0,R,2,R,solid directional shot,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,5,55,57,56,34,40,48,0,R,1,R,short but straight,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,6,42,45,48,41,33,47,0,L,22,R,short high contact,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,7,35,71,66,7,4,9,5,R,52,R,thin/bladed,TRUE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,8,55,57,55,41,46,50,2,L,20,R,short high contact,FALSE
+toptracer_2026_05,5/3/26,IMG_7636.jpeg,PW,9,39,43,46,41,30,48,1,L,28,R,short high contact,FALSE
+toptracer_2026_05,5/3/26,IMG_7637.jpeg,AW,1,76,76,70,38,71,53,7,L,6,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7637.jpeg,AW,2,76,76,71,36,68,52,21,L,24,L,curve left,FALSE
+toptracer_2026_05,5/3/26,IMG_7637.jpeg,AW,3,70,71,69,38,68,55,3,L,6,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7637.jpeg,AW,4,60,62,59,30,39,47,2,L,5,L,short,FALSE
+toptracer_2026_05,5/3/26,IMG_7637.jpeg,AW,5,79,82,72,27,49,43,24,L,68,L,big miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7639.jpeg,9I,1,110,110,93,22,73,51,0,L,10,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7639.jpeg,9I,2,103,104,87,27,74,48,23,R,81,R,big right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7639.jpeg,9I,3,115,115,92,26,86,51,0,L,19,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7639.jpeg,9I,4,101,105,85,20,50,40,23,L,66,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7638.jpeg,PW,1,95,95,79,30,73,50,2,L,5,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7638.jpeg,PW,2,108,110,85,27,76,46,18,R,52,R,right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7638.jpeg,PW,3,102,103,82,29,77,48,0,L,8,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7638.jpeg,PW,4,98,99,80,31,79,49,7,L,12,L,slight left,FALSE
+toptracer_2026_05,5/3/26,IMG_7640.jpeg,8I,1,128,132,104,21,73,44,10,R,36,R,right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7640.jpeg,8I,2,132,136,108,23,81,46,0,L,4,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7640.jpeg,8I,3,137,140,113,20,70,40,14,L,28,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7640.jpeg,8I,4,130,134,109,24,79,47,3,R,10,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7641.jpeg,7I,1,138,142,114,19,67,38,20,R,58,R,right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7641.jpeg,7I,2,139,145,116,20,71,39,0,L,9,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7641.jpeg,7I,3,14,52,70,4,2,7,12,R,226,R,top/thin,TRUE
+toptracer_2026_05,5/3/26,IMG_7641.jpeg,7I,4,133,138,112,21,73,41,9,L,31,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7642.jpeg,6I,1,142,147,118,18,64,36,0,L,12,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7642.jpeg,6I,2,145,150,121,19,67,37,16,R,48,R,right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7642.jpeg,6I,3,146,152,122,18,65,36,5,L,18,L,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7642.jpeg,6I,4,139,144,116,20,69,39,20,L,55,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7643.jpeg,5H,1,161,168,127,17,61,34,0,L,14,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7643.jpeg,5H,2,173,181,134,16,59,32,18,R,52,R,big right,FALSE
+toptracer_2026_05,5/3/26,IMG_7643.jpeg,5H,3,162,170,129,18,64,35,6,L,20,L,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7643.jpeg,5H,4,148,154,120,19,66,38,14,L,39,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7644.jpeg,7W,1,158,166,126,15,55,30,4,R,18,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7644.jpeg,7W,2,164,171,131,14,52,28,0,L,10,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7644.jpeg,7W,3,151,158,122,17,61,34,15,L,44,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7644.jpeg,7W,4,160,168,128,15,56,31,8,R,26,R,right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7645.jpeg,5W,1,171,179,133,14,51,27,0,L,9,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7645.jpeg,5W,2,177,185,138,13,49,26,12,R,41,R,right miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7645.jpeg,5W,3,180,188,140,12,46,24,18,L,56,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7645.jpeg,5W,4,169,176,131,15,54,29,5,R,22,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7646.jpeg,3W,1,176,188,139,13,47,25,0,L,12,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7646.jpeg,3W,2,185,198,145,12,44,23,16,R,55,R,big right,FALSE
+toptracer_2026_05,5/3/26,IMG_7646.jpeg,3W,3,168,180,133,15,52,28,10,L,34,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7646.jpeg,3W,4,182,194,142,13,46,24,4,R,20,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7647.jpeg,DR,1,192,211,138,12,43,22,24,R,88,R,big slice,FALSE
+toptracer_2026_05,5/3/26,IMG_7647.jpeg,DR,2,205,224,144,11,39,20,0,L,18,R,solid bullet,FALSE
+toptracer_2026_05,5/3/26,IMG_7647.jpeg,DR,3,187,205,136,13,45,23,18,L,72,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7647.jpeg,DR,4,199,219,141,12,41,21,10,R,36,R,playable,FALSE
+toptracer_2026_05,5/3/26,IMG_7648.jpeg,LW,1,52,53,49,42,38,51,0,L,4,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7648.jpeg,LW,2,55,56,51,44,41,53,5,R,14,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7648.jpeg,LW,3,48,49,47,45,39,54,8,L,20,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7648.jpeg,LW,4,58,60,54,41,36,49,0,L,2,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7649.jpeg,SW,1,68,70,63,39,57,49,0,L,7,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7649.jpeg,SW,2,72,74,66,37,54,46,6,R,18,R,solid,FALSE
+toptracer_2026_05,5/3/26,IMG_7649.jpeg,SW,3,61,63,58,41,61,52,12,L,29,L,left miss,FALSE
+toptracer_2026_05,5/3/26,IMG_7649.jpeg,SW,4,75,77,69,36,51,44,0,L,6,R,solid,FALSE

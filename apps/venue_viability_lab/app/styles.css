@@ -1,0 +1,215 @@
+:root {
+  color-scheme: light;
+  --bg: #fafaf8;
+  --panel: #ffffff;
+  --text: #1a1a1a;
+  --muted: #5c5c5c;
+  --line: #c8c8c8;
+  --ink: #2a2a2a;
+  --bar: #404040;
+  --tick: #8a8a8a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Palatino Linotype", Palatino, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 4px;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.presets-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.preset-btn {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  padding: 6px 11px;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+}
+
+.preset-btn:hover {
+  border-color: var(--ink);
+}
+
+.preset-btn.active {
+  background: var(--ink);
+  color: var(--panel);
+  border-color: var(--ink);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) 1fr;
+  gap: 24px;
+}
+
+.controls,
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.controls {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 16px;
+  max-height: calc(100vh - 130px);
+  overflow: auto;
+}
+
+.control-group {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.control-group:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.control-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.control-label-row label {
+  font-size: 0.9rem;
+}
+
+.control-value {
+  font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+input[type="range"],
+input[type="number"] {
+  width: 100%;
+  accent-color: var(--ink);
+}
+
+input[type="number"] {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 6px 8px;
+  font-family: inherit;
+  background: var(--panel);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.metric-card,
+.chart-card {
+  background: var(--panel);
+  border: none;
+  border-radius: 0;
+  padding: 14px 16px;
+}
+
+.chart-card {
+  border: 1px solid var(--line);
+}
+
+.metric-card h3,
+.chart-card h3 {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.metric-value {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-value.positive,
+.metric-value.negative {
+  color: var(--text);
+}
+
+#revenueChart svg {
+  width: 100%;
+  height: 300px;
+  display: block;
+}
+
+#revenueChart .domain {
+  stroke: var(--line);
+}
+
+#revenueChart .tick line {
+  stroke: var(--line);
+}
+
+#revenueChart .tick text {
+  fill: var(--tick);
+  font-family: Georgia, "Palatino Linotype", Palatino, serif;
+  font-size: 11px;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    max-height: none;
+  }
+}

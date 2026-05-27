@@ -1,3 +1,11 @@
 .DS_Store
 
 .DS_Store
+
+# Venue viability private files
+apps/venue_viability_lab/docs/private_*
+apps/venue_viability_lab/data/raw/private_*
+
+# Venue viability private files
+apps/venue_viability_lab/docs/private_*
+apps/venue_viability_lab/data/raw/private_*

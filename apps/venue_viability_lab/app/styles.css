@@ -172,6 +172,12 @@ input[type="number"] {
   color: var(--muted);
 }
 
+.chart-context {
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
 .metric-value {
   margin: 0;
   font-size: 1.35rem;

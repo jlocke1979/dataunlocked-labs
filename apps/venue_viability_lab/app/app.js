@@ -13,9 +13,11 @@ const metricElements = {
   rentalRevenue: document.querySelector("#rentalRevenue"),
   totalRevenue: document.querySelector("#totalRevenue"),
   operatingResult: document.querySelector("#operatingResult"),
+  expectedTicketedEvents: document.querySelector("#expectedTicketedEvents"),
   breakEvenAttendanceRate: document.querySelector("#breakEvenAttendanceRate"),
   breakEvenEvents: document.querySelector("#breakEvenEvents")
 };
+const chartContextEl = document.querySelector("#chartContext");
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -113,6 +115,9 @@ function updateMetrics(results) {
   metricElements.operatingResult.textContent = currencyFormatter.format(
     results.operatingResult
   );
+  metricElements.expectedTicketedEvents.textContent = numberFormatter.format(
+    Math.round(results.expectedTicketedEvents)
+  );
   metricElements.breakEvenAttendanceRate.textContent = Number.isFinite(
     results.breakEvenAttendanceRate
   )
@@ -132,6 +137,10 @@ function updateMetrics(results) {
     "negative",
     results.operatingResult < 0
   );
+
+  chartContextEl.textContent = `Based on ${numberFormatter.format(
+    Math.round(results.expectedTicketedEvents)
+  )} expected ticketed events per year`;
 }
 
 function drawRevenueChart(results) {

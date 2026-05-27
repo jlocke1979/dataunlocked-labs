@@ -19,12 +19,56 @@ export const controlDefinitions = [
     format: "percent"
   },
   {
-    key: "ticketedEventsPerYear",
-    label: "Ticketed Events per Year",
-    min: 10,
-    max: 365,
+    key: "activeWeeksPerYear",
+    label: "Active Weeks per Year",
+    min: 1,
+    max: 52,
     step: 1,
     type: "range"
+  },
+  {
+    key: "thursdayUtilizationPct",
+    label: "Thursday Utilization %",
+    min: 0,
+    max: 1,
+    step: 0.01,
+    type: "range",
+    format: "percent"
+  },
+  {
+    key: "fridayUtilizationPct",
+    label: "Friday Utilization %",
+    min: 0,
+    max: 1,
+    step: 0.01,
+    type: "range",
+    format: "percent"
+  },
+  {
+    key: "saturdayUtilizationPct",
+    label: "Saturday Utilization %",
+    min: 0,
+    max: 1,
+    step: 0.01,
+    type: "range",
+    format: "percent"
+  },
+  {
+    key: "sundayUtilizationPct",
+    label: "Sunday Utilization %",
+    min: 0,
+    max: 1,
+    step: 0.01,
+    type: "range",
+    format: "percent"
+  },
+  {
+    key: "weekdayMiscEventsPerYear",
+    label: "Weekday/Misc Events per Year",
+    min: 0,
+    max: 365,
+    step: 1,
+    type: "number"
   },
   {
     key: "artistCutPct",
@@ -129,7 +173,12 @@ export const presets = {
     capacity: 800,
     averageTicketPrice: 32,
     attendanceRate: 0.52,
-    ticketedEventsPerYear: 85,
+    activeWeeksPerYear: 44,
+    thursdayUtilizationPct: 0.4,
+    fridayUtilizationPct: 0.75,
+    saturdayUtilizationPct: 0.9,
+    sundayUtilizationPct: 0.2,
+    weekdayMiscEventsPerYear: 7,
     artistCutPct: 0.72,
     ancillaryRevenuePerAttendee: 9,
     weddingsPerYear: 10,
@@ -146,7 +195,12 @@ export const presets = {
     capacity: 1200,
     averageTicketPrice: 40,
     attendanceRate: 0.65,
-    ticketedEventsPerYear: 120,
+    activeWeeksPerYear: 48,
+    thursdayUtilizationPct: 0.55,
+    fridayUtilizationPct: 0.9,
+    saturdayUtilizationPct: 0.95,
+    sundayUtilizationPct: 0.35,
+    weekdayMiscEventsPerYear: 12,
     artistCutPct: 0.65,
     ancillaryRevenuePerAttendee: 14,
     weddingsPerYear: 18,
@@ -163,7 +217,12 @@ export const presets = {
     capacity: 1600,
     averageTicketPrice: 48,
     attendanceRate: 0.8,
-    ticketedEventsPerYear: 165,
+    activeWeeksPerYear: 50,
+    thursdayUtilizationPct: 0.72,
+    fridayUtilizationPct: 0.95,
+    saturdayUtilizationPct: 0.98,
+    sundayUtilizationPct: 0.5,
+    weekdayMiscEventsPerYear: 18,
     artistCutPct: 0.6,
     ancillaryRevenuePerAttendee: 19,
     weddingsPerYear: 30,
@@ -179,8 +238,16 @@ export const presets = {
 };
 
 export function calculateResults(inputs) {
+  const expectedTicketedEvents =
+    inputs.activeWeeksPerYear *
+      (inputs.thursdayUtilizationPct +
+        inputs.fridayUtilizationPct +
+        inputs.saturdayUtilizationPct +
+        inputs.sundayUtilizationPct) +
+    inputs.weekdayMiscEventsPerYear;
+
   const attendeeCount =
-    inputs.capacity * inputs.attendanceRate * inputs.ticketedEventsPerYear;
+    inputs.capacity * inputs.attendanceRate * expectedTicketedEvents;
   const ticketRevenue = attendeeCount * inputs.averageTicketPrice;
   const artistCost = ticketRevenue * inputs.artistCutPct;
   const ancillaryRevenue = attendeeCount * inputs.ancillaryRevenuePerAttendee;
@@ -216,7 +283,7 @@ export function calculateResults(inputs) {
 
   const perAttendancePointContribution =
     inputs.capacity *
-      inputs.ticketedEventsPerYear *
+      expectedTicketedEvents *
       (inputs.averageTicketPrice * (1 - inputs.artistCutPct) +
         inputs.ancillaryRevenuePerAttendee) || 0;
 
@@ -236,6 +303,7 @@ export function calculateResults(inputs) {
     rentalRevenue,
     totalRevenue,
     operatingResult,
+    expectedTicketedEvents,
     breakEvenAttendanceRate,
     breakEvenTicketedEvents,
     revenueBreakdown: [

@@ -12,6 +12,10 @@
       <header class="page-header">
         <h1>Venue Viability Lab</h1>
         <p>What has to be true for a venue to work?</p>
+        <p class="disclaimer">
+          These results are directional scenario outputs, not predictions.
+          Purpose: identify what must be true for a venue to become financially sustainable.
+        </p>
       </header>
 
       <section class="presets">
@@ -22,58 +26,172 @@
         <button type="button" class="preset-btn active" data-preset="baseCase">
           Base Case
         </button>
-        <button type="button" class="preset-btn" data-preset="optimistic">
-          Optimistic
+        <button type="button" class="preset-btn" data-preset="aggressive">
+          Aggressive
         </button>
       </section>
 
+      <section class="view-variant">
+        <span class="presets-label">Dashboard view</span>
+        <button type="button" class="variant-btn" data-variant="min">Conservative</button>
+        <button type="button" class="variant-btn active" data-variant="base">Base</button>
+        <button type="button" class="variant-btn" data-variant="max">Aggressive</button>
+      </section>
+
       <main class="layout">
-        <section class="controls" id="controls"></section>
+        <aside class="sidebar">
+          <section class="panel" id="hardConstraintsPanel">
+            <h2>Hard Constraints</h2>
+            <ul class="constraint-list" id="hardConstraintsList"></ul>
+          </section>
+
+          <section class="panel" id="constraintsPanel">
+            <h2>Constraints</h2>
+            <p class="panel-note">
+              Directional placeholders for calendar, cost, and sustainability guardrails.
+            </p>
+            <div id="constraintsControls"></div>
+          </section>
+
+          <section class="panel" id="fixedCostsPanel">
+            <h2>Annual Fixed Costs</h2>
+            <div id="fixedCostControls"></div>
+          </section>
+
+          <section class="panel" id="rangesPanel">
+            <h2>Uncertainty Ranges</h2>
+            <div id="rangeControls"></div>
+          </section>
+
+          <section class="panel" id="eventTypesPanel">
+            <h2>Event Type Assumptions</h2>
+            <div id="eventTypeControls"></div>
+          </section>
+        </aside>
 
         <section class="results">
+          <section class="panel warnings-panel" id="warningsPanel" hidden>
+            <h2>Constraint Warnings</h2>
+            <ul id="warningsList"></ul>
+          </section>
+
           <div class="metrics-grid">
             <article class="metric-card">
-              <h3>Ticket Revenue</h3>
-              <p id="ticketRevenue" class="metric-value">$0</p>
+              <h3>Total Gross Revenue</h3>
+              <p id="totalGrossRevenue" class="metric-value">$0</p>
             </article>
             <article class="metric-card">
-              <h3>Artist Cost</h3>
-              <p id="artistCost" class="metric-value">$0</p>
+              <h3>Total Direct Costs</h3>
+              <p id="totalDirectCosts" class="metric-value">$0</p>
             </article>
             <article class="metric-card">
-              <h3>Ancillary Revenue</h3>
-              <p id="ancillaryRevenue" class="metric-value">$0</p>
+              <h3>Total Net Contribution</h3>
+              <p id="totalNetContribution" class="metric-value">$0</p>
             </article>
             <article class="metric-card">
-              <h3>Rental Revenue</h3>
-              <p id="rentalRevenue" class="metric-value">$0</p>
+              <h3>Annual Fixed Costs</h3>
+              <p id="annualFixedCosts" class="metric-value">$0</p>
             </article>
             <article class="metric-card">
-              <h3>Total Revenue</h3>
-              <p id="totalRevenue" class="metric-value">$0</p>
+              <h3>Annual Operating Result</h3>
+              <p id="annualOperatingResult" class="metric-value">$0</p>
             </article>
             <article class="metric-card">
-              <h3>Operating Result</h3>
-              <p id="operatingResult" class="metric-value">$0</p>
+              <h3>Gap to Target</h3>
+              <p id="gapToTarget" class="metric-value">$0</p>
+            </article>
+            <article class="metric-card">
+              <h3>Required Additional Contribution</h3>
+              <p id="requiredAdditionalContribution" class="metric-value">$0</p>
+            </article>
+            <article class="metric-card">
+              <h3>Avg Contribution per Active Event</h3>
+              <p id="avgContributionPerActiveEvent" class="metric-value">$0</p>
             </article>
             <article class="metric-card">
               <h3>Expected Ticketed Events</h3>
               <p id="expectedTicketedEvents" class="metric-value">0</p>
             </article>
-            <article class="metric-card">
-              <h3>Break-even Attendance Rate</h3>
-              <p id="breakEvenAttendanceRate" class="metric-value">0%</p>
-            </article>
-            <article class="metric-card">
-              <h3>Break-even Ticketed Events</h3>
-              <p id="breakEvenEvents" class="metric-value">0</p>
-            </article>
           </div>
 
+          <p class="chart-context fixed-cost-ref" id="fixedCostRef"></p>
+
+          <section class="panel">
+            <h2>Range Outcomes (Min / Base / Max)</h2>
+            <p class="chart-context" id="rangeOutcomesNote"></p>
+            <div class="table-wrap">
+              <table id="rangeOutcomesTable">
+                <thead>
+                  <tr>
+                    <th>Scenario</th>
+                    <th>Sellout %</th>
+                    <th>Avg Ticket</th>
+                    <th>Ticketed Events</th>
+                    <th>Net Contribution</th>
+                    <th>Operating Result</th>
+                    <th>Gap to Target</th>
+                    <th>Warnings</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" id="savedScenariosPanel">
+            <h2>Saved Scenarios</h2>
+            <div class="scenario-save-row">
+              <input type="text" id="scenarioNameInput" placeholder="Scenario name" />
+              <button type="button" id="saveScenarioBtn">Save scenario</button>
+            </div>
+            <div class="table-wrap">
+              <table id="savedScenariosTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Saved</th>
+                    <th>Op. Result (Min)</th>
+                    <th>Op. Result (Base)</th>
+                    <th>Op. Result (Max)</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>Event Type Summary</h2>
+            <div class="table-wrap">
+              <table id="eventSummaryTable">
+                <thead>
+                  <tr>
+                    <th>Event Type</th>
+                    <th>Events/Yr</th>
+                    <th>Avg Attendance</th>
+                    <th>Gross/Event</th>
+                    <th>Direct Cost %</th>
+                    <th>Net Contribution</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
           <section class="chart-card">
-            <h3>Revenue by Category</h3>
-            <p id="chartContext" class="chart-context">Based on 0 expected ticketed events per year</p>
-            <div id="revenueChart"></div>
+            <h3>Net Contribution by Event Type</h3>
+            <div id="contributionChart"></div>
+          </section>
+
+          <section class="chart-card">
+            <h3>Sensitivity Preview</h3>
+            <p class="chart-context">
+              One-at-a-time ±10% changes to estimate impact on annual operating result.
+              Not a full Monte Carlo model.
+            </p>
+            <div id="sensitivityChart"></div>
           </section>
         </section>
       </main>

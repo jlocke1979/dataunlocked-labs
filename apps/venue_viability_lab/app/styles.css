@@ -8,6 +8,7 @@
   --ink: #2a2a2a;
   --bar: #404040;
   --tick: #8a8a8a;
+  --warn-bg: #f5f5f3;
 }
 
 * {
@@ -23,9 +24,9 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 24px 24px 64px;
 }
 
 .page-header h1 {
@@ -39,6 +40,12 @@ body {
   margin: 0;
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+.disclaimer {
+  margin-top: 10px !important;
+  max-width: 72ch;
+  font-size: 0.88rem !important;
 }
 
 .presets {
@@ -78,35 +85,94 @@ body {
   border-color: var(--ink);
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: minmax(300px, 360px) 1fr;
-  gap: 24px;
+.view-variant {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: -8px 0 20px;
 }
 
-.controls,
-.results {
+.variant-btn {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  padding: 6px 11px;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+}
+
+.variant-btn:hover {
+  border-color: var(--ink);
+}
+
+.variant-btn.active {
+  background: var(--ink);
+  color: var(--panel);
+  border-color: var(--ink);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.sidebar {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.controls {
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.panel {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 0;
   padding: 16px;
-  max-height: calc(100vh - 130px);
-  overflow: auto;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.panel-note,
+.chart-context {
+  margin: 0 0 12px;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.constraint-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.constraint-list li {
+  margin-bottom: 6px;
 }
 
 .control-group {
   border-bottom: 1px solid var(--line);
   padding-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .control-group:last-child {
   border-bottom: 0;
+  margin-bottom: 0;
   padding-bottom: 0;
 }
 
@@ -142,6 +208,164 @@ input[type="number"] {
   background: var(--panel);
 }
 
+#eventTypesPanel {
+  padding-bottom: 20px;
+}
+
+#eventTypeControls {
+  padding-bottom: 4px;
+}
+
+.collapsible {
+  border-top: 1px solid var(--line);
+  margin-top: 10px;
+  padding-top: 2px;
+}
+
+.collapsible:first-child {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.collapsible-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 0;
+  list-style: none;
+}
+
+.collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-title {
+  font-size: 0.9rem;
+}
+
+.collapsible-meta {
+  font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.collapsible-content {
+  padding-bottom: 8px;
+}
+
+.collapsible-nested {
+  margin-left: 0;
+}
+
+.collapsible-fixed-costs .control-group {
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.range-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.range-col-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.range-header label {
+  font-size: 0.88rem;
+}
+
+.scenario-save-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.scenario-save-row input {
+  flex: 1;
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  font-family: inherit;
+}
+
+.scenario-save-row button,
+.link-btn {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.link-btn {
+  margin-right: 6px;
+}
+
+.fixed-cost-ref {
+  margin: 0;
+}
+
+.computed-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px dashed var(--line);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.computed-row strong {
+  color: var(--text);
+  font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  font-size: 0.82rem;
+}
+
+.computed-row.computed-total {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.field-note {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+table tfoot th {
+  border-top: 1px solid var(--line);
+  font-weight: 400;
+}
+
+.warnings-panel {
+  background: var(--warn-bg);
+}
+
+.warnings-panel ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.warnings-panel li {
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -172,12 +396,6 @@ input[type="number"] {
   color: var(--muted);
 }
 
-.chart-context {
-  margin: 0 0 10px;
-  font-size: 0.86rem;
-  color: var(--muted);
-}
-
 .metric-value {
   margin: 0;
   font-size: 1.35rem;
@@ -185,26 +403,51 @@ input[type="number"] {
   font-variant-numeric: tabular-nums;
 }
 
-.metric-value.positive,
-.metric-value.negative {
-  color: var(--text);
+.table-wrap {
+  overflow-x: auto;
 }
 
-#revenueChart svg {
+table {
   width: 100%;
-  height: 300px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+#contributionChart svg,
+#sensitivityChart svg {
+  width: 100%;
   display: block;
 }
 
-#revenueChart .domain {
+#contributionChart svg {
+  height: 300px;
+}
+
+.axis .domain {
   stroke: var(--line);
 }
 
-#revenueChart .tick line {
+.axis .tick line {
   stroke: var(--line);
 }
 
-#revenueChart .tick text {
+.axis .tick text {
   fill: var(--tick);
   font-family: Georgia, "Palatino Linotype", Palatino, serif;
   font-size: 11px;
@@ -213,9 +456,5 @@ input[type="number"] {
 @media (max-width: 960px) {
   .layout {
     grid-template-columns: 1fr;
-  }
-
-  .controls {
-    max-height: none;
   }
 }

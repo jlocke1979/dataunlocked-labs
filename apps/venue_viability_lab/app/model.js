@@ -209,6 +209,44 @@ export const constraintDefinitions = [
   }
 ];
 
+export const financeDefinitions = [
+  {
+    key: "purchasePrice",
+    label: "Purchase Price",
+    min: 0,
+    max: 50000000,
+    step: 10000,
+    type: "number",
+    format: "currency"
+  },
+  {
+    key: "downPaymentPct",
+    label: "Down Payment %",
+    min: 0,
+    max: 1,
+    step: 0.01,
+    type: "range",
+    format: "percent"
+  },
+  {
+    key: "interestRatePct",
+    label: "Interest Rate %",
+    min: 0,
+    max: 0.2,
+    step: 0.001,
+    type: "range",
+    format: "percent"
+  },
+  {
+    key: "amortizationYears",
+    label: "Amortization (years)",
+    min: 1,
+    max: 40,
+    step: 1,
+    type: "number"
+  }
+];
+
 export const DAY_UTILIZATION_KEYS = [
   "mondayUtilizationPct",
   "tuesdayUtilizationPct",
@@ -408,6 +446,13 @@ const baseFixedCosts = {
   occupancyReserve: 300000
 };
 
+const baseFinance = {
+  purchasePrice: 3900000,
+  downPaymentPct: 0.25,
+  interestRatePct: 0.0725,
+  amortizationYears: 10
+};
+
 const calendarPresets = {
   conservative: {
     mondayUtilizationPct: 0.08,
@@ -457,6 +502,7 @@ export const presets = {
     maxUsableEventNightsPerWeek: 4,
     minOperatingResultTarget: 0,
     maxAnnualFixedCosts: 2550000,
+    finance: { ...baseFinance, downPaymentPct: 0.3, interestRatePct: 0.075 },
     fixedCostBreakdown: scaleFixedCosts(0.88, 0.5),
     ...calendarPresets.conservative,
     ranges: JSON.parse(JSON.stringify(defaultRanges)),
@@ -503,6 +549,7 @@ export const presets = {
     maxUsableEventNightsPerWeek: 5,
     minOperatingResultTarget: 150000,
     maxAnnualFixedCosts: 3050000,
+    finance: { ...baseFinance },
     fixedCostBreakdown: { ...baseFixedCosts },
     ...calendarPresets.baseCase,
     ranges: JSON.parse(JSON.stringify(defaultRanges)),
@@ -549,6 +596,7 @@ export const presets = {
     maxUsableEventNightsPerWeek: 6,
     minOperatingResultTarget: 350000,
     maxAnnualFixedCosts: 3550000,
+    finance: { ...baseFinance, downPaymentPct: 0.35, interestRatePct: 0.068 },
     fixedCostBreakdown: scaleFixedCosts(1.12, 1.25),
     ...calendarPresets.aggressive,
     ranges: JSON.parse(JSON.stringify(defaultRanges)),
@@ -595,11 +643,40 @@ export const presets = {
 export function cloneInputs(inputs) {
   return {
     ...inputs,
+    finance: { ...inputs.finance },
     fixedCostBreakdown: { ...inputs.fixedCostBreakdown },
     ranges: cloneRanges(inputs.ranges),
     eventTypes: Object.fromEntries(
       Object.entries(inputs.eventTypes).map(([id, values]) => [id, { ...values }])
     )
+  };
+}
+
+export function computeDebtMetrics(finance) {
+  const purchasePrice = finance.purchasePrice || 0;
+  const downPayment = purchasePrice * (finance.downPaymentPct || 0);
+  const loanPrincipal = Math.max(0, purchasePrice - downPayment);
+  const annualRate = finance.interestRatePct || 0;
+  const years = Math.max(1, finance.amortizationYears || 1);
+  const monthlyRate = annualRate / 12;
+  const periods = years * 12;
+
+  let monthlyDebtService = 0;
+  if (loanPrincipal > 0) {
+    if (monthlyRate === 0) {
+      monthlyDebtService = loanPrincipal / periods;
+    } else {
+      const factor = Math.pow(1 + monthlyRate, periods);
+      monthlyDebtService =
+        (loanPrincipal * monthlyRate * factor) / (factor - 1);
+    }
+  }
+
+  return {
+    downPayment,
+    loanPrincipal,
+    monthlyDebtService,
+    annualDebtService: monthlyDebtService * 12
   };
 }
 
@@ -719,10 +796,12 @@ export function snapshotCurrentScenario(inputs, name) {
 }
 
 export function computeAnnualFixedCosts(inputs) {
-  return fixedCostLineItems.reduce(
+  const baseFixed = fixedCostLineItems.reduce(
     (sum, item) => sum + (inputs.fixedCostBreakdown[item.key] || 0),
     0
   );
+  const debt = computeDebtMetrics(inputs.finance);
+  return baseFixed + debt.annualDebtService;
 }
 
 export function computeFixedCostPerSqFt(total, squareFeet = FACILITY_PROFILE.approximateSquareFeet) {
@@ -748,14 +827,41 @@ export function capAttendance(attendance, capacityMode) {
 }
 
 export function computeEventTypeResults(inputs) {
-  const ticketedEventsPerYear = computeTicketedEventsPerYear(inputs);
+  const requestedTicketedEventsPerYear = computeTicketedEventsPerYear(inputs);
+  const maxEventNights =
+    inputs.activeWeeksPerYear * inputs.maxUsableEventNightsPerWeek;
+  const constrainedEvents = {};
+  const requestedEvents = {};
+  let remainingNights = maxEventNights;
+
+  EVENT_TYPES.forEach((typeDef) => {
+    if (typeDef.id === "sponsorship") return;
+    const requested =
+      typeDef.id === "ticketed"
+        ? requestedTicketedEventsPerYear
+        : inputs.eventTypes[typeDef.id].eventsPerYear || 0;
+    requestedEvents[typeDef.id] = requested;
+  });
+
+  // Preserve rental/corporate/community/kitchen assumptions first, then allocate remaining nights to ticketed.
+  ["weddings", "corporate", "nonprofit", "kitchen"].forEach((eventId) => {
+    const requested = requestedEvents[eventId] || 0;
+    const constrained = Math.min(requested, Math.max(0, remainingNights));
+    constrainedEvents[eventId] = constrained;
+    remainingNights -= constrained;
+  });
+
+  constrainedEvents.ticketed = Math.min(
+    requestedEvents.ticketed || 0,
+    Math.max(0, remainingNights)
+  );
 
   return EVENT_TYPES.map((typeDef) => {
     const assumptions = inputs.eventTypes[typeDef.id];
     const eventsPerYear =
-      typeDef.id === "ticketed"
-        ? ticketedEventsPerYear
-        : assumptions.eventsPerYear;
+      typeDef.id === "sponsorship"
+        ? assumptions.eventsPerYear
+        : constrainedEvents[typeDef.id] || 0;
     const rawAttendance = assumptions.avgAttendance || 0;
     const effectiveAttendance = capAttendance(rawAttendance, typeDef.capacityMode);
     const totalGrossRevenue = eventsPerYear * assumptions.grossRevenuePerEvent;
@@ -767,6 +873,10 @@ export function computeEventTypeResults(inputs) {
       label: typeDef.label,
       capacityMode: typeDef.capacityMode,
       eventsPerYear,
+      requestedEventsPerYear:
+        typeDef.id === "sponsorship"
+          ? eventsPerYear
+          : requestedEvents[typeDef.id] || eventsPerYear,
       avgAttendance: effectiveAttendance,
       rawAvgAttendance: rawAttendance,
       grossRevenuePerEvent: assumptions.grossRevenuePerEvent,
@@ -788,6 +898,7 @@ export function computeTotals(eventResults, inputs) {
     0
   );
   const totalNetContribution = totalGrossRevenue - totalDirectCosts;
+  const debt = computeDebtMetrics(inputs.finance);
   const annualFixedCosts = computeAnnualFixedCosts(inputs);
   const annualOperatingResult = totalNetContribution - annualFixedCosts;
   const gapToTarget = annualOperatingResult - inputs.minOperatingResultTarget;
@@ -813,7 +924,16 @@ export function computeTotals(eventResults, inputs) {
     totalDirectCosts,
     totalNetContribution,
     annualFixedCosts,
+    annualDebtService: debt.annualDebtService,
+    debtLoanPrincipal: debt.loanPrincipal,
+    debtDownPayment: debt.downPayment,
     fixedCostPerSqFt: computeFixedCostPerSqFt(annualFixedCosts),
+    carryCosts: {
+      propertyTaxes: inputs.fixedCostBreakdown.propertyTaxes || 0,
+      insurance: inputs.fixedCostBreakdown.insurance || 0,
+      utilities: inputs.fixedCostBreakdown.utilities || 0,
+      annualDebtService: debt.annualDebtService
+    },
     annualOperatingResult,
     gapToTarget,
     requiredAdditionalContribution,
@@ -845,10 +965,24 @@ export function computeWarnings(eventResults, totals, inputs) {
     }
   });
 
-  if (totals.totalEventNights > totals.maxEventNights) {
+  const constrainedRows = eventResults.filter(
+    (row) =>
+      row.id !== "sponsorship" && row.requestedEventsPerYear > row.eventsPerYear
+  );
+  if (constrainedRows.length > 0) {
+    const details = constrainedRows
+      .map(
+        (row) =>
+          `${row.label}: ${Math.round(row.eventsPerYear)}/${Math.round(
+            row.requestedEventsPerYear
+          )}`
+      )
+      .join("; ");
     warnings.push({
-      id: "event-nights",
-      message: `Total event nights (${Math.round(totals.totalEventNights)}) exceed calendar capacity (${Math.round(totals.maxEventNights)} = ${inputs.activeWeeksPerYear} weeks × ${inputs.maxUsableEventNightsPerWeek} nights/week).`
+      id: "event-nights-clamped",
+      message: `Event nights were capped to calendar capacity (${Math.round(
+        totals.maxEventNights
+      )}/year). Constrained counts: ${details}.`
     });
   }
 

@@ -4,6 +4,7 @@ import {
   EVENT_TYPES,
   DAY_UTILIZATION_KEYS,
   constraintDefinitions,
+  financeDefinitions,
   calendarDefinitions,
   eventFieldDefinitions,
   fixedCostLineItems,
@@ -13,6 +14,7 @@ import {
   calculateResults,
   computeTicketedEventsPerYear,
   computeAnnualFixedCosts,
+  computeDebtMetrics,
   sumDailyUtilization,
   cloneRanges,
   cloneInputs,
@@ -25,6 +27,7 @@ const SCENARIO_STORAGE_KEY = "venue-viability-lab-scenarios";
 
 const state = {
   ...presets.baseCase,
+  finance: structuredClone(presets.baseCase.finance),
   ranges: cloneRanges(presets.baseCase.ranges || defaultRanges),
   fixedCostBreakdown: structuredClone(presets.baseCase.fixedCostBreakdown),
   eventTypes: structuredClone(presets.baseCase.eventTypes)
@@ -44,8 +47,11 @@ const collapsibleRefs = {
 
 const hardConstraintsListEl = document.querySelector("#hardConstraintsList");
 const constraintsControlsEl = document.querySelector("#constraintsControls");
+const financeControlsEl = document.querySelector("#financeControls");
+const financeSummaryEl = document.querySelector("#financeSummary");
 const fixedCostControlsEl = document.querySelector("#fixedCostControls");
 const fixedCostRefEl = document.querySelector("#fixedCostRef");
+const carryCostRefEl = document.querySelector("#carryCostRef");
 const eventTypeControlsEl = document.querySelector("#eventTypeControls");
 const warningsPanelEl = document.querySelector("#warningsPanel");
 const warningsListEl = document.querySelector("#warningsList");
@@ -308,6 +314,24 @@ function renderConstraintsControls() {
   });
 }
 
+function renderFinanceControls() {
+  financeControlsEl.innerHTML = "";
+  financeDefinitions.forEach((def) => {
+    financeControlsEl.appendChild(
+      createControl(def, state.finance[def.key], (value) => {
+        state.finance[def.key] = value;
+      })
+    );
+  });
+
+  const debt = computeDebtMetrics(state.finance);
+  financeSummaryEl.textContent = `Loan principal ${currencyFormatter.format(
+    debt.loanPrincipal
+  )} with annual debt service ${currencyFormatter.format(
+    debt.annualDebtService
+  )}.`;
+}
+
 function renderEventTypeControls() {
   eventTypeControlsEl.innerHTML = "";
   collapsibleRefs.eventTypes = {};
@@ -436,11 +460,23 @@ function renderFixedCostRef(totals) {
   fixedCostRefEl.textContent = `Fixed costs (sidebar): ${fixedCostMetaText(
     totals.annualFixedCosts
   )}. Ceiling ${currencyFormatter.format(state.maxAnnualFixedCosts)} (${percentFormatter.format(headroom)} headroom).`;
+
+  const carry = totals.carryCosts;
+  carryCostRefEl.textContent = `Carry cost check: taxes ${currencyFormatter.format(
+    carry.propertyTaxes
+  )}, insurance ${currencyFormatter.format(
+    carry.insurance
+  )}, utilities ${currencyFormatter.format(
+    carry.utilities
+  )}, debt service ${currencyFormatter.format(
+    carry.annualDebtService
+  )}.`;
 }
 
 function renderControls() {
   renderHardConstraints();
   renderConstraintsControls();
+  renderFinanceControls();
   renderFixedCostControls();
   renderRangeControls();
   renderEventTypeControls();
@@ -454,6 +490,7 @@ function applyPreset(presetKey) {
     minOperatingResultTarget: preset.minOperatingResultTarget,
     maxAnnualFixedCosts: preset.maxAnnualFixedCosts
   });
+  state.finance = structuredClone(preset.finance);
   copyCalendarFromPreset(preset);
   state.fixedCostBreakdown = structuredClone(preset.fixedCostBreakdown);
   state.ranges = cloneRanges(preset.ranges || defaultRanges);
@@ -772,6 +809,7 @@ function loadScenario(id) {
     minOperatingResultTarget: inputs.minOperatingResultTarget,
     maxAnnualFixedCosts: inputs.maxAnnualFixedCosts
   });
+  state.finance = structuredClone(inputs.finance);
   copyCalendarFromPreset(inputs);
   state.fixedCostBreakdown = structuredClone(inputs.fixedCostBreakdown);
   state.ranges = cloneRanges(inputs.ranges);

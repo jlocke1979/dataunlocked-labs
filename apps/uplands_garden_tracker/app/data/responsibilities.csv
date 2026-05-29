@@ -1,0 +1,9 @@
+plot_id,responsible_name,role,contact_ok,public_display_name,notes
+P-A1,Jane Doe,Primary steward,FALSE,Boulevard North steward,verify in field
+P-A2,John Smith,Primary steward,TRUE,A2 steward (J. Smith),verify in field
+P-A3,,Unassigned,FALSE,Seeking steward,verify in field
+P-B1,Maria Lopez,Primary steward,FALSE,Terrace Corner steward,verify in field
+P-B2,Sam Patel,Co-steward,FALSE,Terrace Mid steward,verify in field
+P-B3,Alex Chen,Primary steward,TRUE,B3 steward (A. Chen),verify in field
+P-C1,,Unassigned,FALSE,Seeking steward,verify in field
+P-C2,Pat Rivera,Watch volunteer,FALSE,Intersection watch,verify in field

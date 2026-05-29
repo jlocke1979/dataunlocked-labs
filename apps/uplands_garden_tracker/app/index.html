@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Uplands Boulevard Gardens — Garden Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">Community Garden Project</p>
+      <h1>Uplands Boulevard Gardens &amp; Columbia Terrace</h1>
+      <p class="subtitle">Plant condition, plot responsibility, and relocation planning.</p>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Section navigation">
+    <div class="wrap">
+      <a href="#overview">Overview</a>
+      <a href="#map">Map</a>
+      <a href="#responsibility">Plots</a>
+      <a href="#inventory">Plants</a>
+      <a href="#move-plan">Move plan</a>
+      <a href="#site-notes">Notes</a>
+      <a href="#privacy">Privacy</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <!-- 1. Overview -->
+    <section id="overview" class="card">
+      <h2>Overview</h2>
+      <p>
+        This page tracks the condition of plantings, who is looking after each plot,
+        and proposed plant relocations across the Uplands Boulevard Gardens and the
+        adjacent Columbia Terrace beds. It is a working reference for neighbors and
+        volunteers.
+      </p>
+      <div class="stat-grid" id="overviewStats" aria-live="polite">
+        <!-- stats injected by app.js -->
+      </div>
+      <p class="verify-banner">
+        All seeded entries are marked <strong>“verify in field.”</strong>
+        Coordinates and details are placeholders pending an on-site walkthrough.
+      </p>
+    </section>
+
+    <!-- 2. Interactive map -->
+    <section id="map" class="card">
+      <h2>Interactive map</h2>
+      <div class="map-controls">
+        <label for="mapSelect">Map:</label>
+        <select id="mapSelect" aria-label="Select a map"></select>
+        <span class="hint">Tap a marker to see plot details.</span>
+      </div>
+      <div class="map-layout">
+        <div class="map-stage" id="mapStage">
+          <img id="mapImage" alt="Base map of the garden site" />
+          <div id="markerLayer" class="marker-layer"></div>
+          <p id="mapFallback" class="map-fallback" hidden>
+            Base map image not found. Add <code>assets/map_base.jpg</code> to display it.
+          </p>
+        </div>
+        <aside id="plotDetail" class="plot-detail" aria-live="polite">
+          <p class="plot-detail-empty">Select a plot marker to view its details.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 3. Plot responsibility table -->
+    <section id="responsibility" class="card">
+      <h2>Plot responsibility</h2>
+      <p class="section-note">
+        Showing public display names only. Individual names appear only where a
+        neighbor has confirmed contact may be shared.
+      </p>
+      <div class="table-scroll">
+        <table id="responsibilityTable">
+          <thead>
+            <tr>
+              <th>Plot</th>
+              <th>Location</th>
+              <th>Steward (public)</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Plant inventory table -->
+    <section id="inventory" class="card">
+      <h2>Plant inventory</h2>
+      <div class="table-controls">
+        <label for="plotFilter">Filter by plot:</label>
+        <select id="plotFilter" aria-label="Filter plants by plot">
+          <option value="">All plots</option>
+        </select>
+      </div>
+      <div class="table-scroll">
+        <table id="inventoryTable">
+          <thead>
+            <tr>
+              <th>Plant</th>
+              <th>Plot</th>
+              <th>Map code</th>
+              <th>Qty</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. Move plan table -->
+    <section id="move-plan" class="card">
+      <h2>Move plan</h2>
+      <p class="section-note">Proposed and in-progress plant relocations.</p>
+      <div class="table-scroll">
+        <table id="movePlanTable">
+          <thead>
+            <tr>
+              <th>Plant</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Window</th>
+              <th>Prep needed</th>
+              <th>Assigned to</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6. Site notes -->
+    <section id="site-notes" class="card">
+      <h2>Site notes</h2>
+      <ul id="siteNotesList" class="notes-list"></ul>
+    </section>
+
+    <!-- 7. Privacy note -->
+    <section id="privacy" class="card privacy-card">
+      <h2>Privacy note</h2>
+      <p class="privacy-statement">
+        Household-level details and contact information are intentionally limited
+        until permissions are confirmed.
+      </p>
+      <p>
+        This page shows public display names for plots and omits private names and
+        contact details unless a neighbor has explicitly agreed to share them. The
+        page is set to discourage search-engine indexing while the project is in
+        progress.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Uplands Boulevard Gardens &amp; Columbia Terrace — working project page. Data is provisional and field-verification is ongoing.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

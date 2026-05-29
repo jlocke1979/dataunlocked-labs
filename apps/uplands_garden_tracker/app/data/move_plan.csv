@@ -1,0 +1,5 @@
+plant_id,plot_id,current_location,new_location,move_window,prep_needed,assigned_to,status,notes
+PL-004,P-A3,A3 boulevard median,C1 gathering bed,Fall 2026,Amend soil; water in,Seeking steward,proposed,verify in field
+PL-007,P-B2,B2 terrace strip,B3 terrace strip,Spring 2026,Divide and pot up,B3 steward (A. Chen),proposed,verify in field
+PL-010,P-C2,C2 intersection border,C1 gathering bed,Fall 2026,Stake and protect sapling,Seeking steward,proposed,verify in field
+PL-011,P-C2,C2 intersection border,B1 terrace corner,Spring 2026,Shade prep; mulch,Terrace Corner steward,on hold,verify in field

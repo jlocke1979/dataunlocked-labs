@@ -1,0 +1,9 @@
+plot_id,map_id,label,street,location_description,x_pct,y_pct,status,notes
+P-A1,uplands_base,A1,Uplands Boulevard,Northwest corner bed near boulevard entrance,18,22,active,verify in field
+P-A2,uplands_base,A2,Uplands Boulevard,Boulevard median strip north section,32,18,active,verify in field
+P-A3,uplands_base,A3,Uplands Boulevard,Boulevard median strip central section,48,20,needs attention,verify in field
+P-B1,uplands_base,B1,Columbia Terrace,Terrace corner bed by sidewalk,30,46,active,verify in field
+P-B2,uplands_base,B2,Columbia Terrace,Terrace mid-block planting strip,52,50,needs attention,verify in field
+P-B3,uplands_base,B3,Columbia Terrace,Terrace south planting strip,70,54,active,verify in field
+P-C1,uplands_base,C1,Uplands Boulevard,Southeast corner gathering bed,78,74,planned,verify in field
+P-C2,uplands_base,C2,Columbia Terrace,Shared border bed at intersection,58,72,at risk,verify in field

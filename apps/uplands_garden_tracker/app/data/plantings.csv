@@ -1,0 +1,13 @@
+plant_id,plot_id,map_code,plant_name,quantity,current_status,priority,photo_refs,notes
+PL-001,P-A1,A1,Coneflower (Echinacea),6,healthy,low,,verify in field
+PL-002,P-A1,A1,Little Bluestem,4,healthy,low,,verify in field
+PL-003,P-A2,A2,Black-eyed Susan,8,healthy,medium,,verify in field
+PL-004,P-A3,A3,Serviceberry shrub,1,stressed,high,,verify in field
+PL-005,P-A3,A3,Switchgrass,5,healthy,low,,verify in field
+PL-006,P-B1,B1,Bee Balm,7,healthy,medium,,verify in field
+PL-007,P-B2,B2,Milkweed (Asclepias),5,stressed,high,,verify in field
+PL-008,P-B2,B2,Aster,6,healthy,medium,,verify in field
+PL-009,P-B3,B3,Joe Pye Weed,3,healthy,low,,verify in field
+PL-010,P-C2,C2,Redbud sapling,1,at risk,high,,verify in field
+PL-011,P-C2,C2,Wild Ginger,9,stressed,medium,,verify in field
+PL-012,P-C1,C1,Pollinator seed mix,0,planned,medium,,verify in field

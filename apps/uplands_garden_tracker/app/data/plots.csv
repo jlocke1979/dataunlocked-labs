@@ -1,9 +1,16 @@
 plot_id,map_id,label,street,location_description,x_pct,y_pct,status,notes
-P-A1,uplands_base,A1,Uplands Boulevard,Northwest corner bed near boulevard entrance,18,22,active,verify in field
-P-A2,uplands_base,A2,Uplands Boulevard,Boulevard median strip north section,32,18,active,verify in field
-P-A3,uplands_base,A3,Uplands Boulevard,Boulevard median strip central section,48,20,needs attention,verify in field
-P-B1,uplands_base,B1,Columbia Terrace,Terrace corner bed by sidewalk,30,46,active,verify in field
-P-B2,uplands_base,B2,Columbia Terrace,Terrace mid-block planting strip,52,50,needs attention,verify in field
-P-B3,uplands_base,B3,Columbia Terrace,Terrace south planting strip,70,54,active,verify in field
-P-C1,uplands_base,C1,Uplands Boulevard,Southeast corner gathering bed,78,74,planned,verify in field
-P-C2,uplands_base,C2,Columbia Terrace,Shared border bed at intersection,58,72,at risk,verify in field
+CE10,uplands_base,CE10,Columbia Terrace,Columbia Terrace line — plot CE10 (far left),6,55,active,verify in field
+CM5,uplands_base,CM5,Columbia Terrace,Columbia Terrace line — plot CM5,12,55,active,verify in field
+CE9,uplands_base,CE9,Columbia Terrace,Columbia Terrace line — plot CE9,19,55,active,verify in field
+CE8,uplands_base,CE8,Columbia Terrace,Columbia Terrace line — plot CE8,25,55,active,verify in field
+CM4,uplands_base,CM4,Columbia Terrace,Columbia Terrace line — plot CM4,31,55,active,verify in field
+CE7,uplands_base,CE7,Columbia Terrace,Columbia Terrace line — plot CE7,37,55,active,verify in field
+CE6,uplands_base,CE6,Columbia Terrace,Columbia Terrace line — plot CE6,44,55,active,verify in field
+CM3,uplands_base,CM3,Columbia Terrace,Columbia Terrace line — plot CM3,50,55,active,verify in field
+CE5,uplands_base,CE5,Columbia Terrace,Columbia Terrace line — plot CE5,56,55,active,verify in field
+CE4,uplands_base,CE4,Columbia Terrace,Columbia Terrace line — plot CE4,62,55,active,verify in field
+CM2,uplands_base,CM2,Columbia Terrace,Columbia Terrace line — plot CM2,69,55,active,verify in field
+CE3,uplands_base,CE3,Columbia Terrace,Columbia Terrace line — plot CE3,75,55,active,verify in field
+CE2,uplands_base,CE2,Columbia Terrace,Columbia Terrace line — plot CE2,81,55,active,verify in field
+CM1,uplands_base,CM1,Columbia Terrace,Columbia Terrace line — plot CM1,88,55,active,verify in field
+CE1,uplands_base,CE1,Columbia Terrace,Columbia Terrace line — plot CE1(far right),94,55,active,verify in field

@@ -151,11 +151,16 @@ function renderMap() {
 
   if (!map) { fallback.hidden = false; img.removeAttribute("src"); return; }
 
-  img.src = map.src;
-  img.onerror = () => { img.style.display = "none"; fallback.hidden = false; };
+  // Default to showing the map; only reveal the fallback if the image errors.
+  // Handlers are attached before `src` so cached images still trigger onload.
+  fallback.hidden = true;
+  img.style.display = "block";
   img.onload = () => { img.style.display = "block"; fallback.hidden = true; };
+  img.onerror = () => { img.style.display = "none"; fallback.hidden = false; };
+  img.src = map.src;
 
   plotsForMap(activeMapId).forEach(plot => {
+    const code = plot.label || plot.plot_id;
     const m = document.createElement("button");
     m.className = "marker";
     m.type = "button";
@@ -163,8 +168,9 @@ function renderMap() {
     m.style.top = `${parseFloat(plot.y_pct) || 0}%`;
     m.dataset.status = plot.status || "";
     m.dataset.plotId = plot.plot_id;
-    m.textContent = plot.label || "•";
-    m.setAttribute("aria-label", `Plot ${plot.label || plot.plot_id}`);
+    m.textContent = code || "•";
+    m.title = `Plot ${code}`;
+    m.setAttribute("aria-label", `Plot ${code}`);
     m.addEventListener("click", () => selectPlot(plot.plot_id));
     layer.appendChild(m);
   });
@@ -193,8 +199,13 @@ function selectPlot(plotId) {
       ).join("")}</ul>`
     : '<p class="muted">No plants logged yet.</p>';
 
+  const code = plot.label || plot.plot_id;
+  const idSuffix = plot.plot_id && plot.plot_id !== code
+    ? ` <span style="font-weight:400;color:var(--text-soft);font-size:0.8rem">(${esc(plot.plot_id)})</span>`
+    : "";
+
   document.getElementById("plotDetail").innerHTML = `
-    <h3>Plot ${esc(plot.label)} <span style="font-weight:400;color:var(--text-soft);font-size:0.8rem">(${esc(plot.plot_id)})</span></h3>
+    <h3 class="pd-code">Plot ${esc(code)}${idSuffix}</h3>
     <p class="pd-loc">${esc(plot.street)} — ${esc(plot.location_description)}</p>
     <dl>
       <dt>Steward</dt><dd>${esc(steward.text)}${steward.isPrivate ? ' <span class="muted">(contact limited)</span>' : ""}</dd>

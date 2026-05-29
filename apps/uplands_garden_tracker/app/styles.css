@@ -220,6 +220,10 @@ select {
   color: var(--text-soft);
   font-size: 0.9rem;
 }
+/* Respect the `hidden` attribute: only show the fallback when the image fails. */
+.map-fallback[hidden] {
+  display: none;
+}
 
 .plot-detail {
   border: 1px solid var(--border);
@@ -230,6 +234,7 @@ select {
 }
 .plot-detail-empty { color: var(--text-soft); margin: 0; }
 .plot-detail h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.plot-detail h3.pd-code { font-size: 1.25rem; font-weight: 700; color: var(--green-deep); }
 .plot-detail .pd-loc { color: var(--text-soft); margin: 0 0 12px; font-size: 0.88rem; }
 .plot-detail dl {
   display: grid;

@@ -1,6 +1,6 @@
 import { storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { renderPlaceholder } from "./_show_helpers.js";
+import { renderPlaceholder } from "./show_helpers.js";
 
 // Reuse the existing Assignment 05 spatial app verbatim via an iframe so the
 // final show populates without porting its ~3,400-line renderer.

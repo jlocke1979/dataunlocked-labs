@@ -8,6 +8,22 @@ import { runScene6 } from "./scenes/final_show/scene6_donor_impact.js";
 import { runScene7 } from "./scenes/final_show/scene7_outro.js";
 import { storyColors } from "./constants/colors.js";
 
+console.log("final_show.html JS loaded");
+
+function showError(label, err) {
+  console.error(label, err);
+  const viz = document.querySelector("#viz");
+  if (viz) {
+    viz.innerHTML =
+      "<pre style='font-family:Menlo,monospace;padding:32px;color:#6F4949;" +
+      "white-space:pre-wrap'>" + label + "\n" + (err && err.stack ? err.stack : err) + "</pre>";
+  }
+}
+
+if (typeof d3 === "undefined") {
+  showError("d3 failed to load (check the CDN <script> tags).", new Error("d3 is undefined"));
+}
+
 // Museum white background on every slide, including the real Assignment 1
 // chart slide, which renders an SVG without its own background rect.
 d3.select("body").style("background", storyColors.museumWhite);
@@ -30,10 +46,15 @@ function loadScene(index) {
   if (index < 0 || index >= scenes.length) return;
 
   currentScene = index;
-  console.log(`Loading scene ${index}`);
+  console.log("starting scene", currentScene);
 
   d3.select("#viz").selectAll("*").remove();
-  scenes[currentScene]();
+
+  try {
+    scenes[currentScene]();
+  } catch (err) {
+    showError("Scene " + currentScene + " failed to render:", err);
+  }
 }
 
 window.addEventListener("keydown", (e) => {

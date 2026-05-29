@@ -8,6 +8,41 @@
 <body>
   <div id="viz"></div>
 
+  <!-- Startup fallback + on-screen error surfacing (classic script, runs before modules). -->
+  <script>
+    (function () {
+      console.log("final_show.html inline bootstrap loaded");
+
+      function vizHasRender() {
+        var v = document.querySelector("#viz");
+        return !!(v && (v.querySelector("svg") || v.querySelector("iframe")));
+      }
+
+      // Visible fallback so the page is never blank before a scene draws.
+      window.addEventListener("DOMContentLoaded", function () {
+        var v = document.querySelector("#viz");
+        if (v && !v.hasChildNodes()) {
+          v.innerHTML =
+            "<h1 style='font-family:Georgia,serif;padding:32px;color:#202623'>Final Show Loaded</h1>";
+        }
+      });
+
+      // Show startup/module/scene errors on screen instead of a blank page.
+      window.addEventListener("error", function (e) {
+        var msg = (e && (e.message || (e.error && e.error.message))) || String(e);
+        var src = (e && e.filename) ? " (" + e.filename + ")" : "";
+        if (/favicon\.ico/.test(msg) || /favicon\.ico/.test(src)) return; // ignore favicon 404
+        if (vizHasRender()) return; // don't clobber a rendered scene
+        var v = document.querySelector("#viz");
+        if (v) {
+          v.innerHTML =
+            "<pre style='font-family:Menlo,monospace;padding:32px;color:#6F4949;" +
+            "white-space:pre-wrap'>Final Show startup error:\n" + msg + src + "</pre>";
+        }
+      });
+    })();
+  </script>
+
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
   <script type="module" src="./js/main.js"></script>

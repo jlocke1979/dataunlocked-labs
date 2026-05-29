@@ -1,6 +1,6 @@
 import { organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { createStage, drawHeader, drawSource, applyType, STAGE } from "./_show_helpers.js";
+import { createStage, drawHeader, drawSource, applyType, STAGE } from "./show_helpers.js";
 
 // PROTOTYPE DATA ONLY. Approximate, illustrative patient-survival curves so we
 // can evaluate the visual form. Replace with real OPTN/SRTR survival data

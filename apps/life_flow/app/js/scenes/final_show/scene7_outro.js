@@ -1,4 +1,4 @@
-import { renderTitleCard } from "./_show_helpers.js";
+import { renderTitleCard } from "./show_helpers.js";
 
 export function runScene7() {
   const container = d3.select("#viz");

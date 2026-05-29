@@ -7,7 +7,7 @@ import {
   applyType,
   renderPlaceholder,
   STAGE
-} from "./_show_helpers.js";
+} from "./show_helpers.js";
 
 const DATA_PATH = "data/optn_transplants_clean.csv";
 const DONOR_TYPES = ["Deceased Donor", "Living Donor"];

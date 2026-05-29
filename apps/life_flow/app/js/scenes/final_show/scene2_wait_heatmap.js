@@ -1,6 +1,6 @@
 import { storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { createStage, drawHeader, drawSource, applyType, renderPlaceholder, STAGE } from "./_show_helpers.js";
+import { createStage, drawHeader, drawSource, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
 
 // Adapted from Assignment 04 (relational) wait-time heatmap concept.
 // Source matrix: OPTN Rpt2.1 Waitlist Organ by Waiting Time, copied to app/data.

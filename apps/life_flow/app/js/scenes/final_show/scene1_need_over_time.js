@@ -1,5 +1,5 @@
 import { runBAllOrgans } from "../assignment1/b_all_organs.js";
-import { renderPlaceholder } from "./_show_helpers.js";
+import { renderPlaceholder } from "./show_helpers.js";
 
 const DATA_PATH = "data/optn_transplants_clean.csv";
 

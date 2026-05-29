@@ -1,57 +1,36 @@
-import { runScene1 } from "./scenes/scene1_situation.js";
-import { runScene2 } from "./scenes/scene2_system.js";
-import { runScene3 } from "./scenes/scene3_tension.js";
-import { runScene4 } from "./scenes/scene4_problem.js";
-import { runScene5 } from "./scenes/scene5_resolution.js";
-import { runScene6 } from "./scenes/scene6_outro.js";
-import { runAssignment02Scene } from "./assignment02_scene_experiment.js";
-import { TYPOGRAPHY } from "../constants/typography.js";
-
+import { runScene0 } from "./scenes/final_show/scene0_landing.js";
+import { runScene1 } from "./scenes/final_show/scene1_situation.js";
+import { runScene2 } from "./scenes/final_show/scene2_system.js";
+import { runScene3 } from "./scenes/final_show/scene3_tension.js";
+import { runScene4 } from "./scenes/final_show/scene4_problem.js";
+import { runScene5 } from "./scenes/final_show/scene5_resolution.js";
+import { runScene6 } from "./scenes/final_show/scene6_outro.js";
 
 const scenes = [
-  runAssignment02Scene
+  runScene0,
+  runScene1,
+  runScene2,
+  runScene3,
+  runScene4,
+  runScene5,
+  runScene6
 ];
 
-
-let currentScene = 1;
-
-const scenes = {
-  1: runScene1,
-  2: runScene2,
-  3: runScene3,
-  4: runScene4,
-  5: runScene5,
-  6: runScene6,
-};
+let currentScene = 0;
 
 function loadScene(index) {
+  if (index < 0 || index >= scenes.length) return;
+
   console.log(`Loading scene ${index}`);
   currentScene = index;
-  scenes[index]();
+
+  d3.select("#viz").selectAll("*").remove();
+  scenes[currentScene]();
 }
 
-loadScene(1);
-
 window.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowRight") {
-    const next = currentScene + 1;
-    if (scenes[next]) loadScene(next);
-  }
-
-  if (e.key === "ArrowLeft") {
-    const prev = currentScene - 1;
-    if (scenes[prev]) loadScene(prev);
-  }
+  if (e.key === "ArrowRight") loadScene(currentScene + 1);
+  if (e.key === "ArrowLeft") loadScene(currentScene - 1);
 });
 
-
-//// For Assignement 01  Temporal /////
-d3.csv("data/optn_transplants_clean.csv").then(data => {
-  data.forEach(d => {
-    d.year = +d.year;
-    d.transplants = +d.transplants;
-    d.to_date = +d.to_date;
-  });
-
-  console.log(data.slice(0, 10));
-});
+loadScene(0);

@@ -1,5 +1,4 @@
-import { US_POP, UNIT, TOTAL_DOTS, RENDER_DOTS } from "../constants.js";
-
+import { US_POP, UNIT, TOTAL_DOTS, RENDER_DOTS } from "../../constants/constants.js";
 
 function initScene1Situation() {
   const container = d3.select("#viz");

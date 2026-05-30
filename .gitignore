@@ -9,3 +9,7 @@ apps/venue_viability_lab/data/raw/private_*
 # Venue viability private files
 apps/venue_viability_lab/docs/private_*
 apps/venue_viability_lab/data/raw/private_*
+
+# Uplands Garden Tracker — keep raw/processed photos out of the public app
+data/uplands_garden_tracker/photos_raw/
+data/uplands_garden_tracker/photos_processed/

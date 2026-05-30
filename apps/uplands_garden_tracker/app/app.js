@@ -15,7 +15,8 @@ const DATA = {
   responsibilities: [],
   plantings: [],
   movePlan: [],
-  siteNotes: []
+  siteNotes: [],
+  photos: []
 };
 
 let activeMapId = MAPS[0] ? MAPS[0].id : null;
@@ -295,21 +296,133 @@ function renderSiteNotes() {
   </li>`).join("");
 }
 
+/* ----------------------------- Photos ------------------------------------ */
+/* Field-evidence index. Privacy: lat/lon are intentionally NOT rendered here;
+ * they live in photos.csv only as an internal review aid. */
+function photoNeedsPlot(photo) {
+  return !photo.plot_id || photo.plot_id.trim() === "";
+}
+
+/* Public gallery. Only photos explicitly marked public AND with a web_path are
+ * ever shown, and lat/lon are never rendered. */
+function isPublicPhoto(photo) {
+  return String(photo.privacy_status).trim().toLowerCase() === "public"
+    && photo.web_path && photo.web_path.trim() !== "";
+}
+
+function publicPhotos() {
+  return DATA.photos.filter(isPublicPhoto);
+}
+
+function renderGalleryFilter() {
+  const sel = document.getElementById("galleryPlotFilter");
+  if (!sel) return;
+  const plotIds = [...new Set(
+    publicPhotos().map(p => (p.plot_id || "").trim()).filter(Boolean)
+  )].sort();
+  // Keep the leading "All plots" option, then add each plot that has photos.
+  sel.length = 1;
+  plotIds.forEach(id => {
+    const opt = document.createElement("option");
+    opt.value = id;
+    opt.textContent = plotLabel(id);
+    sel.appendChild(opt);
+  });
+  sel.addEventListener("change", () => renderGallery(sel.value));
+}
+
+function renderGallery(filterPlot = "") {
+  const grid = document.getElementById("photoGallery");
+  const countEl = document.getElementById("galleryCount");
+  if (!grid) return;
+
+  let photos = publicPhotos();
+  if (filterPlot) photos = photos.filter(p => (p.plot_id || "").trim() === filterPlot);
+
+  if (countEl) {
+    const total = publicPhotos().length;
+    countEl.textContent = filterPlot
+      ? `${photos.length} of ${total} photos`
+      : `${total} photo${total === 1 ? "" : "s"}`;
+  }
+
+  if (!photos.length) {
+    grid.innerHTML = '<p class="muted">No public photos to show yet.</p>';
+    return;
+  }
+
+  grid.innerHTML = photos.map(p => {
+    const plotText = photoNeedsPlot(p)
+      ? '<span class="muted">Unassigned</span>'
+      : esc(plotLabel(p.plot_id));
+    const caption = p.caption && p.caption.trim()
+      ? `<p class="ph-caption">${esc(p.caption)}</p>`
+      : "";
+    return `<figure class="photo-card">
+      <div class="photo-thumb">
+        <img src="${esc(p.web_path)}" alt="Garden photo ${esc(p.photo_id)}" loading="lazy" />
+      </div>
+      <figcaption>
+        <div class="ph-meta">
+          <span class="ph-id">${esc(p.photo_id)}</span>
+          <span class="ph-plot">${plotText}</span>
+        </div>
+        <div class="ph-date">${esc(p.date_taken) || "—"}</div>
+        ${caption}
+      </figcaption>
+    </figure>`;
+  }).join("");
+}
+
+function renderPhotoStats() {
+  const total = DATA.photos.length;
+  const needPlot = DATA.photos.filter(photoNeedsPlot).length;
+  const stats = [
+    { num: total, lbl: "Total photos" },
+    { num: needPlot, lbl: "Need plot assignment" }
+  ];
+  document.getElementById("photoStats").innerHTML = stats.map(s =>
+    `<div class="stat"><div class="num">${s.num}</div><div class="lbl">${esc(s.lbl)}</div></div>`
+  ).join("");
+}
+
+function renderPhotosTable() {
+  const tbody = document.querySelector("#photosTable tbody");
+  if (!DATA.photos.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="muted">No photos indexed yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = DATA.photos.map(p => {
+    const plotCell = photoNeedsPlot(p)
+      ? '<span class="muted">Unassigned</span>'
+      : esc(plotLabel(p.plot_id));
+    return `<tr>
+      <td><strong>${esc(p.photo_id)}</strong></td>
+      <td>${esc(p.date_taken) || '<span class="muted">—</span>'}</td>
+      <td>${plotCell}</td>
+      <td>${badge(p.privacy_status)}</td>
+      <td>${esc(p.caption) || '<span class="muted">—</span>'}</td>
+    </tr>`;
+  }).join("");
+}
+
 /* ----------------------------- Boot -------------------------------------- */
 async function init() {
   try {
-    const [plots, responsibilities, plantings, movePlan, siteNotes] = await Promise.all([
+    const [plots, responsibilities, plantings, movePlan, siteNotes, photos] = await Promise.all([
       loadCSV("data/plots.csv"),
       loadCSV("data/responsibilities.csv"),
       loadCSV("data/plantings.csv"),
       loadCSV("data/move_plan.csv"),
-      loadCSV("data/site_notes.csv")
+      loadCSV("data/site_notes.csv"),
+      loadCSV("data/photos.csv")
     ]);
     DATA.plots = plots;
     DATA.responsibilities = responsibilities;
     DATA.plantings = plantings;
     DATA.movePlan = movePlan;
     DATA.siteNotes = siteNotes;
+    DATA.photos = photos;
 
     renderOverview();
     renderMapSelector();
@@ -319,6 +432,10 @@ async function init() {
     renderInventoryTable();
     renderMovePlanTable();
     renderSiteNotes();
+    renderPhotoStats();
+    renderPhotosTable();
+    renderGalleryFilter();
+    renderGallery();
   } catch (err) {
     console.error(err);
     const overview = document.getElementById("overviewStats");

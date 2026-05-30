@@ -23,6 +23,8 @@
       <a href="#responsibility">Plots</a>
       <a href="#inventory">Plants</a>
       <a href="#move-plan">Move plan</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#photos">Photos</a>
       <a href="#site-notes">Notes</a>
       <a href="#privacy">Privacy</a>
     </div>
@@ -143,13 +145,62 @@
       </div>
     </section>
 
-    <!-- 6. Site notes -->
+    <!-- 6. Public photo gallery -->
+    <section id="gallery" class="card">
+      <h2>Garden photos</h2>
+      <p class="section-note">
+        Reviewed photos approved for public display. Locations are not shown.
+      </p>
+      <div class="gallery-controls">
+        <label for="galleryPlotFilter">Filter by plot:</label>
+        <select id="galleryPlotFilter" aria-label="Filter photos by plot">
+          <option value="">All plots</option>
+        </select>
+        <span class="hint" id="galleryCount" aria-live="polite"></span>
+      </div>
+      <div id="photoGallery" class="photo-gallery" aria-live="polite">
+        <!-- gallery cards injected by app.js -->
+      </div>
+    </section>
+
+    <!-- 7. Photos / field evidence -->
+    <section id="photos" class="card">
+      <h2>Photos / field evidence</h2>
+      <p class="section-note">
+        Index of field photos captured on-site. This is a working review list:
+        images are not displayed and exact coordinates are kept internal until
+        each photo is reviewed and assigned to a plot.
+      </p>
+      <div class="stat-grid" id="photoStats" aria-live="polite">
+        <!-- stats injected by app.js -->
+      </div>
+      <p class="privacy-statement">
+        Photo locations are used internally to support field organization. Exact
+        GPS coordinates and raw images are not displayed publicly until reviewed.
+      </p>
+      <div class="table-scroll">
+        <table id="photosTable">
+          <thead>
+            <tr>
+              <th>Photo ID</th>
+              <th>Date taken</th>
+              <th>Plot</th>
+              <th>Privacy status</th>
+              <th>Caption</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 8. Site notes -->
     <section id="site-notes" class="card">
       <h2>Site notes</h2>
       <ul id="siteNotesList" class="notes-list"></ul>
     </section>
 
-    <!-- 7. Privacy note -->
+    <!-- 9. Privacy note -->
     <section id="privacy" class="card privacy-card">
       <h2>Privacy note</h2>
       <p class="privacy-statement">
@@ -161,6 +212,10 @@
         contact details unless a neighbor has explicitly agreed to share them. The
         page is set to discourage search-engine indexing while the project is in
         progress.
+      </p>
+      <p>
+        Photo locations are used internally to support field organization. Exact
+        GPS coordinates and raw images are not displayed publicly until reviewed.
       </p>
     </section>
   </main>

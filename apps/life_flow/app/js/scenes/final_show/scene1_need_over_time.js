@@ -345,93 +345,34 @@ function buildSequence(container, rows) {
       );
   }
 
-  // ---- Mini-sequence state + in-scene controls ----------------------------
+  // ---- Mini-sequence state -------------------------------------------------
+  // No in-scene buttons or key handlers: the GLOBAL left/right navigation
+  // (js/main.js) drives these zoom tiers, so the whole show uses one consistent
+  // control scheme. The dynamic title/subtitle communicate progress per step.
   let step = 0;
-
-  const controls = container.append("div")
-    .attr("class", "scene1-controls")
-    .style("position", "absolute")
-    .style("left", "0")
-    .style("bottom", "18px")
-    .style("width", "100%")
-    .style("display", "flex")
-    .style("align-items", "center")
-    .style("justify-content", "center")
-    .style("gap", "14px")
-    .style("font-family", typography.label.family);
-
-  const backBtn = controls.append("button").text("\u25C0 Back").call(styleButton);
-  const dots = controls.append("div").style("display", "flex").style("gap", "7px");
-  steps.forEach(() => {
-    dots.append("div").style("width", "7px").style("height", "7px").style("border-radius", "50%");
-  });
-  const nextBtn = controls.append("button").text("Next within Scene \u25B6").call(styleButton);
-  const hint = controls.append("span")
-    .style("color", storyColors.textMuted)
-    .style("font-size", "12px")
-    .style("margin-left", "8px");
-
-  function updateControls() {
-    dots.selectAll("div").style("background-color", (d, i) => i === step ? storyColors.charcoalForest : storyColors.softAshGray);
-    backBtn.attr("disabled", step === 0 ? true : null).style("opacity", step === 0 ? 0.4 : 1);
-    nextBtn.attr("disabled", step === steps.length - 1 ? true : null).style("opacity", step === steps.length - 1 ? 0.4 : 1);
-    hint.text(step === steps.length - 1
-      ? "End of Scene 1 \u2014 press \u2192 for the next scene"
-      : `Step ${step + 1} of ${steps.length}`);
-  }
 
   function goTo(next) {
     const clamped = Math.max(0, Math.min(steps.length - 1, next));
     if (clamped === step) return;
     step = clamped;
     renderStep(step);
-    updateControls();
   }
 
-  backBtn.on("click", () => goTo(step - 1));
-  nextBtn.on("click", () => goTo(step + 1));
-
-  // Arrow keys advance the mini-sequence; at the boundaries the event falls
-  // through to js/main.js (bubble phase) so GLOBAL scene navigation still works.
-  // Self-cleaning: once main.js removes this scene's SVG, the listener detaches.
-  const sceneRoot = svg.node();
-  function onKey(e) {
-    if (!sceneRoot.isConnected) {
-      window.removeEventListener("keydown", onKey, true);
-      return;
-    }
-    if (e.key === "ArrowRight" && step < steps.length - 1) {
-      goTo(step + 1);
-      e.stopImmediatePropagation();
-    } else if (e.key === "ArrowLeft" && step > 0) {
-      goTo(step - 1);
-      e.stopImmediatePropagation();
-    }
+  // Register with the global navigator: consume right/left to advance/rewind a
+  // tier while one exists, then let main.js fall through to the adjacent scene.
+  if (typeof window.__setSceneNav === "function") {
+    window.__setSceneNav({
+      canHandle: (dir) =>
+        (dir === "right" && step < steps.length - 1) ||
+        (dir === "left" && step > 0),
+      handle: (dir) => goTo(dir === "right" ? step + 1 : step - 1)
+    });
   }
-
-  if (window.__scene1KeyHandler) {
-    window.removeEventListener("keydown", window.__scene1KeyHandler, true);
-  }
-  window.__scene1KeyHandler = onKey;
-  window.addEventListener("keydown", onKey, true);
 
   renderStep(step);
-  updateControls();
 }
 
 function lastDefined(points) {
   const defined = points.filter(p => Number.isFinite(p.value));
   return defined.length ? defined[defined.length - 1] : points[points.length - 1];
-}
-
-function styleButton(sel) {
-  sel
-    .style("font-family", typography.label.family)
-    .style("font-size", "13px")
-    .style("padding", "6px 14px")
-    .style("border", `1px solid ${storyColors.softAshGray}`)
-    .style("border-radius", "4px")
-    .style("background", storyColors.panel)
-    .style("color", storyColors.textPrimary)
-    .style("cursor", "pointer");
 }

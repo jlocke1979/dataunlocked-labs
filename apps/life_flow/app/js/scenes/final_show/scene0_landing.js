@@ -10,7 +10,6 @@ export function runScene0() {
     lines: [
       "Organ transplantation, waiting, and the hidden",
       "systems that turn need into time."
-    ],
-    hint: "Use \u2190 and \u2192 to move through the show."
+    ]
   });
 }

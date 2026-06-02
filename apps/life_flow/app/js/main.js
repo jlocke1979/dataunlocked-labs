@@ -1,15 +1,26 @@
-// The show's scenes, in the order the previous (committed) main.js ran them:
-// landing -> need-over-time -> wait-heatmap -> flow -> map -> after-transplant
-// -> donor-impact -> outro. (The scene1_situation/scene2_system/... narrative
-// files are older drafts and are intentionally not wired in.)
+// Headline scenes form the horizontal story spine. Each can optionally own a
+// vertical detail stack reached with DOWN/UP. Scene 1 (need_over_time) supplies
+// its detail stack dynamically (its in-scene zoom tiers) via __setDetailStack;
+// other headlines list separate detail scenes in their `details` array.
+//
+// Every existing final_show scene is imported and placed on the horizontal path
+// so nothing is hidden. The scenes share export names (runScene1..runScene7), so
+// each import is aliased. scene5_resolution takes a container, so it's wrapped.
 import { runScene0 as runLanding } from "./scenes/final_show/scene0_landing.js";
+import { runScene1 as runSituation } from "./scenes/final_show/scene1_situation.js";
 import { runScene1 as runNeed } from "./scenes/final_show/scene1_need_over_time.js";
+import { runScene2 as runSystem } from "./scenes/final_show/scene2_system.js";
 import { runScene2 as runHeatmap } from "./scenes/final_show/scene2_wait_heatmap.js";
+import { runScene3 as runTension } from "./scenes/final_show/scene3_tension.js";
 import { runScene3 as runFlow } from "./scenes/final_show/scene3_flow.js";
+import { runScene4 as runProblem } from "./scenes/final_show/scene4_problem.js";
 import { runScene4 as runMap } from "./scenes/final_show/scene4_map.js";
+import { runScene5 as runResolutionRaw } from "./scenes/final_show/scene5_resolution.js";
 import { runScene5 as runAfter } from "./scenes/final_show/scene5_after_transplant.js";
+import { runScene6 as runOutro6 } from "./scenes/final_show/scene6_outro.js";
 import { runScene6 as runDonor } from "./scenes/final_show/scene6_donor_impact.js";
-import { runScene7 as runOutro } from "./scenes/final_show/scene7_outro.js";
+import { runScene7 as runOutro7 } from "./scenes/final_show/scene7_outro.js";
+import { runDedicationScene as runDedication } from "./scenes/final_show/sceneX_dedication.js";
 
 import { storyColors } from "./constants/colors.js";
 
@@ -29,55 +40,73 @@ if (typeof d3 === "undefined") {
   showError("d3 failed to load (check the CDN <script> tags).", new Error("d3 is undefined"));
 }
 
-// Museum white background on every slide, including the real Assignment 1
-// chart slide, which renders an SVG without its own background rect.
+// Museum white background on every slide.
 d3.select("body").style("background", storyColors.museumWhite);
 d3.select("#viz").style("background", storyColors.museumWhite);
+
+// scene5_resolution renders into a container passed in, unlike the others which
+// select #viz themselves. Wrap it so every headline has the same zero-arg run().
+function runResolution() {
+  runResolutionRaw(d3.select("#viz"));
+}
 
 // ---------------------------------------------------------------------------
 // Story graph
 //
-// Each node declares its run() function plus the neighbour node id reachable
-// in each direction. Navigation is purely data-driven: re-wiring the show only
-// means editing this map. A missing direction means that button is disabled.
+//   headlineScenes : horizontal spine, navigated with LEFT / RIGHT
+//   details        : per-headline vertical stack of detail scenes (DOWN / UP)
 //
-//   RIGHT -> next scene            LEFT -> previous scene
-//   DOWN  -> supporting detail     UP   -> back to parent scene
-//
-// The show is currently the flat left/right sequence that was running before.
-// No detail scenes are assigned yet, so DOWN/UP stay disabled until a scene
-// declares a `down` target (with the detail node declaring a matching `up`).
+// A headline whose scene has *in-scene* sub-levels (Scene 1's zoom tiers)
+// registers a controller at runtime via window.__setDetailStack instead of
+// listing static `details`, so chart internals are never duplicated here.
 // ---------------------------------------------------------------------------
-const storyGraph = {
-  landing: { run: runLanding, right: "need" },
-  need:    { run: runNeed,    left: "landing", right: "heatmap" },
-  heatmap: { run: runHeatmap, left: "need",    right: "flow" },
-  flow:    { run: runFlow,    left: "heatmap", right: "map" },
-  map:     { run: runMap,     left: "flow",    right: "after" },
-  after:   { run: runAfter,   left: "map",     right: "donor" },
-  donor:   { run: runDonor,   left: "after",   right: "outro" },
-  outro:   { run: runOutro,   left: "donor" }
-};
+const headlineScenes = [
+  { id: "landing",        run: runLanding,    details: [] },
+  { id: "situation",      run: runSituation,  details: [] },
+  { id: "needOverTime",   run: runNeed,       details: [] }, // detail stack via __setDetailStack
+  { id: "system",         run: runSystem,     details: [] },
+  { id: "waitHeatmap",    run: runHeatmap,    details: [] },
+  { id: "tension",        run: runTension,    details: [] },
+  { id: "flow",           run: runFlow,       details: [] },
+  { id: "problem",        run: runProblem,    details: [] },
+  { id: "map",            run: runMap,        details: [] },
+  { id: "resolution",     run: runResolution, details: [] },
+  { id: "afterTransplant", run: runAfter,     details: [] },
+  { id: "outro",          run: runOutro6,     details: [] },
+  { id: "donorImpact",    run: runDonor,      details: [] },
+  { id: "outroDetail",    run: runOutro7,     details: [] },
+  { id: "dedication",     run: runDedication, details: [] }
+];
 
-let currentId = "landing";
+let currentHeadlineIndex = 0;
+let currentDetailDepth = 0;
 
-// Optional per-scene navigation hook. A scene that has internal sub-steps
-// (e.g. Scene 1's zoom tiers) can register one so the GLOBAL left/right nav
-// steps through those sub-steps first, then advances to the adjacent scene at
-// the boundaries. Reset on every scene load; scenes opt in via window.__setSceneNav.
-let sceneNavHook = null;
-window.__setSceneNav = (hook) => {
-  sceneNavHook = hook;
+// Detail controller registered by the current headline's scene, if it manages
+// its own in-scene depth (e.g. Scene 1). Reset on every headline load.
+//   { depth: <number of DOWN levels below the headline>, goToDepth(d) }
+let detailController = null;
+window.__setDetailStack = (controller) => {
+  detailController = controller;
   updateNavState();
 };
+
+function currentHeadline() {
+  return headlineScenes[currentHeadlineIndex];
+}
+
+// Number of DOWN levels available below the current headline.
+function maxDepth() {
+  if (detailController) return detailController.depth;
+  return currentHeadline().details.length;
+}
 
 // ---------------------------------------------------------------------------
 // Navigation buttons (mounted outside #viz so scenes never wipe them)
 // ---------------------------------------------------------------------------
-// Only left/right for now; the story is a flat spine. Add up/down entries here
-// (and `up`/`down` targets in storyGraph) when you nest detail scenes later.
 const NAV_BUTTONS = [
   { dir: "left",  label: "\u2190 Previous" },
+  { dir: "up",    label: "\u2191 Back to headline" },
+  { dir: "down",  label: "\u2193 Explore detail" },
   { dir: "right", label: "\u2192 Next" }
 ];
 
@@ -88,7 +117,7 @@ function createNav() {
   const buttons = {};
   NAV_BUTTONS.forEach(({ dir, label }) => {
     const button = document.createElement("button");
-    button.className = "nav-btn";
+    button.className = "nav-btn nav-btn--" + dir; // dir class drives compass placement
     button.type = "button";
     button.textContent = label;
     button.addEventListener("click", () => navigate(dir));
@@ -103,55 +132,81 @@ function createNav() {
 const navButtons = createNav();
 
 function canNavigate(direction) {
-  if (sceneNavHook && sceneNavHook.canHandle(direction)) return true;
-  const node = storyGraph[currentId];
-  return Boolean(node && node[direction]);
+  switch (direction) {
+    case "right": return currentHeadlineIndex < headlineScenes.length - 1;
+    case "left":  return currentHeadlineIndex > 0;
+    case "down":  return currentDetailDepth < maxDepth();
+    case "up":    return currentDetailDepth > 0;
+    default:      return false;
+  }
 }
 
 function updateNavState() {
   Object.keys(navButtons).forEach((dir) => {
     const enabled = canNavigate(dir);
-    navButtons[dir].classList.toggle("is-disabled", !enabled);
-    navButtons[dir].disabled = !enabled;
+    const button = navButtons[dir];
+    button.classList.toggle("is-disabled", !enabled);
+    button.disabled = !enabled;
+    button.setAttribute("aria-disabled", String(!enabled));
   });
 }
 
-function loadScene(nodeId) {
-  const node = storyGraph[nodeId];
-  if (!node) return;
-
-  currentId = nodeId;
-  sceneNavHook = null; // drop the previous scene's hook before rendering
-  console.log("starting scene", currentId);
-
+function renderInViz(run, label) {
   d3.select("#viz").selectAll("*").remove();
-
   try {
-    node.run();
+    run();
   } catch (err) {
-    showError("Scene " + currentId + " failed to render:", err);
+    showError(label + " failed to render:", err);
+  }
+}
+
+function loadHeadline(index) {
+  if (index < 0 || index >= headlineScenes.length) return;
+
+  currentHeadlineIndex = index;
+  currentDetailDepth = 0;
+  detailController = null; // headline scene may re-register its own stack
+
+  const headline = currentHeadline();
+  console.log("headline:", headline.id);
+  renderInViz(headline.run, "Headline '" + headline.id + "'");
+  updateNavState();
+}
+
+function setDepth(depth) {
+  currentDetailDepth = depth;
+  const headline = currentHeadline();
+
+  if (detailController) {
+    // In-scene depth (e.g. Scene 1 zoom): the scene stays mounted and restyles.
+    detailController.goToDepth(depth);
+  } else if (depth === 0) {
+    renderInViz(headline.run, "Headline '" + headline.id + "'");
+  } else {
+    const detail = headline.details[depth - 1];
+    renderInViz(detail, "Detail " + depth + " of '" + headline.id + "'");
   }
 
+  console.log("depth:", currentDetailDepth, "of", maxDepth(), "for", headline.id);
   updateNavState();
 }
 
 function navigate(direction) {
-  // Let the current scene consume an in-scene sub-step first, if it has one.
-  if (sceneNavHook && sceneNavHook.canHandle(direction)) {
-    sceneNavHook.handle(direction);
-    updateNavState();
-    return;
-  }
+  if (!canNavigate(direction)) return;
 
-  const node = storyGraph[currentId];
-  if (!node) return;
-  const target = node[direction];
-  if (target) loadScene(target);
+  switch (direction) {
+    case "right": loadHeadline(currentHeadlineIndex + 1); break;
+    case "left":  loadHeadline(currentHeadlineIndex - 1); break;
+    case "down":  setDepth(currentDetailDepth + 1); break;
+    case "up":    setDepth(currentDetailDepth - 1); break;
+  }
 }
 
 const KEY_TO_DIRECTION = {
   ArrowRight: "right",
-  ArrowLeft: "left"
+  ArrowLeft: "left",
+  ArrowDown: "down",
+  ArrowUp: "up"
 };
 
 window.addEventListener("keydown", (e) => {
@@ -161,4 +216,4 @@ window.addEventListener("keydown", (e) => {
   navigate(direction);
 });
 
-loadScene("landing");
+loadHeadline(0);

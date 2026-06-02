@@ -345,10 +345,10 @@ function buildSequence(container, rows) {
       );
   }
 
-  // ---- Mini-sequence state -------------------------------------------------
-  // No in-scene buttons or key handlers: the GLOBAL left/right navigation
-  // (js/main.js) drives these zoom tiers, so the whole show uses one consistent
-  // control scheme. The dynamic title/subtitle communicate progress per step.
+  // ---- Detail stack (vertical) ---------------------------------------------
+  // Step 0 (All Organs) is this scene's HEADLINE view. The remaining zoom tiers
+  // are its DOWN/UP detail stack, driven by the global navigator (js/main.js).
+  // No in-scene buttons or key handlers: one consistent control scheme show-wide.
   let step = 0;
 
   function goTo(next) {
@@ -358,14 +358,12 @@ function buildSequence(container, rows) {
     renderStep(step);
   }
 
-  // Register with the global navigator: consume right/left to advance/rewind a
-  // tier while one exists, then let main.js fall through to the adjacent scene.
-  if (typeof window.__setSceneNav === "function") {
-    window.__setSceneNav({
-      canHandle: (dir) =>
-        (dir === "right" && step < steps.length - 1) ||
-        (dir === "left" && step > 0),
-      handle: (dir) => goTo(dir === "right" ? step + 1 : step - 1)
+  // Expose the tiers as a detail stack: depth 0 = headline (All Organs), and
+  // there are steps.length - 1 deeper levels reachable with DOWN.
+  if (typeof window.__setDetailStack === "function") {
+    window.__setDetailStack({
+      depth: steps.length - 1,
+      goToDepth: (d) => goTo(d)
     });
   }
 

@@ -1,13 +1,13 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f1e8;
+  background: #f7f7f4;
   color: #2f3e34;
 }
 
 #app {
   text-align: center;
-  background: #f5f1e8;
+  background: #f7f7f4;
 }
 
 /*  Version 1 */
@@ -33,12 +33,15 @@ font-family: "Calisto MT", Georgia, serif;
    Final show navigation (mounted outside #viz, so scenes never clear it)
    --------------------------------------------------------------------------- */
 #nav {
+  /* Reserved bottom-right corner so the compass never overlaps scene titles
+     (top-left) or the source caption (bottom-left). */
   position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 16px;
+  bottom: 16px;
+  left: auto;
+  transform: none;
   z-index: 1000;
-  font-family: Georgia, "Book Antiqua", serif;
+  font-family: "Calisto MT", Georgia, serif;
 
   /* Cardinal/compass layout:  up on top, left/right on the middle row,
      down on the bottom. Empty center cell keeps the cross shape. */
@@ -49,9 +52,12 @@ font-family: "Calisto MT", Georgia, serif;
     ".    up    ."
     "left .     right"
     ".    down  .";
-  gap: 8px;
+  gap: 4px;
   justify-items: center;
   align-items: center;
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
 #nav .nav-btn--up    { grid-area: up; }
@@ -62,41 +68,37 @@ font-family: "Calisto MT", Georgia, serif;
 #nav .nav-btn {
   -webkit-appearance: none;
   appearance: none;
-  border: 1px solid #b8b8b3;
-  background: #f9f6ef;
-  color: #202623;
+  border: none;
+  background: transparent;
+  color: #43535d;
   font-family: inherit;
-  font-size: 16px;
-  line-height: 1.2;
-  padding: 12px 20px;
-  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 0;
+  opacity: 0.65;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(32, 38, 35, 0.14);
-  transition: background 0.15s ease, opacity 0.15s ease, transform 0.05s ease;
+  transition: opacity 0.12s ease, color 0.12s ease;
 }
 
 #nav .nav-btn:hover:not(.is-disabled) {
-  background: #efe9dc;
-}
-
-#nav .nav-btn:active:not(.is-disabled) {
-  transform: translateY(1px);
+  opacity: 0.8;
+  color: #202623;
 }
 
 #nav .nav-btn:focus-visible {
-  outline: 2px solid #4f6675;
+  outline: 1px solid #b8b8b3;
   outline-offset: 2px;
 }
 
-/* Disabled directions stay visible but clearly inert: muted gray text,
-   reduced opacity, no shadow, no hover, no pointer. */
+/* Disabled: faint but visible — no chrome, no hover. */
 #nav .nav-btn.is-disabled,
 #nav .nav-btn[aria-disabled="true"],
 #nav .nav-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.28;
   color: #b8b8b3;
-  background: #f9f6ef;
-  box-shadow: none;
+  background: transparent;
   cursor: default;
   pointer-events: none;
 }

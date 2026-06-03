@@ -100,10 +100,18 @@ export function runScene1() {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
+  // Capture the navigation token so a late CSV callback can detect that the
+  // user already navigated away and bail (avoids painting over a newer scene
+  // and wrongly registering this detail stack). See js/main.js.
+  const enteredToken = window.__navToken;
+  const isStale = () =>
+    typeof enteredToken !== "undefined" && window.__navToken !== enteredToken;
+
   console.log("[Scene 1] Assignment 1 source files found/reused:", ASSIGNMENT1_SOURCES);
 
   d3.csv(DATA_PATH)
     .then(rows => {
+      if (isStale()) return;
       rows.forEach(d => {
         d.year = +d.year;
         d.transplants = +d.transplants;
@@ -118,6 +126,7 @@ export function runScene1() {
       buildSequence(container, rows);
     })
     .catch(err => {
+      if (isStale()) return;
       console.error("[Scene 1] CSV load error:", err);
       renderPlaceholder(container, {
         sceneLabel: "Scene 1",

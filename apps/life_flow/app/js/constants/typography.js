@@ -20,7 +20,7 @@ export const typography = {
   },
   label: {
     family: "\"Calisto MT\", Georgia, serif",
-    size: 11,
+    size: 12,
     weight: 400,
     style: "normal"
   },
@@ -32,7 +32,7 @@ export const typography = {
   },
   caption: {
     family: "\"Calisto MT\", Georgia, serif",
-    size: 10,
+    size: 11,
     weight: 400,
     style: "italic"
   }

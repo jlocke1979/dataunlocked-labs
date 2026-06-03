@@ -60,26 +60,36 @@ function runResolution() {
 // registers a controller at runtime via window.__setDetailStack instead of
 // listing static `details`, so chart internals are never duplicated here.
 // ---------------------------------------------------------------------------
+// Headline path. The six narrative title-card scenes (situation/system/tension/
+// problem/resolution/outro) and the dedication are TEMPORARILY hidden for a
+// simplified evaluation path. Their imports and files are kept intact — restore
+// any of them by uncommenting its line below.
 const headlineScenes = [
-  { id: "landing",        run: runLanding,    details: [] },
-  { id: "situation",      run: runSituation,  details: [] },
-  { id: "needOverTime",   run: runNeed,       details: [] }, // detail stack via __setDetailStack
-  { id: "system",         run: runSystem,     details: [] },
-  { id: "waitHeatmap",    run: runHeatmap,    details: [] },
-  { id: "tension",        run: runTension,    details: [] },
-  { id: "flow",           run: runFlow,       details: [] },
-  { id: "problem",        run: runProblem,    details: [] },
-  { id: "map",            run: runMap,        details: [] },
-  { id: "resolution",     run: runResolution, details: [] },
-  { id: "afterTransplant", run: runAfter,     details: [] },
-  { id: "outro",          run: runOutro6,     details: [] },
-  { id: "donorImpact",    run: runDonor,      details: [] },
-  { id: "outroDetail",    run: runOutro7,     details: [] },
-  { id: "dedication",     run: runDedication, details: [] }
+  { id: "landing",         run: runLanding,    details: [] },
+  // { id: "situation",       run: runSituation,  details: [] },   // hidden for eval
+  // expectedDepth pre-enables DOWN while the scene's CSV loads and registers
+  // its real controller (avoids a brief disabled flash). Overridden once ready.
+  { id: "needOverTime",    run: runNeed,       details: [], expectedDepth: 4 },
+  // { id: "system",          run: runSystem,     details: [] },   // hidden for eval
+  { id: "waitHeatmap",     run: runHeatmap,    details: [] },
+  // { id: "tension",         run: runTension,    details: [] },   // hidden for eval
+  { id: "flow",            run: runFlow,       details: [] },
+  // { id: "problem",         run: runProblem,    details: [] },   // hidden for eval
+  { id: "map",             run: runMap,        details: [] },
+  // { id: "resolution",      run: runResolution, details: [] },   // hidden for eval
+  { id: "afterTransplant", run: runAfter,      details: [] },
+  // { id: "outro",           run: runOutro6,     details: [] },   // hidden for eval
+  { id: "donorImpact",     run: runDonor,      details: [] },
+  { id: "outroDetail",     run: runOutro7,     details: [] }
+  // { id: "dedication",      run: runDedication, details: [] }    // hidden for eval
 ];
 
 let currentHeadlineIndex = 0;
 let currentDetailDepth = 0;
+
+// Bumped on every headline load and mirrored to window.__navToken so a scene's
+// late async callback (e.g. Scene 1's CSV) can detect it's stale and bail.
+let navToken = 0;
 
 // Detail controller registered by the current headline's scene, if it manages
 // its own in-scene depth (e.g. Scene 1). Reset on every headline load.
@@ -97,17 +107,19 @@ function currentHeadline() {
 // Number of DOWN levels available below the current headline.
 function maxDepth() {
   if (detailController) return detailController.depth;
-  return currentHeadline().details.length;
+  const headline = currentHeadline();
+  if (headline.details.length) return headline.details.length;
+  return headline.expectedDepth || 0; // pre-load hint for async scenes
 }
 
 // ---------------------------------------------------------------------------
 // Navigation buttons (mounted outside #viz so scenes never wipe them)
 // ---------------------------------------------------------------------------
 const NAV_BUTTONS = [
-  { dir: "left",  label: "\u2190 Previous" },
-  { dir: "up",    label: "\u2191 Back to headline" },
-  { dir: "down",  label: "\u2193 Explore detail" },
-  { dir: "right", label: "\u2192 Next" }
+  { dir: "left",  glyph: "\u2190", aria: "Previous" },
+  { dir: "up",    glyph: "\u2191", aria: "Up" },
+  { dir: "down",  glyph: "\u2193", aria: "Detail" },
+  { dir: "right", glyph: "\u2192", aria: "Next" }
 ];
 
 function createNav() {
@@ -115,11 +127,13 @@ function createNav() {
   nav.id = "nav";
 
   const buttons = {};
-  NAV_BUTTONS.forEach(({ dir, label }) => {
+  NAV_BUTTONS.forEach(({ dir, glyph, aria }) => {
     const button = document.createElement("button");
     button.className = "nav-btn nav-btn--" + dir; // dir class drives compass placement
     button.type = "button";
-    button.textContent = label;
+    button.textContent = glyph;
+    button.setAttribute("aria-label", aria);
+    button.title = aria;
     button.addEventListener("click", () => navigate(dir));
     nav.appendChild(button);
     buttons[dir] = button;
@@ -166,6 +180,8 @@ function loadHeadline(index) {
   currentHeadlineIndex = index;
   currentDetailDepth = 0;
   detailController = null; // headline scene may re-register its own stack
+  navToken += 1;
+  window.__navToken = navToken; // late async callbacks compare against this
 
   const headline = currentHeadline();
   console.log("headline:", headline.id);
@@ -174,8 +190,13 @@ function loadHeadline(index) {
 }
 
 function setDepth(depth) {
-  currentDetailDepth = depth;
   const headline = currentHeadline();
+
+  // Going deeper but the async detail controller (e.g. Scene 1's CSV) hasn't
+  // registered yet: DOWN is pre-enabled, so ignore the press safely until ready.
+  if (depth > 0 && !detailController && headline.details.length === 0) return;
+
+  currentDetailDepth = depth;
 
   if (detailController) {
     // In-scene depth (e.g. Scene 1 zoom): the scene stays mounted and restyles.

@@ -1,6 +1,6 @@
 import { storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { createStage, drawHeader, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
+import { beginChartScene, HEADER_TOP_VH, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
 
 /* ---------------------------------------------------------------------------
  * Scene 3 — two-sided system flow.
@@ -56,7 +56,7 @@ const C = {
 
 const fmt = d3.format(",");
 
-export function runScene3() {
+export function runScene3(options = {}) {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
   container.style("position", "relative");
@@ -85,7 +85,7 @@ export function runScene3() {
       };
 
       console.log("Scene 3 data sources:", WAITLIST_PATH, "+", Object.values(DONOR_FILES).join(", "));
-      mount(container, ctx);
+      mount(container, ctx, options);
     })
     .catch(err => {
       console.error("Scene 3 data load error:", err);
@@ -142,12 +142,14 @@ function buildFlow(ctx, organCsv) {
   };
 }
 
-function mount(container, ctx) {
-  const svg = createStage(container);
-  drawHeader(svg, {
-    sceneLabel: "Scene 3  \u00b7  prototype",
-    title: "What happens between need, donation, and transplant?",
-    subtitle: "Each donor gives several organs \u2014 supply runs donors \u2192 organs recovered \u2192 transplanted, meeting waitlist demand in the middle"
+function mount(container, ctx, options = {}) {
+  const { chartSvg: svg } = beginChartScene(container, {
+    sceneLabel: options.sceneLabel ?? "Chopping block \u00b7 archived alluvial",
+    title: options.title ?? "What happens between need, donation, and transplant?",
+    subtitle:
+      options.subtitle !== undefined
+        ? options.subtitle
+        : "Each donor gives several organs \u2014 supply runs donors \u2192 organs recovered \u2192 transplanted, meeting waitlist demand in the middle"
   });
 
   const flowGroup = svg.append("g").attr("class", "flow");
@@ -156,7 +158,7 @@ function mount(container, ctx) {
   // Simple organ selector (default "All organs" works with no interaction).
   const control = container.append("div")
     .style("position", "absolute")
-    .style("top", "70px")
+    .style("top", `calc(${HEADER_TOP_VH}vh + 8px)`)
     .style("right", "48px")
     .style("font-family", typography.label.family)
     .style("font-size", `${typography.label.size}px`)

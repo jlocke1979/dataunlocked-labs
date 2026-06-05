@@ -7,19 +7,32 @@
 // so nothing is hidden. The scenes share export names (runScene1..runScene7), so
 // each import is aliased. scene5_resolution takes a container, so it's wrapped.
 import { runScene0 as runLanding } from "./scenes/final_show/scene0_landing.js";
+import { runScene0LandingNav } from "./scenes/final_show/scene0_landing_nav.js";
+import { runSystemMap } from "./scenes/final_show/scene_system_map.js";
+import { mountShowBreadcrumb, updateShowBreadcrumb } from "./final_show/show_tour.js";
 import { runScene1 as runSituation } from "./scenes/final_show/scene1_situation.js";
 import { runScene1 as runNeed } from "./scenes/final_show/scene1_need_over_time.js";
+import { runScene3TreemapDetail } from "./scenes/final_show/scene_appendix_assignment_03.js";
+import { runScene3MultiOrganDetail } from "./scenes/final_show/scene_appendix_multi_organ.js";
+import { runAppendixPatientJourney } from "./scenes/final_show/scene_appendix_patient_journey.js";
+import { runConclusion } from "./scenes/final_show/scene_conclusion.js";
+// import { runScene7 as runOutroDetail } from "./scenes/final_show/scene7_outro.js";
+import { runReferences } from "./scenes/final_show/scene_references.js";
+import { runStationN } from "./scenes/final_show/scene_patient_station.js";
 import { runScene2 as runSystem } from "./scenes/final_show/scene2_system.js";
 import { runScene2 as runHeatmap } from "./scenes/final_show/scene2_wait_heatmap.js";
 import { runScene3 as runTension } from "./scenes/final_show/scene3_tension.js";
-import { runScene3 as runFlow } from "./scenes/final_show/scene3_flow.js";
+import { runChoppingBlockIntro } from "./scenes/final_show/scene_chopping_block.js";
+import { runScene3 as runFlowAlluvial } from "./scenes/final_show/scene3_flow.js";
+import { runScene3SupplyDemand } from "./scenes/final_show/scene3_supply_demand_dots.js";
+import { runScene3FlowWaffleAbsolute } from "./scenes/final_show/scene3_flow_waffle_absolute.js";
+import { runScene3FlowWaffleProportion } from "./scenes/final_show/scene3_flow_waffle_proportion.js";
 import { runScene4 as runProblem } from "./scenes/final_show/scene4_problem.js";
 import { runScene4 as runMap } from "./scenes/final_show/scene4_map.js";
 import { runScene5 as runResolutionRaw } from "./scenes/final_show/scene5_resolution.js";
 import { runScene5 as runAfter } from "./scenes/final_show/scene5_after_transplant.js";
 import { runScene6 as runOutro6 } from "./scenes/final_show/scene6_outro.js";
 import { runScene6 as runDonor } from "./scenes/final_show/scene6_donor_impact.js";
-import { runScene7 as runOutro7 } from "./scenes/final_show/scene7_outro.js";
 import { runDedicationScene as runDedication } from "./scenes/final_show/sceneX_dedication.js";
 
 import { storyColors } from "./constants/colors.js";
@@ -51,37 +64,49 @@ function runResolution() {
 }
 
 // ---------------------------------------------------------------------------
-// Story graph
-//
-//   headlineScenes : horizontal spine, navigated with LEFT / RIGHT
-//   details        : per-headline vertical stack of detail scenes (DOWN / UP)
-//
-// A headline whose scene has *in-scene* sub-levels (Scene 1's zoom tiers)
-// registers a controller at runtime via window.__setDetailStack instead of
-// listing static `details`, so chart internals are never duplicated here.
+// Story graph — professor-reviewed narrative order (SRTR = reference only).
+// A–L station scenes remain on disk but are not on this spine.
 // ---------------------------------------------------------------------------
-// Headline path. The six narrative title-card scenes (situation/system/tension/
-// problem/resolution/outro) and the dedication are TEMPORARILY hidden for a
-// simplified evaluation path. Their imports and files are kept intact — restore
-// any of them by uncommenting its line below.
 const headlineScenes = [
-  { id: "landing",         run: runLanding,    details: [] },
-  // { id: "situation",       run: runSituation,  details: [] },   // hidden for eval
-  // expectedDepth pre-enables DOWN while the scene's CSV loads and registers
-  // its real controller (avoids a brief disabled flash). Overridden once ready.
-  { id: "needOverTime",    run: runNeed,       details: [], expectedDepth: 4 },
-  // { id: "system",          run: runSystem,     details: [] },   // hidden for eval
-  { id: "waitHeatmap",     run: runHeatmap,    details: [] },
-  // { id: "tension",         run: runTension,    details: [] },   // hidden for eval
-  { id: "flow",            run: runFlow,       details: [] },
-  // { id: "problem",         run: runProblem,    details: [] },   // hidden for eval
-  { id: "map",             run: runMap,        details: [] },
-  // { id: "resolution",      run: runResolution, details: [] },   // hidden for eval
-  { id: "afterTransplant", run: runAfter,      details: [] },
-  // { id: "outro",           run: runOutro6,     details: [] },   // hidden for eval
-  { id: "donorImpact",     run: runDonor,      details: [] },
-  { id: "outroDetail",     run: runOutro7,     details: [] }
-  // { id: "dedication",      run: runDedication, details: [] }    // hidden for eval
+  { id: "landing", run: runLanding, details: [] },
+  { id: "landingNav", run: runScene0LandingNav, details: [] },
+  { id: "needOverTime", run: runNeed, details: [], expectedDepth: 4 },
+  { id: "waitHeatmap", run: runHeatmap, details: [] },
+  {
+    id: "flow",
+    run: runScene3FlowWaffleAbsolute,
+    details: [
+      runScene3FlowWaffleProportion,
+      runScene3MultiOrganDetail,
+      runScene3TreemapDetail
+    ]
+  },
+  { id: "map", run: runMap, details: [] },
+  { id: "afterTransplant", run: runAfter, details: [runStationN] },
+  { id: "donorImpact", run: runDonor, details: [] },
+  { id: "conclusion", run: runConclusion, details: [] },
+  { id: "appendixPatientJourney", run: runAppendixPatientJourney, details: [] },
+  {
+    id: "systemMap",
+    run: () => runSystemMap({ highlightThroughIndex: -1 }),
+    details: []
+  },
+  { id: "references", run: runReferences, details: [] },
+  {
+    id: "choppingBlockIntro",
+    run: runChoppingBlockIntro,
+    details: [
+      () => runScene3SupplyDemand({ sceneLabel: "Chopping Block", subtitle: "", showSource: false }),
+      () => runFlowAlluvial({ sceneLabel: "Chopping Block", subtitle: "" })
+    ]
+  }
+  // { id: "situation", run: runSituation, details: [] },
+  // { id: "system", run: runSystem, details: [] },
+  // { id: "tension", run: runTension, details: [] },
+  // { id: "problem", run: runProblem, details: [] },
+  // { id: "resolution", run: runResolution, details: [] },
+  // { id: "outro", run: runOutro6, details: [] },
+  // { id: "dedication", run: runDedication, details: [] }
 ];
 
 let currentHeadlineIndex = 0;
@@ -106,10 +131,12 @@ function currentHeadline() {
 
 // Number of DOWN levels available below the current headline.
 function maxDepth() {
-  if (detailController) return detailController.depth;
   const headline = currentHeadline();
-  if (headline.details.length) return headline.details.length;
-  return headline.expectedDepth || 0; // pre-load hint for async scenes
+  const extras = headline.details?.length || 0;
+  if (detailController) return detailController.depth + extras;
+  if (extras && headline.expectedDepth != null) return headline.expectedDepth;
+  if (extras) return extras;
+  return headline.expectedDepth || 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -139,11 +166,37 @@ function createNav() {
     buttons[dir] = button;
   });
 
-  document.body.appendChild(nav);
-  return buttons;
+  return { nav, buttons };
 }
 
-const navButtons = createNav();
+function mountShowTopChrome(navEl) {
+  let chrome = document.getElementById("show-top-chrome");
+  if (!chrome) {
+    chrome = document.createElement("div");
+    chrome.id = "show-top-chrome";
+    document.body.appendChild(chrome);
+  }
+  const breadcrumb = mountShowBreadcrumb();
+  if (breadcrumb.parentElement !== chrome) chrome.appendChild(breadcrumb);
+  if (navEl.parentElement !== chrome) chrome.appendChild(navEl);
+}
+
+const { nav: navEl, buttons: navButtons } = createNav();
+mountShowTopChrome(navEl);
+
+function syncBreadcrumb() {
+  const headline = currentHeadline();
+  const extras = headline.details?.length || 0;
+  const detailCount = detailController
+    ? detailController.depth + extras
+    : (headline.expectedDepth ?? extras);
+
+  updateShowBreadcrumb({
+    headlineId: headline.id,
+    detailDepth: currentDetailDepth,
+    detailCount
+  });
+}
 
 function canNavigate(direction) {
   switch (direction) {
@@ -180,35 +233,63 @@ function loadHeadline(index) {
   currentHeadlineIndex = index;
   currentDetailDepth = 0;
   detailController = null; // headline scene may re-register its own stack
+  delete window.__scene1PendingDepth;
   navToken += 1;
   window.__navToken = navToken; // late async callbacks compare against this
 
   const headline = currentHeadline();
   console.log("headline:", headline.id);
   renderInViz(headline.run, "Headline '" + headline.id + "'");
+  syncBreadcrumb();
   updateNavState();
+}
+
+function zoomDepthFor(headline) {
+  const extras = headline.details?.length || 0;
+  if (detailController) return detailController.depth;
+  if (headline.expectedDepth != null) return headline.expectedDepth - extras;
+  return 0;
 }
 
 function setDepth(depth) {
   const headline = currentHeadline();
+  const extras = headline.details || [];
+  const ctrlDepth = detailController ? detailController.depth : null;
+  const hybrid = ctrlDepth != null && extras.length > 0;
+  const zoomDepth = zoomDepthFor(headline);
+  const prevDepth = currentDetailDepth;
 
-  // Going deeper but the async detail controller (e.g. Scene 1's CSV) hasn't
-  // registered yet: DOWN is pre-enabled, so ignore the press safely until ready.
-  if (depth > 0 && !detailController && headline.details.length === 0) return;
+  // Async zoom stack not registered yet — ignore in-zoom DOWN until ready.
+  if (depth > 0 && ctrlDepth == null && depth <= zoomDepth) return;
 
   currentDetailDepth = depth;
 
-  if (detailController) {
-    // In-scene depth (e.g. Scene 1 zoom): the scene stays mounted and restyles.
+  if (hybrid && depth > ctrlDepth) {
+    const detail = extras[depth - ctrlDepth - 1];
+    renderInViz(detail, "Detail " + depth + " of '" + headline.id + "'");
+  } else if (hybrid && prevDepth > ctrlDepth && depth <= ctrlDepth) {
+    // Returning from an extra detail (e.g. multi-organ) — remount zoom scene.
+    window.__scene1PendingDepth = depth;
+    renderInViz(headline.run, "Headline '" + headline.id + "' (resume zoom)");
+  } else if (ctrlDepth != null) {
     detailController.goToDepth(depth);
   } else if (depth === 0) {
     renderInViz(headline.run, "Headline '" + headline.id + "'");
+  } else if (extras.length > 0) {
+    if (depth <= zoomDepth) {
+      window.__scene1PendingDepth = depth;
+      renderInViz(headline.run, "Headline '" + headline.id + "' (resume zoom)");
+    } else {
+      const detail = extras[depth - zoomDepth - 1];
+      renderInViz(detail, "Detail " + depth + " of '" + headline.id + "'");
+    }
   } else {
-    const detail = headline.details[depth - 1];
+    const detail = extras[depth - 1];
     renderInViz(detail, "Detail " + depth + " of '" + headline.id + "'");
   }
 
   console.log("depth:", currentDetailDepth, "of", maxDepth(), "for", headline.id);
+  syncBreadcrumb();
   updateNavState();
 }
 
@@ -229,6 +310,17 @@ const KEY_TO_DIRECTION = {
   ArrowDown: "down",
   ArrowUp: "up"
 };
+
+// Scene 4 embeds the map in a same-origin iframe; arrow keys do not reach this
+// window while focus is on iframe controls. scene4_map.js posts messages here.
+const SCENE4_NAV_MESSAGE_SOURCE = "life-flow-scene4";
+
+window.addEventListener("message", (event) => {
+  if (event.origin !== window.location.origin) return;
+  if (event.data?.source !== SCENE4_NAV_MESSAGE_SOURCE || event.data?.type !== "nav") return;
+  const direction = event.data.direction;
+  if (direction) navigate(direction);
+});
 
 window.addEventListener("keydown", (e) => {
   const direction = KEY_TO_DIRECTION[e.key];

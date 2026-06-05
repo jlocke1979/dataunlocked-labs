@@ -1,6 +1,6 @@
 import { organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { createStage, drawHeader, drawSource, applyType, STAGE } from "./show_helpers.js";
+import { beginChartScene, drawSource, applyType, STAGE } from "./show_helpers.js";
 
 // PROTOTYPE DATA ONLY. Approximate, illustrative patient-survival curves so we
 // can evaluate the visual form. Replace with real OPTN/SRTR survival data
@@ -16,9 +16,8 @@ export function runScene5() {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
-  const svg = createStage(container);
-  drawHeader(svg, {
-    sceneLabel: "Scene 5  \u00b7  prototype",
+  const { chartSvg: svg } = beginChartScene(container, {
+    sceneLabel: "Scene 5",
     title: "What happens after transplant?",
     subtitle: "Illustrative patient survival by organ, years since transplant"
   });
@@ -105,5 +104,10 @@ export function runScene5() {
     typography.label
   );
 
-  drawSource(svg, "Illustrative prototype values \u2014 replace with OPTN/SRTR patient-survival data before locking.");
+  // Default caption line + 0.5in (48px) so source clears the x-axis label.
+  drawSource(
+    svg,
+    "Source: Illustrative prototype values \u2014 replace with OPTN/SRTR patient-survival data before locking.",
+    STAGE.captionY + 48
+  );
 }

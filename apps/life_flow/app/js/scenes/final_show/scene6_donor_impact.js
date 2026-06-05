@@ -1,6 +1,6 @@
 import { organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { createStage, drawHeader, applyType, STAGE } from "./show_helpers.js";
+import { beginChartScene, applyType, STAGE } from "./show_helpers.js";
 
 /* ---------------------------------------------------------------------------
  * Scene 6 — "A life carried forward" (Concept B).
@@ -44,11 +44,11 @@ export function runScene6() {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
-  const svg = createStage(container);
-  drawHeader(svg, {
-    sceneLabel: "Scene 6  \u00b7  prototype",
+  const { chartSvg: svg } = beginChartScene(container, {
+    sceneLabel: "Scene 6",
     title: "How much life can one donor create?",
-    subtitle: "Median years lived after transplant \u2014 a typical donor's reach, and the most one donor can give"
+    subtitle:
+      "Median years lived after transplant \u2014 a typical donor's reach, and the most one donor can give"
   });
 
   // Soft tail gradient: fades each lifeline into the background to read as

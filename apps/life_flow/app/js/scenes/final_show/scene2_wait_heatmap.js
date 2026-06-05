@@ -1,6 +1,6 @@
 import { storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { createStage, drawHeader, drawSource, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
+import { beginChartScene, drawSource, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
 
 // ---------------------------------------------------------------------------
 // Scene 2 — Distribution of wait times by organ.
@@ -28,8 +28,17 @@ import { createStage, drawHeader, drawSource, applyType, renderPlaceholder, STAG
 const DATA_PATH = "./data/waitlist_wait_time.csv"; // relative -> GitHub Pages-safe
 const HEATMAP_SOURCE = "assignment_04_relational/final/final_heatmap.png";
 
-// Assignment 4 organ order (top -> bottom): longest-wait organs first.
-const ORGANS = ["Kidney", "Intestine", "Pancreas", "Kidney / Pancreas", "Heart", "Liver", "Lung"];
+// Organ order (top -> bottom): longest waits first — Intestine & Pancreas heaviest
+// in 3–5 yr / 5+ yr buckets; Heart, Liver, Lung shortest.
+const ORGANS = [
+  "Intestine",
+  "Pancreas",
+  "Kidney",
+  "Kidney / Pancreas",
+  "Heart",
+  "Liver",
+  "Lung"
+];
 
 // Raw waiting-period bucket -> short column label, in left-to-right order.
 const BUCKETS = [
@@ -77,11 +86,11 @@ export function runScene2() {
 }
 
 function render(container, header, rawRows) {
-  const svg = createStage(container);
-  drawHeader(svg, {
+  const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Scene 2",
     title: "Distribution of wait times by organ",
-    subtitle: "Kidney candidates wait substantially longer; most lung candidates are transplanted within six months"
+    subtitle:
+      "Candidates may experience vastly different wait times depending on the organ"
   });
 
   // Look up a raw cell by organ (column) and bucket (row).
@@ -170,9 +179,92 @@ function render(container, header, rawRows) {
     .attr("stroke", storyColors.museumWhite)
     .attr("stroke-width", 2);
 
+  drawHeatmapCallouts(svg, {
+    gridLeft,
+    gridTop,
+    cellW,
+    cellH,
+    intestineRow: 0,
+    lungRow: ORGANS.length - 1,
+    fivePlusCol: BUCKETS.length - 1,
+    under30Col: 0
+  });
+
   drawColorbar(svg, color, maxPct, { gridRight, gridTop, gridBottom });
 
-  drawSource(svg, "Source: Organ Procurement and Transplantation Network (OPTN), 2025. Adapted from Assignment 04 (relational).");
+  drawSource(
+    svg,
+    "Source: Organ Procurement and Transplantation Network (OPTN), 2025. Adapted from Assignment 04 (relational).",
+    STAGE.captionY + 48
+  );
+}
+
+function drawHeatmapCallouts(
+  svg,
+  { gridLeft, gridTop, cellW, cellH, intestineRow, lungRow, fivePlusCol, under30Col }
+) {
+  const HALF_IN = 48;
+  const TWO_IN = 192;
+  const fivePlusCx = gridLeft + fivePlusCol * cellW + cellW / 2;
+  const under30Cx = gridLeft + under30Col * cellW + cellW / 2;
+  const fivePlusBoxW = 162;
+  const under30BoxW = 152;
+  const under30BoxH = 32;
+  const under30BoxCx = gridLeft + under30Col * cellW + 18 - TWO_IN + 105;
+
+  const callouts = [
+    {
+      id: "five-plus",
+      anchorX: fivePlusCx,
+      anchorY: gridTop + intestineRow * cellH + cellH / 2,
+      text: "Highest proportion of candidates waiting 5+",
+      boxX: fivePlusCx - fivePlusBoxW / 2,
+      boxY: gridTop + intestineRow * cellH - 34,
+      boxW: fivePlusBoxW,
+      boxH: 36
+    },
+    {
+      id: "under-30",
+      anchorX: under30Cx,
+      anchorY: gridTop + lungRow * cellH + cellH / 2,
+      text: "Highest proportion < 30 days",
+      boxX: under30BoxCx - under30BoxW / 2,
+      boxY: gridTop + lungRow * cellH + cellH / 2 + 8 + HALF_IN,
+      boxW: under30BoxW,
+      boxH: under30BoxH,
+      textY: 12
+    }
+  ];
+
+  const layer = svg.append("g").attr("class", "heatmap-callouts");
+
+  callouts.forEach(d => {
+    const g = layer.append("g").attr("class", "heatmap-callout");
+    g.append("line")
+      .attr("stroke", storyColors.weatheredBrass)
+      .attr("stroke-width", 1)
+      .attr("x1", d.anchorX)
+      .attr("y1", d.anchorY)
+      .attr("x2", d.boxX + d.boxW / 2)
+      .attr("y2", d.boxY + d.boxH / 2);
+    g.append("rect")
+      .attr("x", d.boxX)
+      .attr("y", d.boxY)
+      .attr("width", d.boxW)
+      .attr("height", d.boxH)
+      .attr("rx", 3)
+      .attr("fill", storyColors.museumWhite)
+      .attr("stroke", storyColors.weatheredBrass)
+      .attr("stroke-width", 1);
+    applyType(
+      g.append("text")
+        .attr("x", d.boxX + 6)
+        .attr("y", d.boxY + (d.textY ?? 14))
+        .attr("fill", storyColors.textPrimary)
+        .text(d.text),
+      typography.caption
+    );
+  });
 }
 
 function drawColorbar(svg, color, maxPct, { gridRight, gridTop, gridBottom }) {

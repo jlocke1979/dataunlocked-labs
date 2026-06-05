@@ -1,8 +1,8 @@
 import { organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import {
-  createStage,
-  drawHeader,
+  beginChartScene,
+  HEADER_GRID,
   drawSource,
   applyType,
   renderPlaceholder,
@@ -37,37 +37,33 @@ import {
 const DATA_PATH = "data/optn_transplants_clean.csv"; // relative -> GitHub Pages-safe
 const TRANSITION_MS = 1000;
 
-// Header grid positions mirror show_helpers.drawHeader so the dynamic per-step
-// title/subtitle stay on the same typographic baseline as the static eyebrow.
-const TITLE_Y = 104;
-const SUBTITLE_Y = 139;
-
 // Volume tiers, ordered as the "zoom in" sequence. `organs: null` is the total
 // (All Organs) line. Edit these lists to rebalance which organ sits in a tier.
 const TIERS = [
   {
     key: "all",
     organs: null,
-    title: "The need has grown for decades",
-    subtitle: "Total U.S. transplants \u2014 all organs, all donor types (1988\u20132025)"
+    title: "The organ transplant system has supported more transplants in recent years.",
+    subtitle: "2021 had a noticeable decrease, while accelerating rapidly after."
   },
   {
     key: "large",
     organs: ["Kidney", "Liver", "Heart", "Lung"],
-    title: "Four organs drive most of the volume",
-    subtitle: "Large-volume organs \u2014 the y-axis rescales to fit them"
+    title: "Kidney, Liver, Heart, and Lung drive most volume",
+    subtitle:
+      "Kidney is both the most prevalent and leveled off in 2025, while liver\u00a0transplants\u00a0accelerated."
   },
   {
     key: "medium",
     organs: ["Kidney / Pancreas", "Pancreas"],
-    title: "Zoom in: mid-volume organs appear",
-    subtitle: "Hidden under the big four until the y-axis shrinks"
+    title: "Kidney/Pancreas is the largest multi-organ combination",
+    subtitle: "Pancreas alone has had a decades-long decline."
   },
   {
     key: "small",
     organs: ["Intestine", "Heart / Lung"],
-    title: "Zoom again: low-volume organs",
-    subtitle: "A few hundred transplants a year \u2014 invisible at the earlier scale"
+    title: "Both Intestines and Heart/Lung transplants number\u00a0in\u00a0hundreds.",
+    subtitle: "Heart/Lung has grown in the last decade, while intestine have leveled off."
   },
   {
     key: "micro",
@@ -79,8 +75,8 @@ const TIERS = [
       "VCA - other genitourinary organ",
       "VCA - external male genitalia"
     ],
-    title: "A micro view for the rarest transplants",
-    subtitle: "VCA procedures \u2014 only a handful per year, visible after the deepest zoom"
+    title: "VCA (vascularized composite allograft) transplants\u00a0are\u00a0rare",
+    subtitle: "Uterus is the most prevalent of the very rare VCA procedures"
   }
 ];
 
@@ -96,7 +92,8 @@ const ASSIGNMENT1_SOURCES = [
 
 // Final-show router entry point. Signature preserved: called with no args by
 // js/main.js, clears #viz itself, and never touches global scene navigation.
-export function runScene1() {
+/** @param {{ sceneLabel?: string, sourceNote?: string }} [options] */
+export function runScene1(options = {}) {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
@@ -123,7 +120,7 @@ export function runScene1() {
       console.log("[Scene 1] data file loaded:", DATA_PATH);
       console.log("[Scene 1] row count:", rows.length);
 
-      buildSequence(container, rows);
+      buildSequence(container, rows, options);
     })
     .catch(err => {
       if (isStale()) return;
@@ -137,7 +134,55 @@ export function runScene1() {
     });
 }
 
-function buildSequence(container, rows) {
+// Keep header copy clear of the fixed breadcrumb + compass chrome (top-right).
+const HEADER_TEXT_MAX_WIDTH = 620;
+const TITLE_LINE_HEIGHT = 28;
+const SUBTITLE_LINE_HEIGHT = 20;
+
+function setWrappedHeaderText(textSel, value, maxWidth, lineHeight, measureSel) {
+  const x = +textSel.attr("x");
+  const y = +textSel.attr("y");
+  textSel.selectAll("tspan").remove();
+  textSel.text(null);
+  if (!value) {
+    return 0;
+  }
+
+  // Regular spaces only — \u00a0 (nbsp) keeps phrases like "in hundreds" on one line.
+  const words = value.split(/ +/);
+  const lines = [];
+  let line = "";
+  measureSel.text(null);
+
+  for (const word of words) {
+    const next = line ? `${line} ${word}` : word;
+    measureSel.text(next);
+    if (measureSel.node().getComputedTextLength() > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+
+  lines.forEach((entry, index) => {
+    textSel
+      .append("tspan")
+      .attr("x", x)
+      .attr("y", y)
+      .attr("dy", index === 0 ? 0 : lineHeight)
+      .text(entry);
+  });
+
+  return lines.length;
+}
+
+function buildSequence(container, rows, options = {}) {
+  const sceneLabel = options.sceneLabel ?? "Scene 1";
+  const sourceNote =
+    options.sourceNote ??
+    "Source: OPTN national data, 1988\u20132025. Adapted from Assignment 01 (temporal).";
   const commaFmt = d3.format(",");
 
   const seriesForOrgan = organ => ({
@@ -161,27 +206,39 @@ function buildSequence(container, rows) {
   };
 
   const steps = TIERS.map(tier => {
-    const series = tier.organs ? tier.organs.map(seriesForOrgan) : [totalSeries];
+    const series = tier.organs
+      ? tier.organs
+          .map(seriesForOrgan)
+          .filter(s => s.points.some(p => p.value > 0))
+      : [totalSeries];
     const yMax = d3.max(series, s => d3.max(s.points, p => p.value)) || 1;
     return { ...tier, series, yMax };
   });
 
-  // ---- Stage + persistent chart scaffold ----------------------------------
-  container.style("position", "relative");
-
-  const svg = createStage(container);
-  drawHeader(svg, { sceneLabel: "Scene 1" }); // eyebrow + divider only; title is dynamic
-  drawSource(
-    svg,
-    "Source: OPTN national data, 1988\u20132025. Adapted from Assignment 01 (temporal)."
-  );
+  // ---- Stage + persistent chart scaffold (Scene 4 header band template) -------
+  const { headerSvg, chartSvg: svg } = beginChartScene(container, { sceneLabel });
+  drawSource(svg, sourceNote);
 
   const titleText = applyType(
-    svg.append("text").attr("x", STAGE.marginX).attr("y", TITLE_Y).attr("fill", storyColors.textPrimary),
+    headerSvg.append("text")
+      .attr("x", STAGE.marginX)
+      .attr("y", HEADER_GRID.titleY)
+      .attr("fill", storyColors.textPrimary),
     typography.mainTitle
   );
   const subtitleText = applyType(
-    svg.append("text").attr("x", STAGE.marginX).attr("y", SUBTITLE_Y).attr("fill", storyColors.textSecondary),
+    headerSvg.append("text")
+      .attr("x", STAGE.marginX)
+      .attr("y", HEADER_GRID.subtitleY)
+      .attr("fill", storyColors.textSecondary),
+    typography.sceneTitle
+  );
+  const titleMeasure = applyType(
+    headerSvg.append("text").attr("visibility", "hidden").attr("x", 0).attr("y", 0),
+    typography.mainTitle
+  );
+  const subtitleMeasure = applyType(
+    headerSvg.append("text").attr("visibility", "hidden").attr("x", 0).attr("y", 0),
     typography.sceneTitle
   );
 
@@ -236,9 +293,10 @@ function buildSequence(container, rows) {
   const leaderLayer = clipped.append("g");
   const lineLayer = clipped.append("g");
   const labelLayer = clipped.append("g");
+  const calloutLayer = svg.append("g").attr("class", "callout-layer");
 
   const makeLine = () => d3.line()
-    .defined(d => Number.isFinite(d.value) && Number.isFinite(d.year))
+    .defined(d => Number.isFinite(d.value) && Number.isFinite(d.year) && d.value > 0)
     .x(d => x(d.year))
     .y(d => yScale(d.value));
 
@@ -272,12 +330,93 @@ function buildSequence(container, rows) {
     return items;
   }
 
+  function renderCallouts(callouts, cfg) {
+    const lookup = id => cfg.series.find(s => s.id === id);
+    const boxes = (callouts || [])
+      .map(c => {
+        const series = lookup(c.seriesId);
+        if (!series) return null;
+        const pt = series.points.find(p => p.year === c.year);
+        if (!pt || !Number.isFinite(pt.value)) return null;
+        const anchorX = x(pt.year);
+        const anchorY = yScale(pt.value);
+        const boxX = anchorX + (c.offset?.x ?? 12);
+        const boxY = anchorY + (c.offset?.y ?? -24);
+        const textW = Math.max(72, c.text.length * 6.2);
+        return { ...c, anchorX, anchorY, boxX, boxY, textW, boxH: 22 };
+      })
+      .filter(Boolean);
+
+    const groups = calloutLayer.selectAll("g.chart-callout")
+      .data(boxes, d => d.id)
+      .join(
+        enter => {
+          const g = enter.append("g").attr("class", "chart-callout").attr("opacity", 0);
+          g.append("line")
+            .attr("class", "callout-leader")
+            .attr("stroke", storyColors.weatheredBrass)
+            .attr("stroke-width", 1);
+          g.append("rect")
+            .attr("class", "callout-box")
+            .attr("rx", 3)
+            .attr("fill", storyColors.museumWhite)
+            .attr("stroke", storyColors.weatheredBrass)
+            .attr("stroke-width", 1);
+          g.append("text")
+            .attr("class", "callout-text")
+            .attr("fill", storyColors.textPrimary)
+            .call(s => applyType(s, typography.caption));
+          return g;
+        },
+        update => update,
+        exit => exit.call(e => e.transition().duration(TRANSITION_MS / 2).attr("opacity", 0).remove())
+      );
+
+    groups.each(function (d) {
+      const g = d3.select(this);
+      g.select("line.callout-leader")
+        .attr("x1", d.anchorX)
+        .attr("y1", d.anchorY)
+        .attr("x2", d.boxX + d.textW / 2)
+        .attr("y2", d.boxY + d.boxH / 2);
+      g.select("rect.callout-box")
+        .attr("x", d.boxX)
+        .attr("y", d.boxY)
+        .attr("width", d.textW)
+        .attr("height", d.boxH);
+      g.select("text.callout-text")
+        .attr("x", d.boxX + 6)
+        .attr("y", d.boxY + 15)
+        .text(d.text);
+    });
+
+    groups.transition().duration(TRANSITION_MS / 2).attr("opacity", 1);
+  }
+
   function renderStep(step) {
     const cfg = steps[step];
     console.log(`[Scene 1] mini-step ${step + 1} of ${steps.length}: ${cfg.key} (y-scale 0\u2013${commaFmt(cfg.yMax)})`);
 
-    titleText.text(cfg.title);
-    subtitleText.text(`${cfg.subtitle}  \u00B7  y-axis 0\u2013${commaFmt(cfg.yMax)}/yr`);
+    const titleLineCount = setWrappedHeaderText(
+      titleText,
+      cfg.title,
+      HEADER_TEXT_MAX_WIDTH,
+      TITLE_LINE_HEIGHT,
+      titleMeasure
+    );
+    const subtitleY = titleLineCount
+      ? HEADER_GRID.titleY + titleLineCount * TITLE_LINE_HEIGHT + 8
+      : HEADER_GRID.subtitleY;
+    subtitleText
+      .attr("y", subtitleY)
+      .attr("display", cfg.subtitle ? null : "none");
+    setWrappedHeaderText(
+      subtitleText,
+      cfg.subtitle,
+      HEADER_TEXT_MAX_WIDTH,
+      SUBTITLE_LINE_HEIGHT,
+      subtitleMeasure
+    );
 
     // Rescale: the lines and the y-axis animate to the new tier together.
     yScale.domain([0, cfg.yMax]).nice();
@@ -352,6 +491,8 @@ function buildSequence(container, rows) {
             .attr("y", d => d.ly)),
         exit => exit.call(e => e.transition().duration(TRANSITION_MS).attr("opacity", 0).remove())
       );
+
+    renderCallouts(cfg.callouts, cfg);
   }
 
   // ---- Detail stack (vertical) ---------------------------------------------
@@ -376,10 +517,16 @@ function buildSequence(container, rows) {
     });
   }
 
-  renderStep(step);
+  if (typeof window.__scene1PendingDepth === "number") {
+    const pending = window.__scene1PendingDepth;
+    delete window.__scene1PendingDepth;
+    goTo(pending);
+  } else {
+    renderStep(step);
+  }
 }
 
 function lastDefined(points) {
-  const defined = points.filter(p => Number.isFinite(p.value));
+  const defined = points.filter(p => Number.isFinite(p.value) && p.value > 0);
   return defined.length ? defined[defined.length - 1] : points[points.length - 1];
 }

@@ -19,8 +19,9 @@ const TRANSPLANT_UNITS = {
   Other: 1
 };
 
-const TILE_SIZE = 6.8;
-const TILE_GAP = 1.8;
+// Match scene3_flow_waffle_proportion.js + scene_appendix_multi_organ.js tile grid.
+const TILE_SIZE = 8;
+const TILE_GAP = 2;
 const WAFFLE_COLS = 45;
 const ROW_GAP = 54;
 const ROW_START_Y = STAGE.contentTop + 22;
@@ -28,7 +29,7 @@ const LABEL_X = STAGE.marginX;
 const WAFFLE_X = STAGE.marginX + 223;
 // Right of waffles; shifted 2in left of prior anchor (48px = 0.5in in this scene).
 const LEGEND_SHIFT_LEFT_PX = 192;
-const LEGEND_NUDGE_LEFT_PX = 96; // +1in left
+const LEGEND_NUDGE_LEFT_PX = 48;
 const LEGEND_NUDGE_UP_PX = 48; // +0.5in up
 const LEGEND_GROUP_X = STAGE.contentRight - 200 - LEGEND_SHIFT_LEFT_PX - LEGEND_NUDGE_LEFT_PX;
 const LEGEND_ITEM_GAP = 22;
@@ -41,8 +42,8 @@ export function runScene3FlowWaffleAbsolute() {
 
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Scene 3",
-    title: "Why are people waiting?",
-    subtitle: "Supply has not kept pace with demand \u2014 waitlist vs transplants by organ, 2025"
+    title: "An absolute count of transplants reveals Kidney massive numbers",
+    subtitle: "Liver, Heart, and Lung also have notably large volumes"
   });
 
   const rowData = WAITLIST_CATEGORIES.map(category => {
@@ -71,7 +72,7 @@ export function runScene3FlowWaffleAbsolute() {
     .attr("y", d => d.y)
     .attr("width", TILE_SIZE)
     .attr("height", TILE_SIZE)
-    .attr("rx", 1.2)
+    .attr("rx", 1.3)
     .attr("fill", d =>
       d.side === "waitlist" ? storyColors.softAshGray : storyColors.deepSlateHarbor);
 

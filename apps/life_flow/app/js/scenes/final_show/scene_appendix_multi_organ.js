@@ -407,8 +407,8 @@ export function runScene1MultiOrganDetail() {
 export function runScene3MultiOrganDetail() {
   return runMultiOrganTransplants({
     sceneLabel: "Scene 3  \u00b7  detail",
-    title: "There are many different combinations of multi-organ transplants",
-    subtitle: "The 3 largest multi-organ transplants involve a Kidney.",
+    title: "Multi-organ transplants range from numerous to rare.",
+    subtitle: "Waitlist data is not available for multi-organ transplants.",
     useWaffleCountMarkers: true,
     sources: [
       "Source 1: OPTN/UNOS 2025 (multi-organ combinations).",

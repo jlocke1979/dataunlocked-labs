@@ -17,7 +17,7 @@ export function runScene5() {
   container.selectAll("*").remove();
 
   const { chartSvg: svg } = beginChartScene(container, {
-    sceneLabel: "Scene 5",
+    sceneLabel: "Scene 6",
     title: "What happens after transplant?",
     subtitle: "Illustrative patient survival by organ, years since transplant"
   });

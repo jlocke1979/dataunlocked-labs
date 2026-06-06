@@ -1,3 +1,8 @@
+import {
+  ORGAN_PALETTE_BY_SLUG as ORGAN_VOLUME_COLORS,
+  ORGAN_VOLUME_OPTIONS
+} from "../../../app/js/constants/organ_palette.js";
+
 /**
  * MSDS 455 Assignment 05 — D3 flow map prototype
  *
@@ -24,10 +29,12 @@
 // const LAYOUT_MODE = "dot_map";
 // const LAYOUT_MODE = "dot_map_volume";
 // const LAYOUT_MODE = "dot_map_volume_singles";
-const LAYOUT_MODE = "dot_map_volume_unified";
+let LAYOUT_MODE = "dot_map_volume_unified";
 
 // --- Organ switch (per-organ D2T experiment; used when LAYOUT_MODE = single) ---
-const ORGAN_MODE = "all";
+let ORGAN_MODE = "all";
+/** Set via life-flow postMessage; wins over URL ?organ= on embed hot-swap */
+let embedOrganOverride = null;
 // const ORGAN_MODE = "kidney";
 // const ORGAN_MODE = "liver";
 // const ORGAN_MODE = "heart";
@@ -146,37 +153,11 @@ const DOT_VOL_RADIUS_RANGE = [2.6, 10.8];
 const DOT_VOL_VOLUME_NOTE =
   "Sqrt-scaled within each panel from min to max volume; all organs, 2025.";
 
-/** Editorial organ palette — charcoal default + per-organ hues */
-const ORGAN_VOLUME_COLORS = {
-  all: "#202623",
-  heart: "#9A4C54",
-  liver: "#B07A3B",
-  lung: "#6E92A8",
-  kidney: "#4F8A83",
-  pancreas: "#7A668F",
-  kidney_pancreas: "#3E6B73",
-  multi_liver_kidney: "#8B6B3F",
-  intestine: "#7C8561",
-  multi_organ_other: "#5B6675",
-};
-
-/** Per-organ volume picker (all + 7 organ-specific modes, alphabetical after All) */
-const ORGAN_VOLUME_OPTIONS = [
-  { slug: "all", label: "All organs", color: ORGAN_VOLUME_COLORS.all },
-  { slug: "heart", label: "Heart", color: ORGAN_VOLUME_COLORS.heart },
-  { slug: "kidney", label: "Kidney", color: ORGAN_VOLUME_COLORS.kidney },
-  { slug: "kidney_pancreas", label: "Kidney–Pancreas", color: ORGAN_VOLUME_COLORS.kidney_pancreas },
-  { slug: "liver", label: "Liver", color: ORGAN_VOLUME_COLORS.liver },
-  { slug: "multi_liver_kidney", label: "Liver–Kidney", color: ORGAN_VOLUME_COLORS.multi_liver_kidney },
-  { slug: "lung", label: "Lung", color: ORGAN_VOLUME_COLORS.lung },
-  { slug: "pancreas", label: "Pancreas", color: ORGAN_VOLUME_COLORS.pancreas },
-];
-
 /** Donor bubbles lighter via lower opacity; transplant uses full organ color */
 const ORGAN_VOLUME_DOT_OPACITY = { donor: 0.42, transplant: 0.86 };
 
 /** Active organ for volume maps; switch slug to test per-organ views (first alpha: heart) */
-const ORGAN_VOLUME_MODE = "all";
+let ORGAN_VOLUME_MODE = "all";
 // const ORGAN_VOLUME_MODE = "heart";
 
 /** Iteration 06 — full-width single maps stacked vertically */
@@ -195,7 +176,19 @@ const DOT_VOL_SINGLE_SVG_HEIGHT =
   DOT_VOL_SHARED_NOTE_STRIP;
 
 /** Iteration 07 — single map, global volume scale, transplant default */
-const DOT_VOL_UNIFIED_SITE = "transplant";
+let DOT_VOL_UNIFIED_SITE = "transplant";
+
+/** Final-show iframe: hide in-map pickers; parent scene owns organ/site navigation. */
+let EMBED_SHOW_CHROME = false;
+
+/** Final-show flow map: boosted web visibility (Assignment 05 v1 presentation density). */
+let FLOW_STYLE_OVERRIDE = null;
+
+/** Final-show arc gradient palette: charcoal, organ hue, purple-green, or red-blue. */
+let FLOW_GRADIENT_MODE = null;
+
+/** Shared sqrt domain for embed flow line weight (comparable across organ views). */
+let globalEmbedFlowDomain = null;
 const DOT_VOL_SITE_OPTIONS = [
   { slug: "transplant", label: "Transplant centers" },
   { slug: "donor", label: "Donor recovery orgs" },
@@ -209,16 +202,16 @@ const DOT_VOL_UNIFIED_SVG_HEIGHT =
   DOT_VOL_MARGIN.bottom +
   DOT_VOL_UNIFIED_ROW_HEADER_DY +
   DOT_VOL_UNIFIED_GEO_HEIGHT;
-/** Global sqrt range — shared across organ views for comparable bubble sizes */
+/** Global sqrt range — all-organ view sets the reference max; organ steps use the same scale */
 const DOT_VOL_UNIFIED_RADIUS_RANGE = [2.4, 15.2];
 /** Sidebar legend bubble sizes (same domain, smaller display) */
 const SIDEBAR_VOL_LEGEND_RADIUS_RANGE = [3.2, 11.5];
-const DOT_VOL_UNIFIED_DOT_OPACITY = { donor: 0.68, transplant: 0.97 };
+const DOT_VOL_UNIFIED_DOT_OPACITY = { donor: 0.5, transplant: 0.72 };
 
 function unifiedDotFillOpacity(organSlug, roleClass, opacityMap = DOT_VOL_UNIFIED_DOT_OPACITY) {
   let opacity = opacityMap[roleClass] ?? 0.7;
-  if (organSlug === "all" && roleClass === "transplant") opacity = 0.98;
-  else if (organSlug === "all" && roleClass === "donor") opacity = Math.max(opacity, 0.72);
+  if (organSlug === "all" && roleClass === "transplant") opacity = 0.82;
+  else if (organSlug === "all" && roleClass === "donor") opacity = Math.max(opacity, 0.58);
   return opacity;
 }
 const DOT_VOL_UNIFIED_SUBTITLE =
@@ -350,7 +343,7 @@ const REF_PANEL_INNER_W = 780;
 const REF_PANEL_GEO_H = 510;
 
 // --- Edge mode switch ---
-const EDGE_MODE = "all";
+let EDGE_MODE = "all";
 //const EDGE_MODE = "ge_200";
 //const EDGE_MODE = "ge_100";
 //const EDGE_MODE = "ge_50";
@@ -539,8 +532,23 @@ function styleForMode(edgeMode) {
       showFlowLegend: true,
       showNodeLegend: true,
     },
+    showWeb: {
+      linkStroke: "#6E92A8",
+      linkOpacity: 0.2,
+      widthRange: [0.4, 3.6],
+      showNodes: true,
+      sourceRadius: 2.8,
+      destinationRadius: 2.4,
+      nodeOpacity: 0.62,
+      showFlowLegend: true,
+      showNodeLegend: true,
+      directionalFlows: true,
+      sourceNodeFill: "#B8C8D4",
+      destinationNodeFill: "#3D5566",
+    },
   };
 
+  if (FLOW_STYLE_OVERRIDE === "web") return tiers.showWeb;
   if (edgeMode === "all") return tiers.all;
   if (edgeMode === "top50") return tiers.top50;
   if (edgeMode === "ge_200") return tiers.filteredStrong;
@@ -1094,13 +1102,23 @@ function drawMapLayers(
       .join("path")
       .attr("class", "link")
       .attr("d", (d) => curvedLink(d.source, d.target))
-      .attr("stroke-width", (d) => strokeScale(d.flow));
+      .attr("stroke-width", (d) => strokeScale(d.flow))
+      .attr("fill", "none");
 
-    if (style.linkStroke) {
-      linkSel.attr("stroke", style.linkStroke);
-    }
-    if (style.linkOpacity != null) {
-      linkSel.attr("stroke-opacity", style.linkOpacity);
+    if (style.directionalFlows) {
+      applyDirectionalLinkStrokes(
+        linkSel,
+        geoPane,
+        placedLinks,
+        layerOptions.flowOrganSlug ?? ORGAN_MODE
+      );
+    } else {
+      if (style.linkStroke) {
+        linkSel.attr("stroke", style.linkStroke);
+      }
+      if (style.linkOpacity != null) {
+        linkSel.attr("stroke-opacity", style.linkOpacity);
+      }
     }
 
     if (showLinkTooltips && edgeMode !== "all") {
@@ -1144,27 +1162,71 @@ function drawMapLayers(
   } else if (layerOptions.dotNodeType) {
     drawDotMapNodes(geoPane, placedNodes, layerOptions.dotNodeType, layerOptions.dotRadius ?? DOT_MAP_DOT_RADIUS);
   } else if (showNodes && style.showNodes) {
+    const nodeInteractive = layerOptions.nodeInteractive ?? false;
     const nodeG = geoPane.append("g").attr("class", "nodes").attr("opacity", style.nodeOpacity);
-    nodeG
+    const sourceFill = style.sourceNodeFill ?? style.linkStroke ?? "#8a9490";
+    const destFill = style.destinationNodeFill ?? style.linkStroke ?? "#4a524c";
+    const sourceStroke = style.sourceNodeStroke ?? null;
+    const destStroke = style.destinationNodeStroke ?? null;
+
+    function applyFlowNodePaint(circles, fill, stroke, strokeWidth = 1.1) {
+      circles.style("fill", fill);
+      if (stroke) {
+        circles.style("stroke", stroke).style("stroke-width", strokeWidth);
+      } else {
+        circles.style("stroke", "none").style("stroke-width", 0);
+      }
+    }
+
+    function bindFlowMapNodes(circles, roleClass, roleLabel) {
+      if (!nodeInteractive) {
+        circles.append("title").text((d) => `${d.name}\n${roleLabel}\n${d.state ?? ""}`);
+        return;
+      }
+      circles
+        .attr("class", `node node--${roleClass} node--interactive`)
+        .style("pointer-events", "all")
+        .style("cursor", "default")
+        .on("pointerenter", function (event, d) {
+          d3.select(this).raise().classed("node--hover", true);
+          showSiteMapTooltip(event, d, roleLabel);
+        })
+        .on("pointermove", moveVolumeMapTooltip)
+        .on("pointerleave", function () {
+          d3.select(this).classed("node--hover", false);
+          hideVolumeMapTooltip();
+        });
+    }
+
+    const sourceCircles = nodeG
       .selectAll("circle.source")
       .data(placedNodes.filter((n) => n.type === "source_dsa"))
       .join("circle")
-      .attr("class", "node node--source")
       .attr("cx", (d) => d.px)
       .attr("cy", (d) => d.py)
-      .attr("r", style.sourceRadius)
-      .append("title")
-      .text((d) => `${d.id}\n${d.name}\n${d.state}`);
-    nodeG
+      .attr("r", style.sourceRadius);
+    applyFlowNodePaint(
+      sourceCircles,
+      sourceFill,
+      sourceStroke,
+      style.sourceNodeStrokeWidth ?? 1.1
+    );
+    bindFlowMapNodes(sourceCircles, "source", "Donor recovery organization");
+
+    const destCircles = nodeG
       .selectAll("circle.destination")
       .data(placedNodes.filter((n) => n.type === "transplant_center"))
       .join("circle")
-      .attr("class", "node node--destination")
       .attr("cx", (d) => d.px)
       .attr("cy", (d) => d.py)
-      .attr("r", style.destinationRadius)
-      .append("title")
-      .text((d) => `${d.id}\n${d.name}\n${d.state}`);
+      .attr("r", style.destinationRadius);
+    applyFlowNodePaint(
+      destCircles,
+      destFill,
+      destStroke,
+      style.destinationNodeStrokeWidth ?? 0
+    );
+    bindFlowMapNodes(destCircles, "destination", "Transplant center");
   }
 }
 
@@ -1728,8 +1790,10 @@ function applyOrganVolumeDotStyle(
     (opacityMap === DOT_VOL_UNIFIED_DOT_OPACITY
       ? unifiedDotFillOpacity(organSlug, roleClass, opacityMap)
       : opacityMap[roleClass] ?? 0.7);
+  const fill = organVolumeColor(organSlug);
   let sel = circleSelection
-    .style("fill", organVolumeColor(organSlug))
+    .attr("fill", fill)
+    .style("fill", fill)
     .style("fill-opacity", opacity);
   if (outline) {
     sel = sel
@@ -1785,6 +1849,19 @@ function moveVolumeMapTooltip(event) {
 
 function hideVolumeMapTooltip() {
   volumeMapTooltip().attr("hidden", true).classed("is-visible", false);
+}
+
+function showSiteMapTooltip(event, node, roleLabel, extraLine = "") {
+  volumeMapTooltip()
+    .html(
+      `<span class="volume-map-tooltip__name">${escapeTooltipText(node.name)}</span>` +
+        `<span class="volume-map-tooltip__volume">${escapeTooltipText(roleLabel)}${
+          node.state ? ` \u00b7 ${escapeTooltipText(node.state)}` : ""
+        }${extraLine ? `<br>${escapeTooltipText(extraLine)}` : ""}</span>`
+    )
+    .attr("hidden", null)
+    .classed("is-visible", true);
+  moveVolumeMapTooltip(event);
 }
 
 function buildDotMapVolumeMapContext({
@@ -2125,9 +2202,13 @@ async function initDotMapVolumeUnified() {
   await renderDotMapVolumeUnifiedView(ORGAN_VOLUME_MODE, DOT_VOL_UNIFIED_SITE);
 }
 
+let dotMapUnifiedRenderToken = 0;
+
 async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
+  const renderToken = ++dotMapUnifiedRenderToken;
   resetVizSurface();
   await ensureGlobalVolumeExtents();
+  if (renderToken !== dotMapUnifiedRenderToken) return;
 
   const panel =
     DOT_MAP_VOLUME_PANELS.find((p) => p.slug === siteSlug) ?? DOT_MAP_VOLUME_PANELS[1];
@@ -2149,16 +2230,18 @@ async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
   });
   d3.select("#chart-title").text(headline.title);
   d3.select(".subtitle").text(headline.subtitle);
-  renderDotMapVolumeUnifiedLegend(organSlug, siteSlug);
-  renderSiteTypePicker(siteSlug, (nextSite) =>
-    renderDotMapVolumeUnifiedView(organSlug, nextSite)
-  );
-  renderOrganVolumePicker(organSlug, (nextOrgan) =>
-    renderDotMapVolumeUnifiedView(nextOrgan, siteSlug)
-  );
+  if (!EMBED_SHOW_CHROME) {
+    renderSiteTypePicker(siteSlug, (nextSite) =>
+      renderDotMapVolumeUnifiedView(organSlug, nextSite)
+    );
+    renderOrganVolumePicker(organSlug, (nextOrgan) =>
+      renderDotMapVolumeUnifiedView(nextOrgan, siteSlug)
+    );
+  }
 
   const { nodes, statesTopo, sourceVolumeById, destinationVolumeById } =
     await prepareDotMapVolumeData(organSlug);
+  if (renderToken !== dotMapUnifiedRenderToken) return;
   const mapContext = buildDotMapVolumeMapContext({
     nodes,
     statesTopo,
@@ -2168,16 +2251,19 @@ async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
     geoFitHeightPx,
   });
   const { path, prInset, placedNodes } = mapContext;
-  const radiusScale = buildGlobalRadiusScale(panel.nodeType);
+  const radiusScale = buildGlobalRadiusScale(panel.nodeType, DOT_VOL_UNIFIED_RADIUS_RANGE);
 
   console.log(
     "[dot map volume unified] organ:",
     organSlug,
     "| site:",
     siteSlug,
-    "| global domain:",
+    "| scale: global",
+    "| domain:",
     radiusScale.domain?.()
   );
+
+  renderDotMapVolumeUnifiedLegend(organSlug, siteSlug, { radiusScale });
 
   const svg = d3
     .select("#chart")
@@ -2190,7 +2276,7 @@ async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
     .append("g")
     .attr("transform", `translate(${DOT_VOL_MARGIN.left},${DOT_VOL_MARGIN.top})`);
 
-  drawDotMapVolumePanelBlock(root, { ...panel, title: headline.mapTitle, conclusion: "" }, {
+  drawDotMapVolumePanelBlock(root, { ...panel, title: EMBED_SHOW_CHROME ? "" : headline.mapTitle, conclusion: "" }, {
     panelInnerW,
     geoFitHeightPx,
     panelHeaderDy,
@@ -2208,6 +2294,10 @@ async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
     opacityMap: DOT_VOL_UNIFIED_DOT_OPACITY,
     dotMapInteractive: true,
   });
+
+  if (EMBED_SHOW_CHROME) {
+    document.body.setAttribute("data-embed-organ", organSlug);
+  }
 }
 
 async function initDotMap() {
@@ -2323,8 +2413,218 @@ function resetVizSurface() {
   d3.select("#chart").selectAll("*").remove();
 }
 
+function applyEmbedQueryOverrides() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("layout")) LAYOUT_MODE = params.get("layout");
+  if (params.has("organ") || embedOrganOverride != null) {
+    const organ = embedOrganOverride ?? params.get("organ");
+    ORGAN_VOLUME_MODE = organ;
+    if (LAYOUT_MODE === "single") ORGAN_MODE = organ;
+  }
+  if (params.has("edge")) EDGE_MODE = params.get("edge");
+  if (params.has("site")) DOT_VOL_UNIFIED_SITE = params.get("site");
+  if (params.get("embed") === "show") EMBED_SHOW_CHROME = true;
+  if (params.get("flowStyle") === "web") FLOW_STYLE_OVERRIDE = "web";
+  if (params.has("flowGradient")) {
+    FLOW_GRADIENT_MODE = params.get("flowGradient");
+  } else if (params.get("embed") === "show") {
+    const organ = embedOrganOverride ?? params.get("organ") ?? "all";
+    FLOW_GRADIENT_MODE = organ === "all" ? "charcoal" : "organ";
+  }
+}
+
+const EMBED_FLOW_NODE = {
+  sourceFill: "#FFFFFF",
+  sourceStroke: "#202623",
+  destinationFill: "#202623",
+  destinationStroke: "#202623",
+  charcoal: "#202623",
+  transplantBold: "#0A0C0B",
+};
+
+/** Per-organ arc gradient — both stops stay in the organ hue (all arcs read as organ-colored). */
+function organArcStopColors(organSlug) {
+  const hex = organVolumeColor(organSlug) ?? "#4F8A83";
+  const base = d3.color(hex);
+  if (!base) {
+    return { light: "rgba(79,138,131,0.42)", dark: "rgba(79,138,131,0.95)" };
+  }
+  const light = base.copy();
+  light.opacity = 0.42;
+  light.r += (255 - light.r) * 0.38;
+  light.g += (255 - light.g) * 0.38;
+  light.b += (255 - light.b) * 0.38;
+  const dark = base.copy();
+  dark.opacity = 0.96;
+  return { light: light.formatRgb(), dark: dark.formatRgb() };
+}
+
+/** Final-show embed: B&W on all-organs; organ views use organ arcs + bold site markers. */
+function embedFlowStyleForOrgan(style, organSlug = ORGAN_MODE) {
+  if (!(EMBED_SHOW_CHROME && LAYOUT_MODE === "single")) return style;
+  const shared = {
+    ...style,
+    nodeOpacity: 0.94,
+    widthRange: [0.35, 4.4],
+  };
+  if (organSlug === "all") {
+    return {
+      ...shared,
+      sourceNodeFill: EMBED_FLOW_NODE.sourceFill,
+      sourceNodeStroke: EMBED_FLOW_NODE.sourceStroke,
+      sourceNodeStrokeWidth: 1.1,
+      destinationNodeFill: EMBED_FLOW_NODE.destinationFill,
+      destinationNodeStroke: null,
+      linkStroke: EMBED_FLOW_NODE.charcoal,
+      sourceRadius: 2.5,
+      destinationRadius: 2.2,
+    };
+  }
+  const organHex = organVolumeColor(organSlug) ?? EMBED_FLOW_NODE.charcoal;
+  return {
+    ...shared,
+    sourceNodeFill: "#FFFFFF",
+    sourceNodeStroke: EMBED_FLOW_NODE.charcoal,
+    sourceNodeStrokeWidth: 1.55,
+    destinationNodeFill: organHex,
+    destinationNodeStroke: null,
+    linkStroke: organHex,
+    sourceRadius: 2.35,
+    destinationRadius: 3,
+  };
+}
+
+async function ensureGlobalEmbedFlowDomain() {
+  if (globalEmbedFlowDomain) return globalEmbedFlowDomain;
+  const flows = [];
+  const slugs = ["all", ...ORGAN_VOLUME_OPTIONS.filter((o) => o.slug !== "all").map((o) => o.slug)];
+  await Promise.all(
+    slugs.map(async (slug) => {
+      const path = ORGAN_MODES[slug]?.edgesEnriched;
+      if (!path) return;
+      const edges = await d3.csv(path, d3.autoType);
+      edges.forEach((row) => {
+        const flow = Number(row.flow_count);
+        if (Number.isFinite(flow) && flow > 0) flows.push(flow);
+      });
+    })
+  );
+  globalEmbedFlowDomain = d3.extent(flows);
+  console.log("[embed flow] shared stroke domain (flow_count):", globalEmbedFlowDomain);
+  return globalEmbedFlowDomain;
+}
+
+function flowBaseColorForOrgan(organSlug = ORGAN_MODE) {
+  return ORGAN_VOLUME_COLORS[organSlug] ?? ORGAN_VOLUME_COLORS.all;
+}
+
+function flowDirectionStopColors(baseHex) {
+  const base = d3.color(baseHex);
+  if (!base) {
+    return { light: "rgba(184,200,212,0.45)", dark: "rgba(61,85,102,0.82)" };
+  }
+  const light = base.copy();
+  light.opacity = 0.28;
+  light.r += (255 - light.r) * 0.45;
+  light.g += (255 - light.g) * 0.45;
+  light.b += (255 - light.b) * 0.45;
+  const dark = base.copy();
+  dark.opacity = 0.82;
+  dark.r *= 0.72;
+  dark.g *= 0.72;
+  dark.b *= 0.72;
+  return { light: light.formatRgb(), dark: dark.formatRgb() };
+}
+
+/** Final-show arc gradient: charcoal (all organs), organ hue, or legacy palettes. */
+function flowArcStopColors(organSlug = ORGAN_MODE) {
+  if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
+    const mode =
+      FLOW_GRADIENT_MODE ?? (organSlug === "all" ? "charcoal" : "organ");
+    if (mode === "charcoal" || (mode === "organ" && organSlug === "all")) {
+      const light = d3.color("#FFFFFF");
+      light.opacity = 0.2;
+      const dark = d3.color("#202623");
+      dark.opacity = 0.78;
+      return { light: light.formatRgb(), dark: dark.formatRgb() };
+    }
+    if (mode === "organ") {
+      return organArcStopColors(organSlug);
+    }
+    if (mode === "red-blue") {
+      const light = d3.color("#D55E00");
+      light.opacity = 0.55;
+      const dark = d3.color("#0072B2");
+      dark.opacity = 0.88;
+      return { light: light.formatRgb(), dark: dark.formatRgb() };
+    }
+    const light = d3.color("#7570B3");
+    light.opacity = 0.55;
+    const dark = d3.color("#009E73");
+    dark.opacity = 0.88;
+    return { light: light.formatRgb(), dark: dark.formatRgb() };
+  }
+  return flowDirectionStopColors(flowBaseColorForOrgan(organSlug));
+}
+
+const FLOW_DIRECTIONAL_GRADIENT_CAP = 3200;
+const EMBED_FLOW_GRADIENT_CAP = 5200;
+
+function applyDirectionalLinkStrokes(linkSel, defsHost, placedLinks, organSlug = ORGAN_MODE) {
+  const stops = flowArcStopColors(organSlug);
+  const gradientCap =
+    EMBED_SHOW_CHROME && LAYOUT_MODE === "single"
+      ? EMBED_FLOW_GRADIENT_CAP
+      : FLOW_DIRECTIONAL_GRADIENT_CAP;
+
+  const paintStroke = (sel, strokeValue, opacityValue) => {
+    if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
+      sel.style("stroke", strokeValue).style("stroke-opacity", opacityValue);
+    } else {
+      sel.attr("stroke", strokeValue).attr("stroke-opacity", opacityValue);
+    }
+  };
+
+  if (placedLinks.length > gradientCap) {
+    console.warn(
+      `[map] Directional gradients capped at ${gradientCap} links; using uniform stroke.`
+    );
+    paintStroke(linkSel, stops.dark, 0.18);
+    return;
+  }
+
+  const defs = defsHost.selectAll("defs.flow-grad-defs").data([0]).join("defs").attr("class", "flow-grad-defs");
+  defs.selectAll("linearGradient").remove();
+
+  placedLinks.forEach((d, i) => {
+    const id = `flow-grad-${i}`;
+    const grad = defs
+      .append("linearGradient")
+      .attr("id", id)
+      .attr("gradientUnits", "userSpaceOnUse")
+      .attr("x1", d.source.px)
+      .attr("y1", d.source.py)
+      .attr("x2", d.target.px)
+      .attr("y2", d.target.py);
+    grad.append("stop").attr("offset", "0%").attr("stop-color", stops.light);
+    grad.append("stop").attr("offset", "100%").attr("stop-color", stops.dark);
+  });
+
+  paintStroke(
+    linkSel,
+    (d, i) => `url(#flow-grad-${i})`,
+    EMBED_SHOW_CHROME && LAYOUT_MODE === "single" ? 0.9 : null
+  );
+}
+
 async function init() {
-  hideAuditNotesPanel();
+  applyEmbedQueryOverrides();
+  if (!(EMBED_SHOW_CHROME && LAYOUT_MODE === "single")) {
+    hideAuditNotesPanel();
+  }
+  if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
+    d3.select("#audit-panel").style("display", "none");
+  }
   resetVizSurface();
 
   if (LAYOUT_MODE === "small_multiples") {
@@ -2370,6 +2670,8 @@ async function init() {
     "class",
     [
       "layout-single",
+      EMBED_SHOW_CHROME ? "embed-flow-show" : "",
+      EMBED_SHOW_CHROME && ORGAN_MODE !== "all" ? "embed-flow-organ" : "",
       `organ-mode-${ORGAN_MODE}`,
       `edge-mode-${EDGE_MODE}`,
       `iteration-${displayIteration}`,
@@ -2473,6 +2775,10 @@ async function init() {
     console.log(`Edges after flow threshold (≥ ${modeConfig.minFlow}):`, links.length);
   }
 
+  if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
+    await ensureGlobalEmbedFlowDomain();
+  }
+
   render({
     nodes,
     links,
@@ -2505,7 +2811,7 @@ function render({
   coordinateEligibleViewportFlow,
   coverageTotalFlow,
 }) {
-  const style = styleForMode(edgeMode);
+  const style = embedFlowStyleForOrgan(styleForMode(edgeMode), ORGAN_MODE);
   const innerW = MAP_WIDTH - MARGIN.left - MARGIN.right;
   const innerH = MAP_HEIGHT - MARGIN.top - MARGIN.bottom;
 
@@ -2577,7 +2883,11 @@ function render({
   }
 
   const flows = placedLinks.map((l) => l.flow);
-  const strokeScale = buildStrokeScale(flows, style.widthRange);
+  const embedFlowDomain =
+    EMBED_SHOW_CHROME && LAYOUT_MODE === "single" && globalEmbedFlowDomain
+      ? globalEmbedFlowDomain
+      : null;
+  const strokeScale = buildStrokeScale(flows, style.widthRange, embedFlowDomain);
 
   const svg = d3
     .select("#chart")
@@ -2610,10 +2920,17 @@ function render({
       showNodes: style.showNodes && !SHOW_DESTINATION_HUBS,
       showHubs: SHOW_DESTINATION_HUBS,
       showLinkTooltips: edgeMode !== "all",
+      nodeInteractive: EMBED_SHOW_CHROME && LAYOUT_MODE === "single",
+      flowOrganSlug: ORGAN_MODE,
     },
   });
 
-  renderLegendPanel({ strokeScale, style, hubInflowExtent: getHubInflowExtent(placedLinks) });
+  renderLegendPanel({
+    strokeScale,
+    style,
+    hubInflowExtent: getHubInflowExtent(placedLinks),
+    flowOrganSlug: ORGAN_MODE,
+  });
   renderAuditPanel({
     edgeMode,
     organConfig,
@@ -2773,7 +3090,8 @@ function drawProportionalDotMapNodes(
       volume: volumeById.get(String(n.id).trim()) ?? 0,
     }))
     .filter((d) => d.volume > 0)
-    .sort((a, b) => a.volume - b.volume);
+    // Paint largest first so they sit beneath smaller centers in dense metros.
+    .sort((a, b) => b.volume - a.volume);
 
   const nodeClass = `dot-node dot-node--${roleClass} dot-node--scaled${
     interactive ? " dot-node--interactive" : ""
@@ -2815,7 +3133,7 @@ function drawProportionalDotMapNodes(
     circles
       .style("pointer-events", "all")
       .on("pointerenter", function (event, d) {
-        d3.select(this).raise().classed("dot-node--hover", true).style(hoverStroke);
+        d3.select(this).classed("dot-node--hover", true).style(hoverStroke);
         showVolumeMapTooltip(event, d, unit);
       })
       .on("pointermove", moveVolumeMapTooltip)
@@ -3094,7 +3412,7 @@ function renderSiteTypePicker(activeSite, onSelect) {
   );
 }
 
-function renderDotMapVolumeUnifiedLegend(organSlug, siteSlug) {
+function renderDotMapVolumeUnifiedLegend(organSlug, siteSlug, options = {}) {
   const panel = d3.select("#legend-panel");
   panel.style("display", "");
   const panelDef =
@@ -3102,6 +3420,22 @@ function renderDotMapVolumeUnifiedLegend(organSlug, siteSlug) {
   const roleClass = siteSlug === "donor" ? "donor" : "transplant";
   const siteLabel =
     siteSlug === "donor" ? "Donor recovery organization" : "Transplant center";
+
+  if (EMBED_SHOW_CHROME) {
+    panel.html(
+      `<section class="legend-section legend-section--dot-map-volume legend-section--embed-show" aria-label="Volume scale"></section>`
+    );
+    appendSidebarVolumeScale(panel.select(".legend-section--dot-map-volume"), {
+      organSlug,
+      siteSlug,
+      roleClass,
+      unit: panelDef.legendUnit,
+      nodeType: panelDef.nodeType,
+      radiusScale: options.radiusScale,
+      embedShow: true,
+    });
+    return;
+  }
 
   panel.html(`
     <h2 class="legend-panel__title">Legend</h2>
@@ -3119,13 +3453,27 @@ function renderDotMapVolumeUnifiedLegend(organSlug, siteSlug) {
     roleClass,
     unit: panelDef.legendUnit,
     nodeType: panelDef.nodeType,
+    radiusScale: options.radiusScale,
   });
 }
 
-function appendSidebarVolumeScale(parent, { organSlug, siteSlug, roleClass, unit, nodeType }) {
+function appendSidebarVolumeScale(
+  parent,
+  {
+    organSlug,
+    siteSlug,
+    roleClass,
+    unit,
+    nodeType,
+    radiusScale: radiusScaleOverride,
+    embedShow = false,
+  }
+) {
   parent.select(".legend-volume-scale").remove();
 
-  const radiusScale = buildGlobalRadiusScale(nodeType, SIDEBAR_VOL_LEGEND_RADIUS_RANGE);
+  const radiusScale =
+    radiusScaleOverride ??
+    buildGlobalRadiusScale(nodeType, SIDEBAR_VOL_LEGEND_RADIUS_RANGE);
   const domain = radiusScale.domain?.();
   if (!domain || domain.length < 2) return;
 
@@ -3150,14 +3498,13 @@ function appendSidebarVolumeScale(parent, { organSlug, siteSlug, roleClass, unit
   scaleSection.append("p").attr("class", "organ-volume-picker__heading").text("Volume scale");
 
   const circlePad = 4;
-  const colGap = 26;
+  const colGap = embedShow ? 32 : 26;
   const maxR = d3.max(breaks, (d) => d.r) ?? SIDEBAR_VOL_LEGEND_RADIUS_RANGE[1];
   const columnW = maxR * 2 + circlePad * 2;
   const svgW = breaks.length * columnW + (breaks.length - 1) * colGap;
   const sharedCy = circlePad + maxR;
-  const tierY = sharedCy + maxR + 9;
-  const countY = tierY + 10;
-  const svgH = countY + 5;
+  const labelY = sharedCy + maxR + (embedShow ? 14 : 9);
+  const svgH = labelY + (embedShow ? 10 : 15);
 
   const svg = scaleSection
     .append("svg")
@@ -3168,7 +3515,9 @@ function appendSidebarVolumeScale(parent, { organSlug, siteSlug, roleClass, unit
 
   breaks.forEach((b, i) => {
     const cx = i * (columnW + colGap) + columnW / 2;
-    const countLabel = `(${formatVolumeCount(roundVolumeForLabel(b.value))})`;
+    const countLabel = embedShow
+      ? formatVolumeCount(roundVolumeForLabel(b.value))
+      : `(${formatVolumeCount(roundVolumeForLabel(b.value))})`;
 
     const col = svg.append("g").attr("class", "legend-volume-scale__col");
 
@@ -3188,19 +3537,21 @@ function appendSidebarVolumeScale(parent, { organSlug, siteSlug, roleClass, unit
         .style("stroke-width", "1px");
     }
 
-    col
-      .append("text")
-      .attr("class", "legend-volume-scale__tier")
-      .attr("x", cx)
-      .attr("y", tierY)
-      .attr("text-anchor", "middle")
-      .text(b.tier);
+    if (!embedShow) {
+      col
+        .append("text")
+        .attr("class", "legend-volume-scale__tier")
+        .attr("x", cx)
+        .attr("y", labelY)
+        .attr("text-anchor", "middle")
+        .text(b.tier);
+    }
 
     col
       .append("text")
       .attr("class", "legend-volume-scale__count")
       .attr("x", cx)
-      .attr("y", countY)
+      .attr("y", embedShow ? labelY : labelY + 10)
       .attr("text-anchor", "middle")
       .text(countLabel);
   });
@@ -3430,14 +3781,63 @@ const LEGEND_LINE_STYLES = {
   low: { color: "#5a8494", opacity: 0.72 },
 };
 
-function renderLegendPanel({ strokeScale, style, hubInflowExtent }) {
+function renderLegendPanel({ strokeScale, style, hubInflowExtent, flowOrganSlug = ORGAN_MODE }) {
   const legend = d3.select("#legend-panel");
+  const embedSingleArc = EMBED_SHOW_CHROME && LAYOUT_MODE === "single";
+
+  if (embedSingleArc) {
+    legend.select(".legend-panel__title").style("display", "none");
+  }
+
   legend
     .select(".legend-section--flows")
     .style("display", style.showFlowLegend ? null : "none");
 
   const hubSection = legend.select(".legend-section--hubs");
-  hubSection.style("display", SHOW_DESTINATION_HUBS ? null : "none");
+  hubSection.style("display", embedSingleArc || !SHOW_DESTINATION_HUBS ? "none" : null);
+
+  if (embedSingleArc && style.showNodes) {
+    let sitesSection = legend.select(".legend-section--sites");
+    if (sitesSection.empty()) {
+      sitesSection = legend
+        .append("section")
+        .attr("class", "legend-section legend-section--sites")
+        .attr("aria-label", "Site types");
+      sitesSection.append("h3").attr("class", "legend-section__heading").text("Network sites");
+      sitesSection
+        .append("div")
+        .attr("class", "legend-item")
+        .html(
+          '<span class="legend-swatch legend-swatch--source" aria-hidden="true"></span>' +
+            '<span class="legend-flow-label">Donor recovery organization (OPO)</span>'
+        );
+      sitesSection
+        .append("div")
+        .attr("class", "legend-item")
+        .html(
+          '<span class="legend-swatch legend-swatch--destination" aria-hidden="true"></span>' +
+            '<span class="legend-flow-label">Transplant center</span>'
+        );
+    }
+    sitesSection.style("display", null);
+    const organSites = ORGAN_MODE !== "all";
+    legend
+      .select(".legend-swatch--source")
+      .style("background", EMBED_FLOW_NODE.sourceFill)
+      .style("border-color", EMBED_FLOW_NODE.sourceStroke)
+      .style("border-width", organSites ? "1.5px" : "1.5px")
+      .style("box-shadow", "none");
+    const organSiteFill = organSites
+      ? (organVolumeColor(ORGAN_MODE) ?? EMBED_FLOW_NODE.destinationFill)
+      : EMBED_FLOW_NODE.destinationFill;
+    legend
+      .select(".legend-swatch--destination")
+      .style("background", organSiteFill)
+      .style("border-color", organSites ? organSiteFill : EMBED_FLOW_NODE.destinationStroke)
+      .style("box-shadow", "none");
+  } else {
+    legend.select(".legend-section--sites").style("display", "none");
+  }
 
   if (SHOW_DESTINATION_HUBS && hubInflowExtent) {
     const [lo, hi] = hubInflowExtent;
@@ -3454,12 +3854,57 @@ function renderLegendPanel({ strokeScale, style, hubInflowExtent }) {
       .style("opacity", tierStyle.opacity);
   };
 
+  const directionNote = legend.select(".legend-flow-direction");
+  if (style.directionalFlows) {
+    if (embedSingleArc) {
+      const gradientMode = FLOW_GRADIENT_MODE ?? "purple-green";
+      let directionText;
+      if (gradientMode === "charcoal" || (gradientMode === "organ" && flowOrganSlug === "all")) {
+        directionText = "White end = donor recovery \u00b7 Black end = transplant center";
+      } else if (gradientMode === "organ" && flowOrganSlug !== "all") {
+        directionNote.style("display", "none");
+        directionText = null;
+      } else if (gradientMode === "red-blue") {
+        directionText =
+          "Orange = donor recovery \u00b7 Blue = transplant center (less colorblind-safe)";
+      } else {
+        directionText = "Purple = donor recovery \u00b7 Green = transplant center";
+      }
+      if (directionText != null) {
+        directionNote.style("display", null).text(directionText);
+      }
+    } else {
+      directionNote
+        .style("display", null)
+        .text("Lighter end = donor recovery \u00b7 darker end = transplant center");
+    }
+  } else {
+    directionNote.style("display", "none");
+  }
+
   if (typeof strokeScale.domain === "function") {
     const [minFlow, maxFlow] = strokeScale.domain();
     const midFlow = minFlow + (maxFlow - minFlow) / 2;
-    applyLineStyle(".legend-line--low", strokeScale(minFlow), "low");
-    applyLineStyle(".legend-line--mid", strokeScale(midFlow), "mid");
-    applyLineStyle(".legend-line--high", strokeScale(maxFlow), "high");
+    const arcLineColor =
+      embedSingleArc && flowOrganSlug !== "all"
+        ? (organVolumeColor(flowOrganSlug) ?? "#202623")
+        : "#202623";
+    const lineTier = embedSingleArc
+      ? { high: arcLineColor, mid: arcLineColor, low: arcLineColor }
+      : null;
+    const applyEmbedLine = (selector, widthPx, tier) => {
+      if (lineTier) {
+        d3.select(selector)
+          .style("border-top-color", lineTier[tier])
+          .style("border-top-width", `${widthPx}px`)
+          .style("opacity", tier === "high" ? 0.92 : tier === "mid" ? 0.55 : 0.28);
+      } else {
+        applyLineStyle(selector, widthPx, tier);
+      }
+    };
+    applyEmbedLine(".legend-line--low", strokeScale(minFlow), "low");
+    applyEmbedLine(".legend-line--mid", strokeScale(midFlow), "mid");
+    applyEmbedLine(".legend-line--high", strokeScale(maxFlow), "high");
   } else {
     const [w0, w1] = style.widthRange;
     const wMid = (w0 + w1) / 2;
@@ -3511,7 +3956,23 @@ function renderAuditPanel({
     "Insets: Alaska and Hawaii follow the Albers USA composite; Puerto Rico is shown in inset, not to scale. Contiguous mainland ↔ Puerto Rico flows are omitted."
   );
   if (!geographyComparison) {
-    notes.push("Line opacity on map encodes density of flows in full-network view.");
+    notes.push(
+      styleForMode(edgeMode).directionalFlows
+        ? "Arc gradient: lighter at donor recovery, darker at transplant center."
+        : "Line opacity on map encodes density of flows in full-network view."
+    );
+  }
+
+  if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
+    const auditNotes = d3.select("#audit-notes-panel");
+    auditNotes.attr("hidden", null);
+    auditNotes.select(".audit-notes-panel__details").property("open", false);
+    auditNotes
+      .select(".audit-notes-panel__body")
+      .selectAll("p")
+      .data(notes)
+      .join("p")
+      .text((d) => d);
   }
 
   d3.select("#audit-panel")
@@ -3522,6 +3983,29 @@ function renderAuditPanel({
     .attr("class", "audit-item")
     .text((d) => d);
 }
+
+const LIFE_FLOW_MAP_SOURCE = "life-flow-scene4";
+const LIFE_FLOW_NETWORK_SOURCE = "life-flow-organ-network";
+const LIFE_FLOW_EMBED_SOURCES = new Set([LIFE_FLOW_MAP_SOURCE, LIFE_FLOW_NETWORK_SOURCE]);
+
+window.addEventListener("message", (event) => {
+  if (event.origin !== window.location.origin) return;
+  if (!LIFE_FLOW_EMBED_SOURCES.has(event.data?.source) || event.data?.type !== "setOrgan") return;
+  const organ = event.data.organ ?? "all";
+  if (EMBED_SHOW_CHROME && LAYOUT_MODE === "dot_map_volume_unified") {
+    ORGAN_VOLUME_MODE = organ;
+    renderDotMapVolumeUnifiedView(organ, DOT_VOL_UNIFIED_SITE).catch((err) => {
+      console.error("[dot map volume unified] setOrgan failed:", organ, err);
+    });
+    return;
+  }
+  if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
+    embedOrganOverride = organ;
+    init().catch((err) => {
+      console.error("[flow map single] setOrgan failed:", organ, err);
+    });
+  }
+});
 
 init().catch((err) => {
   console.error(err);

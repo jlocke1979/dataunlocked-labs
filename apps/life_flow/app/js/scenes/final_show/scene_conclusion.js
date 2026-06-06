@@ -12,7 +12,8 @@ export function runConclusion() {
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Conclusion",
     title: "How can you help?",
-    subtitle: "Register as an organ donor"
+    subtitle:
+      "It only takes 5 minutes of your time to sign up and potentially give someone else years of newfound life"
   });
 
   const centerX = STAGE.width / 2;
@@ -29,14 +30,21 @@ export function runConclusion() {
     typography.sceneTitle
   );
 
+  const donorLink = svg
+    .append("a")
+    .attr("href", "https://www.organdonor.gov/sign-up")
+    .attr("target", "_blank")
+    .attr("rel", "noopener noreferrer");
+
   applyType(
-    svg
+    donorLink
       .append("text")
       .attr("x", centerX + 4)
       .attr("y", midY)
       .attr("text-anchor", "start")
       .attr("fill", storyColors.deepSlateHarbor)
       .style("text-decoration", "underline")
+      .style("cursor", "pointer")
       .text("organdonor.gov"),
     typography.sceneTitle
   );

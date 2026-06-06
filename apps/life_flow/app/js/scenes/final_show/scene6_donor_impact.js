@@ -40,14 +40,25 @@ const ORGANS = [
 
 const MAX_YEARS = 18; // x-axis headroom (years)
 
-export function runScene6() {
+/** Appendix: longest median survival (pancreas) reads clearest on the top row. */
+function organsForScene(appendixMode) {
+  if (!appendixMode) return ORGANS;
+  const pancreas = ORGANS.filter((o) => o.organ === "Pancreas");
+  const rest = ORGANS.filter((o) => o.organ !== "Pancreas");
+  return [...pancreas, ...rest];
+}
+
+/** @param {{ sceneLabel?: string, title?: string, subtitle?: string, appendixMode?: boolean }} [options] */
+function runDonorImpactScene(options = {}) {
+  const appendixMode = options.appendixMode ?? false;
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
   const { chartSvg: svg } = beginChartScene(container, {
-    sceneLabel: "Scene 6",
-    title: "How much life can one donor create?",
+    sceneLabel: options.sceneLabel ?? "Scene 6",
+    title: options.title ?? "How much life can one donor create?",
     subtitle:
+      options.subtitle ??
       "Median years lived after transplant \u2014 a typical donor's reach, and the most one donor can give"
   });
 
@@ -59,37 +70,41 @@ export function runScene6() {
   grad.append("stop").attr("offset", "0%").attr("stop-color", storyColors.museumWhite).attr("stop-opacity", 0);
   grad.append("stop").attr("offset", "100%").attr("stop-color", storyColors.museumWhite).attr("stop-opacity", 1);
 
+  const organs = organsForScene(appendixMode);
+
   const left = STAGE.contentLeft + 156;   // donation line / year 0
   const right = STAGE.contentRight - 150;  // room for end labels
   const top = STAGE.contentTop + 36;
   const bottom = STAGE.contentBottom - 60;
 
   const x = d3.scaleLinear().domain([0, MAX_YEARS]).range([left, right]);
-  const rowH = (bottom - top) / ORGANS.length;
+  const rowH = (bottom - top) / organs.length;
   const barH = Math.min(18, rowH * 0.46);
 
-  const commonCount = ORGANS.filter(o => o.common).length;
+  const commonCount = organs.filter(o => o.common).length;
 
-  // --- Typical-reach band behind the common (kidneys + liver) rows ----------
-  svg.append("rect")
-    .attr("x", STAGE.contentLeft)
-    .attr("y", top - rowH * 0.15)
-    .attr("width", right - STAGE.contentLeft + 130)
-    .attr("height", commonCount * rowH)
-    .attr("fill", storyColors.softAshGray)
-    .attr("fill-opacity", 0.14)
-    .attr("rx", 6);
+  // --- Typical-reach band (spine only; omitted in appendix reference view) ---
+  if (!appendixMode) {
+    svg.append("rect")
+      .attr("x", STAGE.contentLeft)
+      .attr("y", top - rowH * 0.15)
+      .attr("width", right - STAGE.contentLeft + 130)
+      .attr("height", commonCount * rowH)
+      .attr("fill", storyColors.softAshGray)
+      .attr("fill-opacity", 0.14)
+      .attr("rx", 6);
 
-  applyType(
-    svg.append("text").attr("x", STAGE.contentLeft + 4).attr("y", top + commonCount * rowH / 2 - 8)
-      .attr("fill", storyColors.textSecondary).text("TYPICAL DONOR"),
-    typography.label
-  );
-  applyType(
-    svg.append("text").attr("x", STAGE.contentLeft + 4).attr("y", top + commonCount * rowH / 2 + 10)
-      .attr("fill", storyColors.textMuted).text("~3 recipients"),
-    typography.caption
-  );
+    applyType(
+      svg.append("text").attr("x", STAGE.contentLeft + 4).attr("y", top + commonCount * rowH / 2 - 8)
+        .attr("fill", storyColors.textSecondary).text("TYPICAL DONOR"),
+      typography.label
+    );
+    applyType(
+      svg.append("text").attr("x", STAGE.contentLeft + 4).attr("y", top + commonCount * rowH / 2 + 10)
+        .attr("fill", storyColors.textMuted).text("~3 recipients"),
+      typography.caption
+    );
+  }
 
   // --- Year gridlines + axis ------------------------------------------------
   const ticks = [0, 5, 10, 15];
@@ -126,7 +141,7 @@ export function runScene6() {
   );
 
   // --- Lifelines ------------------------------------------------------------
-  ORGANS.forEach((d, i) => {
+  organs.forEach((d, i) => {
     const cy = top + (i + 0.5) * rowH;
     const color = organColors[d.organ] || storyColors.deepSlateHarbor;
     const x0 = x(0);
@@ -160,18 +175,17 @@ export function runScene6() {
     );
   });
 
-  // --- Maximum-reach brace on the far right ---------------------------------
-  const braceX = right + 124;
-  svg.append("line")
-    .attr("x1", braceX).attr("x2", braceX)
-    .attr("y1", top).attr("y2", bottom)
-    .attr("stroke", storyColors.weatheredBrass).attr("stroke-width", 1.5);
-  [top, bottom].forEach(yy => {
-    svg.append("line").attr("x1", braceX).attr("x2", braceX - 6).attr("y1", yy).attr("y2", yy)
-      .attr("stroke", storyColors.weatheredBrass).attr("stroke-width", 1.5);
-  });
+  // --- Footer (appendix: one quiet source line; spine: full totals) ----------
+  if (appendixMode) {
+    applyType(
+      svg.append("text").attr("x", STAGE.contentLeft).attr("y", 684)
+        .attr("fill", storyColors.textMuted)
+        .text("Source: median post-transplant survival \u2014 Rana et al., JAMA Surgery 2015 & 2023 update (UNOS). * Intestine approximated from SRTR 2023."),
+      typography.caption
+    );
+    return;
+  }
 
-  // --- Totals + sources -----------------------------------------------------
   const typicalYears = Math.round(d3.sum(ORGANS.filter(o => o.common), o => o.years));
   const totalYears = Math.round(d3.sum(ORGANS, o => o.years));
 
@@ -199,4 +213,18 @@ export function runScene6() {
       .text("Bars are years lived after transplant (waitlist survival is far lower, so most is genuinely gained). * Intestine median not reliably published; approximated from SRTR 2023."),
     typography.caption
   );
+}
+
+export function runScene6() {
+  runDonorImpactScene();
+}
+
+/** Chopping Block — preserved lifeline chart, simplified copy. */
+export function runAppendixDonorImpact() {
+  runDonorImpactScene({
+    sceneLabel: "Chopping Block",
+    title: "One donor, multiple recipients",
+    subtitle: "Median years lived after transplant (reference)",
+    appendixMode: true
+  });
 }

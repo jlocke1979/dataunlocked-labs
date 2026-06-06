@@ -15,9 +15,9 @@ export function runAppendixPatientJourney() {
 
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Appendix",
-    title: "The transplant patient journey in 14 steps along the path",
+    title: "The transplant patient journey in 14 steps",
     subtitle:
-      "We use this SRTR map as a guide when presenting data on the transplantation journey."
+      "The Scientific Registry of Transplant Recipients (SRTR) provides this illustration journey map."
   });
 
   const g = svg.append("g").attr("class", "appendix-patient-journey");

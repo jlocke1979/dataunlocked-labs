@@ -1,3 +1,5 @@
+import { organColors } from "../../constants/colors.js";
+
 export function runScene5(container) {
   container.html("");
 
@@ -10,15 +12,7 @@ export function runScene5(container) {
     .attr("height", height)
     .style("background", "#0f1412");
 
-  const organColors = {
-    Kidney: "#78a6c8",
-    Liver: "#c99789",
-    Heart: "#d96b6b",
-    Lung: "#9bbf9f",
-    Pancreas: "#d7b46a"
-  };
-
-  const organs = Object.keys(organColors);
+  const organs = ["Kidney", "Liver", "Heart", "Lung", "Pancreas"];
 
   const patients = d3.range(220).map((i) => {
     const transplanted = Math.random() < 0.16;

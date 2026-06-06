@@ -1,4 +1,4 @@
-import { organColors, storyColors } from "../../constants/colors.js";
+import { organColorByName, organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import {
   beginChartScene,
@@ -43,7 +43,7 @@ const TIERS = [
   {
     key: "all",
     organs: null,
-    title: "The organ transplant system has supported more transplants in recent years.",
+    title: "The organ transplant system has supported more transplants than ever",
     subtitle: "2021 had a noticeable decrease, while accelerating rapidly after."
   },
   {
@@ -188,7 +188,7 @@ function buildSequence(container, rows, options = {}) {
   const seriesForOrgan = organ => ({
     id: organ,
     label: organ.replace("VCA - ", ""),
-    color: organColors[organ] || "#888",
+    color: organColorByName(organ, "#888"),
     points: rows
       .filter(d => d.donor_type === "All Donor Types" && d.organ === organ && d.year <= 2025)
       .sort((a, b) => a.year - b.year)

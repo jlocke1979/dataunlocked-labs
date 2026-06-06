@@ -7,7 +7,6 @@
 // so nothing is hidden. The scenes share export names (runScene1..runScene7), so
 // each import is aliased. scene5_resolution takes a container, so it's wrapped.
 import { runScene0 as runLanding } from "./scenes/final_show/scene0_landing.js";
-import { runScene0LandingNav } from "./scenes/final_show/scene0_landing_nav.js";
 import { runSystemMap } from "./scenes/final_show/scene_system_map.js";
 import { mountShowBreadcrumb, updateShowBreadcrumb } from "./final_show/show_tour.js";
 import { runScene1 as runSituation } from "./scenes/final_show/scene1_situation.js";
@@ -20,7 +19,10 @@ import { runConclusion } from "./scenes/final_show/scene_conclusion.js";
 import { runReferences } from "./scenes/final_show/scene_references.js";
 import { runStationN } from "./scenes/final_show/scene_patient_station.js";
 import { runScene2 as runSystem } from "./scenes/final_show/scene2_system.js";
-import { runScene2 as runHeatmap } from "./scenes/final_show/scene2_wait_heatmap.js";
+import {
+  runScene2 as runHeatmap,
+  runScene2WaitHeatmap
+} from "./scenes/final_show/scene2_wait_heatmap.js";
 import { runScene3 as runTension } from "./scenes/final_show/scene3_tension.js";
 import { runChoppingBlockIntro } from "./scenes/final_show/scene_chopping_block.js";
 import { runScene3 as runFlowAlluvial } from "./scenes/final_show/scene3_flow.js";
@@ -28,11 +30,12 @@ import { runScene3SupplyDemand } from "./scenes/final_show/scene3_supply_demand_
 import { runScene3FlowWaffleAbsolute } from "./scenes/final_show/scene3_flow_waffle_absolute.js";
 import { runScene3FlowWaffleProportion } from "./scenes/final_show/scene3_flow_waffle_proportion.js";
 import { runScene4 as runProblem } from "./scenes/final_show/scene4_problem.js";
-import { runScene4 as runMap } from "./scenes/final_show/scene4_map.js";
+import { runScene4 as runMap, mapOrganDetails } from "./scenes/final_show/scene4_map.js";
 import { runScene5 as runResolutionRaw } from "./scenes/final_show/scene5_resolution.js";
 import { runScene5 as runAfter } from "./scenes/final_show/scene5_after_transplant.js";
 import { runScene6 as runOutro6 } from "./scenes/final_show/scene6_outro.js";
-import { runScene6 as runDonor } from "./scenes/final_show/scene6_donor_impact.js";
+import { runAppendixDonorImpact } from "./scenes/final_show/scene6_donor_impact.js";
+import { runOrganNetwork, organNetworkDetails } from "./scenes/final_show/scene_organ_network.js";
 import { runDedicationScene as runDedication } from "./scenes/final_show/sceneX_dedication.js";
 
 import { storyColors } from "./constants/colors.js";
@@ -69,9 +72,8 @@ function runResolution() {
 // ---------------------------------------------------------------------------
 const headlineScenes = [
   { id: "landing", run: runLanding, details: [] },
-  { id: "landingNav", run: runScene0LandingNav, details: [] },
   { id: "needOverTime", run: runNeed, details: [], expectedDepth: 4 },
-  { id: "waitHeatmap", run: runHeatmap, details: [] },
+  { id: "waitHeatmap", run: runHeatmap, details: [runScene2WaitHeatmap] },
   {
     id: "flow",
     run: runScene3FlowWaffleAbsolute,
@@ -81,9 +83,9 @@ const headlineScenes = [
       runScene3TreemapDetail
     ]
   },
-  { id: "map", run: runMap, details: [] },
+  { id: "map", run: runMap, details: mapOrganDetails },
+  { id: "organNetwork", run: runOrganNetwork, details: organNetworkDetails },
   { id: "afterTransplant", run: runAfter, details: [runStationN] },
-  { id: "donorImpact", run: runDonor, details: [] },
   { id: "conclusion", run: runConclusion, details: [] },
   { id: "appendixPatientJourney", run: runAppendixPatientJourney, details: [] },
   {
@@ -97,7 +99,8 @@ const headlineScenes = [
     run: runChoppingBlockIntro,
     details: [
       () => runScene3SupplyDemand({ sceneLabel: "Chopping Block", subtitle: "", showSource: false }),
-      () => runFlowAlluvial({ sceneLabel: "Chopping Block", subtitle: "" })
+      () => runFlowAlluvial({ sceneLabel: "Chopping Block", subtitle: "" }),
+      runAppendixDonorImpact
     ]
   }
   // { id: "situation", run: runSituation, details: [] },
@@ -311,13 +314,20 @@ const KEY_TO_DIRECTION = {
   ArrowUp: "up"
 };
 
-// Scene 4 embeds the map in a same-origin iframe; arrow keys do not reach this
-// window while focus is on iframe controls. scene4_map.js posts messages here.
+// Scenes 4 and Network embed Assignment 05 in same-origin iframes; arrow keys do
+// not reach this window while focus is on the iframe. Child scenes post messages here.
 const SCENE4_NAV_MESSAGE_SOURCE = "life-flow-scene4";
+const ORGAN_NETWORK_NAV_MESSAGE_SOURCE = "life-flow-organ-network";
+const IFRAME_NAV_MESSAGE_SOURCES = new Set([
+  SCENE4_NAV_MESSAGE_SOURCE,
+  ORGAN_NETWORK_NAV_MESSAGE_SOURCE
+]);
 
 window.addEventListener("message", (event) => {
   if (event.origin !== window.location.origin) return;
-  if (event.data?.source !== SCENE4_NAV_MESSAGE_SOURCE || event.data?.type !== "nav") return;
+  if (!IFRAME_NAV_MESSAGE_SOURCES.has(event.data?.source) || event.data?.type !== "nav") {
+    return;
+  }
   const direction = event.data.direction;
   if (direction) navigate(direction);
 });

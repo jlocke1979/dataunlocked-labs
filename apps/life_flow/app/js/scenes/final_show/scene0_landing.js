@@ -9,9 +9,14 @@ export function runScene0() {
     eyebrow: "A Data Story",
     title: "Organ transplant network visualized",
     subtitle: "An exploration of the United States organ transplantation system.",
-    lines: ["Press \u2192 arrow to begin"],
+    lines: [
+      "Press \u2192 arrow to begin",
+      "\u2193  for detail        \u2191  to return"
+    ],
     bodyCentered: true,
-    bodyLarge: true
+    bodyLarge: true,
+    bodyLineGap: 12,
+    bodyYOffset: -28
   });
 
   drawSource(svg, "Source: OPTN, UNOS, and SRTR national data.");

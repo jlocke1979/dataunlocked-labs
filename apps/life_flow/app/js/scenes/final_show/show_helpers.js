@@ -192,7 +192,8 @@ export function renderTitleCard(container, {
   hintLarge = false,
   bodyCentered = false,
   bodyLarge = false,
-  bodyLineGap = 0
+  bodyLineGap = 0,
+  bodyYOffset = 0
 }) {
   initSceneLayout(container);
   mountHeaderBand(container, {
@@ -206,9 +207,10 @@ export function renderTitleCard(container, {
   const bodyLineHeight = bodyType.size * (bodyType.lineHeight || 1.5);
   const bodyBlockHeight =
     lines.length * bodyLineHeight + Math.max(0, lines.length - 1) * bodyLineGap;
-  const bodyY = bodyCentered
-    ? (STAGE.contentTop + STAGE.contentBottom) / 2 - bodyBlockHeight / 2 + bodyLineHeight / 2
-    : BODY_Y;
+  const bodyY =
+    (bodyCentered
+      ? (STAGE.contentTop + STAGE.contentBottom) / 2 - bodyBlockHeight / 2 + bodyLineHeight / 2
+      : BODY_Y) + bodyYOffset;
   const bodyX = bodyCentered ? STAGE_WIDTH / 2 : MARGIN_X;
 
   const body = applyType(

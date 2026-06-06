@@ -30,7 +30,7 @@ const REFERENCES = [
     verified: false,
     lines: [
       "Rana, Aditi, et al. 2015. [Verify full Chicago citation \u2014 post-transplant",
-      "survival medians cited in Scene 6; JAMA Surgery 2015 & 2023 update (UNOS).]"
+      "survival medians cited in Appendix (donor impact); JAMA Surgery 2015 & 2023 update (UNOS).]"
     ]
   },
   {

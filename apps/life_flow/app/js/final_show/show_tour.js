@@ -26,16 +26,16 @@ export const SHOW_TOUR_STOPS = [
     headlineId: "map"
   },
   {
+    id: "network",
+    label: "Network",
+    mapHint: "Donor-to-transplant flows",
+    headlineId: "organNetwork"
+  },
+  {
     id: "after",
     label: "After",
     mapHint: "Outcomes after transplant",
     headlineId: "afterTransplant"
-  },
-  {
-    id: "donor",
-    label: "Donor",
-    mapHint: "Donor impact",
-    headlineId: "donorImpact"
   },
   {
     id: "close",
@@ -104,14 +104,6 @@ export function updateShowBreadcrumb({ headlineId, detailDepth = 0, detailCount 
   if (headlineId === "landing") {
     hideShowBreadcrumb();
     setTopChromeIntroMode(false);
-    return;
-  }
-
-  if (headlineId === "landingNav") {
-    breadcrumbEl.hidden = false;
-    breadcrumbEl.classList.add("show-breadcrumb--preview");
-    renderBreadcrumbPills({ preview: true });
-    setTopChromeIntroMode(true);
     return;
   }
 

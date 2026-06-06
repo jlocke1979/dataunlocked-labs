@@ -1155,6 +1155,9 @@ body.layout-small-multiples .subtitle {
 
 .link {
   fill: none;
+}
+
+body:not(.embed-flow-show) .link {
   stroke: var(--link);
   stroke-opacity: 0.45;
 }
@@ -1169,6 +1172,23 @@ body.layout-small-multiples .subtitle {
   fill: var(--destination);
   stroke: #fff;
   stroke-width: 1.2;
+}
+
+body.embed-flow-show.embed-flow-organ .node--source,
+body.embed-flow-show.embed-flow-organ circle.source {
+  fill: #fff;
+  stroke: #202623;
+  stroke-width: 1.55;
+}
+
+body.embed-flow-show.embed-flow-organ .node--destination,
+body.embed-flow-show.embed-flow-organ circle.destination {
+  stroke: none;
+}
+
+.node--interactive.node--hover {
+  stroke: var(--lf-charcoal-forest, #202623);
+  stroke-width: 1.6;
 }
 
 .map-svg--geography-comparison .link {

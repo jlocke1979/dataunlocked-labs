@@ -40,8 +40,8 @@ export function runScene3FlowWaffleProportion() {
 
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Scene 3  \u00b7  detail",
-    title: "Where the gap is widest",
-    subtitle: "Share of waitlist demand met by completed transplants, by organ type, 2025"
+    title: "On a relative view of wait times, other insights emerge",
+    subtitle: "Pancreas and Intestine have a very large portion of candidates waiting"
   });
 
   const rowData = WAITLIST_CATEGORIES.map(category => {

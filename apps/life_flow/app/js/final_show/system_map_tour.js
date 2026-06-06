@@ -56,10 +56,10 @@ export function getHotspotHighlightState(highlightThroughIndex) {
 
 export function systemMapSubtitle(highlightThroughIndex) {
   if (highlightThroughIndex < 0) {
-    return "UNOS/OPTN reference \u2014 context only, not the story script; press \u2192 for references";
+    return "UNOS/OPTN reference \u2014 context only, not the story script; press \u2192 for references.";
   }
   const hotspot = SYSTEM_MAP_HOTSPOTS[highlightThroughIndex];
   const letter = hotspot?.unosLetter ?? "";
   const label = hotspot?.unosLabel ?? "";
-  return `Highlighting station ${letter}: ${label} (\u2193 next stop \u00b7 \u2192 continue the story)`;
+  return `Highlighting station ${letter}: ${label} (\u2193 next stop \u00b7 \u2192 continue the story).`;
 }

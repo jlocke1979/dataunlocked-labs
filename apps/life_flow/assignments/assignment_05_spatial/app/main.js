@@ -2017,8 +2017,14 @@ function drawDotMapVolumePanelBlock(
 
 function applyDotMapVolumePageChrome({ bodyClass, iterationAttr, titleSuffix = "", unified = false }) {
   document.title = `Transplant System Sites — Volume by Geography${titleSuffix}`;
-  d3.select("#chart-title").text("Transplant System Sites");
-  d3.select(".subtitle").text(DOT_VOL_MAIN_SUBTITLE);
+  if (EMBED_SHOW_CHROME) {
+    d3.select("#chart-title").text("");
+    d3.select(".subtitle").text("");
+    d3.select(".header").style("display", "none");
+  } else {
+    d3.select("#chart-title").text("Transplant System Sites");
+    d3.select(".subtitle").text(DOT_VOL_MAIN_SUBTITLE);
+  }
   d3.select("body").attr("class", bodyClass);
   d3.select(".viz-card").attr("data-iteration", iterationAttr);
   d3.select("#audit-panel").style("display", "none");
@@ -2228,8 +2234,10 @@ async function renderDotMapVolumeUnifiedView(organSlug, siteSlug) {
     titleSuffix: "",
     unified: true,
   });
-  d3.select("#chart-title").text(headline.title);
-  d3.select(".subtitle").text(headline.subtitle);
+  if (!EMBED_SHOW_CHROME) {
+    d3.select("#chart-title").text(headline.title);
+    d3.select(".subtitle").text(headline.subtitle);
+  }
   if (!EMBED_SHOW_CHROME) {
     renderSiteTypePicker(siteSlug, (nextSite) =>
       renderDotMapVolumeUnifiedView(organSlug, nextSite)
@@ -2423,7 +2431,10 @@ function applyEmbedQueryOverrides() {
   }
   if (params.has("edge")) EDGE_MODE = params.get("edge");
   if (params.has("site")) DOT_VOL_UNIFIED_SITE = params.get("site");
-  if (params.get("embed") === "show") EMBED_SHOW_CHROME = true;
+  if (params.get("embed") === "show") {
+    EMBED_SHOW_CHROME = true;
+    document.documentElement.classList.add("life-flow-embed");
+  }
   if (params.get("flowStyle") === "web") FLOW_STYLE_OVERRIDE = "web";
   if (params.has("flowGradient")) {
     FLOW_GRADIENT_MODE = params.get("flowGradient");
@@ -2662,9 +2673,16 @@ async function init() {
   console.log("Edge file:", edgePath);
   console.log("  resolved:", new URL(edgePath, window.location.href).href);
 
-  document.title = organConfig.documentTitle;
-  d3.select("#chart-title").text(organConfig.chartTitle);
-  d3.select(".subtitle").text(organConfig.chartSubtitle);
+  if (EMBED_SHOW_CHROME) {
+    document.title = organConfig.documentTitle;
+    d3.select("#chart-title").text("");
+    d3.select(".subtitle").text("");
+    d3.select(".header").style("display", "none");
+  } else {
+    document.title = organConfig.documentTitle;
+    d3.select("#chart-title").text(organConfig.chartTitle);
+    d3.select(".subtitle").text(organConfig.chartSubtitle);
+  }
   const displayIteration = SHOW_DESTINATION_HUBS ? "hub" : organConfig.iteration;
   d3.select("body").attr(
     "class",
@@ -3495,7 +3513,10 @@ function appendSidebarVolumeScale(
     .attr("class", "legend-volume-scale")
     .attr("aria-label", "Volume scale");
 
-  scaleSection.append("p").attr("class", "organ-volume-picker__heading").text("Volume scale");
+  const heading = scaleSection
+    .append("p")
+    .attr("class", "organ-volume-picker__heading legend-volume-scale__heading")
+    .text("     Volume scale");
 
   const circlePad = 4;
   const colGap = embedShow ? 32 : 26;
@@ -3505,6 +3526,8 @@ function appendSidebarVolumeScale(
   const sharedCy = circlePad + maxR;
   const labelY = sharedCy + maxR + (embedShow ? 14 : 9);
   const svgH = labelY + (embedShow ? 10 : 15);
+  let scaleLeft = Infinity;
+  let scaleRight = -Infinity;
 
   const svg = scaleSection
     .append("svg")
@@ -3515,6 +3538,8 @@ function appendSidebarVolumeScale(
 
   breaks.forEach((b, i) => {
     const cx = i * (columnW + colGap) + columnW / 2;
+    scaleLeft = Math.min(scaleLeft, cx - b.r);
+    scaleRight = Math.max(scaleRight, cx + b.r);
     const countLabel = embedShow
       ? formatVolumeCount(roundVolumeForLabel(b.value))
       : `(${formatVolumeCount(roundVolumeForLabel(b.value))})`;
@@ -3555,6 +3580,42 @@ function appendSidebarVolumeScale(
       .attr("text-anchor", "middle")
       .text(countLabel);
   });
+
+  if (Number.isFinite(scaleLeft) && Number.isFinite(scaleRight) && scaleRight > scaleLeft) {
+    const scaleSpan = scaleRight - scaleLeft;
+    heading
+      .style("display", "block")
+      .style("width", `${scaleSpan}px`)
+      .style("margin-left", `${scaleLeft}px`)
+      .style("margin-right", "auto")
+      .style("text-align", "left")
+      .style("box-sizing", "border-box");
+    svg.style("display", "block").style("margin-left", `${scaleLeft}px`).style("margin-right", "auto");
+  }
+}
+
+function centerLegendHeadingOverGraphic(sectionSel, graphicSel, headingSelector = ".legend-section__heading") {
+  const section = sectionSel.node();
+  if (!section) return;
+  const heading = section.querySelector(headingSelector);
+  const graphic = graphicSel?.node?.() ?? null;
+  if (!heading || !graphic) return;
+
+  const apply = () => {
+    const sectionRect = section.getBoundingClientRect();
+    const graphicRect = graphic.getBoundingClientRect();
+    if (!graphicRect.width) return;
+    const left = graphicRect.left - sectionRect.left;
+    heading.style.display = "block";
+    heading.style.width = `${graphicRect.width}px`;
+    heading.style.marginLeft = `${left}px`;
+    heading.style.marginRight = "auto";
+    heading.style.textAlign = "center";
+    heading.style.boxSizing = "border-box";
+  };
+
+  apply();
+  if (typeof requestAnimationFrame === "function") requestAnimationFrame(apply);
 }
 
 function organLegendTint(organSlug, roleClass) {
@@ -3857,22 +3918,7 @@ function renderLegendPanel({ strokeScale, style, hubInflowExtent, flowOrganSlug 
   const directionNote = legend.select(".legend-flow-direction");
   if (style.directionalFlows) {
     if (embedSingleArc) {
-      const gradientMode = FLOW_GRADIENT_MODE ?? "purple-green";
-      let directionText;
-      if (gradientMode === "charcoal" || (gradientMode === "organ" && flowOrganSlug === "all")) {
-        directionText = "White end = donor recovery \u00b7 Black end = transplant center";
-      } else if (gradientMode === "organ" && flowOrganSlug !== "all") {
-        directionNote.style("display", "none");
-        directionText = null;
-      } else if (gradientMode === "red-blue") {
-        directionText =
-          "Orange = donor recovery \u00b7 Blue = transplant center (less colorblind-safe)";
-      } else {
-        directionText = "Purple = donor recovery \u00b7 Green = transplant center";
-      }
-      if (directionText != null) {
-        directionNote.style("display", null).text(directionText);
-      }
+      directionNote.style("display", "none").text("");
     } else {
       directionNote
         .style("display", null)
@@ -3911,6 +3957,11 @@ function renderLegendPanel({ strokeScale, style, hubInflowExtent, flowOrganSlug 
     applyLineStyle(".legend-line--low", w0, "low");
     applyLineStyle(".legend-line--mid", wMid, "mid");
     applyLineStyle(".legend-line--high", w1, "high");
+  }
+
+  if (embedSingleArc && style.showFlowLegend) {
+    const flowsSection = legend.select(".legend-section--flows");
+    centerLegendHeadingOverGraphic(flowsSection, flowsSection.select(".legend-flow-scale"));
   }
 }
 

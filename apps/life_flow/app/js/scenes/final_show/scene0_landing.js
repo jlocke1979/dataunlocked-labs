@@ -6,9 +6,8 @@ export function runScene0() {
   container.selectAll("*").remove();
 
   const svg = renderTitleCard(container, {
-    eyebrow: "A Data Story",
-    title: "Organ transplant network visualized",
-    subtitle: "An exploration of the United States organ transplantation system.",
+    title: "LifeFlow",
+    subtitle: "A visual exploration of the United States organ transplant network.",
     lines: [
       "Press \u2192 arrow to begin",
       "\u2193  for detail        \u2191  to return"

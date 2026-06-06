@@ -1,21 +1,17 @@
 import { organColorBySlug, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import {
+  ALL_ORGANS_LABEL,
   applyType,
   createStage,
-  drawHeader,
   HEADER_BAND_HEIGHT,
   HEADER_GRID,
   HEADER_TOP_VH,
   initSceneLayout,
+  renderHighlightedOrganTitle,
   renderPlaceholder,
   STAGE
 } from "./show_helpers.js";
-
-const ORGAN_HIGHLIGHT_PAD_X = 5;
-const ORGAN_HIGHLIGHT_PAD_Y = 2;
-const ORGAN_HIGHLIGHT_OPACITY = 0.22;
-const ORGAN_TITLE_SUFFIX_GAP = 6;
 
 // Must match ORGAN_NETWORK_NAV_MESSAGE_SOURCE in js/main.js.
 export const ORGAN_NETWORK_NAV_MESSAGE_SOURCE = "life-flow-organ-network";
@@ -52,7 +48,7 @@ function flowMapSrc({ organ = "all", flowGradient = null } = {}) {
 }
 
 const HEADER_VIEW_HEIGHT = HEADER_BAND_HEIGHT;
-const CHART_MAP_LIFT = "-0.6in";
+const CHART_MAP_LIFT = "-0.35in";
 const LEGEND_FIXED_TOP = "0.5rem";
 const LEGEND_FIXED_RIGHT = "1.5%";
 const LEGEND_ZOOM = 1.1;
@@ -61,84 +57,67 @@ const LEGEND_RESERVED_WIDTH = "210px";
 const AUDIT_CLEAR_NAV_RIGHT = "2in";
 const STAGE_MARGIN_PCT = (STAGE.marginX / STAGE.width) * 100;
 
-function tagNetworkHeader(svg) {
-  const texts = svg.selectAll("text");
-  texts.filter((_, i) => i === 0).attr("class", "network-header-eyebrow");
-  texts.filter((_, i) => i === 1).attr("class", "network-header-title");
-  texts.filter((_, i) => i === 2).attr("class", "network-header-subtitle");
-}
-
 function organDetailLabel(slug) {
   return NETWORK_ORGAN_DETAILS.find((d) => d.slug === slug)?.label ?? null;
 }
 
-function renderNetworkOrganTitle(svg, label, suffix, organColor) {
-  svg.select(".network-header-title-group").remove();
-  const group = svg.append("g").attr("class", "network-header-title-group");
-  const organWrap = group.append("g").attr("class", "network-organ-wrap");
-
-  const organText = applyType(
-    organWrap
-      .append("text")
-      .attr("class", "network-header-title")
-      .attr("x", STAGE.marginX)
-      .attr("y", HEADER_GRID.titleY)
-      .attr("fill", organColor)
-      .text(label),
-    typography.mainTitle
-  );
-
-  const bbox = organText.node().getBBox();
-  organWrap
-    .insert("rect", "text")
-    .attr("class", "network-organ-highlight")
-    .attr("x", bbox.x - ORGAN_HIGHLIGHT_PAD_X)
-    .attr("y", bbox.y - ORGAN_HIGHLIGHT_PAD_Y)
-    .attr("width", bbox.width + ORGAN_HIGHLIGHT_PAD_X * 2)
-    .attr("height", bbox.height + ORGAN_HIGHLIGHT_PAD_Y * 2)
-    .attr("rx", 4)
-    .attr("fill", organColor)
-    .attr("fill-opacity", ORGAN_HIGHLIGHT_OPACITY);
-
-  if (suffix) {
-    applyType(
-      group
-        .append("text")
-        .attr("class", "network-header-title-suffix")
-        .attr("x", STAGE.marginX + bbox.width + ORGAN_TITLE_SUFFIX_GAP)
-        .attr("y", HEADER_GRID.titleY)
-        .attr("fill", storyColors.textPrimary)
-        .text(suffix),
-      typography.mainTitle
-    );
-  }
+function networkOrganLabel(organ) {
+  return organ === "all" ? ALL_ORGANS_LABEL : organDetailLabel(organ);
 }
 
-function mountOrganNetworkMap(container, { sceneLabel, title, subtitle, organ = "all", flowGradient = null }) {
+function networkSubtitle(organ) {
+  const label = networkOrganLabel(organ);
+  return `Movement of organs represented, ${label} 2025.`;
+}
+
+function networkTitleParts(organ) {
+  const label = networkOrganLabel(organ);
+  return {
+    classPrefix: "network",
+    prefix: "How",
+    prefixGap: 12,
+    label,
+    suffix: organ === "all" ? " move across the country" : " moves across the country",
+    organColor:
+      organ === "all" ? storyColors.charcoalForest : organColorBySlug(organ),
+    boxStroke: organ === "all" ? storyColors.charcoalForest : null
+  };
+}
+
+function applyNetworkHeader(svg, { sceneLabel, organ = "all", subtitle }) {
+  const subtitleText = subtitle ?? networkSubtitle(organ);
+
+  renderHighlightedOrganTitle(svg, networkTitleParts(organ));
+
+  applyType(
+    svg
+      .append("text")
+      .attr("class", "network-header-subtitle")
+      .attr("x", STAGE.marginX)
+      .attr("y", HEADER_GRID.subtitleY)
+      .attr("fill", storyColors.textSecondary)
+      .text(subtitleText),
+    typography.sceneTitle
+  );
+
+  svg
+    .append("line")
+    .attr("class", "network-header-divider")
+    .attr("x1", STAGE.marginX)
+    .attr("x2", STAGE.width - STAGE.marginX)
+    .attr("y1", HEADER_GRID.dividerY)
+    .attr("y2", HEADER_GRID.dividerY)
+    .attr("stroke", storyColors.weatheredBrass)
+    .attr("stroke-width", 1);
+}
+
+function mountOrganNetworkMap(container, { sceneLabel, subtitle, organ = "all", flowGradient = null }) {
   const mapSrc = flowMapSrc({ organ, flowGradient });
   container.selectAll("*").remove();
   initSceneLayout(container);
 
   const svg = createStage(container);
-  const organLabel = organ !== "all" ? organDetailLabel(organ) : null;
-  const organColor = organLabel ? organColorBySlug(organ) : null;
-
-  drawHeader(svg, { sceneLabel, subtitle });
-  if (organLabel && organColor) {
-    renderNetworkOrganTitle(svg, organLabel, " flows across the country", organColor);
-  } else if (title) {
-    applyType(
-      svg
-        .append("text")
-        .attr("class", "network-header-title")
-        .attr("x", STAGE.marginX)
-        .attr("y", HEADER_GRID.titleY)
-        .attr("fill", storyColors.textPrimary)
-        .text(title),
-      typography.mainTitle
-    );
-  }
-  tagNetworkHeader(svg);
+  applyNetworkHeader(svg, { sceneLabel, organ, subtitle });
 
   svg
     .attr("viewBox", `0 0 ${STAGE.width} ${HEADER_VIEW_HEIGHT}`)
@@ -244,6 +223,18 @@ function mountOrganNetworkMap(container, { sceneLabel, title, subtitle, organ = 
         .chart-map svg > rect.map-bg {
           fill: transparent !important;
         }
+        body.embed-flow-show.layout-single .state,
+        body.embed-flow-show.layout-single .state--pr-inset {
+          fill: ${storyColors.museumWhite} !important;
+          stroke: #d6d4ce !important;
+          stroke-width: 0.65px !important;
+        }
+        body.embed-flow-show.layout-single .inset-frame {
+          stroke: #d6d4ce !important;
+        }
+        body.embed-flow-show.layout-single .inset-label {
+          fill: ${storyColors.textSecondary} !important;
+        }
         .viz-source {
           background: transparent !important;
           border: none !important;
@@ -281,13 +272,14 @@ function mountOrganNetworkMap(container, { sceneLabel, title, subtitle, organ = 
           font-size: 10.5px !important;
           text-transform: uppercase;
           letter-spacing: 0.04em;
+          text-align: center !important;
+          box-sizing: border-box !important;
         }
         body.layout-single .legend-flow-label {
           font-size: 10px !important;
         }
         body.layout-single .legend-flow-direction {
-          font-size: 9.5px !important;
-          line-height: 1.35 !important;
+          display: none !important;
         }
         #audit-notes-panel:not([hidden]),
         body.layout-single .audit-notes-panel {
@@ -347,10 +339,11 @@ function mountOrganNetworkMap(container, { sceneLabel, title, subtitle, organ = 
   iframe.on("error", () => {
     console.error("[Network] flow map iframe failed to load:", mapSrc);
     container.selectAll("*").remove();
+    const titleParts = networkTitleParts(organ);
     renderPlaceholder(container, {
       sceneLabel,
-      title,
-      subtitle,
+      title: `${titleParts.prefix}${titleParts.label}${titleParts.suffix}`,
+      subtitle: subtitle ?? networkSubtitle(organ),
       note: "Network flow map could not load — serve from apps/life_flow via HTTP."
     });
   });
@@ -376,11 +369,7 @@ function wireNetworkKeyboardBridge(doc) {
 export function runOrganNetwork(options = {}) {
   mountOrganNetworkMap(d3.select("#viz"), {
     sceneLabel: options.sceneLabel ?? "Scene 5",
-    title: options.title ?? "How organs move across the country",
-    subtitle:
-      options.subtitle ??
-      "Donor recovery to transplant center flows \u2014 all organs, 2025",
-    organ: "all",
+    organ: options.organ ?? "all",
     flowGradient: "charcoal"
   });
 }
@@ -388,7 +377,6 @@ export function runOrganNetwork(options = {}) {
 function runOrganNetworkOrganDetail({ slug, label }) {
   mountOrganNetworkMap(d3.select("#viz"), {
     sceneLabel: `Scene 5  \u00b7  ${label}`,
-    subtitle: "Donor recovery to transplant center \u2014 shared national flow scale",
     organ: slug,
     flowGradient: "organ"
   });

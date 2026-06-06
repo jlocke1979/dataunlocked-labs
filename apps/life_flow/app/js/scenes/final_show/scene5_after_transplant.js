@@ -9,7 +9,8 @@ const SURVIVAL = [
   { organ: "Kidney", points: [[0, 100], [1, 97], [3, 93], [5, 86], [10, 66]] },
   { organ: "Liver", points: [[0, 100], [1, 92], [3, 84], [5, 75], [10, 60]] },
   { organ: "Heart", points: [[0, 100], [1, 90], [3, 84], [5, 75], [10, 56]] },
-  { organ: "Lung", points: [[0, 100], [1, 85], [3, 68], [5, 55], [10, 34]] }
+  { organ: "Lung", points: [[0, 100], [1, 85], [3, 68], [5, 55], [10, 34]] },
+  { organ: "Pancreas", points: [[0, 100], [1, 96], [3, 90], [5, 82], [10, 62]] }
 ];
 
 export function runScene5() {
@@ -19,7 +20,7 @@ export function runScene5() {
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Scene 6",
     title: "What happens after transplant?",
-    subtitle: "Illustrative patient survival by organ, years since transplant"
+    subtitle: "Illustrative patient (not graft) survival by organ, years since transplant."
   });
 
   const plot = {

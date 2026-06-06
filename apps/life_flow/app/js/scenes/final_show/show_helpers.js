@@ -123,19 +123,88 @@ export function applyType(selection, style) {
     .attr("font-style", style.style);
 }
 
-// Header chrome shared by every chart scene: eyebrow label, title, subtitle, divider.
-export function drawHeader(svg, { sceneLabel, title, subtitle } = {}) {
-  if (sceneLabel) {
-    applyType(
-      svg.append("text")
-        .attr("x", MARGIN_X)
-        .attr("y", EYEBROW_Y)
-        .attr("fill", storyColors.textMuted)
-        .text(sceneLabel.toUpperCase()),
-      typography.label
+export const ALL_ORGANS_LABEL = "All Organs";
+
+/** Prefix + highlighted organ label + suffix (Scenes 4 & 5 map/network headlines). */
+export function renderHighlightedOrganTitle(
+  svg,
+  {
+    classPrefix,
+    prefix = "",
+    label,
+    suffix = "",
+    organColor,
+    boxStroke = null,
+    y = TITLE_Y,
+    padX = 5,
+    padY = 2,
+    fillOpacity = 0.22,
+    prefixGap = 0,
+    suffixGap = 6
+  }
+) {
+  svg.select(`.${classPrefix}-header-title-group`).remove();
+  const group = svg.append("g").attr("class", `${classPrefix}-header-title-group`);
+  let cursorX = MARGIN_X;
+
+  if (prefix) {
+    const prefixSel = applyType(
+      group
+        .append("text")
+        .attr("class", `${classPrefix}-header-title-prefix`)
+        .attr("x", cursorX)
+        .attr("y", y)
+        .attr("fill", storyColors.textPrimary)
+        .text(prefix),
+      typography.mainTitle
     );
+    cursorX += prefixSel.node().getComputedTextLength() + prefixGap;
   }
 
+  const organWrap = group.append("g").attr("class", `${classPrefix}-organ-wrap`);
+  const organText = applyType(
+    organWrap
+      .append("text")
+      .attr("class", `${classPrefix}-header-title`)
+      .attr("x", cursorX)
+      .attr("y", y)
+      .attr("fill", organColor)
+      .text(label),
+    typography.mainTitle
+  );
+
+  const bbox = organText.node().getBBox();
+  const highlight = organWrap
+    .insert("rect", "text")
+    .attr("class", `${classPrefix}-organ-highlight`)
+    .attr("x", bbox.x - padX)
+    .attr("y", bbox.y - padY)
+    .attr("width", bbox.width + padX * 2)
+    .attr("height", bbox.height + padY * 2)
+    .attr("rx", 4)
+    .attr("fill", organColor)
+    .attr("fill-opacity", fillOpacity);
+
+  if (boxStroke) {
+    highlight.attr("stroke", boxStroke).attr("stroke-width", 1.25);
+  }
+
+  if (suffix) {
+    applyType(
+      group
+        .append("text")
+        .attr("class", `${classPrefix}-header-title-suffix`)
+        .attr("x", cursorX + bbox.width + suffixGap)
+        .attr("y", y)
+        .attr("fill", storyColors.textPrimary)
+        .text(suffix),
+      typography.mainTitle
+    );
+  }
+}
+
+// Header chrome shared by every chart scene: title, subtitle, divider.
+export function drawHeader(svg, { title, subtitle } = {}) {
   if (title) {
     applyType(
       svg.append("text")
@@ -289,4 +358,75 @@ export function renderPlaceholder(container, { sceneLabel, title, subtitle, note
   );
 
   return svg;
+}
+
+/** Upper-center map overlay — below header divider, above map geography (e.g. upper Midwest). */
+const GUIDE_PANEL_TOP = "6px";
+const GUIDE_PANEL_MAX_WIDTH = "228px";
+
+/**
+ * @param {import("d3-selection").Selection} mapHost
+ * @param {{
+ *   panelClass: string,
+ *   walkthroughLabel?: string,
+ *   guide: { step?: string, body: string, next?: string },
+ *   top?: string,
+ *   maxWidth?: string,
+ *   padding?: string
+ * }} opts
+ */
+export function mountSceneGuidePanel(mapHost, { panelClass, walkthroughLabel, guide, top, maxWidth, padding }) {
+  if (!guide || mapHost.empty()) return;
+  mapHost.selectAll(`.${panelClass}`).remove();
+
+  const panelPadding = padding ?? (walkthroughLabel ? "9px 12px 8px" : "6px 10px 6px");
+
+  const panel = mapHost
+    .append("div")
+    .attr("class", panelClass)
+    .style("position", "absolute")
+    .style("top", top ?? GUIDE_PANEL_TOP)
+    .style("left", "50%")
+    .style("transform", "translateX(-50%)")
+    .style("max-width", maxWidth ?? GUIDE_PANEL_MAX_WIDTH)
+    .style("padding", panelPadding)
+    .style("background", storyColors.museumWhite)
+    .style("border", `1px solid ${storyColors.softAshGray}`)
+    .style("border-radius", "4px")
+    .style("box-shadow", "0 1px 3px rgba(32, 38, 35, 0.06)")
+    .style("z-index", "6")
+    .style("pointer-events", "none")
+    .style("font-family", typography.label.family)
+    .style("line-height", "1.35")
+    .style("text-align", "center");
+
+  if (walkthroughLabel) {
+    panel
+      .append("div")
+      .attr("class", `${panelClass}__step`)
+      .style("font-size", "9px")
+      .style("letter-spacing", "0.06em")
+      .style("text-transform", "uppercase")
+      .style("color", storyColors.textMuted)
+      .style("margin-bottom", "4px")
+      .text(guide.step ? `${walkthroughLabel} · ${guide.step}` : walkthroughLabel);
+  }
+
+  panel
+    .append("div")
+    .attr("class", `${panelClass}__body`)
+    .style("font-size", `${typography.label.size}px`)
+    .style("color", storyColors.textPrimary)
+    .text(guide.body);
+
+  if (guide.next) {
+    panel
+      .append("div")
+      .attr("class", `${panelClass}__next`)
+      .style("font-size", `${typography.caption.size}px`)
+      .style("font-style", "italic")
+      .style("color", storyColors.textSecondary)
+      .style("margin-top", "6px")
+      .text(guide.next);
+  }
 }

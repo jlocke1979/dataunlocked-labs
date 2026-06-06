@@ -43,27 +43,88 @@ const TIERS = [
   {
     key: "all",
     organs: null,
-    title: "The organ transplant system has supported more transplants than ever",
-    subtitle: "2021 had a noticeable decrease, while accelerating rapidly after."
+    title:
+      "The organ transplant system has grown\u00a0to\u00a0nearly\u00a050,000\u00a0in\u00a02025",
+    titleSingleLine: true,
+    subtitle: "2021 had a noticeable decrease, while accelerating rapidly after.",
+    callouts: [
+      {
+        id: "all-2020-dip",
+        seriesId: "All Organs",
+        year: 2020,
+        text: "2020 dip",
+        offset: { x: -58, y: 36 }
+      },
+      {
+        id: "all-post-2020",
+        seriesId: "All Organs",
+        year: 2023,
+        text: "Post-2020 acceleration",
+        offset: { x: 14, y: 72 }
+      }
+    ]
   },
   {
     key: "large",
     organs: ["Kidney", "Liver", "Heart", "Lung"],
     title: "Kidney, Liver, Heart, and Lung drive most volume",
     subtitle:
-      "Kidney is both the most prevalent and leveled off in 2025, while liver\u00a0transplants\u00a0accelerated."
+      "Kidney is both the most prevalent and leveled off in 2025, while liver\u00a0transplants\u00a0accelerated.",
+    callouts: [
+      {
+        id: "large-kidney-level",
+        seriesId: "Kidney",
+        year: 2024,
+        text: "Kidney leveling off",
+        offset: { x: 12, y: 28 }
+      },
+      {
+        id: "large-liver-accel",
+        seriesId: "Liver",
+        year: 2024,
+        text: "Liver accelerating",
+        offset: { x: -72, y: -102 }
+      }
+    ]
   },
   {
     key: "medium",
     organs: ["Kidney / Pancreas", "Pancreas"],
     title: "Kidney/Pancreas is the largest multi-organ combination",
-    subtitle: "Pancreas alone has had a decades-long decline."
+    subtitle: "Pancreas alone has had a decades-long decline.",
+    callouts: [
+      {
+        id: "medium-pancreas",
+        seriesId: "Pancreas",
+        year: 2015,
+        text: "Long-term pancreas decline",
+        offset: { x: -88, y: 18 }
+      }
+    ]
   },
   {
     key: "small",
     organs: ["Intestine", "Heart / Lung"],
-    title: "Both Intestines and Heart/Lung transplants number\u00a0in\u00a0hundreds.",
-    subtitle: "Heart/Lung has grown in the last decade, while intestine have leveled off."
+    title:
+      "Both Intestines and Heart/Lung transplants\u00a0number\u00a0in\u00a0hundreds.",
+    titleSingleLine: true,
+    subtitle: "Heart/Lung has grown in the last decade, while intestine have leveled off.",
+    callouts: [
+      {
+        id: "small-heart-lung",
+        seriesId: "Heart / Lung",
+        year: 2024,
+        text: "Heart/Lung growth",
+        offset: { x: 14, y: 38 }
+      },
+      {
+        id: "small-intestine",
+        seriesId: "Intestine",
+        year: 2022,
+        text: "Intestine leveling",
+        offset: { x: 20, y: -170 }
+      }
+    ]
   },
   {
     key: "micro",
@@ -76,7 +137,16 @@ const TIERS = [
       "VCA - external male genitalia"
     ],
     title: "VCA (vascularized composite allograft) transplants\u00a0are\u00a0rare",
-    subtitle: "Uterus is the most prevalent of the very rare VCA procedures"
+    subtitle: "Uterus is the most prevalent of the very rare VCA procedures.",
+    callouts: [
+      {
+        id: "micro-uterus",
+        seriesId: "VCA - uterus",
+        year: 2024,
+        text: "Uterus transplant emergence",
+        offset: { x: 12, y: -105 }
+      }
+    ]
   }
 ];
 
@@ -135,9 +205,35 @@ export function runScene1(options = {}) {
 }
 
 // Keep header copy clear of the fixed breadcrumb + compass chrome (top-right).
-const HEADER_TEXT_MAX_WIDTH = 620;
+const HEADER_TEXT_MAX_WIDTH = 668;
+const HEADLINE_TITLE_MAX_WIDTH = 700;
 const TITLE_LINE_HEIGHT = 28;
 const SUBTITLE_LINE_HEIGHT = 20;
+const TITLE_MIN_SIZE = 21;
+
+function setSingleLineHeaderTitle(textSel, value, maxWidth, measureSel) {
+  const x = +textSel.attr("x");
+  const y = +textSel.attr("y");
+  textSel.selectAll("tspan").remove();
+  textSel.text(null);
+  if (!value) return 0;
+
+  let size = typography.mainTitle.size;
+  measureSel.text(value).attr("font-size", size);
+  let width = measureSel.node().getComputedTextLength();
+
+  while (width > maxWidth && size > TITLE_MIN_SIZE) {
+    size -= 0.5;
+    measureSel.attr("font-size", size);
+    width = measureSel.node().getComputedTextLength();
+  }
+
+  applyType(textSel.attr("x", x).attr("y", y), typography.mainTitle)
+    .attr("font-size", size)
+    .text(value);
+  measureSel.attr("font-size", typography.mainTitle.size);
+  return 1;
+}
 
 function setWrappedHeaderText(textSel, value, maxWidth, lineHeight, measureSel) {
   const x = +textSel.attr("x");
@@ -397,13 +493,20 @@ function buildSequence(container, rows, options = {}) {
     const cfg = steps[step];
     console.log(`[Scene 1] mini-step ${step + 1} of ${steps.length}: ${cfg.key} (y-scale 0\u2013${commaFmt(cfg.yMax)})`);
 
-    const titleLineCount = setWrappedHeaderText(
-      titleText,
-      cfg.title,
-      HEADER_TEXT_MAX_WIDTH,
-      TITLE_LINE_HEIGHT,
-      titleMeasure
-    );
+    const titleLineCount = cfg.titleSingleLine
+      ? setSingleLineHeaderTitle(
+          titleText,
+          cfg.title,
+          cfg.titleMaxWidth ?? HEADLINE_TITLE_MAX_WIDTH,
+          titleMeasure
+        )
+      : setWrappedHeaderText(
+          titleText,
+          cfg.title,
+          HEADER_TEXT_MAX_WIDTH,
+          TITLE_LINE_HEIGHT,
+          titleMeasure
+        );
     const subtitleY = titleLineCount
       ? HEADER_GRID.titleY + titleLineCount * TITLE_LINE_HEIGHT + 8
       : HEADER_GRID.subtitleY;

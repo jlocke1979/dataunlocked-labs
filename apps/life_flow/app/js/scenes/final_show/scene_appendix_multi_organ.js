@@ -84,6 +84,47 @@ function buildCombinationsFromCsv(multiRows, transplantRows) {
   return combinations.sort((a, b) => b.count2025 - a.count2025);
 }
 
+function drawComboCallout(parent, { anchorX, anchorY, text }) {
+  const padX = 7;
+  const padY = 5;
+  const lineH = typography.caption.size * 1.35;
+  const textW = Math.max(108, text.length * 5.8);
+  const boxW = textW + padX * 2;
+  const boxH = lineH + padY * 2;
+  const boxX = anchorX + 52;
+  const boxY = anchorY + 14;
+  const boxCx = boxX + boxW / 2;
+  const boxCy = boxY + boxH / 2;
+  const g = parent.append("g").attr("class", "combo-callout");
+
+  g.append("line")
+    .attr("stroke", storyColors.weatheredBrass)
+    .attr("stroke-width", 1)
+    .attr("x1", anchorX)
+    .attr("y1", anchorY)
+    .attr("x2", boxX)
+    .attr("y2", boxCy);
+  g.append("rect")
+    .attr("x", boxX)
+    .attr("y", boxY)
+    .attr("width", boxW)
+    .attr("height", boxH)
+    .attr("rx", 3)
+    .attr("fill", storyColors.museumWhite)
+    .attr("stroke", storyColors.weatheredBrass)
+    .attr("stroke-width", 1);
+  applyType(
+    g.append("text")
+      .attr("x", boxCx)
+      .attr("y", boxCy)
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.35em")
+      .attr("fill", storyColors.textPrimary)
+      .text(text),
+    typography.caption
+  );
+}
+
 function wrapSvgText(textSel, value, maxWidth, lineHeight) {
   const x = +textSel.attr("x");
   const y = +textSel.attr("y");
@@ -310,6 +351,7 @@ function renderMultiOrganChart(container, combinations, options = {}) {
       .enter();
 
     if (useWaffleCountMarkers) {
+      const highlightTile = d.organKey === options.highlightComboKey;
       countDots
         .append("rect")
         .attr("class", "count-dot")
@@ -318,7 +360,11 @@ function renderMultiOrganChart(container, combinations, options = {}) {
         .attr("width", countMarkerSize)
         .attr("height", countMarkerSize)
         .attr("rx", countMarkerRx)
-        .attr("fill", COUNT_DOT_COLOR)
+        .attr("fill", (_, i) =>
+          highlightTile && i === 0 ? storyColors.warmSand : COUNT_DOT_COLOR)
+        .attr("stroke", (_, i) =>
+          highlightTile && i === 0 ? storyColors.deepSlateHarbor : "none")
+        .attr("stroke-width", (_, i) => (highlightTile && i === 0 ? 1.5 : 0))
         .attr("opacity", 0.95);
     } else {
       countDots
@@ -344,6 +390,17 @@ function renderMultiOrganChart(container, combinations, options = {}) {
     );
     wrapSvgText(labelText, d.label, LABEL_MAX_WIDTH, LABEL_LINE_HEIGHT);
   });
+
+  if (options.highlightComboKey && options.featuredComboLabel) {
+    const featured = rowLayouts.find(r => r.organKey === options.highlightComboKey);
+    if (featured) {
+      drawComboCallout(listG, {
+        anchorX: MATRIX_X + countMarkerSize / 2,
+        anchorY: featured.y + 4,
+        text: options.featuredComboLabel
+      });
+    }
+  }
 
   renderFooter(svg, g, options, SOURCE_Y, FOOTER_LINE_HEIGHT, FOOTER_NOTE_MAX_WIDTH);
 }
@@ -410,6 +467,8 @@ export function runScene3MultiOrganDetail() {
     title: "Multi-organ transplants range from numerous to rare.",
     subtitle: "Waitlist data is not available for multi-organ transplants.",
     useWaffleCountMarkers: true,
+    highlightComboKey: "Liver-Lung",
+    featuredComboLabel: "SueEllen Mobley Stepenson",
     sources: [
       "Source 1: OPTN/UNOS 2025 (multi-organ combinations).",
       "Source 2: OPTN single-organ advanced reporting (entries marked *)."

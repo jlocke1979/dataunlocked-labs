@@ -1,13 +1,15 @@
 import { organColorBySlug, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import {
+  ALL_ORGANS_LABEL,
   applyType,
   createStage,
-  drawHeader,
   HEADER_BAND_HEIGHT,
   HEADER_GRID,
   HEADER_TOP_VH,
   initSceneLayout,
+  mountSceneGuidePanel,
+  renderHighlightedOrganTitle,
   renderPlaceholder,
   STAGE
 } from "./show_helpers.js";
@@ -39,41 +41,69 @@ const MAP_ORGAN_DETAILS = [
   { slug: "pancreas", label: "Pancreas" }
 ];
 
-function geographyMapSrc(organ = "all") {
+const MAP_GUIDE = {
+  all: {
+    step: "1 / 6",
+    body: "Centers cluster in major metros; dot size = volume on a shared scale."
+  },
+  kidney: {
+    step: "2 / 6",
+    body: "Kidney centers spread widely; highest volumes in large cities."
+  },
+  liver: {
+    step: "3 / 6",
+    body: "Liver programs cluster on the coasts and in Texas."
+  },
+  heart: {
+    step: "4 / 6",
+    body: "Fewer heart centers; more regionally concentrated."
+  },
+  lung: {
+    step: "5 / 6",
+    body: "Lung programs are sparse outside academic hubs."
+  },
+  pancreas: {
+    step: "6 / 6",
+    body: "Pancreas centers are limited to specialized programs."
+  }
+};
+
+/** Stable embed URL — organ swaps use postMessage, not iframe reload. */
+function geographyMapSrc() {
   const params = new URLSearchParams({
     layout: "dot_map_volume_unified",
-    organ,
+    organ: "all",
     site: "transplant",
-    embed: "show",
-    t: `${organ}-${Date.now()}`
+    embed: "show"
   });
   return new URL(`${APP_BASE}?${params}`, window.location.href).href;
-}
-
-const ORGAN_HIGHLIGHT_PAD_X = 5;
-const ORGAN_HIGHLIGHT_PAD_Y = 2;
-const ORGAN_HIGHLIGHT_OPACITY = 0.22;
-const ORGAN_TITLE_SUFFIX_GAP = 6;
-
-function tagScene4Header(svg) {
-  const texts = svg.selectAll("text");
-  texts.filter((_, i) => i === 0).attr("class", "scene4-header-eyebrow");
-  texts.filter((_, i) => i === 1).attr("class", "scene4-header-title");
-  texts.filter((_, i) => i === 2).attr("class", "scene4-header-subtitle");
 }
 
 function organDetailLabel(slug) {
   return MAP_ORGAN_DETAILS.find((d) => d.slug === slug)?.label ?? null;
 }
 
-function organHeaderParts(text, label, organColor, defaultFill) {
-  if (!label || !text.startsWith(label)) {
-    return [{ text, fill: defaultFill }];
-  }
-  return [
-    { text: label, fill: organColor },
-    { text: text.slice(label.length), fill: defaultFill }
-  ];
+function mapOrganLabel(organ) {
+  return organ === "all" ? ALL_ORGANS_LABEL : organDetailLabel(organ);
+}
+
+function mapSubtitle(organ) {
+  const label = mapOrganLabel(organ);
+  return `Transplant center volume represented, ${label} 2025.`;
+}
+
+function mapTitleParts(organ) {
+  const label = mapOrganLabel(organ);
+  return {
+    classPrefix: "scene4",
+    prefix: "Where",
+    prefixGap: 6,
+    label,
+    suffix: " transplants take place",
+    organColor:
+      organ === "all" ? storyColors.charcoalForest : organColorBySlug(organ),
+    boxStroke: organ === "all" ? storyColors.charcoalForest : null
+  };
 }
 
 function renderScene4HeaderLine(svg, className, y, parts, typeStyle, x) {
@@ -95,119 +125,40 @@ function renderScene4HeaderLine(svg, className, y, parts, typeStyle, x) {
   });
 }
 
-function renderScene4OrganTitle(svg, title, label, organColor) {
-  svg.select(".scene4-header-title-group").remove();
-  if (!title.startsWith(label)) {
-    renderScene4HeaderLine(
-      svg,
-      "scene4-header-title",
-      HEADER_GRID.titleY,
-      [{ text: title, fill: storyColors.textPrimary }],
-      typography.mainTitle,
-      STAGE.marginX
-    );
-    return;
-  }
-
-  const suffix = title.slice(label.length);
-  const group = svg.append("g").attr("class", "scene4-header-title-group");
-  const organWrap = group.append("g").attr("class", "scene4-organ-wrap");
-
-  const organText = applyType(
-    organWrap
-      .append("text")
-      .attr("class", "scene4-header-title")
-      .attr("x", STAGE.marginX)
-      .attr("y", HEADER_GRID.titleY)
-      .attr("fill", organColor)
-      .text(label),
-    typography.mainTitle
-  );
-
-  const bbox = organText.node().getBBox();
-  organWrap
-    .insert("rect", "text")
-    .attr("class", "scene4-organ-highlight")
-    .attr("x", bbox.x - ORGAN_HIGHLIGHT_PAD_X)
-    .attr("y", bbox.y - ORGAN_HIGHLIGHT_PAD_Y)
-    .attr("width", bbox.width + ORGAN_HIGHLIGHT_PAD_X * 2)
-    .attr("height", bbox.height + ORGAN_HIGHLIGHT_PAD_Y * 2)
-    .attr("rx", 4)
-    .attr("fill", organColor)
-    .attr("fill-opacity", ORGAN_HIGHLIGHT_OPACITY);
-
-  if (suffix) {
-    applyType(
-      group
-        .append("text")
-        .attr("class", "scene4-header-title-suffix")
-        .attr("x", STAGE.marginX + bbox.width + ORGAN_TITLE_SUFFIX_GAP)
-        .attr("y", HEADER_GRID.titleY)
-        .attr("fill", storyColors.textPrimary)
-        .text(suffix),
-      typography.mainTitle
-    );
-  }
-}
-
-function applyScene4OrganHeader(svg, { sceneLabel, title, subtitle, organ = "all" }) {
-  const organColor = organColorBySlug(organ, null);
-  const label = organDetailLabel(organ);
-  const showOrganChrome = Boolean(organColor && label && organ !== "all");
+function applyScene4OrganHeader(svg, { sceneLabel, subtitle, organ = "all" }) {
+  const subtitleText = subtitle ?? mapSubtitle(organ);
 
   svg.select(".scene4-organ-swatch").remove();
   svg.select(".scene4-header-title-group").remove();
+  svg.select(".scene4-header-title-prefix").remove();
+  svg.select(".scene4-header-title-suffix").remove();
+  svg.select(".scene4-header-title").remove();
+  svg.select(".scene4-header-subtitle").remove();
+  svg.select(".scene4-header-eyebrow").remove();
 
-  if (sceneLabel) {
-    if (svg.select(".scene4-header-eyebrow").empty()) {
-      applyType(
-        svg
-          .append("text")
-          .attr("class", "scene4-header-eyebrow")
-          .attr("x", STAGE.marginX)
-          .attr("y", HEADER_GRID.eyebrowY)
-          .attr("fill", storyColors.textMuted)
-          .text(sceneLabel.toUpperCase()),
-        typography.label
-      );
-    } else {
-      svg.select(".scene4-header-eyebrow").text(sceneLabel.toUpperCase());
-    }
-  }
+  renderHighlightedOrganTitle(svg, mapTitleParts(organ));
 
-  if (title) {
-    if (showOrganChrome) {
-      renderScene4OrganTitle(svg, title, label, organColor);
-    } else {
-      renderScene4HeaderLine(
-        svg,
-        "scene4-header-title",
-        HEADER_GRID.titleY,
-        [{ text: title, fill: storyColors.textPrimary }],
-        typography.mainTitle,
-        STAGE.marginX
-      );
-    }
-  }
-
-  if (subtitle) {
-    renderScene4HeaderLine(
-      svg,
-      "scene4-header-subtitle",
-      HEADER_GRID.subtitleY,
-      showOrganChrome
-        ? organHeaderParts(subtitle, label, organColor, storyColors.textSecondary)
-        : [{ text: subtitle, fill: storyColors.textSecondary }],
-      typography.sceneTitle,
-      STAGE.marginX
-    );
-  }
+  renderScene4HeaderLine(
+    svg,
+    "scene4-header-subtitle",
+    HEADER_GRID.subtitleY,
+    [{ text: subtitleText, fill: storyColors.textSecondary }],
+    typography.sceneTitle,
+    STAGE.marginX
+  );
 }
 
-function updateScene4Header(container, { sceneLabel, title, subtitle, organ }) {
+function updateScene4Header(container, { sceneLabel, subtitle, organ }) {
   const svg = container.select("svg");
   if (svg.empty()) return;
-  applyScene4OrganHeader(svg, { sceneLabel, title, subtitle, organ });
+  applyScene4OrganHeader(svg, { sceneLabel, subtitle, organ });
+  const mapHost = container.select(".scene4-map-host");
+  if (!mapHost.empty()) {
+    mountSceneGuidePanel(mapHost, {
+      panelClass: "map-guide-panel",
+      guide: MAP_GUIDE[organ] ?? MAP_GUIDE.all
+    });
+  }
 }
 
 function postOrganToIframe(iframeNode, organ) {
@@ -234,12 +185,12 @@ function requestScene4Organ(container, organ) {
 }
 
 /** Swap organ data in-place when paging ↓/↑ between detail steps (avoids iframe reload). */
-function updateScene4Map(container, { sceneLabel, title, subtitle, organ = "all" }) {
+function updateScene4Map(container, { sceneLabel, subtitle, organ = "all" }) {
   if (container.select(".scene4-map-host").empty()) {
-    mountScene4Map(container, { sceneLabel, title, subtitle, organ });
+    mountScene4Map(container, { sceneLabel, subtitle, organ });
     return;
   }
-  updateScene4Header(container, { sceneLabel, title, subtitle, organ });
+  updateScene4Header(container, { sceneLabel, subtitle, organ });
   requestScene4Organ(container, organ);
 }
 
@@ -260,7 +211,7 @@ const AUDIT_CLEAR_NAV_RIGHT = "2in";
 // Match drawHeader / drawSource x = STAGE.marginX on the 1280px stage grid.
 const STAGE_MARGIN_PCT = (STAGE.marginX / STAGE.width) * 100;
 
-function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" }) {
+function mountScene4Map(container, { sceneLabel, subtitle, organ = "all" }) {
   container.selectAll("*").remove();
   initSceneLayout(container);
 
@@ -277,22 +228,16 @@ function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" 
   }
 
   const svg = createStage(container);
-  if (organ === "all") {
-    drawHeader(svg, { sceneLabel, title, subtitle });
-    tagScene4Header(svg);
-  } else {
-    applyScene4OrganHeader(svg, { sceneLabel, title, subtitle, organ });
-    svg
-      .append("line")
-      .attr("class", "scene4-header-divider")
-      .attr("x1", STAGE.marginX)
-      .attr("x2", STAGE.width - STAGE.marginX)
-      .attr("y1", HEADER_GRID.dividerY)
-      .attr("y2", HEADER_GRID.dividerY)
-      .attr("stroke", storyColors.divider)
-      .attr("stroke-width", 1);
-  }
-
+  applyScene4OrganHeader(svg, { sceneLabel, subtitle, organ });
+  svg
+    .append("line")
+    .attr("class", "scene4-header-divider")
+    .attr("x1", STAGE.marginX)
+    .attr("x2", STAGE.width - STAGE.marginX)
+    .attr("y1", HEADER_GRID.dividerY)
+    .attr("y2", HEADER_GRID.dividerY)
+    .attr("stroke", storyColors.weatheredBrass)
+    .attr("stroke-width", 1);
   // Header band only: absolute + height 100% collapsed #viz (no in-flow child) and
   // default meet centering clipped the top of the full 720 viewBox in a short box.
   svg
@@ -314,9 +259,14 @@ function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" 
     .style("margin-top", MAP_HOST_LIFT)
     .style("overflow", "hidden");
 
+  mountSceneGuidePanel(mapHost, {
+    panelClass: "map-guide-panel",
+    guide: MAP_GUIDE[organ] ?? MAP_GUIDE.all
+  });
+
   const iframe = mapHost
     .append("iframe")
-    .attr("src", geographyMapSrc(organ))
+    .attr("src", geographyMapSrc())
     .attr("data-organ", organ)
     .attr("title", "Transplant geography prototype")
     .attr("scrolling", "yes")
@@ -327,10 +277,13 @@ function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" 
     .style("height", "100%")
     .style("border", "none")
     .style("border-radius", "0")
-    .style("background", storyColors.museumWhite);
+    .style("background", storyColors.museumWhite)
+    .style("opacity", "0")
+    .style("visibility", "hidden");
 
   iframe.on("load", function () {
-    console.log("[Scene 4] map prototype iframe loaded:", geographyMapSrc(organ));
+    const iframeOrgan = this.dataset.organ ?? organ;
+    console.log("[Scene 4] map prototype iframe loaded:", geographyMapSrc());
     // Final-show owns the scene title above the iframe; hide the embedded app's
     // duplicate header and card chrome so only one title block remains.
     try {
@@ -470,6 +423,10 @@ function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" 
         body[class*="layout-dot-map-volume"] .legend-volume-scale {
           margin-top: 0 !important;
         }
+        body[class*="layout-dot-map-volume"] .legend-volume-scale__heading {
+          text-align: center !important;
+          box-sizing: border-box !important;
+        }
         body[class*="layout-dot-map-volume"] .legend-volume-scale__count {
           text-anchor: middle !important;
         }
@@ -558,18 +515,21 @@ function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" 
       `;
       doc.head.appendChild(embedStyle);
       wireScene4KeyboardBridge(doc);
+      postOrganToIframe(this, iframeOrgan);
     } catch (err) {
       console.warn("[Scene 4] could not trim iframe chrome:", err);
     }
+    d3.select(this).style("opacity", "1").style("visibility", "visible");
   });
 
   iframe.on("error", () => {
-    console.error("[Scene 4] map iframe failed to load:", geographyMapSrc(organ));
+    console.error("[Scene 4] map iframe failed to load:", geographyMapSrc());
     container.selectAll("*").remove();
+    const titleParts = mapTitleParts(organ);
     renderPlaceholder(container, {
       sceneLabel,
-      title,
-      subtitle,
+      title: `${titleParts.prefix}${titleParts.label}${titleParts.suffix}`,
+      subtitle: subtitle ?? mapSubtitle(organ),
       note: "Scene in progress: transplant geography prototype"
     });
   });
@@ -579,23 +539,23 @@ function mountScene4Map(container, { sceneLabel, title, subtitle, organ = "all" 
 export function runScene4(options = {}) {
   updateScene4Map(d3.select("#viz"), {
     sceneLabel: options.sceneLabel ?? "Scene 4",
-    title: options.title ?? "Where does transplantation happen?",
-    subtitle: options.subtitle ?? "Transplant center volume by geography \u2014 all organs",
     organ: options.organ ?? "all"
   });
 }
 
-/** Full-size organ views — organ-colored bubbles on the shared national volume scale. */
-export const mapOrganDetails = MAP_ORGAN_DETAILS.map(
-  ({ slug, label }) =>
-    () =>
-      updateScene4Map(d3.select("#viz"), {
-        sceneLabel: `Scene 4 \u00b7 ${label}`,
-        title: `${label} transplant centers`,
-        subtitle: `${label} center volume by geography \u2014 2025`,
-        organ: slug
-      })
-);
+/** In-place organ swap for ↓/↑ — keeps one iframe; avoids remount flash. */
+export function setScene4Depth(depth) {
+  const detail = depth > 0 ? MAP_ORGAN_DETAILS[depth - 1] : null;
+  updateScene4Map(d3.select("#viz"), {
+    sceneLabel: detail ? `Scene 4 \u00b7 ${detail.label}` : "Scene 4",
+    organ: detail?.slug ?? "all"
+  });
+}
+
+/** Depth count for main.js navigation — runners are not used (setScene4Depth owns swaps). */
+export const mapOrganDetails = MAP_ORGAN_DETAILS.map(({ slug, label }) => () => {
+  setScene4Depth(MAP_ORGAN_DETAILS.findIndex((d) => d.slug === slug) + 1);
+});
 
 // Forward show navigation arrows from the iframe when focus is on map controls,
 // and release focus after chip clicks so the parent window can receive keys again.

@@ -19,22 +19,22 @@ CACS-TX1,transplant_center,Cedars-Sinai Medical Center,California,Region  5,34.0
 CADN-OP1,source_dsa,Donor Network West,California,Region  5,37.7799,-121.978,city_approx:San Ramon;medium
 CAGH-TX1,transplant_center,Scripps Green Hospital,California,Region  5,32.8963,-117.2426,nominatim_batch;review
 CAGS-OP1,source_dsa,Sierra Donor Services,California,Region  5,38.57218225,-121.5812911,
-CAIM-TX1,transplant_center,University of California Irvine Medical Center,California,Region  5,36.1162,-119.6816,
+CAIM-TX1,transplant_center,University of California Irvine Medical Center,California,Region  5,33.6460,-117.8428,
 CALA-TX1,transplant_center,Harbor UCLA Medical Center,California,Region  5,33.8294,-118.2948,nominatim_batch;review
 CALL-TX1,transplant_center,Loma Linda University Medical Center,California,Region  5,34.0491,-117.2634,nominatim_batch;review
 CAMB-TX1,transplant_center,UCSF Medical Center at Mission Bay,California,Region  5,37.7659,-122.3908,nominatim_batch;review
 CAOP-OP1,source_dsa,OneLegacy,California,Region  5,34.1336,-117.9073,city_approx:Los Angeles area (OneLegacy);high
 CAPC-TX1,transplant_center,Lucile Salter Packard Children's Hospital at Stanford,California,Region  5,,,
-CAPM-TX1,transplant_center,California Pacific Medical Center-Van Ness Campus,California,Region  5,36.1162,-119.6816,
+CAPM-TX1,transplant_center,California Pacific Medical Center-Van Ness Campus,California,Region  5,37.7866,-122.4208,
 CASD-IO1,source_dsa,Lifesharing - A Donate Life Organization,California,Region  5,32.77816608,-117.1604675,
-CASD-TX1,transplant_center,University of California San Diego Medical Center,California,Region  5,36.1162,-119.6816,
-CASF-TX1,transplant_center,University of California San Francisco Medical Center,California,Region  5,36.1162,-119.6816,
+CASD-TX1,transplant_center,University of California San Diego Medical Center,California,Region  5,32.8753,-117.2361,
+CASF-TX1,transplant_center,University of California San Francisco Medical Center,California,Region  5,37.7629,-122.4575,
 CASG-TX1,transplant_center,Sutter Medical Center Sacramento,California,Region  5,38.5715,-121.4687,nominatim_batch;review
 CASH-TX1,transplant_center,Sharp Memorial Hospital,California,Region  5,32.7997,-117.1544,nominatim_batch;review
 CASJ-TX1,transplant_center,Saint Joseph Hospital,California,Region  5,33.7821,-117.864,nominatim_batch;review
 CASM-TX1,transplant_center,University of California Davis Medical Center,California,Region  5,38.5527,-121.4518,nominatim_batch;review
 CASU-TX1,transplant_center,Stanford Health Care,California,Region  5,37.2535,-121.9516,nominatim_batch;review
-CAUC-TX1,transplant_center,University of California at Los Angeles Medical Center,California,Region  5,36.1162,-119.6816,
+CAUC-TX1,transplant_center,University of California at Los Angeles Medical Center,California,Region  5,34.0652,-118.4450,
 CAUH-TX1,transplant_center,Keck Hospital of USC,California,Region  5,34.0627,-118.2019,nominatim_batch;review
 COCH-TX1,transplant_center,Children's Hospital Colorado,Colorado,Region  8,39.7452,-104.9678,nominatim_batch;review
 COPM-TX1,transplant_center,AdventHealth Porter,Colorado,Region  8,39.6718,-104.9741,nominatim_batch;review

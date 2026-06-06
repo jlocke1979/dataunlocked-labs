@@ -41,7 +41,7 @@ export function runScene3FlowWaffleProportion() {
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Scene 3  \u00b7  detail",
     title: "On a relative view of wait times, other insights emerge",
-    subtitle: "Pancreas and Intestine have a very large portion of candidates waiting"
+    subtitle: "Pancreas and Intestine have a very large portion of candidates waiting."
   });
 
   const rowData = WAITLIST_CATEGORIES.map(category => {
@@ -89,6 +89,55 @@ export function runScene3FlowWaffleProportion() {
     .call(applyType, typography.label);
 
   drawWaffleLegend(svg, rowData);
+
+  const pancreasIndex = rowData.findIndex(d => d.organ === "Pancreas");
+  const intestineIndex = rowData.findIndex(d => d.organ === "Intestine");
+  const proportionCallouts = [];
+  const tileStep = TILE_SIZE + TILE_GAP;
+  const threeQuarterIn = 72;
+  const oneIn = 96;
+  const halfIn = 48;
+  const legendY = otherRowLabelY(rowData) - LEGEND_SWATCH_Y - LEGEND_NUDGE_UP_PX;
+  const calloutBoxLeft = LEGEND_GROUP_X - 12 + oneIn;
+  const calloutBoxH = typography.caption.size * 1.4 + 16;
+  const intestineBoxY = legendY - 40 + 10 - threeQuarterIn;
+  const pancreasBoxY = intestineBoxY - halfIn - calloutBoxH;
+
+  function proportionOrganCallout(organIndex, text, textW, boxY) {
+    const rowY = ROW_START_Y + organIndex * ROW_GAP;
+    return {
+      anchorX: WAFFLE_X + Math.floor(WAFFLE_COLS * 0.78) * tileStep,
+      anchorY: rowY + 4,
+      text,
+      placement: "lower-right",
+      textW,
+      boxX: calloutBoxLeft,
+      boxY,
+      leaderEnd: "left"
+    };
+  }
+
+  if (pancreasIndex >= 0) {
+    proportionCallouts.push(
+      proportionOrganCallout(
+        pancreasIndex,
+        "Pancreas: most still waiting",
+        138,
+        pancreasBoxY
+      )
+    );
+  }
+  if (intestineIndex >= 0) {
+    proportionCallouts.push(
+      proportionOrganCallout(
+        intestineIndex,
+        "Intestine: high wait ratio",
+        138,
+        intestineBoxY
+      )
+    );
+  }
+  if (proportionCallouts.length) drawWaffleCallouts(svg, proportionCallouts);
 
   drawSource(svg, "Source: OPTN/HRSA Advanced Data Reports, 2025.");
 }
@@ -145,6 +194,73 @@ function drawWaffleLegend(svg, rowData) {
       .text("Each row is normalized to 50 squares."),
     typography.caption
   );
+}
+
+function drawWaffleCallouts(svg, callouts) {
+  const layer = svg.append("g").attr("class", "waffle-callouts");
+  const padX = 10;
+  const padY = 8;
+  const lineH = typography.caption.size * 1.4;
+
+  callouts.forEach(d => {
+    const textW = d.textW ?? Math.max(132, d.text.length * 6.6);
+    const boxW = textW + padX * 2;
+    const boxH = lineH + padY * 2;
+    const lowerRight = d.placement === "lower-right";
+    const boxOffsetX = d.boxOffsetX ?? 48;
+    const boxX =
+      d.boxX ?? (lowerRight ? d.anchorX + boxOffsetX : d.anchorX - boxW / 2);
+    const boxY =
+      d.boxY ?? (lowerRight ? d.anchorY + 10 : d.anchorY - boxH - 14);
+    const boxCx = boxX + boxW / 2;
+    const boxCy = boxY + boxH / 2;
+    let leaderX2;
+    let leaderY2;
+    if (d.leaderEnd === "top-center") {
+      leaderX2 = boxCx;
+      leaderY2 = boxY;
+    } else if (d.leaderEnd === "left") {
+      leaderX2 = boxX;
+      leaderY2 = boxCy;
+    } else if (d.leaderEnd === "lower-left") {
+      leaderX2 = boxX;
+      leaderY2 = boxY + boxH;
+    } else if (d.leaderX2 != null && d.leaderY2 != null) {
+      leaderX2 = d.leaderX2;
+      leaderY2 = d.leaderY2;
+    } else {
+      leaderX2 = lowerRight ? boxX : boxCx;
+      leaderY2 = boxCy;
+    }
+    const g = layer.append("g").attr("class", "waffle-callout");
+
+    g.append("line")
+      .attr("stroke", storyColors.weatheredBrass)
+      .attr("stroke-width", 1)
+      .attr("x1", d.anchorX)
+      .attr("y1", d.anchorY)
+      .attr("x2", leaderX2)
+      .attr("y2", leaderY2);
+    g.append("rect")
+      .attr("x", boxX)
+      .attr("y", boxY)
+      .attr("width", boxW)
+      .attr("height", boxH)
+      .attr("rx", 3)
+      .attr("fill", storyColors.museumWhite)
+      .attr("stroke", storyColors.weatheredBrass)
+      .attr("stroke-width", 1);
+    applyType(
+      g.append("text")
+        .attr("x", boxCx)
+        .attr("y", boxCy)
+        .attr("text-anchor", "middle")
+        .attr("dy", "0.35em")
+        .attr("fill", storyColors.textPrimary)
+        .text(d.text),
+      typography.caption
+    );
+  });
 }
 
 function waffleTiles(count, originX, centerY, cols) {

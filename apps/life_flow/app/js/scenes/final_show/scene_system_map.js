@@ -12,6 +12,9 @@ import {
   systemMapSubtitle
 } from "../../final_show/system_map_tour.js";
 
+const ONE_IN = 96;
+const BODY_TEXT_LIFT = 2 * ONE_IN;
+
 /**
  * @param {{ highlightThroughIndex?: number }} [options]
  *   -1 = reference only (default)
@@ -25,7 +28,7 @@ export function runSystemMap(options = {}) {
 
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Appendix",
-    title: "The transplant system",
+    title: "Appendix: The transplant system",
     subtitle: systemMapSubtitle(highlightThroughIndex)
   });
 
@@ -36,7 +39,7 @@ export function runSystemMap(options = {}) {
   applyType(
     g.append("text")
       .attr("x", STAGE.marginX)
-      .attr("y", STAGE.contentBottom - 44)
+      .attr("y", STAGE.contentBottom - 44 - BODY_TEXT_LIFT)
       .attr("fill", storyColors.textMuted)
       .text("Reference diagram \u2014 orientation only; the story order follows the narrative breadcrumb above."),
     typography.label

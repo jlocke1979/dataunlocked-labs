@@ -47,12 +47,21 @@ export const SHOW_TOUR_STOPS = [
 
 const BREADCRUMB_HEADLINE_IDS = new Set(SHOW_TOUR_STOPS.map(s => s.headlineId));
 
+const SUPPLEMENTAL_HEADLINE_IDS = new Set([
+  "thankYou",
+  "references",
+  "appendixPatientJourney",
+  "systemMap"
+]);
+
+const SUPPLEMENTAL_STOP = {
+  label: "Supplemental",
+  mapHint: "Thank you, references, and appendix"
+};
+
 const BREADCRUMB_HIDDEN_HEADLINE_IDS = new Set([
   "landing",
   "appendixIntro",
-  "systemMap",
-  "appendixPatientJourney",
-  "references",
   "choppingBlockIntro"
 ]);
 
@@ -73,22 +82,34 @@ export function hideShowBreadcrumb() {
   breadcrumbEl.hidden = true;
 }
 
-function renderBreadcrumbPills({ activeIndex = -1, detailDepth = 0, detailCount = 0, preview = false }) {
+function supplementalPillHtml(state) {
+  const supplementalTitle = `${SUPPLEMENTAL_STOP.label} \u2014 ${SUPPLEMENTAL_STOP.mapHint}`;
+  return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${supplementalTitle}">${SUPPLEMENTAL_STOP.label}</span>`;
+}
+
+function renderBreadcrumbPills({
+  activeIndex = -1,
+  detailDepth = 0,
+  detailCount = 0,
+  preview = false,
+  supplementalState = "upcoming"
+}) {
   const pills = SHOW_TOUR_STOPS.map((stop, index) => {
     let state = "upcoming";
     if (!preview && activeIndex >= 0 && index < activeIndex) state = "past";
     else if (!preview && index === activeIndex) state = "current";
 
-    const detailSuffix =
-      state === "current" && detailDepth > 0 && detailCount > 0
-        ? ` \u00b7 ${detailDepth}/${detailCount}`
-        : "";
-
     const pillTitle = stop.mapHint ? `${stop.label} \u2014 ${stop.mapHint}` : stop.label;
-    return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${pillTitle}">${stop.label}${detailSuffix}</span>`;
+    const showDetailSuffix = state === "current" && detailCount > 0 && detailDepth > 0;
+
+    if (showDetailSuffix) {
+      return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${pillTitle}">${stop.label} ${detailDepth}/${detailCount}</span>`;
+    }
+
+    return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${pillTitle}">${stop.label}</span>`;
   }).join("");
 
-  breadcrumbEl.innerHTML = `<div class="show-breadcrumb__track">${pills}</div>`;
+  breadcrumbEl.innerHTML = `<div class="show-breadcrumb__track">${pills}${supplementalPillHtml(supplementalState)}</div>`;
 }
 
 function setTopChromeIntroMode(isLanding) {
@@ -110,7 +131,21 @@ export function updateShowBreadcrumb({ headlineId, detailDepth = 0, detailCount 
   breadcrumbEl.classList.remove("show-breadcrumb--preview");
   setTopChromeIntroMode(false);
 
-  if (BREADCRUMB_HIDDEN_HEADLINE_IDS.has(headlineId) || !BREADCRUMB_HEADLINE_IDS.has(headlineId)) {
+  if (BREADCRUMB_HIDDEN_HEADLINE_IDS.has(headlineId)) {
+    hideShowBreadcrumb();
+    return;
+  }
+
+  if (SUPPLEMENTAL_HEADLINE_IDS.has(headlineId)) {
+    breadcrumbEl.hidden = false;
+    renderBreadcrumbPills({
+      activeIndex: SHOW_TOUR_STOPS.length,
+      supplementalState: "current"
+    });
+    return;
+  }
+
+  if (!BREADCRUMB_HEADLINE_IDS.has(headlineId)) {
     hideShowBreadcrumb();
     return;
   }
@@ -118,5 +153,10 @@ export function updateShowBreadcrumb({ headlineId, detailDepth = 0, detailCount 
   breadcrumbEl.hidden = false;
 
   const activeIndex = SHOW_TOUR_STOPS.findIndex(s => s.headlineId === headlineId);
-  renderBreadcrumbPills({ activeIndex, detailDepth, detailCount });
+  renderBreadcrumbPills({
+    activeIndex,
+    detailDepth,
+    detailCount,
+    supplementalState: "upcoming"
+  });
 }

@@ -9,34 +9,19 @@
 import { runScene0 as runLanding } from "./scenes/final_show/scene0_landing.js";
 import { runSystemMap } from "./scenes/final_show/scene_system_map.js";
 import { mountShowBreadcrumb, updateShowBreadcrumb } from "./final_show/show_tour.js";
-import { runScene1 as runSituation } from "./scenes/final_show/scene1_situation.js";
 import { runScene1 as runNeed } from "./scenes/final_show/scene1_need_over_time.js";
 import { runScene3TreemapDetail } from "./scenes/final_show/scene_appendix_assignment_03.js";
 import { runScene3MultiOrganDetail } from "./scenes/final_show/scene_appendix_multi_organ.js";
 import { runAppendixPatientJourney } from "./scenes/final_show/scene_appendix_patient_journey.js";
 import { runConclusion } from "./scenes/final_show/scene_conclusion.js";
-// import { runScene7 as runOutroDetail } from "./scenes/final_show/scene7_outro.js";
+import { runThankYou } from "./scenes/final_show/scene_thankyou.js";
 import { runReferences } from "./scenes/final_show/scene_references.js";
-import { runStationN } from "./scenes/final_show/scene_patient_station.js";
-import { runScene2 as runSystem } from "./scenes/final_show/scene2_system.js";
-import {
-  runScene2 as runHeatmap,
-  runScene2WaitHeatmap
-} from "./scenes/final_show/scene2_wait_heatmap.js";
-import { runScene3 as runTension } from "./scenes/final_show/scene3_tension.js";
-import { runChoppingBlockIntro } from "./scenes/final_show/scene_chopping_block.js";
-import { runScene3 as runFlowAlluvial } from "./scenes/final_show/scene3_flow.js";
-import { runScene3SupplyDemand } from "./scenes/final_show/scene3_supply_demand_dots.js";
+import { runScene2WaitHeatmap } from "./scenes/final_show/scene2_wait_heatmap.js";
 import { runScene3FlowWaffleAbsolute } from "./scenes/final_show/scene3_flow_waffle_absolute.js";
 import { runScene3FlowWaffleProportion } from "./scenes/final_show/scene3_flow_waffle_proportion.js";
-import { runScene4 as runProblem } from "./scenes/final_show/scene4_problem.js";
-import { runScene4 as runMap, mapOrganDetails } from "./scenes/final_show/scene4_map.js";
-import { runScene5 as runResolutionRaw } from "./scenes/final_show/scene5_resolution.js";
+import { runScene4 as runMap, mapOrganDetails, setScene4Depth } from "./scenes/final_show/scene4_map.js";
 import { runScene5 as runAfter } from "./scenes/final_show/scene5_after_transplant.js";
-import { runScene6 as runOutro6 } from "./scenes/final_show/scene6_outro.js";
-import { runAppendixDonorImpact } from "./scenes/final_show/scene6_donor_impact.js";
 import { runOrganNetwork, organNetworkDetails } from "./scenes/final_show/scene_organ_network.js";
-import { runDedicationScene as runDedication } from "./scenes/final_show/sceneX_dedication.js";
 
 import { storyColors } from "./constants/colors.js";
 
@@ -60,12 +45,6 @@ if (typeof d3 === "undefined") {
 d3.select("body").style("background", storyColors.museumWhite);
 d3.select("#viz").style("background", storyColors.museumWhite);
 
-// scene5_resolution renders into a container passed in, unlike the others which
-// select #viz themselves. Wrap it so every headline has the same zero-arg run().
-function runResolution() {
-  runResolutionRaw(d3.select("#viz"));
-}
-
 // ---------------------------------------------------------------------------
 // Story graph — professor-reviewed narrative order (SRTR = reference only).
 // A–L station scenes remain on disk but are not on this spine.
@@ -73,7 +52,7 @@ function runResolution() {
 const headlineScenes = [
   { id: "landing", run: runLanding, details: [] },
   { id: "needOverTime", run: runNeed, details: [], expectedDepth: 4 },
-  { id: "waitHeatmap", run: runHeatmap, details: [runScene2WaitHeatmap] },
+  { id: "waitHeatmap", run: runScene2WaitHeatmap, details: [] },
   {
     id: "flow",
     run: runScene3FlowWaffleAbsolute,
@@ -85,31 +64,16 @@ const headlineScenes = [
   },
   { id: "map", run: runMap, details: mapOrganDetails },
   { id: "organNetwork", run: runOrganNetwork, details: organNetworkDetails },
-  { id: "afterTransplant", run: runAfter, details: [runStationN] },
+  { id: "afterTransplant", run: runAfter, details: [] },
   { id: "conclusion", run: runConclusion, details: [] },
+  { id: "thankYou", run: runThankYou, details: [] },
+  { id: "references", run: runReferences, details: [] },
   { id: "appendixPatientJourney", run: runAppendixPatientJourney, details: [] },
   {
     id: "systemMap",
     run: () => runSystemMap({ highlightThroughIndex: -1 }),
     details: []
-  },
-  { id: "references", run: runReferences, details: [] },
-  {
-    id: "choppingBlockIntro",
-    run: runChoppingBlockIntro,
-    details: [
-      () => runScene3SupplyDemand({ sceneLabel: "Chopping Block", subtitle: "", showSource: false }),
-      () => runFlowAlluvial({ sceneLabel: "Chopping Block", subtitle: "" }),
-      runAppendixDonorImpact
-    ]
   }
-  // { id: "situation", run: runSituation, details: [] },
-  // { id: "system", run: runSystem, details: [] },
-  // { id: "tension", run: runTension, details: [] },
-  // { id: "problem", run: runProblem, details: [] },
-  // { id: "resolution", run: runResolution, details: [] },
-  // { id: "outro", run: runOutro6, details: [] },
-  // { id: "dedication", run: runDedication, details: [] }
 ];
 
 let currentHeadlineIndex = 0;
@@ -264,6 +228,20 @@ function setDepth(depth) {
 
   // Async zoom stack not registered yet — ignore in-zoom DOWN until ready.
   if (depth > 0 && ctrlDepth == null && depth <= zoomDepth) return;
+
+  // Where (Scene 4): one iframe; swap organ via postMessage — never wipe #viz on ↓/↑.
+  if (headline.id === "map") {
+    currentDetailDepth = depth;
+    const container = d3.select("#viz");
+    if (container.select(".scene4-map-host").empty()) {
+      renderInViz(headline.run, "Headline '" + headline.id + "'");
+    }
+    setScene4Depth(depth);
+    console.log("depth:", currentDetailDepth, "of", maxDepth(), "for", headline.id);
+    syncBreadcrumb();
+    updateNavState();
+    return;
+  }
 
   currentDetailDepth = depth;
 

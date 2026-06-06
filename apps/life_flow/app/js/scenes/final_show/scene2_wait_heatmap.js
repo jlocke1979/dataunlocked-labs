@@ -116,9 +116,9 @@ function buildHeatmapCells(organIdx, rowByBucket) {
 
 function renderHeatmap(container, header, rawRows) {
   const { chartSvg: svg } = beginChartScene(container, {
-    sceneLabel: "Scene 2  \u00b7  detail",
+    sceneLabel: "Scene 2",
     title: "Distribution of wait times by organ",
-    subtitle: "Heatmap view — share of each organ's waitlist by waiting period"
+    subtitle: "Share of each organ's waitlist by waiting period."
   });
 
   const { organIdx, rowByBucket } = buildDataContext(header, rawRows);
@@ -126,7 +126,7 @@ function renderHeatmap(container, header, rawRows) {
 
   const gridLeft = STAGE.contentLeft + 116;
   const gridTop = STAGE.contentTop + 32;
-  const gridRight = STAGE.contentRight - 96;
+  const gridRight = STAGE.contentRight - 24;
   const gridBottom = STAGE.contentBottom - 34;
   const cellW = (gridRight - gridLeft) / BUCKETS.length;
   const cellH = (gridBottom - gridTop) / ORGANS.length;
@@ -189,8 +189,6 @@ function renderHeatmap(container, header, rawRows) {
     under30Col: 0
   });
 
-  drawShareAxis(svg, maxPct, { gridRight, gridTop, gridBottom });
-
   drawSource(
     svg,
     "Source: Organ Procurement and Transplantation Network (OPTN), 2025. Adapted from Assignment 04 (relational).",
@@ -211,8 +209,7 @@ function renderStackedHistograms(container, header, rawRows) {
   const maxPct = d3.max(organSeries, d => d3.max(d.buckets, b => b.pct)) ?? 0;
   const yMax = Math.ceil(maxPct / 5) * 5;
 
-  const layout = drawStackedOrganHistograms(svg, organSeries, { yMax });
-  drawShareAxis(svg, yMax, layout);
+  drawStackedOrganHistograms(svg, organSeries, { yMax });
 
   drawSource(
     svg,
@@ -404,48 +401,3 @@ function drawHeatmapCallouts(
   });
 }
 
-function drawShareAxis(svg, maxPct, { gridRight, gridTop, gridBottom }) {
-  const axisX = gridRight + 34;
-  const axisTop = gridTop;
-  const axisBottom = gridBottom;
-
-  const legendScale = d3.scaleLinear().domain([0, maxPct]).range([axisBottom, axisTop]);
-  d3.ticks(0, maxPct, 5).forEach(t => {
-    svg.append("line")
-      .attr("x1", axisX)
-      .attr("x2", axisX + 6)
-      .attr("y1", legendScale(t))
-      .attr("y2", legendScale(t))
-      .attr("stroke", storyColors.divider)
-      .attr("stroke-width", 1);
-    applyType(
-      svg.append("text")
-        .attr("x", axisX + 10)
-        .attr("y", legendScale(t))
-        .attr("dy", "0.32em")
-        .attr("fill", storyColors.textSecondary)
-        .text(d3.format("d")(t)),
-      typography.label
-    );
-  });
-
-  applyType(
-    svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -(axisTop + axisBottom) / 2)
-      .attr("y", axisX + 44)
-      .attr("text-anchor", "middle")
-      .attr("fill", storyColors.textSecondary)
-      .text("% share within organ"),
-    typography.label
-  );
-
-  applyType(
-    svg.append("text")
-      .attr("x", axisX)
-      .attr("y", axisBottom + 18)
-      .attr("fill", storyColors.textMuted)
-      .text("Darker = larger share"),
-    typography.caption
-  );
-}

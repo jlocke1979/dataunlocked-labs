@@ -1,5 +1,12 @@
 /* Assignment 05 — rough D3 flow map prototype */
 
+/* Final-show iframe: hide duplicate chrome before parent injects override CSS */
+html.life-flow-embed .header,
+html.life-flow-embed .dot-map-volume-panel-title,
+html.life-flow-embed .dot-map-volume-panel-subtitle-wrap {
+  display: none !important;
+}
+
 :root {
   --bg: #f7f5f0;
   --panel: #ffffff;
@@ -738,18 +745,19 @@ body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale .
   margin-bottom: calc(0.35rem + 0.125in);
 }
 
+body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__heading,
+body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__heading,
+body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__heading {
+  display: block;
+  box-sizing: border-box;
+}
+
 body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__svg,
 body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__svg,
 body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__svg {
   display: block;
-  margin: 0.15rem auto 0;
+  margin: 0.15rem 0 0;
   overflow: visible;
-}
-
-body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__col:first-child,
-body.layout-dot-map-volume-singles.palette-dot-map-volume .legend-volume-scale__col:first-child,
-body.layout-dot-map-volume-unified.palette-dot-map-volume .legend-volume-scale__col:first-child {
-  transform: translateX(-0.25in);
 }
 
 body.layout-dot-map-volume.palette-dot-map-volume .legend-volume-scale__tier,
@@ -1155,6 +1163,56 @@ body.layout-small-multiples .subtitle {
 
 .link {
   fill: none;
+}
+
+/* Final-show Network embed — match Where (dot-map-volume) low-contrast land */
+body.embed-flow-show.layout-single {
+  --lf-museum-white: #f7f7f4;
+  --lf-charcoal-forest: #202623;
+  --lf-deep-ash-stone: #666660;
+  --lf-state-outline: #d6d4ce;
+  --lf-frame-neutral: #eeede9;
+  --bg: var(--lf-museum-white);
+  --panel: var(--lf-museum-white);
+  --land: var(--lf-museum-white);
+  --land-stroke: var(--lf-state-outline);
+  --border: var(--lf-state-outline);
+  background: var(--lf-museum-white);
+  color: var(--lf-charcoal-forest);
+}
+
+body.embed-flow-show.layout-single .viz-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+body.embed-flow-show.layout-single .chart-map {
+  background: transparent;
+}
+
+body.embed-flow-show.layout-single .state,
+body.embed-flow-show.layout-single .state--pr-inset {
+  fill: var(--land);
+  stroke: var(--land-stroke);
+  stroke-width: 0.65;
+}
+
+body.embed-flow-show.layout-single .inset-frame {
+  stroke: var(--lf-state-outline);
+}
+
+body.embed-flow-show.layout-single .inset-label {
+  fill: var(--lf-deep-ash-stone);
+}
+
+body.embed-flow-show.layout-single .legend-panel {
+  background: var(--lf-museum-white);
+  border-left-color: var(--lf-state-outline);
+}
+
+body.embed-flow-show.layout-single .header {
+  display: none !important;
 }
 
 body:not(.embed-flow-show) .link {

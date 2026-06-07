@@ -1,0 +1,67 @@
+Life Flow — Sources and Limitations
+====================================
+
+
+Primary data sources
+--------------------
+
+Organ Procurement and Transplantation Network (OPTN) / United Network for Organ
+Sharing (UNOS)
+  - OPTN National Data Reports (1988–2025 reporting period; 2025 figures where
+    cited in the show)
+  - OPTN Advanced Data Reports (donor recovery DSA to transplant center flows)
+  - Public portals: HRSA OPTN data reports and UNOS advanced reporting tools
+
+Scientific Registry for Transplant Recipients (SRTR)
+  - SRTR Annual Data Report (context and reference framing)
+  - SRTR transplant patient journey diagram (2023; supplemental reference)
+  - SRTR transplant system reference diagram (supplemental reference)
+
+Organ Donation Alliance
+  - People-Driven Transplant System Map (SRTR Task 5; supplemental reference
+    diagram)
+
+UNOS
+  - Public data resources and transplant system diagram (2023; supplemental
+    reference)
+
+Illustrative / prototype content in the show (e.g., patient survival prototype)
+is labeled in-slide as pending full OPTN/SRTR validation.
+
+
+Audit notes and limitations
+-------------------------
+
+- Data were sourced primarily from OPTN, SRTR, UNOS, and related public transplant
+  datasets. Visualizations were created for educational and analytical purposes.
+
+- Several visualizations use aggregated, normalized, or transformed data to improve
+  readability and support storytelling.
+
+- Geographic visualizations use publicly available transplant center and DSA
+  information. Some node coordinates were approximated or manually adjusted where
+  exact locations were unavailable or inconsistent.
+
+- Network arc visualizations illustrate relationships and movement patterns within
+  the transplant system. They should not be interpreted as exact transportation
+  routes.
+
+- Multi-organ transplant views were simplified and/or normalized to support
+  comparison across categories.
+
+- Assignment folders under apps/life_flow/assignments/ are retained for
+  reproducibility; the final show embeds or reuses code and data from those
+  iterations.
+
+- All analyses and visualizations were manually reviewed. Additional validation
+  is recommended before operational or policy use.
+
+
+Use of generative AI
+--------------------
+
+ChatGPT and Cursor AI were used for brainstorming, debugging, code review,
+editing, navigation design, and presentation refinement.
+
+All analytical decisions, data sourcing, interpretation, visual design choices,
+and final presentation content were reviewed and approved by the author.

@@ -1,0 +1,175 @@
+Life Flow — Data Dictionary (high level)
+=========================================
+
+Primary cleaned files for the final show live in:
+  apps/life_flow/app/data/
+
+Raw exports, processing scripts, and assignment-specific copies live in:
+  apps/life_flow/assignments/*/data/
+
+Unless noted, sources are OPTN National Data Reports (2025) and/or OPTN Advanced
+Data Reports, via HRSA/UNOS public portals. See SOURCES_AND_LIMITATIONS.txt.
+
+
+1. Waitlist data
+----------------
+Source: OPTN National Data Reports (waiting-time and waitlist-related tables).
+
+Description: Active-waitlist and waiting-time distributions by organ category.
+Used for wait-time heatmaps, supply/demand comparisons, and flow diagrams.
+
+Key fields (varies by export):
+  - wait-time bucket or "All Time" row label
+  - organ / organ-combination column headers
+  - patient counts (often comma-formatted strings in raw exports)
+
+Locations:
+  - apps/life_flow/app/data/waitlist_wait_time.csv
+  - see assignment folders for related raw OPTN extracts
+
+Notes / transformations:
+  - Wide matrix layout parsed in JavaScript (not standard long-format CSV)
+  - Numeric strings stripped of commas before aggregation
+  - "All Time" row used where slides need organ-level waitlist reference counts
+
+
+2. Transplant data
+------------------
+Source: OPTN National Data Reports (transplants by organ, donor type, year).
+
+Description: Annual transplant volumes for single-organ categories and totals.
+
+Key fields:
+  - donor_type (e.g., All Donor Types, Deceased Donor, Living Donor)
+  - organ
+  - year
+  - transplants (count)
+  - to_date (cumulative total through report date, where present)
+
+Locations:
+  - apps/life_flow/app/data/optn_transplants_clean.csv
+  - apps/life_flow/assignments/assignment_01_temporal/data/
+  - apps/life_flow/assignments/assignment_02_categorical_revision/data/clean/
+  - apps/life_flow/assignments/assignment_03_hierarchial/data/processed/
+
+Notes / transformations:
+  - Raw wide OPTN exports reshaped to long format
+  - Filtered to report years and donor/organ slices per visualization
+  - 2025 slices used for current-year comparisons where applicable
+
+
+3. Donor / recovered organ data
+-------------------------------
+Source: OPTN National Data Reports (donors, organs recovered, transplanted,
+discarded).
+
+Description: Donor counts and organ-level recovery, transplant, and discard
+totals supporting the supply/flow story.
+
+Key fields:
+  - donor_type rows (All / Deceased / Living)
+  - organ-type columns with count values
+
+Locations:
+  - apps/life_flow/app/data/donors_by_type.csv
+  - apps/life_flow/app/data/organs_recovered_by_type.csv
+  - apps/life_flow/app/data/organs_transplanted_by_type.csv
+  - apps/life_flow/app/data/organs_discarded_by_type.csv
+
+Notes / transformations:
+  - Matrix-style OPTN tables retained in cleaned form
+  - Parsed by row/column position in flow visualizations
+  - Organ selector maps user choice to the corresponding CSV column set
+
+
+4. Transplant center / spatial location data
+--------------------------------------------
+Source: OPTN Advanced Data Reports (donor recovery DSA to transplant center
+flows by organ); geocoding via public geocoder services and manual review.
+
+Description: Nodes (transplant centers, donation service areas) with coordinates
+and pairwise flow volumes for map and network arc views.
+
+Key fields:
+  - id, type, name, state, region
+  - lat, lon (node coordinates)
+  - flow origin/destination identifiers and volumes in raw T_SD / MT_SD exports
+
+Locations:
+  - apps/life_flow/assignments/assignment_05_spatial/data/processed/all_nodes_with_coordinates.csv
+  - apps/life_flow/assignments/assignment_05_spatial/data/raw/source_to_destination_by_organ/
+  - apps/life_flow/assignments/assignment_05_spatial/data/reference/manual_geocoding/
+
+Notes / transformations:
+  - Multiple per-organ flow CSVs merged for network views
+  - Some coordinates approximated or manually corrected; see quality reports in
+    assignment_05_spatial/data/processed/ and manual_geocoding/
+  - Arc maps illustrate network structure, not exact transport routes
+
+
+5. Multi-organ transplant data
+------------------------------
+Source: OPTN National Data Reports (multiple-organ transplant combinations).
+
+Description: Transplant counts for multi-organ combination categories over time.
+
+Key fields:
+  - organ (combination label, e.g., Liver-Kidney)
+  - year
+  - transplants (count)
+  - to_date (where present)
+
+Locations:
+  - apps/life_flow/app/data/optn_multiple_organs_clean.csv
+  - apps/life_flow/assignments/assignment_01_temporal/data/
+  - apps/life_flow/assignments/assignment_02_categorical_revision/data/clean/
+  - apps/life_flow/assignments/assignment_05_spatial/data/raw/source_to_destination_by_organ/MultiTransplants/
+
+Notes / transformations:
+  - Combination labels normalized for display consistency
+  - Supplemental true-scale views may rescale dot grids for readability while
+    preserving relative patient counts
+
+
+6. Diagnosis / indication group data
+------------------------------------
+Source: OPTN National Data Reports (recipient diagnosis by organ; waitlist
+registrations by diagnosis).
+
+Description: Hierarchical breakdown of waitlist registrations and transplants by
+diagnosis within each organ category (treemap / gap views).
+
+Key fields:
+  - diagnosis label
+  - organ columns with patient/transplant counts
+
+Locations:
+  - apps/life_flow/assignments/assignment_03_hierarchial/data/raw/Organ_by_Diagnosis.csv
+  - apps/life_flow/assignments/assignment_03_hierarchial/data/raw/Transplant___Organ_by_Recipient_Diagnosis.csv
+  - apps/life_flow/assignments/assignment_03_hierarchial/data/processed/transplants_treemap.csv
+
+Notes / transformations:
+  - Wide diagnosis matrices parsed into per-organ rollups
+  - Top-N diagnoses shown; remainder grouped for readability
+
+
+7. Derived summary files
+------------------------
+Source: Derived from OPTN exports above (and notebooks/scripts in assignment
+folders).
+
+Description: Intermediate cleaned tables produced during EDA and assignment
+workflows; copied or referenced by the final show.
+
+Key fields: Same as parent categories (long-format transplants, treemap rollups,
+geocoded node lists).
+
+Locations:
+  - apps/life_flow/app/data/ (show-ready copies)
+  - apps/life_flow/assignments/*/data/clean/ and */data/processed/
+  - analysis notebooks under assignment folders (see assignment READMEs)
+
+Notes / transformations:
+  - Cleaning steps typically include delimiter parsing, comma removal, wide-to-long
+    reshaping, year filtering, and label normalization
+  - For full reproducibility paths, see assignment folders and data folders

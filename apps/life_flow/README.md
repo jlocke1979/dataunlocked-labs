@@ -1,70 +1,43 @@
-# MSDS 455 – Assignment 02 (Categorical Data) Revision
+# Life Flow — MSDS 455 Final Show
 
-## Overview
-This visualization compares 2025 organ transplant demand (waitlist) versus completed transplants across major organ categories. The goal is to highlight the imbalance between demand and supply.
+Interactive narrative visualization of the U.S. organ transplant system, built with D3.js as the culminating project for MSDS 455.
 
-## Key Insight
-Kidney transplants dominate overall volume, but demand significantly exceeds supply across all major organ categories.
+## Primary entry point
 
-## Live Visualization
-https://jlocke1979.github.io/dataunlocked-labs/apps/life_flow/assignments/assignment_02_categorical_revision/
+`apps/life_flow/app/final_show.html`
 
-## How to Run Locally
-This visualization uses D3.js and requires a local server.
+## How to run
 
-From this folder:
+From the extracted package root:
 
 ```bash
 python3 -m http.server 8000
+```
 
 Then open:
 
-http://localhost:8000
+`http://localhost:8000/apps/life_flow/app/final_show.html`
 
- Project Structure
+No special installation is required for the static show. A local HTTP server is needed so the browser can load data files and embedded assignment assets.
 
-* index.html – entry point
-* js/main_assignment_02.js – controller
-* js/scenes_assignment2/d_waitlist_vs_transplants.js – main D3 visualization
-* js/scenes_assignment2/shared_waitlist_nodes.js – shared constants and category structure
-* data/ – cleaned datasets used for visualization
-* analysis.ipynb – exploratory data analysis
+## Project layout
 
-Data Source
+| Path | Role |
+|------|------|
+| `app/final_show.html` | Final show entry point |
+| `app/js/` | Scene controllers and final-show narrative code |
+| `app/data/` | Cleaned summary datasets used by multiple slides |
+| `assignments/` | Prior course assignments (data, notebooks, standalone viz) |
 
-OPTN national data reports (2025)
-Parent Page: 
-https://www.hrsa.gov/optn?from=optn.transplant.hrsa.gov
-Data Portal: 
-https://www.hrsa.gov/optn/data/data-reports
-Data Portal: Advanced Reporting
-https://hrsa.unos.org/data/view-data-reports/build-advanced/
+Assignment folders are intentionally retained. The final show reuses prior assignment assets, data transformations, and code (for example, spatial network maps, diagnosis treemaps, and cleaned OPTN extracts).
 
+## Documentation
 
+- `DATA_DICTIONARY.txt` — major dataset categories, fields, and file locations
+- `SOURCES_AND_LIMITATIONS.txt` — data sources, audit notes, and AI disclosure
 
+Assignment-level README files under `assignments/` describe individual coursework iterations; they are supporting materials, not the main submission README.
 
-Exploratory Data Analysis
+## Navigation
 
-EDA is provided in analysis.ipynb.
-The workflow includes:
-
-* inspection of raw tab-delimited OPTN data
-* identification of structural issues (wide format, formatted numeric strings)
-* transformation into a clean, structured dataset
-* filtering to 2025 for categorical comparison
-
-Visualization Iterations
-
-Three iterations were developed:
-
-1. Initial dot-based comparison of waitlist vs. transplants
-2. Improved clarity using gray waitlist vs. colored transplant dots
-3. Version adding a waitlist-to-transplant ratio and refined labeling
-4. Version changing from beige to white background
-
-Background styling was also evaluated to balance aesthetics with data-to-ink ratio.
-
-Notes
-
-The D3 code is modularized across JavaScript files rather than embedded directly in HTML.
-
+Use arrow keys or on-screen controls to move through story beats. Supplemental slides (thank you, references, audit notes, appendix visualizations) follow the main narrative.

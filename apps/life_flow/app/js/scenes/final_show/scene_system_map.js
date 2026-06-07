@@ -1,19 +1,13 @@
-import { storyColors } from "../../constants/colors.js";
-import { typography } from "../../constants/typography.js";
 import {
-  applyType,
   beginChartScene,
-  drawSource,
-  STAGE
+  drawSource
 } from "./show_helpers.js";
+import { SRTR_SYSTEM_MAP_SOURCE } from "./scene_references.js";
 import {
   SYSTEM_MAP_ART,
   SYSTEM_MAP_IMAGE_URL,
   systemMapSubtitle
 } from "../../final_show/system_map_tour.js";
-
-const ONE_IN = 96;
-const BODY_TEXT_LIFT = 2 * ONE_IN;
 
 /**
  * @param {{ highlightThroughIndex?: number }} [options]
@@ -36,19 +30,7 @@ export function runSystemMap(options = {}) {
 
   drawReferenceImage(g);
 
-  applyType(
-    g.append("text")
-      .attr("x", STAGE.marginX)
-      .attr("y", STAGE.contentBottom - 44 - BODY_TEXT_LIFT)
-      .attr("fill", storyColors.textMuted)
-      .text("Reference diagram \u2014 orientation only; the story order follows the narrative breadcrumb above."),
-    typography.label
-  );
-
-  drawSource(
-    svg,
-    "Diagram: SRTR Transplant System reference. Orientation only; not the story order."
-  );
+  drawSource(svg, SRTR_SYSTEM_MAP_SOURCE);
 }
 
 function drawReferenceImage(g) {

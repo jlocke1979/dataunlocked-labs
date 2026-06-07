@@ -115,7 +115,7 @@ body.layout-dot-map-volume-unified #audit-panel {
   display: none !important;
 }
 
-body:not(.layout-dot-map-volume):not(.layout-dot-map-volume-singles):not(.layout-dot-map-volume-unified) #audit-notes-panel {
+body:not(.layout-dot-map-volume):not(.layout-dot-map-volume-singles):not(.layout-dot-map-volume-unified):not(.embed-flow-show.layout-single) #audit-notes-panel {
   display: none !important;
 }
 
@@ -1213,6 +1213,83 @@ body.embed-flow-show.layout-single .legend-panel {
 
 body.embed-flow-show.layout-single .header {
   display: none !important;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel {
+  margin-top: 0.65rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__details {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--lf-state-outline);
+  border-radius: 6px;
+  background: #f0efeb;
+  box-shadow: 0 1px 4px rgba(32, 38, 35, 0.04);
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__summary {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--lf-deep-ash-stone);
+  cursor: pointer;
+  list-style: none;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__summary::-webkit-details-marker {
+  display: none;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__summary::before {
+  content: "▸ ";
+  color: var(--lf-deep-ash-stone);
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__details[open] .audit-notes-panel__summary::before {
+  content: "▾ ";
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__details[open] .audit-notes-panel__body {
+  margin-top: 0.5rem;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--lf-deep-ash-stone);
+  text-align: left;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__body p {
+  margin: 0 0 0.5em;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__body p:last-child {
+  margin-bottom: 0;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__body ul {
+  margin: 0.35em 0 0;
+  padding-left: 1.15em;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__body li {
+  margin-bottom: 0.35em;
+}
+
+body.embed-flow-show.layout-single .audit-notes-panel__body strong {
+  font-weight: 600;
 }
 
 body:not(.embed-flow-show) .link {

@@ -4,9 +4,11 @@ import {
   applyType,
   beginChartScene,
   drawSource,
+  HEADER_GRID,
   HEADER_TOP_VH,
   STAGE
 } from "./show_helpers.js";
+import { OPTN_DIAGNOSIS_SOURCE } from "./scene_references.js";
 
 const WAITLIST_CSV =
   "../assignments/assignment_03_hierarchial/data/raw/Organ_by_Diagnosis.csv";
@@ -44,10 +46,14 @@ const ORGAN_CALLOUTS = {
   Intestine: "Short gut syndrome leads intestine transplants"
 };
 
+const INCH_PX = 96;
 const CALLOUT_CENTER_X = STAGE.width / 2;
 const QUARTER_IN = 24;
 const EIGHTH_IN = 12;
 const CALLOUT_TOP_Y = STAGE.contentTop + 8 - QUARTER_IN - EIGHTH_IN;
+/** When the organ-selector callout is shown, shift the diagnosis callout left to make room. */
+const ORGAN_CALLOUT_SHIFT_LEFT = 2 * INCH_PX;
+const SELECTOR_CALLOUT_GAP = 20;
 
 const toNum = s => +String(s == null ? "" : s).replace(/[",\s]/g, "") || 0;
 
@@ -145,19 +151,13 @@ function hideTreemapTooltip(tip) {
   tip.style("display", "none").selectAll("*").remove();
 }
 
-function drawOrganCallout(parent, text) {
-  parent.selectAll("g.organ-callout").remove();
-  if (!text) return;
-
-  const padX = 10;
-  const padY = 8;
+function appendBrassCallout(parent, { text, centerX, boxY, className, padX = 10, padY = 8 }) {
   const lineH = typography.caption.size * 1.4;
-  const textW = Math.max(148, Math.min(320, text.length * 6.2));
+  const textW = Math.max(96, Math.min(340, text.length * 6.2));
   const boxW = textW + padX * 2;
   const boxH = lineH + padY * 2;
-  const boxX = CALLOUT_CENTER_X - boxW / 2;
-  const boxY = CALLOUT_TOP_Y;
-  const g = parent.append("g").attr("class", "organ-callout");
+  const boxX = centerX - boxW / 2;
+  const g = parent.append("g").attr("class", className);
 
   g.append("rect")
     .attr("x", boxX)
@@ -170,13 +170,94 @@ function drawOrganCallout(parent, text) {
     .attr("stroke-width", 1);
   applyType(
     g.append("text")
-      .attr("x", CALLOUT_CENTER_X)
+      .attr("x", centerX)
       .attr("y", boxY + padY + lineH * 0.72)
       .attr("text-anchor", "middle")
       .attr("fill", storyColors.textPrimary)
       .text(text),
     typography.caption
   );
+
+  return { g, boxX, boxY, boxW, boxH, centerX };
+}
+
+function measureOrganLabelAnchor(container, svgRoot) {
+  const fallback = {
+    x: STAGE.width - 196,
+    y: HEADER_GRID.dividerY + 16
+  };
+  const label = container.select(".treemap-organ-selector-label").node();
+  if (!label || !svgRoot) return fallback;
+
+  const rect = label.getBoundingClientRect();
+  const pt = svgRoot.createSVGPoint();
+  pt.x = rect.left + rect.width * 0.5 - 10;
+  pt.y = rect.bottom - 3;
+  const svgPt = pt.matrixTransform(svgRoot.getScreenCTM().inverse());
+  return { x: svgPt.x, y: svgPt.y };
+}
+
+function drawOrganCallouts(parent, organText, showSelectorCallout = false, container = null) {
+  parent
+    .selectAll("g.organ-callout, g.organ-selector-callout, g.organ-selector-callout-leader")
+    .remove();
+
+  const organCenterX = showSelectorCallout
+    ? CALLOUT_CENTER_X - ORGAN_CALLOUT_SHIFT_LEFT
+    : CALLOUT_CENTER_X;
+  const boxY = CALLOUT_TOP_Y;
+  let organBox = null;
+
+  if (organText) {
+    organBox = appendBrassCallout(parent, {
+      text: organText,
+      centerX: organCenterX,
+      boxY,
+      className: "organ-callout"
+    });
+  }
+
+  if (!showSelectorCallout) return;
+
+  const selectorText = "Select an organ";
+  const selectorPadX = 8;
+  const selectorTextW = Math.max(96, selectorText.length * 6.4);
+  const selectorBoxW = selectorTextW + selectorPadX * 2;
+  const selectorCenterX = organBox
+    ? organBox.boxX + organBox.boxW + SELECTOR_CALLOUT_GAP + selectorBoxW / 2
+    : CALLOUT_CENTER_X + selectorBoxW / 2 + SELECTOR_CALLOUT_GAP;
+  const selectorBox = appendBrassCallout(parent, {
+    text: selectorText,
+    centerX: selectorCenterX,
+    boxY,
+    className: "organ-selector-callout",
+    padX: selectorPadX,
+    padY: 6
+  });
+
+  const svgRoot = parent.node()?.ownerSVGElement;
+  const apex = measureOrganLabelAnchor(container, svgRoot);
+  const leader = parent.append("g").attr("class", "organ-selector-callout-leader");
+  const yStart = selectorBox.boxY + 2;
+  const leftStartX = selectorBox.boxX + selectorBox.boxW * 0.22;
+  const rightStartX = selectorBox.boxX + selectorBox.boxW * 0.78;
+
+  leader
+    .append("line")
+    .attr("stroke", storyColors.weatheredBrass)
+    .attr("stroke-width", 1)
+    .attr("x1", leftStartX)
+    .attr("y1", yStart)
+    .attr("x2", apex.x)
+    .attr("y2", apex.y);
+  leader
+    .append("line")
+    .attr("stroke", storyColors.weatheredBrass)
+    .attr("stroke-width", 1)
+    .attr("x1", rightStartX)
+    .attr("y1", yStart)
+    .attr("x2", apex.x)
+    .attr("y2", apex.y);
 }
 
 function renderTreemapPanel(g, entries, bbox, { title, panelKind, organ, tooltip }) {
@@ -284,7 +365,7 @@ function renderTreemapPanel(g, entries, bbox, { title, panelKind, organ, tooltip
 
 /**
  * Organ-filtered diagnosis treemaps (normalized within organ).
- * @param {{ sceneLabel?: string, title?: string, subtitle?: string }} [options]
+ * @param {{ sceneLabel?: string, title?: string, subtitle?: string, showOrganSelectorCallout?: boolean }} [options]
  */
 export function runDiagnosisTreemap(options = {}) {
   const container = d3.select("#viz");
@@ -306,6 +387,7 @@ export function runDiagnosisTreemap(options = {}) {
 
   const control = container
     .append("div")
+    .attr("class", "treemap-organ-selector")
     .style("position", "absolute")
     .style("top", `calc(${HEADER_TOP_VH}vh + 8px)`)
     .style("right", "48px")
@@ -314,7 +396,11 @@ export function runDiagnosisTreemap(options = {}) {
     .style("color", storyColors.textSecondary)
     .style("z-index", "2");
 
-  control.append("span").text("Organ: ").style("margin-right", "6px");
+  control
+    .append("span")
+    .attr("class", "treemap-organ-selector-label")
+    .text("Organ: ")
+    .style("margin-right", "6px");
   const select = control
     .append("select")
     .style("font", "inherit")
@@ -374,7 +460,7 @@ export function runDiagnosisTreemap(options = {}) {
       typography.caption
     );
 
-    drawOrganCallout(chart, ORGAN_CALLOUTS[organ]);
+    drawOrganCallouts(chart, ORGAN_CALLOUTS[organ], options.showOrganSelectorCallout, container);
   }
 
   Promise.all([d3.text(WAITLIST_CSV), d3.text(TRANSPLANT_CSV)])
@@ -398,10 +484,7 @@ export function runDiagnosisTreemap(options = {}) {
       });
 
       draw(selectedOrgan);
-      drawSource(
-        svg,
-        "Source: OPTN / HRSA national data (2025)."
-      );
+      drawSource(svg, OPTN_DIAGNOSIS_SOURCE);
     })
     .catch(err => {
       console.error("[Appendix A03] data load error:", err);
@@ -411,7 +494,7 @@ export function runDiagnosisTreemap(options = {}) {
           .attr("x", STAGE.marginX)
           .attr("y", STAGE.contentTop + 40)
           .attr("fill", storyColors.textMuted)
-          .text("Could not load Assignment 03 diagnosis data."),
+          .text("Could not load OPTN diagnosis data."),
         typography.body
       );
     });
@@ -426,6 +509,7 @@ export function runScene3TreemapDetail() {
   return runDiagnosisTreemap({
     sceneLabel: "Scene 3  \u00b7  detail",
     title: "What is driving transplant demand?",
-    subtitle: "Diagnosis mix within each organ \u2014 select an organ (top 8 + Other)."
+    subtitle: "Diagnosis patterns emerge for each organ.",
+    showOrganSelectorCallout: true
   });
 }

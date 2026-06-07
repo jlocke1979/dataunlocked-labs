@@ -49,7 +49,7 @@ html {
   gap: 10px;
 }
 
-/* Landing: slightly emphasize compass so it pairs with the preview breadcrumb. */
+/* Opening slide: same right-aligned breadcrumb rail; slightly stronger compass. */
 #show-top-chrome.show-top-chrome--intro .nav-btn:not(.is-disabled):not(:disabled) {
   opacity: 0.9;
   color: #202623;

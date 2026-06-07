@@ -1,12 +1,13 @@
 import { organColorByName, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import { beginChartScene, drawSource, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
+import { OPTN_WAIT_TIME_SOURCE } from "./scene_references.js";
 
 // ---------------------------------------------------------------------------
 // Scene 2 — Distribution of wait times by organ.
 //
-// Headline: vertically stacked organ histograms.
-// Detail (↓): Assignment 4 heatmap + continuous colorbar legend.
+// Headline: vertically stacked organ histograms + brass wait-time callouts.
+// Detail (↓): Assignment 4 heatmap (no duplicate callouts).
 // ---------------------------------------------------------------------------
 
 const DATA_PATH = "./data/waitlist_wait_time.csv";
@@ -34,7 +35,16 @@ const BUCKETS = [
 
 const toNumber = s => +String(s).replace(/[",]/g, "") || 0;
 
-/** Light museum white → organ hue; keeps Scene 2 aligned with Scene 1 / 4 palette. */
+/** Heatmap share shading saturates by this % (matches row legend + headline axis). */
+const HEATMAP_PCT_COLOR_CAP = 25;
+
+/** Headline bars — one bold organ hue per row (no within-row value shading). */
+function stackedHistogramBarFill(organ) {
+  const base = d3.color(organColorByName(organ));
+  return base ? base.darker(0.12).formatHex() : storyColors.deepSlateHarbor;
+}
+
+/** Heatmap cells — light museum white → organ hue by share within row. */
 function organShareFill(organ, pct, scaleMax) {
   const t = scaleMax > 0 ? Math.min(1, pct / scaleMax) : 0;
   const base = d3.color(organColorByName(organ));
@@ -69,7 +79,7 @@ function loadWaitTimeData(onReady) {
       renderPlaceholder(container, {
         sceneLabel: "Scene 2",
         title: "Distribution of wait times by organ",
-        subtitle: "Wait-time distribution from Assignment 4.",
+        subtitle: "Wait-time distribution by organ.",
         note: "Scene 2 will show the wait-time heatmap and histogram detail."
       });
     });
@@ -114,19 +124,94 @@ function buildHeatmapCells(organIdx, rowByBucket) {
   return { cells, maxPct };
 }
 
+function heatmapRowLegendEndColor(organ) {
+  return organShareFill(organ, HEATMAP_PCT_COLOR_CAP, HEATMAP_PCT_COLOR_CAP);
+}
+
+function drawHeatmapRowColorLegends(svg, { gridTop, cellH, gridRight }) {
+  const legendLeft = gridRight + 14;
+  const legendW = 54;
+  const legendH = 6;
+  const defs = svg.append("defs");
+
+  ORGANS.forEach((organ, ri) => {
+    const gradId = `scene2-heatmap-row-grad-${ri}`;
+    const gradient = defs
+      .append("linearGradient")
+      .attr("id", gradId)
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0%")
+      .attr("y2", "0%");
+
+    gradient.append("stop").attr("offset", "0%").attr("stop-color", storyColors.museumWhite);
+    gradient
+      .append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", heatmapRowLegendEndColor(organ));
+
+    const rowCy = gridTop + ri * cellH + cellH / 2;
+    svg
+      .append("rect")
+      .attr("class", "scene2-heatmap-row-legend")
+      .attr("x", legendLeft)
+      .attr("y", rowCy - legendH / 2)
+      .attr("width", legendW)
+      .attr("height", legendH)
+      .attr("fill", `url(#${gradId})`)
+      .attr("stroke", storyColors.softAshGray)
+      .attr("stroke-opacity", 0.55)
+      .attr("stroke-width", 0.5);
+  });
+
+  const firstRowCy = gridTop + cellH / 2;
+  const labelY = firstRowCy - legendH / 2 - 5;
+  applyType(
+    svg
+      .append("text")
+      .attr("x", legendLeft)
+      .attr("y", labelY)
+      .attr("text-anchor", "start")
+      .attr("fill", storyColors.textMuted)
+      .text("0%"),
+    typography.caption
+  );
+  applyType(
+    svg
+      .append("text")
+      .attr("x", legendLeft + legendW)
+      .attr("y", labelY)
+      .attr("text-anchor", "end")
+      .attr("fill", storyColors.textMuted)
+      .text("25%"),
+    typography.caption
+  );
+  applyType(
+    svg
+      .append("text")
+      .attr("class", "scene2-heatmap-legend-note")
+      .attr("x", legendLeft + legendW / 2)
+      .attr("y", gridTop - 18)
+      .attr("text-anchor", "middle")
+      .attr("fill", storyColors.textMuted)
+      .text("% of organ waitlist"),
+    typography.caption
+  );
+}
+
 function renderHeatmap(container, header, rawRows) {
   const { chartSvg: svg } = beginChartScene(container, {
-    sceneLabel: "Scene 2",
+    sceneLabel: "Scene 2  \u00b7  detail",
     title: "Distribution of wait times by organ",
     subtitle: "Share of each organ's waitlist by waiting period."
   });
 
   const { organIdx, rowByBucket } = buildDataContext(header, rawRows);
-  const { cells, maxPct } = buildHeatmapCells(organIdx, rowByBucket);
+  const { cells } = buildHeatmapCells(organIdx, rowByBucket);
 
   const gridLeft = STAGE.contentLeft + 116;
   const gridTop = STAGE.contentTop + 32;
-  const gridRight = STAGE.contentRight - 24;
+  const gridRight = STAGE.contentRight - 88;
   const gridBottom = STAGE.contentBottom - 34;
   const cellW = (gridRight - gridLeft) / BUCKETS.length;
   const cellH = (gridBottom - gridTop) / ORGANS.length;
@@ -156,10 +241,12 @@ function renderHeatmap(container, header, rawRows) {
     );
   });
 
+  const HALF_IN = 48;
+  const THREE_QUARTER_IN = 72;
   applyType(
     svg.append("text")
       .attr("x", (gridLeft + gridRight) / 2)
-      .attr("y", gridBottom + 50)
+      .attr("y", gridBottom + 104 - THREE_QUARTER_IN + HALF_IN)
       .attr("text-anchor", "middle")
       .attr("fill", storyColors.textSecondary)
       .text("Candidate waiting period"),
@@ -174,26 +261,13 @@ function renderHeatmap(container, header, rawRows) {
     .attr("y", d => gridTop + d.ri * cellH)
     .attr("width", cellW)
     .attr("height", cellH)
-    .attr("fill", d => organShareFill(ORGANS[d.ri], d.pct, maxPct))
+    .attr("fill", d => organShareFill(ORGANS[d.ri], d.pct, HEATMAP_PCT_COLOR_CAP))
     .attr("stroke", storyColors.museumWhite)
     .attr("stroke-width", 2);
 
-  drawHeatmapCallouts(svg, {
-    gridLeft,
-    gridTop,
-    cellW,
-    cellH,
-    intestineRow: 0,
-    lungRow: ORGANS.length - 1,
-    fivePlusCol: BUCKETS.length - 1,
-    under30Col: 0
-  });
+  drawHeatmapRowColorLegends(svg, { gridTop, cellH, gridRight });
 
-  drawSource(
-    svg,
-    "Source: Organ Procurement and Transplantation Network (OPTN), 2025. Adapted from Assignment 04 (relational).",
-    STAGE.captionY + 48
-  );
+  drawSource(svg, OPTN_WAIT_TIME_SOURCE, STAGE.captionY + 48);
 }
 
 function renderStackedHistograms(container, header, rawRows) {
@@ -209,13 +283,10 @@ function renderStackedHistograms(container, header, rawRows) {
   const maxPct = d3.max(organSeries, d => d3.max(d.buckets, b => b.pct)) ?? 0;
   const yMax = Math.ceil(maxPct / 5) * 5;
 
-  drawStackedOrganHistograms(svg, organSeries, { yMax });
+  const layout = drawStackedOrganHistograms(svg, organSeries, { yMax });
+  drawScene2WaitCallouts(svg, stackedHistogramCallouts(layout));
 
-  drawSource(
-    svg,
-    "Source: Organ Procurement and Transplantation Network (OPTN), 2025. Adapted from Assignment 04 (relational).",
-    STAGE.captionY + 48
-  );
+  drawSource(svg, OPTN_WAIT_TIME_SOURCE, STAGE.captionY + 48);
 }
 
 function buildOrganSeries(organIdx, rowByBucket) {
@@ -236,10 +307,46 @@ function buildOrganSeries(organIdx, rowByBucket) {
   });
 }
 
+const ROW_PCT_AXIS_TICKS = [0, 25];
+
+function drawRowPercentAxis(g, { plotRight, baseline, heightScale, rowIndex, rowCount }) {
+  const axisG = g.append("g").attr("class", "scene2-row-axis");
+  const tickX0 = plotRight + 3;
+  const tickLen = 5;
+  const labelX = plotRight + 11;
+
+  ROW_PCT_AXIS_TICKS.forEach(pct => {
+    const y = baseline - heightScale(pct);
+    axisG.append("line")
+      .attr("x1", tickX0)
+      .attr("x2", tickX0 + tickLen)
+      .attr("y1", y)
+      .attr("y2", y)
+      .attr("stroke", storyColors.softAshGray)
+      .attr("stroke-opacity", 0.65)
+      .attr("stroke-width", 0.75);
+
+    const label =
+      pct === 0 ? (rowIndex === rowCount - 1 ? "0" : null) : `${pct}%`;
+    if (!label) return;
+
+    applyType(
+      axisG.append("text")
+        .attr("x", labelX)
+        .attr("y", y)
+        .attr("dy", "0.32em")
+        .attr("text-anchor", "start")
+        .attr("fill", storyColors.textMuted)
+        .text(label),
+      typography.caption
+    );
+  });
+}
+
 function drawStackedOrganHistograms(svg, organSeries, { yMax }) {
   const labelW = 108;
   const plotLeft = STAGE.contentLeft + labelW;
-  const plotRight = STAGE.contentRight - 96;
+  const plotRight = STAGE.contentRight - 118;
   const plotTop = STAGE.contentTop + 4;
   const plotBottom = STAGE.contentBottom - 46;
   const rowH = (plotBottom - plotTop) / organSeries.length;
@@ -293,11 +400,30 @@ function drawStackedOrganHistograms(svg, organSeries, { yMax }) {
       .attr("y", d => baseline - heightScale(d.pct))
       .attr("width", x.bandwidth())
       .attr("height", d => heightScale(d.pct))
-      .attr("fill", d => organShareFill(series.organ, d.pct, yMax))
+      .attr("fill", stackedHistogramBarFill(series.organ))
       .attr("stroke", storyColors.museumWhite)
-      .attr("stroke-width", 1)
+      .attr("stroke-width", 1.25)
       .attr("rx", 1.5);
+
+    drawRowPercentAxis(stack, {
+      plotRight,
+      baseline,
+      heightScale,
+      rowIndex: ri,
+      rowCount: organSeries.length
+    });
   });
+
+  applyType(
+    svg.append("text")
+      .attr("class", "scene2-row-axis-title")
+      .attr("x", plotRight + 11)
+      .attr("y", plotTop - 2)
+      .attr("text-anchor", "start")
+      .attr("fill", storyColors.textMuted)
+      .text("% of organ waitlist"),
+    typography.caption
+  );
 
   BUCKETS.forEach(([, short], bucketIndex) => {
     applyType(
@@ -314,7 +440,7 @@ function drawStackedOrganHistograms(svg, organSeries, { yMax }) {
   applyType(
     svg.append("text")
       .attr("x", (plotLeft + plotRight) / 2)
-      .attr("y", plotBottom + 34)
+      .attr("y", plotBottom + 88)
       .attr("text-anchor", "middle")
       .attr("fill", storyColors.textSecondary)
       .text("Candidate waiting period"),
@@ -322,55 +448,99 @@ function drawStackedOrganHistograms(svg, organSeries, { yMax }) {
   );
 
   return {
-    gridRight: plotRight,
-    gridTop: plotTop,
-    gridBottom: plotBottom
+    plotTop,
+    plotBottom,
+    plotRight,
+    rowH,
+    rowPadY,
+    x,
+    heightScale,
+    organSeries
   };
 }
 
-function drawHeatmapCallouts(
-  svg,
-  { gridLeft, gridTop, cellW, cellH, intestineRow, lungRow, fivePlusCol, under30Col }
-) {
+function stackedHistogramCallouts({ plotTop, rowH, rowPadY, x, heightScale, organSeries }) {
+  const intestineRow = 0;
+  const lungRow = organSeries.length - 1;
+  const fivePlusCol = BUCKETS.length - 1;
+  const under30Col = 0;
   const HALF_IN = 48;
   const QUARTER_IN = 24;
   const TWO_IN = 192;
   const padY = 11;
   const textLineH = typography.caption.size * 1.35;
-  const boxH = padY * 2 + textLineH;
+  const boxH = padY * 2 + textLineH * 2;
+  const longWaitBoxW = 252;
+  const shortWaitBoxW = 264;
 
-  const fivePlusCx = gridLeft + fivePlusCol * cellW + cellW / 2;
-  const under30Cx = gridLeft + under30Col * cellW + cellW / 2;
-  const longWaitBoxW = 176;
-  const shortWaitBoxW = 188;
-  const under30BoxCx = gridLeft + under30Col * cellW + 18 - TWO_IN + 105;
+  const fivePlusCx = x(fivePlusCol) + x.bandwidth() / 2;
+  const under30Cx = x(under30Col) + x.bandwidth() / 2;
+  const under30BoxCx = x(under30Col) + 18 - TWO_IN + 105;
 
-  const callouts = [
+  const intestineRowTop = plotTop + intestineRow * rowH;
+  const intestineBaseline = intestineRowTop + rowH - rowPadY;
+  const intestineFivePlusPct = organSeries[intestineRow].buckets[fivePlusCol].pct;
+  const intestineAnchorY = intestineBaseline - heightScale(intestineFivePlusPct) / 2;
+
+  const lungRowTop = plotTop + lungRow * rowH;
+  const lungBaseline = lungRowTop + rowH - rowPadY;
+  const lungUnder30Pct = organSeries[lungRow].buckets[under30Col].pct;
+  const lungAnchorY = lungBaseline - heightScale(lungUnder30Pct) / 2;
+
+  const longWaitBoxShiftLeft = 96;
+  const longWaitBoxShiftDown = HALF_IN - QUARTER_IN;
+
+  return [
     {
       anchorX: fivePlusCx,
-      anchorY: gridTop + intestineRow * cellH + cellH / 2,
-      text: "High proportion have long waits",
-      boxX: fivePlusCx - longWaitBoxW / 2,
-      boxY: gridTop + intestineRow * cellH - 34 - QUARTER_IN,
+      anchorY: intestineAnchorY,
+      text: "Intestine has a high % of candidates waiting 5+ years",
+      boxX: fivePlusCx - longWaitBoxW / 2 - longWaitBoxShiftLeft,
+      boxY: intestineRowTop - 34 - QUARTER_IN + longWaitBoxShiftDown,
       boxW: longWaitBoxW,
       boxH
     },
     {
       anchorX: under30Cx,
-      anchorY: gridTop + lungRow * cellH + cellH / 2,
-      text: "More candidates have short waits",
+      anchorY: lungAnchorY,
+      text: "Lung has a high % of candidates waiting 30 days or less",
       boxX: under30BoxCx - shortWaitBoxW / 2,
-      boxY: gridTop + lungRow * cellH + cellH / 2 + 8 + HALF_IN,
+      boxY: lungRowTop + rowH / 2 + 8 + HALF_IN,
       boxW: shortWaitBoxW,
       boxH
     }
   ];
+}
 
-  const layer = svg.append("g").attr("class", "heatmap-callouts");
+function wrapScene2CalloutText(text, boxW, padX = 10) {
+  const maxWidth = boxW - padX * 2;
+  const charWidth = typography.caption.size * 0.52;
+  const words = String(text).split(/\s+/);
+  const lines = [];
+  let line = "";
+  words.forEach(word => {
+    const next = line ? `${line} ${word}` : word;
+    if (next.length * charWidth > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  });
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawScene2WaitCallouts(svg, callouts) {
+  const layer = svg.append("g").attr("class", "scene2-wait-callouts");
+  const textLineH = typography.caption.size * 1.35;
   callouts.forEach(d => {
-    const g = layer.append("g").attr("class", "heatmap-callout");
+    const g = layer.append("g").attr("class", "scene2-wait-callout");
+    const lines = wrapScene2CalloutText(d.text, d.boxW);
+    const padY = 11;
+    const boxH = d.boxH ?? padY * 2 + textLineH * lines.length;
     const boxCx = d.boxX + d.boxW / 2;
-    const boxCy = d.boxY + d.boxH / 2;
+    const boxCy = d.boxY + boxH / 2;
 
     g.append("line")
       .attr("stroke", storyColors.weatheredBrass)
@@ -383,21 +553,25 @@ function drawHeatmapCallouts(
       .attr("x", d.boxX)
       .attr("y", d.boxY)
       .attr("width", d.boxW)
-      .attr("height", d.boxH)
+      .attr("height", boxH)
       .attr("rx", 3)
       .attr("fill", storyColors.museumWhite)
       .attr("stroke", storyColors.weatheredBrass)
       .attr("stroke-width", 1);
-    applyType(
+    const text = applyType(
       g.append("text")
         .attr("x", boxCx)
-        .attr("y", boxCy)
+        .attr("y", boxCy - ((lines.length - 1) * textLineH) / 2)
         .attr("text-anchor", "middle")
-        .attr("dy", "0.35em")
-        .attr("fill", storyColors.textPrimary)
-        .text(d.text),
+        .attr("fill", storyColors.textPrimary),
       typography.caption
     );
+    lines.forEach((line, i) => {
+      text.append("tspan")
+        .attr("x", boxCx)
+        .attr("dy", i === 0 ? "0.35em" : textLineH)
+        .text(line);
+    });
   });
 }
 

@@ -1,4 +1,5 @@
 import { storyColors } from "../../constants/colors.js";
+import { OPTN_FLOW_SOURCE } from "./scene_references.js";
 import { typography } from "../../constants/typography.js";
 import { beginChartScene, HEADER_TOP_VH, applyType, renderPlaceholder, STAGE } from "./show_helpers.js";
 
@@ -351,7 +352,7 @@ function drawFlow(svg, g, flow) {
   applyType(
     g.append("text").attr("x", STAGE.marginX).attr("y", 648)
       .attr("fill", storyColors.textSecondary)
-      .text("Source: OPTN/SRTR national data \u2014 donors, organs recovered, transplanted, and discarded (Rpt 1.1\u20131.4); active waitlist snapshot (Rpt 2.1)."),
+      .text(OPTN_FLOW_SOURCE),
     typography.caption
   );
   applyType(

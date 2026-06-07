@@ -23,7 +23,6 @@ export function runConclusion() {
   const centerX = STAGE.width / 2;
   const midY = (STAGE.contentTop + STAGE.contentBottom) / 2 - ONE_IN;
   const headlineLineH = typography.mainTitle.size * 1.45;
-  const bodyLineH = typography.sceneTitle.size * 1.45;
 
   applyType(
     svg
@@ -36,46 +35,29 @@ export function runConclusion() {
     typography.mainTitle
   );
 
-  applyType(
-    svg
-      .append("text")
-      .attr("x", centerX)
-      .attr("y", midY + 20)
-      .attr("text-anchor", "middle")
-      .attr("fill", storyColors.textSecondary)
-      .text(
-        "It only takes five minutes to register as a donor and potentially give someone years of life."
-      ),
-    typography.sceneTitle
-  );
+  const registerY = midY + 20 + REGISTER_DROP;
 
-  applyType(
-    svg
-      .append("text")
-      .attr("x", centerX - 4)
-      .attr("y", midY + 20 + bodyLineH + REGISTER_DROP)
-      .attr("text-anchor", "end")
-      .attr("fill", storyColors.textPrimary)
-      .text("Register at"),
-    typography.sceneTitle
-  );
+  const registerLine = svg
+    .append("text")
+    .attr("x", centerX)
+    .attr("y", registerY)
+    .attr("text-anchor", "middle")
+    .attr("fill", storyColors.textPrimary);
 
-  const donorLink = svg
+  applyType(registerLine, typography.sceneTitle);
+
+  registerLine.append("tspan").text("Register at ");
+
+  const donorLink = registerLine
     .append("a")
     .attr("href", "https://www.organdonor.gov/sign-up")
     .attr("target", "_blank")
     .attr("rel", "noopener noreferrer");
 
-  applyType(
-    donorLink
-      .append("text")
-      .attr("x", centerX + 4)
-      .attr("y", midY + 20 + bodyLineH + REGISTER_DROP)
-      .attr("text-anchor", "start")
-      .attr("fill", storyColors.deepSlateHarbor)
-      .style("text-decoration", "underline")
-      .style("cursor", "pointer")
-      .text("organdonor.gov"),
-    typography.sceneTitle
-  );
+  donorLink
+    .append("tspan")
+    .attr("fill", storyColors.deepSlateHarbor)
+    .style("text-decoration", "underline")
+    .style("cursor", "pointer")
+    .text("organdonor.gov");
 }

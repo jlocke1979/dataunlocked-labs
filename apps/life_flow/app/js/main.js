@@ -11,12 +11,16 @@ import { runSystemMap } from "./scenes/final_show/scene_system_map.js";
 import { mountShowBreadcrumb, updateShowBreadcrumb } from "./final_show/show_tour.js";
 import { runScene1 as runNeed } from "./scenes/final_show/scene1_need_over_time.js";
 import { runScene3TreemapDetail } from "./scenes/final_show/scene_appendix_assignment_03.js";
-import { runScene3MultiOrganDetail } from "./scenes/final_show/scene_appendix_multi_organ.js";
+import { runAppendixMultiOrganTrueScaleDetail } from "./scenes/final_show/scene_appendix_multi_organ.js";
 import { runAppendixPatientJourney } from "./scenes/final_show/scene_appendix_patient_journey.js";
 import { runConclusion } from "./scenes/final_show/scene_conclusion.js";
 import { runThankYou } from "./scenes/final_show/scene_thankyou.js";
 import { runReferences } from "./scenes/final_show/scene_references.js";
-import { runScene2WaitHeatmap } from "./scenes/final_show/scene2_wait_heatmap.js";
+import {
+  runAuditNotesDisclosure,
+  runGenerativeAiDisclosure
+} from "./scenes/final_show/scene_disclosures.js";
+import { runScene2 as runScene2StackedHistograms, runScene2WaitHeatmap } from "./scenes/final_show/scene2_wait_heatmap.js";
 import { runScene3FlowWaffleAbsolute } from "./scenes/final_show/scene3_flow_waffle_absolute.js";
 import { runScene3FlowWaffleProportion } from "./scenes/final_show/scene3_flow_waffle_proportion.js";
 import { runScene4 as runMap, mapOrganDetails, setScene4Depth } from "./scenes/final_show/scene4_map.js";
@@ -52,13 +56,12 @@ d3.select("#viz").style("background", storyColors.museumWhite);
 const headlineScenes = [
   { id: "landing", run: runLanding, details: [] },
   { id: "needOverTime", run: runNeed, details: [], expectedDepth: 4 },
-  { id: "waitHeatmap", run: runScene2WaitHeatmap, details: [] },
+  { id: "waitHeatmap", run: runScene2StackedHistograms, details: [runScene2WaitHeatmap] },
   {
     id: "flow",
     run: runScene3FlowWaffleAbsolute,
     details: [
       runScene3FlowWaffleProportion,
-      runScene3MultiOrganDetail,
       runScene3TreemapDetail
     ]
   },
@@ -68,6 +71,13 @@ const headlineScenes = [
   { id: "conclusion", run: runConclusion, details: [] },
   { id: "thankYou", run: runThankYou, details: [] },
   { id: "references", run: runReferences, details: [] },
+  { id: "auditNotes", run: runAuditNotesDisclosure, details: [] },
+  { id: "generativeAi", run: runGenerativeAiDisclosure, details: [] },
+  {
+    id: "appendixMultiOrganTrueScale",
+    run: runAppendixMultiOrganTrueScaleDetail,
+    details: []
+  },
   { id: "appendixPatientJourney", run: runAppendixPatientJourney, details: [] },
   {
     id: "systemMap",
@@ -186,6 +196,7 @@ function updateNavState() {
 }
 
 function renderInViz(run, label) {
+  d3.selectAll(".landing-breadcrumb-callout").remove();
   d3.select("#viz").selectAll("*").remove();
   try {
     run();

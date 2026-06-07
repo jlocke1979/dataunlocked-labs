@@ -4,7 +4,17 @@
  */
 import { organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { applyType, beginChartScene, drawSource, STAGE } from "./show_helpers.js";
+import {
+  applyType,
+  beginChartScene,
+  drawSource,
+  HEADER_GRID,
+  STAGE
+} from "./show_helpers.js";
+import {
+  OPTN_MULTI_ORGAN_SOURCE,
+  OPTN_MULTI_ORGAN_SINGLE_ORGAN_SOURCE
+} from "./scene_references.js";
 
 const MULTI_ORGAN_DATA_PATH = "data/optn_multiple_organs_clean.csv";
 const TRANSPLANT_DATA_PATH = "data/optn_transplants_clean.csv";
@@ -33,6 +43,13 @@ const ORGAN_COLOR = {
   Other: storyColors.softAshGray
 };
 
+const LIVER_LUNG_COMBO_KEY = "Liver-Lung";
+const SUE_ELLEN_SUNSHINE = "#FFD524";
+const SUE_ELLEN_SUNSHINE_OUTLINE = "#C77800";
+const SUE_ELLEN_COMBO_LABEL = "SueEllen Mobley Stephenson";
+const SUE_ELLEN_CALLOUT_OFFSET_X = 96; // 2″ right of anchor dot
+const SUE_ELLEN_CALLOUT_OFFSET_Y = 48; // 1″ below anchor dot
+
 function parseComboOrgans(organKey) {
   return organKey.split("-").map(part => (part === "VCA" ? "VCA" : part));
 }
@@ -41,9 +58,191 @@ function comboLabel(organs) {
   return organs.join(" + ");
 }
 
+const COMBO_LABEL_HIGHLIGHT = {
+  padX: 4,
+  padY: 1,
+  fillOpacity: 0.22,
+  rx: 3,
+  organGap: 4,
+  plusGap: 5
+};
+
+function appendOrganHighlightLabel(parent, organ, text, x, y) {
+  const color = ORGAN_COLOR[organ] || ORGAN_COLOR.Other;
+  const wrap = parent.append("g").attr("class", "combo-organ-highlight");
+  const textSel = applyType(
+    wrap
+      .append("text")
+      .attr("x", x)
+      .attr("y", y)
+      .attr("fill", color)
+      .text(text),
+    typography.label
+  );
+  const bbox = textSel.node().getBBox();
+  wrap
+    .insert("rect", "text")
+    .attr("x", bbox.x - COMBO_LABEL_HIGHLIGHT.padX)
+    .attr("y", bbox.y - COMBO_LABEL_HIGHLIGHT.padY)
+    .attr("width", bbox.width + COMBO_LABEL_HIGHLIGHT.padX * 2)
+    .attr("height", bbox.height + COMBO_LABEL_HIGHLIGHT.padY * 2)
+    .attr("rx", COMBO_LABEL_HIGHLIGHT.rx)
+    .attr("fill", color)
+    .attr("fill-opacity", COMBO_LABEL_HIGHLIGHT.fillOpacity);
+  return x + bbox.width;
+}
+
+function drawComboLabelWithOrganHighlights(row, d, { x, y }) {
+  const labelG = row.append("g").attr("class", "combo-row-label");
+  let cursorX = x;
+
+  d.organs.forEach((organ, index) => {
+    if (index > 0) {
+      const plus = applyType(
+        labelG
+          .append("text")
+          .attr("x", cursorX)
+          .attr("y", y)
+          .attr("fill", storyColors.textPrimary)
+          .text(" + "),
+        typography.label
+      );
+      cursorX += plus.node().getComputedTextLength() + COMBO_LABEL_HIGHLIGHT.plusGap;
+    }
+    cursorX =
+      appendOrganHighlightLabel(labelG, organ, organ, cursorX, y) +
+      COMBO_LABEL_HIGHLIGHT.organGap;
+  });
+
+  const suffix = ` \u00b7 ${d.count2025}${d.featured ? "*" : ""}`;
+  applyType(
+    labelG
+      .append("text")
+      .attr("x", cursorX)
+      .attr("y", y)
+      .attr("fill", storyColors.textPrimary)
+      .text(suffix),
+    typography.label
+  );
+}
+
+const INCH_PX = 96;
+/** Max row height for the largest combo matrix — favors wide, shallow dot grids. */
+const TRUE_SCALE_ROW_MAX_H = 1.25 * INCH_PX;
+const TRUE_SCALE_DOT_GAP = 1;
+const TRUE_SCALE_MIN_DOT = 5;
+
+/** Pick the widest column layout that fits maxCount within width × row-height budget. */
+function computePatientDotGrid(maxCount, budgetW, budgetH, gap = TRUE_SCALE_DOT_GAP) {
+  let best = null;
+
+  for (let dotSize = 12; dotSize >= TRUE_SCALE_MIN_DOT; dotSize--) {
+    const step = dotSize + gap;
+    const cols = Math.max(1, Math.floor(budgetW / step));
+    const rows = Math.ceil(maxCount / cols);
+    const matrixH = rows * step - gap;
+    if (matrixH > budgetH) continue;
+
+    const candidate = {
+      dotSize,
+      gap,
+      step,
+      cols,
+      rowsForMax: rows,
+      matrixW: cols * step - gap,
+      matrixH
+    };
+
+    if (
+      !best ||
+      candidate.cols > best.cols ||
+      (candidate.cols === best.cols && candidate.dotSize > best.dotSize)
+    ) {
+      best = candidate;
+    }
+  }
+
+  if (best) return best;
+
+  const dotSize = TRUE_SCALE_MIN_DOT;
+  const step = dotSize + gap;
+  const cols = Math.max(1, Math.floor(budgetW / step));
+  const rows = Math.ceil(maxCount / cols);
+  return {
+    dotSize,
+    gap,
+    step,
+    cols,
+    rowsForMax: rows,
+    matrixW: cols * step - gap,
+    matrixH: rows * step - gap
+  };
+}
+
 function countForYear(rows, year) {
   const row = rows.find(d => +d.year === year);
   return row ? +row.transplants : 0;
+}
+
+function pieSlicePath(cx, cy, r, startAngle, endAngle) {
+  const x1 = cx + r * Math.cos(startAngle);
+  const y1 = cy + r * Math.sin(startAngle);
+  const x2 = cx + r * Math.cos(endAngle);
+  const y2 = cy + r * Math.sin(endAngle);
+  const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
+  return `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+}
+
+function comboDotSlices(organCount) {
+  if (organCount === 2) {
+    return [
+      { start: Math.PI / 2, end: (3 * Math.PI) / 2 },
+      { start: -Math.PI / 2, end: Math.PI / 2 }
+    ];
+  }
+  return d3.range(organCount).map(index => {
+    const start = -Math.PI / 2 + ((2 * Math.PI) / organCount) * index;
+    return { start, end: start + (2 * Math.PI) / organCount };
+  });
+}
+
+function appendComboPatientDot(
+  parent,
+  { cx, cy, r, organs, solidColor = null, solidStroke = null, solidStrokeWidth = 0 }
+) {
+  const dot = parent.append("g").attr("class", "count-dot");
+  if (solidColor) {
+    dot
+      .append("circle")
+      .attr("cx", cx)
+      .attr("cy", cy)
+      .attr("r", r)
+      .attr("fill", solidColor)
+      .attr("stroke", solidStroke || "none")
+      .attr("stroke-width", solidStroke ? solidStrokeWidth || 1.75 : 0)
+      .attr("opacity", 0.98);
+    return dot;
+  }
+
+  const colors = organs.map(organ => ORGAN_COLOR[organ] || ORGAN_COLOR.Other);
+  comboDotSlices(organs.length).forEach((slice, index) => {
+    dot
+      .append("path")
+      .attr("d", pieSlicePath(cx, cy, r, slice.start, slice.end))
+      .attr("fill", colors[index])
+      .attr("opacity", 0.98);
+  });
+
+  dot
+    .append("circle")
+    .attr("cx", cx)
+    .attr("cy", cy)
+    .attr("r", r)
+    .attr("fill", "none")
+    .attr("stroke", storyColors.museumWhite)
+    .attr("stroke-width", 0.35);
+
+  return dot;
 }
 
 function buildCombinationsFromCsv(multiRows, transplantRows) {
@@ -84,26 +283,38 @@ function buildCombinationsFromCsv(multiRows, transplantRows) {
   return combinations.sort((a, b) => b.count2025 - a.count2025);
 }
 
-function drawComboCallout(parent, { anchorX, anchorY, text }) {
+function drawComboCallout(
+  parent,
+  { anchorX, anchorY, text, boxOffsetX = 52, boxOffsetY = 14, leaderEnd = "left" }
+) {
   const padX = 7;
   const padY = 5;
   const lineH = typography.caption.size * 1.35;
   const textW = Math.max(108, text.length * 5.8);
   const boxW = textW + padX * 2;
   const boxH = lineH + padY * 2;
-  const boxX = anchorX + 52;
-  const boxY = anchorY + 14;
+  const boxX = anchorX + boxOffsetX;
+  const boxY = anchorY + boxOffsetY;
   const boxCx = boxX + boxW / 2;
   const boxCy = boxY + boxH / 2;
   const g = parent.append("g").attr("class", "combo-callout");
+  let leaderX2 = boxX;
+  let leaderY2 = boxCy;
+  if (leaderEnd === "top-center") {
+    leaderX2 = boxCx;
+    leaderY2 = boxY;
+  } else if (leaderEnd === "bottom-center") {
+    leaderX2 = boxCx;
+    leaderY2 = boxY + boxH;
+  }
 
   g.append("line")
     .attr("stroke", storyColors.weatheredBrass)
     .attr("stroke-width", 1)
     .attr("x1", anchorX)
     .attr("y1", anchorY)
-    .attr("x2", boxX)
-    .attr("y2", boxCy);
+    .attr("x2", leaderX2)
+    .attr("y2", leaderY2);
   g.append("rect")
     .attr("x", boxX)
     .attr("y", boxY)
@@ -174,18 +385,14 @@ function measureFooterHeight(g, options, sourceY, lineHeight, maxWidth) {
     measure.remove();
   });
 
-  const sourceLines = options.sources ?? [
-    "Source: OPTN/UNOS 2025 (multi-organ combinations)."
-  ];
+  const sourceLines = options.sources ?? [OPTN_MULTI_ORGAN_SOURCE];
   height += sourceLines.length * lineHeight;
   return height;
 }
 
 function renderFooter(svg, g, options, sourceY, lineHeight, maxWidth) {
   let y = sourceY;
-  const sourceLines = options.sources ?? [
-    "Source: OPTN/UNOS 2025 (multi-organ combinations)."
-  ];
+  const sourceLines = options.sources ?? [OPTN_MULTI_ORGAN_SOURCE];
 
   [...sourceLines].reverse().forEach(text => {
     drawSource(svg, text, y);
@@ -216,6 +423,8 @@ function renderFooter(svg, g, options, sourceY, lineHeight, maxWidth) {
 }
 
 function renderMultiOrganChart(container, combinations, options = {}) {
+  container.style("overflow-y", null);
+
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: options.sceneLabel ?? "Appendix",
     title: options.title ?? "Multi-organ transplants",
@@ -239,70 +448,112 @@ function renderMultiOrganChart(container, combinations, options = {}) {
   );
   const footerBlockTop = SOURCE_Y - footerHeight;
 
-  const listStartY = STAGE.contentTop + 8;
+  const oneDotPerPatient = options.oneDotPerPatient ?? false;
+  const listStartY = STAGE.contentTop + (oneDotPerPatient ? 30 : 8);
   const ICON_X = STAGE.contentLeft + 20;
-  const LABEL_X = STAGE.contentLeft + 54;
-  const MATRIX_X = STAGE.contentLeft + 300;
+  const LABEL_X = oneDotPerPatient ? STAGE.contentLeft + 20 : STAGE.contentLeft + 54;
+  const MATRIX_X = oneDotPerPatient ? STAGE.contentLeft + 248 : STAGE.contentLeft + 300;
   const MATRIX_MAX_X = STAGE.contentRight - 16;
   const LABEL_MAX_WIDTH = MATRIX_X - LABEL_X - 20;
   const MOLECULE_DOT_R = 4.8;
   const COUNT_DOT_R = 2.6;
-  const CASES_PER_DOT = 20;
+  const CASES_PER_DOT = options.casesPerDot ?? 20;
   const useWaffleCountMarkers = options.useWaffleCountMarkers ?? false;
   const countMarkerSize = useWaffleCountMarkers ? WAFFLE_TILE_SIZE : COUNT_DOT_R * 2;
   const countMarkerRx = useWaffleCountMarkers ? WAFFLE_TILE_RX : 0;
-  const matrixStepX = useWaffleCountMarkers ? WAFFLE_TILE_STEP : 7;
-  const matrixStepY = useWaffleCountMarkers ? WAFFLE_TILE_STEP : 7;
   const LABEL_LINE_HEIGHT = 14;
-  const ROW_PAD = 10;
+  const ROW_PAD = oneDotPerPatient ? 6 : 10;
   const matrixWidth = Math.max(120, MATRIX_MAX_X - MATRIX_X);
-  const MATRIX_COLS = Math.max(18, Math.floor(matrixWidth / matrixStepX));
-  const rowGap = 26;
+  const rowGap = oneDotPerPatient ? 8 : 26;
+  /** True-scale supplemental: ~30% extra inter-row space from row 4 onward. */
+  const tailRowExtraGap = oneDotPerPatient ? Math.round((ROW_PAD + rowGap) * 0.3) : 0;
 
-  applyType(
-    listG.append("text")
-      .attr("x", MATRIX_X)
-      .attr("y", listStartY - 10)
-      .attr("fill", storyColors.textMuted)
-      .text(
-        useWaffleCountMarkers
-          ? `Each small square \u2248 ${CASES_PER_DOT} transplants`
-          : `Each small dot \u2248 ${CASES_PER_DOT} transplants`
-      ),
-    typography.label
-  );
+  const displayCombinations = oneDotPerPatient
+    ? combinations.filter(d => d.count2025 > 0)
+    : combinations;
 
-  const rowLayouts = combinations.map(d => {
+  const maxCount = oneDotPerPatient
+    ? d3.max(displayCombinations, d => d.count2025) ?? 0
+    : 0;
+  const patientGrid = oneDotPerPatient
+    ? computePatientDotGrid(maxCount, matrixWidth, TRUE_SCALE_ROW_MAX_H)
+    : null;
+
+  const matrixStepX = oneDotPerPatient
+    ? patientGrid.step
+    : useWaffleCountMarkers
+      ? WAFFLE_TILE_STEP
+      : 7;
+  const matrixStepY = oneDotPerPatient
+    ? patientGrid.step
+    : useWaffleCountMarkers
+      ? WAFFLE_TILE_STEP
+      : 7;
+  const MATRIX_COLS = oneDotPerPatient
+    ? patientGrid.cols
+    : Math.max(18, Math.floor(matrixWidth / matrixStepX));
+  const patientDotR = oneDotPerPatient ? patientGrid.dotSize / 2 : COUNT_DOT_R;
+
+  if (!oneDotPerPatient) {
+    const scaleLegend = useWaffleCountMarkers
+      ? `Each small square \u2248 ${CASES_PER_DOT} transplants`
+      : `Each small dot \u2248 ${CASES_PER_DOT} transplants`;
+    applyType(
+      listG
+        .append("g")
+        .attr("class", "combo-scale-legend")
+        .append("text")
+        .attr("x", MATRIX_X)
+        .attr("y", listStartY - 10)
+        .attr("fill", storyColors.textMuted)
+        .text(scaleLegend),
+      typography.label
+    );
+  }
+
+  const rowLayouts = displayCombinations.map(d => {
     const label = `${d.label} \u00b7 ${d.count2025}${d.featured ? "*" : ""}`;
-    const measure = listG.append("text").attr("visibility", "hidden");
-    applyType(measure, typography.label);
-    const labelLines = wrapSvgText(measure, label, LABEL_MAX_WIDTH, LABEL_LINE_HEIGHT);
-    measure.remove();
-    const scaledCount = Math.max(1, Math.round(d.count2025 / CASES_PER_DOT));
-    const matrixRows = Math.ceil(scaledCount / MATRIX_COLS);
-    const matrixHeight = Math.max(0, (matrixRows - 1) * matrixStepY);
+    let labelLines = 1;
+    if (!oneDotPerPatient) {
+      const measure = listG.append("text").attr("visibility", "hidden");
+      applyType(measure, typography.label);
+      labelLines = wrapSvgText(measure, label, LABEL_MAX_WIDTH, LABEL_LINE_HEIGHT);
+      measure.remove();
+    }
+    const dotCount = oneDotPerPatient
+      ? d.count2025
+      : Math.max(1, Math.round(d.count2025 / CASES_PER_DOT));
+    const matrixRows = Math.ceil(dotCount / MATRIX_COLS);
+    const matrixHeight = matrixRows * matrixStepY;
     const labelHeight = Math.max(LABEL_LINE_HEIGHT, labelLines * LABEL_LINE_HEIGHT);
-    const rowHeight = Math.max(rowGap, labelHeight + matrixHeight + ROW_PAD);
-    return { ...d, label, labelLines, scaledCount, matrixRows, rowHeight };
+    const rowHeight = oneDotPerPatient
+      ? Math.max(labelHeight, matrixHeight) + ROW_PAD
+      : Math.max(rowGap, labelHeight + Math.max(0, (matrixRows - 1) * matrixStepY) + ROW_PAD);
+    return { ...d, label, labelLines, dotCount, matrixRows, rowHeight };
   });
 
   let accY = listStartY;
-  rowLayouts.forEach(row => {
+  rowLayouts.forEach((row, index) => {
+    if (tailRowExtraGap && index >= 3) {
+      accY += tailRowExtraGap;
+    }
     row.y = accY;
     accY += row.rowHeight;
   });
 
-  const clipId = "multi-organ-list-clip";
-  svg
-    .append("defs")
-    .append("clipPath")
-    .attr("id", clipId)
-    .append("rect")
-    .attr("x", STAGE.contentLeft - 20)
-    .attr("y", STAGE.contentTop)
-    .attr("width", STAGE.contentRight - STAGE.contentLeft + 40)
-    .attr("height", Math.max(0, footerBlockTop - STAGE.contentTop));
-  listG.attr("clip-path", `url(#${clipId})`);
+  if (!oneDotPerPatient) {
+    const clipId = "multi-organ-list-clip";
+    svg
+      .append("defs")
+      .append("clipPath")
+      .attr("id", clipId)
+      .append("rect")
+      .attr("x", STAGE.contentLeft - 20)
+      .attr("y", STAGE.contentTop)
+      .attr("width", STAGE.contentRight - STAGE.contentLeft + 40)
+      .attr("height", Math.max(0, footerBlockTop - STAGE.contentTop));
+    listG.attr("clip-path", `url(#${clipId})`);
+  }
 
   const comboGroups = listG
     .selectAll("g.combo-row")
@@ -314,37 +565,62 @@ function renderMultiOrganChart(container, combinations, options = {}) {
 
   comboGroups.each(function (d) {
     const row = d3.select(this);
-    const offsets = moleculeOffsets(d.organs.length, MOLECULE_DOT_R);
-    const moleculeDots = d.organs.map((organ, i) => ({
-      organ,
-      x: offsets[i].x,
-      y: offsets[i].y
-    }));
+    if (!oneDotPerPatient) {
+      const offsets = moleculeOffsets(d.organs.length, MOLECULE_DOT_R);
+      const moleculeDots = d.organs.map((organ, i) => ({
+        organ,
+        x: offsets[i].x,
+        y: offsets[i].y
+      }));
 
-    row
-      .selectAll("circle.molecule-dot")
-      .data(moleculeDots)
-      .enter()
-      .append("circle")
-      .attr("class", "molecule-dot")
-      .attr("cx", ICON_X)
-      .attr("cy", 0)
-      .attr("r", MOLECULE_DOT_R)
-      .attr("transform", p => `translate(${p.x}, ${p.y})`)
-      .attr("fill", p => ORGAN_COLOR[p.organ] || ORGAN_COLOR.Other)
-      .attr("stroke", storyColors.museumWhite)
-      .attr("stroke-width", 0.7)
-      .attr("opacity", 0.95);
+      row
+        .selectAll("circle.molecule-dot")
+        .data(moleculeDots)
+        .enter()
+        .append("circle")
+        .attr("class", "molecule-dot")
+        .attr("cx", ICON_X)
+        .attr("cy", 0)
+        .attr("r", MOLECULE_DOT_R)
+        .attr("transform", p => `translate(${p.x}, ${p.y})`)
+        .attr("fill", p => ORGAN_COLOR[p.organ] || ORGAN_COLOR.Other)
+        .attr("stroke", storyColors.museumWhite)
+        .attr("stroke-width", 0.7)
+        .attr("opacity", 0.95);
+    }
 
-    const matrixDots = d3.range(d.scaledCount).map(i => {
+    const matrixTop = oneDotPerPatient ? 0 : null;
+    const matrixDots = d3.range(d.dotCount).map(i => {
       const col = i % MATRIX_COLS;
       const matrixRow = Math.floor(i / MATRIX_COLS);
+      if (oneDotPerPatient) {
+        return {
+          x: MATRIX_X + col * matrixStepX + patientDotR,
+          y: matrixTop + matrixRow * matrixStepY + patientDotR
+        };
+      }
       return {
         x: MATRIX_X + col * matrixStepX,
         y: (matrixRow - (d.matrixRows - 1) / 2) * matrixStepY
       };
     });
 
+    if (oneDotPerPatient) {
+      const sueEllenDotIndex =
+        d.organKey === LIVER_LUNG_COMBO_KEY ? d.dotCount - 1 : -1;
+      matrixDots.forEach((point, index) => {
+        const isSueEllenDot = index === sueEllenDotIndex;
+        appendComboPatientDot(row, {
+          cx: point.x,
+          cy: point.y,
+          r: patientDotR,
+          organs: d.organs,
+          solidColor: isSueEllenDot ? SUE_ELLEN_SUNSHINE : null,
+          solidStroke: isSueEllenDot ? SUE_ELLEN_SUNSHINE_OUTLINE : null,
+          solidStrokeWidth: isSueEllenDot ? 1.85 : 0
+        });
+      });
+    } else {
     const countDots = row
       .selectAll(useWaffleCountMarkers ? "rect.count-dot" : "circle.count-dot")
       .data(matrixDots)
@@ -376,11 +652,17 @@ function renderMultiOrganChart(container, combinations, options = {}) {
         .attr("fill", COUNT_DOT_COLOR)
         .attr("opacity", 0.95);
     }
+    }
   });
 
   comboGroups.each(function (d) {
+    const row = d3.select(this);
+    if (oneDotPerPatient) {
+      drawComboLabelWithOrganHighlights(row, d, { x: LABEL_X, y: 4 });
+      return;
+    }
     const labelText = applyType(
-      d3.select(this)
+      row
         .append("text")
         .attr("x", LABEL_X)
         .attr("y", 4)
@@ -391,7 +673,22 @@ function renderMultiOrganChart(container, combinations, options = {}) {
     wrapSvgText(labelText, d.label, LABEL_MAX_WIDTH, LABEL_LINE_HEIGHT);
   });
 
-  if (options.highlightComboKey && options.featuredComboLabel) {
+  if (oneDotPerPatient) {
+    const sueEllenRow = rowLayouts.find(r => r.organKey === LIVER_LUNG_COMBO_KEY);
+    if (sueEllenRow && sueEllenRow.dotCount > 0) {
+      const lastIndex = sueEllenRow.dotCount - 1;
+      const lastCol = lastIndex % MATRIX_COLS;
+      const lastMatrixRow = Math.floor(lastIndex / MATRIX_COLS);
+      drawComboCallout(listG, {
+        anchorX: MATRIX_X + lastCol * matrixStepX + patientDotR,
+        anchorY: sueEllenRow.y + lastMatrixRow * matrixStepY + patientDotR,
+        text: SUE_ELLEN_COMBO_LABEL,
+        boxOffsetX: SUE_ELLEN_CALLOUT_OFFSET_X,
+        boxOffsetY: SUE_ELLEN_CALLOUT_OFFSET_Y,
+        leaderEnd: "left"
+      });
+    }
+  } else if (options.highlightComboKey && options.featuredComboLabel) {
     const featured = rowLayouts.find(r => r.organKey === options.highlightComboKey);
     if (featured) {
       drawComboCallout(listG, {
@@ -402,7 +699,22 @@ function renderMultiOrganChart(container, combinations, options = {}) {
     }
   }
 
-  renderFooter(svg, g, options, SOURCE_Y, FOOTER_LINE_HEIGHT, FOOTER_NOTE_MAX_WIDTH);
+  const footerY = oneDotPerPatient && rowLayouts.length
+    ? d3.max(rowLayouts, r => r.y + r.rowHeight) + 36
+    : SOURCE_Y;
+  renderFooter(svg, g, options, footerY, FOOTER_LINE_HEIGHT, FOOTER_NOTE_MAX_WIDTH);
+
+  if (oneDotPerPatient && rowLayouts.length) {
+    const contentEnd = footerY + footerHeight;
+    const chartSpan = contentEnd - HEADER_GRID.dividerY;
+    const defaultChartH = STAGE.height - HEADER_GRID.dividerY;
+    if (chartSpan > defaultChartH) {
+      svg
+        .attr("viewBox", `0 ${HEADER_GRID.dividerY} ${STAGE.width} ${chartSpan}`)
+        .style("flex", "0 0 auto");
+      container.style("overflow-y", "auto");
+    }
+  }
 }
 
 /**
@@ -453,26 +765,32 @@ export function runScene1MultiOrganDetail() {
       "In 2025, OPTN recorded more than two dozen distinct combination types\u2014from kidney\u2013liver pairings in the hundreds to rare procedures counted in single digits.",
     asteriskNote:
       "* Information on these organ types is reported in OPTN single-organ advanced reporting, not the multi-organ combination file.",
-    sources: [
-      "Source 1: OPTN/UNOS 2025 (multi-organ combinations).",
-      "Source 2: OPTN single-organ advanced reporting (entries marked *)."
-    ]
+    sources: [OPTN_MULTI_ORGAN_SOURCE, OPTN_MULTI_ORGAN_SINGLE_ORGAN_SOURCE]
   });
 }
 
-/** Gap (flow) detail — multi-organ combinations after proportion waffle. */
+/** Gap (flow) detail 2/5 — multi-organ overview (minimum one marker per row). */
 export function runScene3MultiOrganDetail() {
   return runMultiOrganTransplants({
     sceneLabel: "Scene 3  \u00b7  detail",
     title: "Multi-organ transplants range from numerous to rare.",
-    subtitle: "Waitlist data is not available for multi-organ transplants.",
+    subtitle:
+      "Each square represents about 20 transplants. Waitlist data is not available for multi-organ combinations.",
     useWaffleCountMarkers: true,
     highlightComboKey: "Liver-Lung",
     featuredComboLabel: "SueEllen Mobley Stepenson",
-    sources: [
-      "Source 1: OPTN/UNOS 2025 (multi-organ combinations).",
-      "Source 2: OPTN single-organ advanced reporting (entries marked *)."
-    ]
+    sources: [OPTN_MULTI_ORGAN_SOURCE, OPTN_MULTI_ORGAN_SINGLE_ORGAN_SOURCE]
+  });
+}
+
+/** Supplemental appendix — one dot per patient on a shared wide matrix scale. */
+export function runAppendixMultiOrganTrueScaleDetail() {
+  return runMultiOrganTransplants({
+    sceneLabel: "Appendix",
+    title: "Appendix: Multi-organ transplants at one patient per dot",
+    subtitle: "Scale: 1 patient is 1 dot. Reflect 2025 OPTN patient counts.",
+    oneDotPerPatient: true,
+    sources: [OPTN_MULTI_ORGAN_SOURCE]
   });
 }
 

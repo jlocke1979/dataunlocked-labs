@@ -1,6 +1,20 @@
 import { organColors, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
-import { beginChartScene, drawSource, applyType, STAGE } from "./show_helpers.js";
+import {
+  beginChartScene,
+  drawSource,
+  applyType,
+  mountSceneGuidePanel,
+  STAGE
+} from "./show_helpers.js";
+import { AFTER_PROTOTYPE_SOURCE } from "./scene_references.js";
+
+const AFTER_GUIDE = {
+  body: [
+    "Long-term recovery rates indicate more years of recovery for kidney.",
+    "Lung recovery rates are less favorable."
+  ]
+};
 
 // PROTOTYPE DATA ONLY. Approximate, illustrative patient-survival curves so we
 // can evaluate the visual form. Replace with real OPTN/SRTR survival data
@@ -21,6 +35,21 @@ export function runScene5() {
     sceneLabel: "Scene 6",
     title: "What happens after transplant?",
     subtitle: "Illustrative patient (not graft) survival by organ, years since transplant."
+  });
+
+  const chartHost = container
+    .append("div")
+    .attr("class", "after-chart-host")
+    .style("position", "relative")
+    .style("flex", "1 1 auto")
+    .style("min-height", "0")
+    .style("width", "100%");
+  chartHost.node().appendChild(svg.node());
+
+  mountSceneGuidePanel(chartHost, {
+    panelClass: "map-guide-panel",
+    guide: AFTER_GUIDE,
+    maxWidth: "440px"
   });
 
   const plot = {
@@ -106,9 +135,5 @@ export function runScene5() {
   );
 
   // Default caption line + 0.5in (48px) so source clears the x-axis label.
-  drawSource(
-    svg,
-    "Source: Illustrative prototype values \u2014 replace with OPTN/SRTR patient-survival data before locking.",
-    STAGE.captionY + 48
-  );
+  drawSource(svg, AFTER_PROTOTYPE_SOURCE, STAGE.captionY + 48);
 }

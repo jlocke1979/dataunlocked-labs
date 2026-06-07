@@ -217,18 +217,13 @@ function unifiedDotFillOpacity(organSlug, roleClass, opacityMap = DOT_VOL_UNIFIE
 const DOT_VOL_UNIFIED_SUBTITLE =
   "Bubble size uses one national scale across organ types; switch site type or organ to compare.";
 
-/** Audit copy for unified all-organ transplant view (2025 destination summary + node file). */
+/** Life Flow — audit notes and limitations (Where dot map + Network flow embeds). */
 const DOT_VOL_UNIFIED_AUDIT_NOTES = `
-<p>This map graphs <strong>192 of 246</strong> national transplant centers with <strong>38,044 of 41,808</strong> total transplants (~91% of 2025 all-organ summary volume). Fifty-four centers lack coordinates and are omitted (3,764 transplants), including Georgetown (502), UT Health San Antonio (288), and Kentucky (196).</p>
-<p><strong>Coordinate quality</strong> among graphed centers:</p>
-<ul>
-  <li><strong>Manual</strong> hand-verified (highest trust) — 12 centers, 3,798 transplants</li>
-  <li><strong>Nominatim/facility</strong> geocode — 161 centers, 25,421 transplants</li>
-  <li><strong>State-centroid</strong> fallback — 16 centers, 6,606 transplants; five California university centers plot at the state midpoint, so campuses such as San Diego appear inland rather than on the coast</li>
-  <li><strong>City-level approximate</strong> — 3 centers, 2,219 transplants</li>
-</ul>
-<p><strong>New York City:</strong> six major centers overlap in the metro cluster (~2,345 transplants); a regional inset or ranked table may read clearer than stacking labels on the map.</p>
-<p>Bubble area uses a global sqrt scale shared across organs; positions from the geocoded node file. No flow lines.</p>`;
+<p>Data for this project was sourced primarily from OPTN, SRTR, UNOS, and related public transplant datasets. Visualizations were created for educational and analytical purposes.</p>
+<p>Several visualizations use aggregated, normalized, or transformed data to improve readability and support storytelling. Geographic visualizations are based on publicly available transplant center and DSA information; some node coordinates were approximated where exact locations were unavailable or inconsistent.</p>
+<p>Network arc visualizations are intended to illustrate relationships and movement patterns within the transplant system and should not be interpreted as exact transportation routes. Multi-organ transplant visualizations were simplified and normalized to improve comparison across categories.</p>
+<p>All analyses and visualizations were manually reviewed; however, additional validation would be recommended before operational or policy use.</p>
+<p>See Supplemental <strong>Audit Notes and Limitations</strong> and <strong>Use of Generative AI</strong> for additional project notes.</p>`;
 
 /** Iteration 07 — editorial page copy by organ + site (5–8 word lede) */
 const DOT_VOL_UNIFIED_HEADLINES = {
@@ -3175,19 +3170,28 @@ function hideAuditNotesPanel() {
   d3.select("#audit-notes-panel").attr("hidden", true);
 }
 
-function renderDotMapVolumeFooter(isUnified = false) {
-  d3.select(".viz-source").text("Source: OPTN/UNOS Advanced Reports, 2025.");
+/** Final-show embed: same collapsible audit copy on Where (dot map) and Network (flow) scenes. */
+function renderEmbedUnifiedAuditNotes() {
   const auditPanel = d3.select("#audit-notes-panel");
   auditPanel.attr("hidden", null);
   auditPanel.select(".audit-notes-panel__details").property("open", false);
-  const auditBody = auditPanel.select(".audit-notes-panel__body");
+  auditPanel.select(".audit-notes-panel__body").html(DOT_VOL_UNIFIED_AUDIT_NOTES);
+}
+
+function renderDotMapVolumeFooter(isUnified = false) {
+  d3.select(".viz-source").text("Source: OPTN/UNOS Advanced Reports, 2025.");
   if (isUnified) {
-    auditBody.html(DOT_VOL_UNIFIED_AUDIT_NOTES);
-  } else {
-    auditBody.text(
+    renderEmbedUnifiedAuditNotes();
+    return;
+  }
+  const auditPanel = d3.select("#audit-notes-panel");
+  auditPanel.attr("hidden", null);
+  auditPanel.select(".audit-notes-panel__details").property("open", false);
+  auditPanel
+    .select(".audit-notes-panel__body")
+    .text(
       "Bubble area reflects total volume from summary tables; positions from geocoded node file. Sqrt-scaled within each map panel. No flow lines. All organs, 2025."
     );
-  }
 }
 
 const VOLUME_LEGEND_TIER_LABELS = ["Low", "Lower mid", "Upper mid", "High"];
@@ -4015,15 +4019,7 @@ function renderAuditPanel({
   }
 
   if (EMBED_SHOW_CHROME && LAYOUT_MODE === "single") {
-    const auditNotes = d3.select("#audit-notes-panel");
-    auditNotes.attr("hidden", null);
-    auditNotes.select(".audit-notes-panel__details").property("open", false);
-    auditNotes
-      .select(".audit-notes-panel__body")
-      .selectAll("p")
-      .data(notes)
-      .join("p")
-      .text((d) => d);
+    renderEmbedUnifiedAuditNotes();
   }
 
   d3.select("#audit-panel")

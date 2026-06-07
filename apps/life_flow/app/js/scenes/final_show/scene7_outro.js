@@ -1,4 +1,5 @@
 import { renderTitleCard } from "./show_helpers.js";
+import { OPTN_WAITLIST_TRANSPLANT_SOURCE } from "./scene_references.js";
 
 export function runScene7() {
   const container = d3.select("#viz");
@@ -11,6 +12,6 @@ export function runScene7() {
       "Behind every line and node is a person waiting,",
       "and a system deciding how long the wait will be."
     ],
-    hint: "Source: OPTN National Data \u2014 Waitlist & Transplants."
+    hint: OPTN_WAITLIST_TRANSPLANT_SOURCE
   });
 }

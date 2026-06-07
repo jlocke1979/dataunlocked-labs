@@ -369,13 +369,17 @@ const GUIDE_PANEL_MAX_WIDTH = "228px";
  * @param {{
  *   panelClass: string,
  *   walkthroughLabel?: string,
- *   guide: { step?: string, body: string, next?: string },
+ *   guide: { step?: string, body: string | string[], next?: string },
  *   top?: string,
  *   maxWidth?: string,
- *   padding?: string
+ *   padding?: string,
+ *   centerNudgeLeft?: number
  * }} opts
  */
-export function mountSceneGuidePanel(mapHost, { panelClass, walkthroughLabel, guide, top, maxWidth, padding }) {
+export function mountSceneGuidePanel(
+  mapHost,
+  { panelClass, walkthroughLabel, guide, top, maxWidth, padding, centerNudgeLeft }
+) {
   if (!guide || mapHost.empty()) return;
   mapHost.selectAll(`.${panelClass}`).remove();
 
@@ -386,12 +390,12 @@ export function mountSceneGuidePanel(mapHost, { panelClass, walkthroughLabel, gu
     .attr("class", panelClass)
     .style("position", "absolute")
     .style("top", top ?? GUIDE_PANEL_TOP)
-    .style("left", "50%")
+    .style("left", centerNudgeLeft ? `calc(50% - ${centerNudgeLeft}px)` : "50%")
     .style("transform", "translateX(-50%)")
     .style("max-width", maxWidth ?? GUIDE_PANEL_MAX_WIDTH)
     .style("padding", panelPadding)
     .style("background", storyColors.museumWhite)
-    .style("border", `1px solid ${storyColors.softAshGray}`)
+    .style("border", `1px solid ${storyColors.weatheredBrass}`)
     .style("border-radius", "4px")
     .style("box-shadow", "0 1px 3px rgba(32, 38, 35, 0.06)")
     .style("z-index", "6")
@@ -412,12 +416,21 @@ export function mountSceneGuidePanel(mapHost, { panelClass, walkthroughLabel, gu
       .text(guide.step ? `${walkthroughLabel} · ${guide.step}` : walkthroughLabel);
   }
 
-  panel
+  const bodyLines = Array.isArray(guide.body) ? guide.body : [guide.body];
+  const bodyEl = panel
     .append("div")
     .attr("class", `${panelClass}__body`)
     .style("font-size", `${typography.label.size}px`)
-    .style("color", storyColors.textPrimary)
-    .text(guide.body);
+    .style("color", storyColors.textPrimary);
+
+  bodyLines.forEach((line, index) => {
+    bodyEl
+      .append("div")
+      .attr("class", `${panelClass}__body-line`)
+      .style("white-space", "nowrap")
+      .style("margin-top", index === 0 ? "0" : "4px")
+      .text(line);
+  });
 
   if (guide.next) {
     panel

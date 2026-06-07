@@ -8,6 +8,7 @@ import {
   renderPlaceholder,
   STAGE
 } from "./show_helpers.js";
+import { OPTN_NATIONAL_DATA_SOURCE } from "./scene_references.js";
 
 // ---------------------------------------------------------------------------
 // Scene 1 — Need over time.
@@ -199,7 +200,7 @@ export function runScene1(options = {}) {
         sceneLabel: "Scene 1",
         title: "Need Over Time",
         subtitle: "Transplants over time, 1988\u20132025.",
-        note: "Scene 1 will incorporate the Assignment 1 temporal transition sequence."
+        note: "Could not load OPTN national transplant data."
       });
     });
 }
@@ -276,9 +277,7 @@ function setWrappedHeaderText(textSel, value, maxWidth, lineHeight, measureSel) 
 
 function buildSequence(container, rows, options = {}) {
   const sceneLabel = options.sceneLabel ?? "Scene 1";
-  const sourceNote =
-    options.sourceNote ??
-    "Source: OPTN national data, 1988\u20132025. Adapted from Assignment 01 (temporal).";
+  const sourceNote = options.sourceNote ?? OPTN_NATIONAL_DATA_SOURCE;
   const commaFmt = d3.format(",");
 
   const seriesForOrgan = organ => ({
@@ -489,6 +488,42 @@ function buildSequence(container, rows, options = {}) {
     groups.transition().duration(TRANSITION_MS / 2).attr("opacity", 1);
   }
 
+  function navHintText(step) {
+    if (step >= steps.length - 1) return "\u2192 to continue";
+    return "\u2193 zoom in  \u00b7  \u2192 next stop";
+  }
+
+  function renderNavHint(step) {
+    svg.selectAll("g.scene1-nav-hint").remove();
+
+    const hintText = navHintText(step);
+    const cx = (plot.left + plot.right) / 2;
+    const boxW = hintText.length > 20 ? 176 : 118;
+    const boxH = 26;
+    const boxX = cx - boxW / 2;
+    const boxY = plot.top - 34;
+
+    const g = svg.append("g").attr("class", "scene1-nav-hint");
+    g.append("rect")
+      .attr("x", boxX)
+      .attr("y", boxY)
+      .attr("width", boxW)
+      .attr("height", boxH)
+      .attr("rx", 4)
+      .attr("fill", storyColors.museumWhite)
+      .attr("stroke", storyColors.softAshGray)
+      .attr("stroke-width", 1);
+    applyType(
+      g.append("text")
+        .attr("x", cx)
+        .attr("y", boxY + boxH / 2 + 4)
+        .attr("text-anchor", "middle")
+        .attr("fill", storyColors.textSecondary)
+        .text(hintText),
+      typography.caption
+    );
+  }
+
   function renderStep(step) {
     const cfg = steps[step];
     console.log(`[Scene 1] mini-step ${step + 1} of ${steps.length}: ${cfg.key} (y-scale 0\u2013${commaFmt(cfg.yMax)})`);
@@ -596,6 +631,7 @@ function buildSequence(container, rows, options = {}) {
       );
 
     renderCallouts(cfg.callouts, cfg);
+    renderNavHint(step);
   }
 
   // ---- Detail stack (vertical) ---------------------------------------------

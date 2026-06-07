@@ -7,6 +7,7 @@ import {
   renderPlaceholder,
   STAGE
 } from "./show_helpers.js";
+import { OPTN_WAITLIST_TRANSPLANT_SOURCE } from "./scene_references.js";
 
 const WAITLIST_CSV = "data/waitlist_wait_time.csv";
 const TRANSPLANT_CSV = "data/optn_transplants_clean.csv";
@@ -217,8 +218,8 @@ export function runScene3SupplyDemand(options = {}) {
   container.selectAll("*").remove();
 
   const { chartSvg: svg } = beginChartScene(container, {
-    sceneLabel: options.sceneLabel ?? "Chopping block  \u00b7  archived",
-    title: options.title ?? "Why are people waiting? (dot prototype)",
+    sceneLabel: options.sceneLabel ?? "Scene 3",
+    title: options.title ?? "Why are people waiting?",
     subtitle:
       options.subtitle !== undefined
         ? options.subtitle
@@ -240,7 +241,7 @@ export function runScene3SupplyDemand(options = {}) {
 
       drawLegend(svg, ROW_START_Y + rows.length * ROW_GAP + 8);
       if (options.showSource !== false) {
-        drawSource(svg, "Source: OPTN / HRSA waitlist registrations (all time) and 2025 transplants.");
+        drawSource(svg, OPTN_WAITLIST_TRANSPLANT_SOURCE);
       }
     })
     .catch(err => {

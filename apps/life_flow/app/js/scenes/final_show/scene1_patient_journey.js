@@ -6,6 +6,7 @@ import {
   drawSource,
   STAGE
 } from "./show_helpers.js";
+import { SRTR_UNOS_JOURNEY_CONTEXT_SOURCE } from "./scene_references.js";
 
 const PATIENT_MAP_URL = "./assets/srtr-patient-journey-reference.png";
 const SYSTEM_MAP_URL = "./assets/unos-transplant-system-reference.png";
@@ -43,10 +44,7 @@ export function runPatientJourney() {
     typography.label
   );
 
-  drawSource(
-    svg,
-    "Patient diagram: SRTR Transplant Patient Journey (12/14/2023). System diagram: UNOS/OPTN (May 2023), context only."
-  );
+  drawSource(svg, SRTR_UNOS_JOURNEY_CONTEXT_SOURCE);
 }
 
 function drawMapImage(g, href, box, opacity) {

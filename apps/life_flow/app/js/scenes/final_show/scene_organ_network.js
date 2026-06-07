@@ -8,6 +8,7 @@ import {
   HEADER_GRID,
   HEADER_TOP_VH,
   initSceneLayout,
+  mountSceneGuidePanel,
   renderHighlightedOrganTitle,
   renderPlaceholder,
   STAGE
@@ -34,6 +35,30 @@ const NETWORK_ORGAN_DETAILS = [
   { slug: "pancreas", label: "Pancreas" }
 ];
 
+/** Upper map callouts — same panel treatment as Scene 4 (Where). */
+const NETWORK_GUIDE = {
+  all: {
+    body: "Organs flow across the country to provide life."
+  },
+  kidney: {
+    body:
+      "The flow of kidney mimics the flow of all organs, due to the large quantity of kidney transplants."
+  },
+  liver: {
+    body:
+      "The liver network is not as dense as kidney\u2019s, but nevertheless spans the U.S."
+  },
+  heart: {
+    body: "Hearts flow through different routes."
+  },
+  lung: {
+    body: "Lungs appear to travel across country more frequently."
+  },
+  pancreas: {
+    body: "Pancreas appear to not travel often or far."
+  }
+};
+
 function flowMapSrc({ organ = "all", flowGradient = null } = {}) {
   const params = new URLSearchParams({
     layout: "single",
@@ -56,6 +81,37 @@ const LEGEND_COLUMN_WIDTH = "188px";
 const LEGEND_RESERVED_WIDTH = "210px";
 const AUDIT_CLEAR_NAV_RIGHT = "2in";
 const STAGE_MARGIN_PCT = (STAGE.marginX / STAGE.width) * 100;
+const INCH_PX = 96;
+const NETWORK_GUIDE_BASE_MAX_WIDTH = 248;
+const NETWORK_GUIDE_WIDE_MAX_WIDTH = 340;
+/** Extra right padding + max-width for detail slides with long copy. */
+const THREE_QUARTER_IN_PX = 0.75 * INCH_PX;
+const NETWORK_GUIDE_RIGHT_EXTRA_PX = {
+  kidney: 0.5 * INCH_PX + THREE_QUARTER_IN_PX,
+  liver: INCH_PX,
+  lung: 0.5 * INCH_PX
+};
+
+function networkGuidePanelOptions(organ) {
+  if (organ === "all") {
+    return {
+      maxWidth: "max-content",
+      padding: "6px 12px"
+    };
+  }
+  const extraRight = NETWORK_GUIDE_RIGHT_EXTRA_PX[organ] ?? 0;
+  const baseMax =
+    organ === "kidney" || organ === "liver"
+      ? NETWORK_GUIDE_WIDE_MAX_WIDTH
+      : NETWORK_GUIDE_BASE_MAX_WIDTH;
+  if (!extraRight) {
+    return { maxWidth: `${baseMax}px` };
+  }
+  return {
+    maxWidth: `${baseMax + extraRight}px`,
+    padding: `6px ${10 + extraRight}px 6px 10px`
+  };
+}
 
 function organDetailLabel(slug) {
   return NETWORK_ORGAN_DETAILS.find((d) => d.slug === slug)?.label ?? null;
@@ -136,6 +192,12 @@ function mountOrganNetworkMap(container, { sceneLabel, subtitle, organ = "all", 
     .style("min-height", "0")
     .style("width", "100%")
     .style("overflow", "hidden");
+
+  mountSceneGuidePanel(mapHost, {
+    panelClass: "map-guide-panel",
+    guide: NETWORK_GUIDE[organ] ?? NETWORK_GUIDE.all,
+    ...networkGuidePanelOptions(organ)
+  });
 
   const iframe = mapHost
     .append("iframe")
@@ -281,16 +343,20 @@ function mountOrganNetworkMap(container, { sceneLabel, subtitle, organ = "all", 
         body.layout-single .legend-flow-direction {
           display: none !important;
         }
-        #audit-notes-panel:not([hidden]),
-        body.layout-single .audit-notes-panel {
+        body.embed-flow-show.layout-single #audit-notes-panel:not([hidden]),
+        body.embed-flow-show.layout-single .audit-notes-panel {
           display: block !important;
           visibility: visible !important;
+          margin-top: 0.65rem !important;
           margin-bottom: 0.5in !important;
           margin-right: ${AUDIT_CLEAR_NAV_RIGHT} !important;
           max-width: calc(100% - ${AUDIT_CLEAR_NAV_RIGHT}) !important;
           box-sizing: border-box !important;
+          padding: 0 !important;
+          border: none !important;
+          background: transparent !important;
         }
-        body.layout-single .audit-notes-panel__details {
+        body.embed-flow-show.layout-single .audit-notes-panel__details {
           width: 100% !important;
           max-width: 100% !important;
           box-sizing: border-box !important;

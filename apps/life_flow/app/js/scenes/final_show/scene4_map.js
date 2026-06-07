@@ -41,10 +41,17 @@ const MAP_ORGAN_DETAILS = [
   { slug: "pancreas", label: "Pancreas" }
 ];
 
+const THREE_QUARTER_IN_PX = 72;
+const HALF_IN_PX = 48;
+const MAP_GUIDE_PANEL_MAX_WIDTH = `${228 + THREE_QUARTER_IN_PX}px`;
+const MAP_GUIDE_PANEL_PADDING = `6px ${10 + THREE_QUARTER_IN_PX}px 6px 10px`;
+const MAP_GUIDE_PANEL_LIVER_RIGHT_EXTRA = HALF_IN_PX;
+const MAP_GUIDE_PANEL_LIVER_NUDGE_RIGHT = 24;
+
 const MAP_GUIDE = {
   all: {
     step: "1 / 6",
-    body: "Centers cluster in major metros; dot size = volume on a shared scale."
+    body: "Centers cluster in major metros."
   },
   kidney: {
     step: "2 / 6",
@@ -52,15 +59,12 @@ const MAP_GUIDE = {
   },
   liver: {
     step: "3 / 6",
-    body: "Liver programs cluster on the coasts and in Texas."
+    body:
+      "Liver programs are spread across the US but less prevalent than heart and kidney."
   },
   heart: {
     step: "4 / 6",
     body: "Fewer heart centers; more regionally concentrated."
-  },
-  lung: {
-    step: "5 / 6",
-    body: "Lung programs are sparse outside academic hubs."
   },
   pancreas: {
     step: "6 / 6",
@@ -85,6 +89,38 @@ function organDetailLabel(slug) {
 
 function mapOrganLabel(organ) {
   return organ === "all" ? ALL_ORGANS_LABEL : organDetailLabel(organ);
+}
+
+function scene4MapGuide(organ) {
+  if (organ === "lung") return null;
+  return MAP_GUIDE[organ] ?? MAP_GUIDE.all;
+}
+
+function mapGuidePanelOptions(organ) {
+  if (organ !== "liver") {
+    return {
+      maxWidth: MAP_GUIDE_PANEL_MAX_WIDTH,
+      padding: MAP_GUIDE_PANEL_PADDING,
+      centerNudgeLeft: THREE_QUARTER_IN_PX / 2
+    };
+  }
+  const extraRight = MAP_GUIDE_PANEL_LIVER_RIGHT_EXTRA;
+  return {
+    maxWidth: `${228 + THREE_QUARTER_IN_PX + extraRight}px`,
+    padding: `6px ${10 + THREE_QUARTER_IN_PX + extraRight}px 6px 10px`,
+    centerNudgeLeft: THREE_QUARTER_IN_PX / 2 - MAP_GUIDE_PANEL_LIVER_NUDGE_RIGHT
+  };
+}
+
+function mountScene4GuidePanel(mapHost, organ) {
+  const guide = scene4MapGuide(organ);
+  mapHost.selectAll(".map-guide-panel").remove();
+  if (!guide) return;
+  mountSceneGuidePanel(mapHost, {
+    panelClass: "map-guide-panel",
+    guide,
+    ...mapGuidePanelOptions(organ)
+  });
 }
 
 function mapSubtitle(organ) {
@@ -154,10 +190,7 @@ function updateScene4Header(container, { sceneLabel, subtitle, organ }) {
   applyScene4OrganHeader(svg, { sceneLabel, subtitle, organ });
   const mapHost = container.select(".scene4-map-host");
   if (!mapHost.empty()) {
-    mountSceneGuidePanel(mapHost, {
-      panelClass: "map-guide-panel",
-      guide: MAP_GUIDE[organ] ?? MAP_GUIDE.all
-    });
+    mountScene4GuidePanel(mapHost, organ);
   }
 }
 
@@ -259,10 +292,7 @@ function mountScene4Map(container, { sceneLabel, subtitle, organ = "all" }) {
     .style("margin-top", MAP_HOST_LIFT)
     .style("overflow", "hidden");
 
-  mountSceneGuidePanel(mapHost, {
-    panelClass: "map-guide-panel",
-    guide: MAP_GUIDE[organ] ?? MAP_GUIDE.all
-  });
+  mountScene4GuidePanel(mapHost, organ);
 
   const iframe = mapHost
     .append("iframe")

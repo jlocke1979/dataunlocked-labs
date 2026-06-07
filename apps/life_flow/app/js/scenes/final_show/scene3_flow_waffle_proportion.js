@@ -1,4 +1,4 @@
-import { storyColors } from "../../constants/colors.js";
+import { organColorByName, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import { WAITLIST_CATEGORIES } from "../../../../assignments/assignment_02_categorical_revision/js/scenes_assignment2/shared_waitlist_nodes.js";
 import {
@@ -7,6 +7,7 @@ import {
   drawSource,
   STAGE
 } from "./show_helpers.js";
+import { OPTN_ADVANCED_DATA_SOURCE } from "./scene_references.js";
 
 const TRANSPLANT_UNITS = {
   Kidney: 27574 / 500,
@@ -40,15 +41,18 @@ export function runScene3FlowWaffleProportion() {
 
   const { chartSvg: svg } = beginChartScene(container, {
     sceneLabel: "Scene 3  \u00b7  detail",
-    title: "On a relative view of wait times, other insights emerge",
-    subtitle: "Pancreas and Intestine have a very large portion of candidates waiting."
+    title: "On a relative basis, other insights emerge",
+    subtitle: "Each square represents about 2% of the waiting list."
   });
 
   const rowData = WAITLIST_CATEGORIES.map(category => {
     const transplants = TRANSPLANT_UNITS[category.organ] || 0;
     const total = category.count + transplants;
     const share = total === 0 ? 0 : transplants / total;
-    const transplantTiles = transplants > 0 ? Math.max(1, Math.round(share * TOTAL_TILES)) : 0;
+    const transplantTiles = Math.min(
+      TOTAL_TILES,
+      Math.max(0, Math.round(share * TOTAL_TILES))
+    );
     return {
       organ: category.organ,
       share,
@@ -60,6 +64,7 @@ export function runScene3FlowWaffleProportion() {
     const y = ROW_START_Y + index * ROW_GAP;
     return waffleTiles(TOTAL_TILES, WAFFLE_X, y, WAFFLE_COLS).map((point, tileIndex) => ({
       ...point,
+      organ: row.organ,
       side: tileIndex < row.transplantTiles ? "transplant" : "waitlist"
     }));
   });
@@ -75,7 +80,7 @@ export function runScene3FlowWaffleProportion() {
     .attr("height", TILE_SIZE)
     .attr("rx", 1.3)
     .attr("fill", d =>
-      d.side === "waitlist" ? storyColors.softAshGray : storyColors.deepSlateHarbor);
+      d.side === "waitlist" ? storyColors.softAshGray : organColorByName(d.organ));
 
   svg.selectAll("text.organ-label")
     .data(rowData)
@@ -139,7 +144,7 @@ export function runScene3FlowWaffleProportion() {
   }
   if (proportionCallouts.length) drawWaffleCallouts(svg, proportionCallouts);
 
-  drawSource(svg, "Source: OPTN/HRSA Advanced Data Reports, 2025.");
+  drawSource(svg, OPTN_ADVANCED_DATA_SOURCE);
 }
 
 function otherRowLabelY(rowData) {
@@ -155,34 +160,56 @@ function drawWaffleLegend(svg, rowData) {
     .attr("class", "waffle-legend")
     .attr("transform", `translate(${LEGEND_GROUP_X},${legendY})`);
 
-  const legendItems = [
-    { label: "Transplanted", color: storyColors.deepSlateHarbor },
-    { label: "Waiting", color: storyColors.softAshGray }
-  ];
+  const ORGAN_SWATCH = 8;
+  const ORGAN_SWATCH_GAP = 2;
+  const transplantSwatchesW =
+    rowData.length * ORGAN_SWATCH + Math.max(0, rowData.length - 1) * ORGAN_SWATCH_GAP;
 
-  const item = legend
-    .selectAll("g.waffle-legend__item")
-    .data(legendItems)
-    .enter()
+  const transplantRow = legend
     .append("g")
-    .attr("class", "waffle-legend__item")
-    .attr("transform", (d, i) => `translate(0,${i * LEGEND_ITEM_GAP})`);
+    .attr("class", "waffle-legend__item waffle-legend__item--transplant");
 
-  item
+  transplantRow
+    .selectAll("rect.waffle-legend__organ-swatch")
+    .data(rowData)
+    .enter()
+    .append("rect")
+    .attr("class", "waffle-legend__organ-swatch")
+    .attr("x", (_, i) => i * (ORGAN_SWATCH + ORGAN_SWATCH_GAP))
+    .attr("y", LEGEND_SWATCH_Y)
+    .attr("width", ORGAN_SWATCH)
+    .attr("height", ORGAN_SWATCH)
+    .attr("rx", 1.3)
+    .attr("fill", d => organColorByName(d.organ));
+
+  transplantRow
+    .append("text")
+    .attr("x", transplantSwatchesW + 8)
+    .attr("y", 0)
+    .attr("fill", storyColors.textPrimary)
+    .text("Transplanted")
+    .call(applyType, typography.label);
+
+  const waitingRow = legend
+    .append("g")
+    .attr("class", "waffle-legend__item waffle-legend__item--waiting")
+    .attr("transform", `translate(0,${LEGEND_ITEM_GAP})`);
+
+  waitingRow
     .append("rect")
     .attr("x", 0)
     .attr("y", LEGEND_SWATCH_Y)
     .attr("width", 10)
     .attr("height", 10)
     .attr("rx", 1.5)
-    .attr("fill", d => d.color);
+    .attr("fill", storyColors.softAshGray);
 
-  item
+  waitingRow
     .append("text")
     .attr("x", 16)
     .attr("y", 0)
     .attr("fill", storyColors.textPrimary)
-    .text(d => d.label)
+    .text("Waiting")
     .call(applyType, typography.label);
 
   applyType(
@@ -191,7 +218,7 @@ function drawWaffleLegend(svg, rowData) {
       .attr("x", 0)
       .attr("y", LEGEND_NOTE_Y)
       .attr("fill", storyColors.textMuted)
-      .text("Each row is normalized to 50 squares."),
+      .text("50 squares per row \u00b7 2% each"),
     typography.caption
   );
 }

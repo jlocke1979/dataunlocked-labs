@@ -1,4 +1,4 @@
-import { storyColors } from "../../constants/colors.js";
+import { organColorByName, storyColors } from "../../constants/colors.js";
 import { typography } from "../../constants/typography.js";
 import { WAITLIST_CATEGORIES } from "../../../../assignments/assignment_02_categorical_revision/js/scenes_assignment2/shared_waitlist_nodes.js";
 import {
@@ -7,6 +7,7 @@ import {
   drawSource,
   STAGE
 } from "./show_helpers.js";
+import { OPTN_ADVANCED_DATA_SOURCE } from "./scene_references.js";
 
 // OPTN-derived transplant counts, ~500 people per waffle tile (Assignment 02 absolute).
 const TRANSPLANT_UNITS = {
@@ -36,14 +37,14 @@ const LEGEND_ITEM_GAP = 22;
 const LEGEND_NOTE_Y = 44;
 const LEGEND_SWATCH_Y = -8; // rect offset inside each legend item group
 
-export function runScene3FlowWaffleAbsolute() {
+export function runScene3FlowWaffleAbsolute(options = {}) {
   const container = d3.select("#viz");
   container.selectAll("*").remove();
 
   const { chartSvg: svg } = beginChartScene(container, {
-    sceneLabel: "Scene 3",
+    sceneLabel: options.sceneLabel ?? "Scene 3",
     title: "An absolute count of transplants reveals Kidney massive numbers",
-    subtitle: "Liver, Heart, and Lung also have notably large volumes."
+    subtitle: "Each square represents about 500 people."
   });
 
   const rowData = WAITLIST_CATEGORIES.map(category => {
@@ -59,6 +60,7 @@ export function runScene3FlowWaffleAbsolute() {
     const y = ROW_START_Y + index * ROW_GAP;
     return waffleTiles(row.waitlist + row.transplantTiles, WAFFLE_X, y, WAFFLE_COLS).map((point, tileIndex) => ({
       ...point,
+      organ: row.organ,
       side: tileIndex < row.transplantTiles ? "transplant" : "waitlist"
     }));
   });
@@ -74,7 +76,7 @@ export function runScene3FlowWaffleAbsolute() {
     .attr("height", TILE_SIZE)
     .attr("rx", 1.3)
     .attr("fill", d =>
-      d.side === "waitlist" ? storyColors.softAshGray : storyColors.deepSlateHarbor);
+      d.side === "waitlist" ? storyColors.softAshGray : organColorByName(d.organ));
 
   svg.selectAll("text.organ-label")
     .data(rowData)
@@ -130,7 +132,7 @@ export function runScene3FlowWaffleAbsolute() {
     ]);
   }
 
-  drawSource(svg, "Source: OPTN/HRSA Advanced Data Reports, 2025.");
+  drawSource(svg, OPTN_ADVANCED_DATA_SOURCE);
 }
 
 function otherRowLabelY(rowData) {
@@ -147,34 +149,56 @@ function drawWaffleLegend(svg, rowData) {
     .attr("class", "waffle-legend")
     .attr("transform", `translate(${LEGEND_GROUP_X},${legendY})`);
 
-  const legendItems = [
-    { label: "Transplanted", color: storyColors.deepSlateHarbor },
-    { label: "Waiting", color: storyColors.softAshGray }
-  ];
+  const ORGAN_SWATCH = 8;
+  const ORGAN_SWATCH_GAP = 2;
+  const transplantSwatchesW =
+    rowData.length * ORGAN_SWATCH + Math.max(0, rowData.length - 1) * ORGAN_SWATCH_GAP;
 
-  const item = legend
-    .selectAll("g.waffle-legend__item")
-    .data(legendItems)
-    .enter()
+  const transplantRow = legend
     .append("g")
-    .attr("class", "waffle-legend__item")
-    .attr("transform", (d, i) => `translate(0,${i * LEGEND_ITEM_GAP})`);
+    .attr("class", "waffle-legend__item waffle-legend__item--transplant");
 
-  item
+  transplantRow
+    .selectAll("rect.waffle-legend__organ-swatch")
+    .data(rowData)
+    .enter()
+    .append("rect")
+    .attr("class", "waffle-legend__organ-swatch")
+    .attr("x", (_, i) => i * (ORGAN_SWATCH + ORGAN_SWATCH_GAP))
+    .attr("y", LEGEND_SWATCH_Y)
+    .attr("width", ORGAN_SWATCH)
+    .attr("height", ORGAN_SWATCH)
+    .attr("rx", 1.3)
+    .attr("fill", d => organColorByName(d.organ));
+
+  transplantRow
+    .append("text")
+    .attr("x", transplantSwatchesW + 8)
+    .attr("y", 0)
+    .attr("fill", storyColors.textPrimary)
+    .text("Transplanted")
+    .call(applyType, typography.label);
+
+  const waitingRow = legend
+    .append("g")
+    .attr("class", "waffle-legend__item waffle-legend__item--waiting")
+    .attr("transform", `translate(0,${LEGEND_ITEM_GAP})`);
+
+  waitingRow
     .append("rect")
     .attr("x", 0)
     .attr("y", LEGEND_SWATCH_Y)
     .attr("width", 10)
     .attr("height", 10)
     .attr("rx", 1.5)
-    .attr("fill", d => d.color);
+    .attr("fill", storyColors.softAshGray);
 
-  item
+  waitingRow
     .append("text")
     .attr("x", 16)
     .attr("y", 0)
     .attr("fill", storyColors.textPrimary)
-    .text(d => d.label)
+    .text("Waiting")
     .call(applyType, typography.label);
 
   applyType(

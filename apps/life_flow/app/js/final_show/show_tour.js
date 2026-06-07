@@ -50,6 +50,9 @@ const BREADCRUMB_HEADLINE_IDS = new Set(SHOW_TOUR_STOPS.map(s => s.headlineId));
 const SUPPLEMENTAL_HEADLINE_IDS = new Set([
   "thankYou",
   "references",
+  "auditNotes",
+  "generativeAi",
+  "appendixMultiOrganTrueScale",
   "appendixPatientJourney",
   "systemMap"
 ]);
@@ -57,6 +60,11 @@ const SUPPLEMENTAL_HEADLINE_IDS = new Set([
 const SUPPLEMENTAL_STOP = {
   label: "Supplemental",
   mapHint: "Thank you, references, and appendix"
+};
+
+const OPENING_STOP = {
+  label: "Opening",
+  mapHint: "Start here"
 };
 
 const BREADCRUMB_HIDDEN_HEADLINE_IDS = new Set([
@@ -87,11 +95,29 @@ function supplementalPillHtml(state) {
   return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${supplementalTitle}">${SUPPLEMENTAL_STOP.label}</span>`;
 }
 
+function openingPillHtml(state) {
+  const openingTitle = `${OPENING_STOP.label} \u2014 ${OPENING_STOP.mapHint}`;
+  return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${openingTitle}">${OPENING_STOP.label}</span>`;
+}
+
+function renderOpeningBreadcrumb() {
+  const previewPills = SHOW_TOUR_STOPS.map((stop) => {
+    const pillTitle = stop.mapHint ? `${stop.label} \u2014 ${stop.mapHint}` : stop.label;
+    return `<span class="show-breadcrumb__pill show-breadcrumb__pill--upcoming" title="${pillTitle}">${stop.label}</span>`;
+  }).join("");
+
+  breadcrumbEl.innerHTML =
+    `<div class="show-breadcrumb__track">${openingPillHtml("current")}${previewPills}${supplementalPillHtml("upcoming")}</div>`;
+  breadcrumbEl.classList.add("show-breadcrumb--preview");
+  breadcrumbEl.hidden = false;
+}
+
 function renderBreadcrumbPills({
   activeIndex = -1,
   detailDepth = 0,
   detailCount = 0,
   preview = false,
+  openingState = "past",
   supplementalState = "upcoming"
 }) {
   const pills = SHOW_TOUR_STOPS.map((stop, index) => {
@@ -109,7 +135,8 @@ function renderBreadcrumbPills({
     return `<span class="show-breadcrumb__pill show-breadcrumb__pill--${state}" title="${pillTitle}">${stop.label}</span>`;
   }).join("");
 
-  breadcrumbEl.innerHTML = `<div class="show-breadcrumb__track">${pills}${supplementalPillHtml(supplementalState)}</div>`;
+  breadcrumbEl.innerHTML =
+    `<div class="show-breadcrumb__track">${openingPillHtml(openingState)}${pills}${supplementalPillHtml(supplementalState)}</div>`;
 }
 
 function setTopChromeIntroMode(isLanding) {
@@ -123,8 +150,8 @@ export function updateShowBreadcrumb({ headlineId, detailDepth = 0, detailCount 
   mountShowBreadcrumb();
 
   if (headlineId === "landing") {
-    hideShowBreadcrumb();
-    setTopChromeIntroMode(false);
+    setTopChromeIntroMode(true);
+    renderOpeningBreadcrumb();
     return;
   }
 
@@ -140,6 +167,7 @@ export function updateShowBreadcrumb({ headlineId, detailDepth = 0, detailCount 
     breadcrumbEl.hidden = false;
     renderBreadcrumbPills({
       activeIndex: SHOW_TOUR_STOPS.length,
+      openingState: "past",
       supplementalState: "current"
     });
     return;
@@ -157,6 +185,7 @@ export function updateShowBreadcrumb({ headlineId, detailDepth = 0, detailCount 
     activeIndex,
     detailDepth,
     detailCount,
+    openingState: "past",
     supplementalState: "upcoming"
   });
 }

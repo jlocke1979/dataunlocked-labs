@@ -10,7 +10,7 @@ export function runNetworkBucket() {
     title: "Donor-to-transplant arcs",
     lines: [
       "Redesign in progress — arcs only, no bubbles.",
-      "Reference: Assignment 05 iteration 01 (all-flow web) + per-organ verticals.",
+      "Reference: Organ Procurement and Transplantation Network (OPTN) donor-to-transplant flow maps.",
       "Not on the narrative spine until the arc encoding is right."
     ],
     hint: "Return to the story with \u2190."

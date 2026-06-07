@@ -3,6 +3,7 @@ import {
   drawSource,
   STAGE
 } from "./show_helpers.js";
+import { SRTR_PATIENT_JOURNEY_SOURCE } from "./scene_references.js";
 
 const PATIENT_MAP_URL = "./assets/srtr-patient-journey-cropped.png";
 const IMAGE_ASPECT = 251 / 1024;
@@ -36,8 +37,5 @@ export function runAppendixPatientJourney() {
     .attr("height", mapHeight)
     .attr("preserveAspectRatio", "xMidYMid meet");
 
-  drawSource(
-    svg,
-    "Diagram: SRTR Alliance Transplant Patient Journey (14 Dec 2023). Reference only."
-  );
+  drawSource(svg, SRTR_PATIENT_JOURNEY_SOURCE);
 }

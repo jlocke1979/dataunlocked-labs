@@ -3,6 +3,7 @@ import {
   drawSource,
   STAGE
 } from "./show_helpers.js";
+import { SRTR_PATIENT_JOURNEY_SOURCE } from "./scene_references.js";
 
 const PATIENT_MAP_URL = "./assets/srtr-patient-journey-cropped.png";
 
@@ -34,8 +35,5 @@ export function runJourneyIntro() {
     .attr("height", PATIENT_ART.height)
     .attr("preserveAspectRatio", "xMidYMid meet");
 
-  drawSource(
-    svg,
-    "Patient diagram: SRTR Transplant Patient Journey (12/14/2023), cropped to pathway."
-  );
+  drawSource(svg, SRTR_PATIENT_JOURNEY_SOURCE);
 }

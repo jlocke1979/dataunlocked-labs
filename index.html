@@ -35,8 +35,8 @@
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: 1fr;
+      gap: 32px;
       align-items: stretch;
     }
 
@@ -50,6 +50,19 @@
       color: inherit;
       background: #fafafa;
       transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:first-child {
+      padding: 28px;
+    }
+
+    .card:first-child h2 {
+      font-size: 1.7rem;
+    }
+
+    .card:first-child .preview-single img {
+      max-height: 520px;
+      object-fit: contain;
     }
 
     .card:hover {
@@ -79,6 +92,8 @@
     .preview-grid img,
     .preview-single img {
       width: 100%;
+      max-height: 360px;
+      object-fit: contain;
       border-radius: 10px;
       border: 1px solid #ccc;
       background: #fff;
@@ -112,16 +127,16 @@
   <div class="cards">
 
     <!-- Life Flow -->
-    <a class="card" href="apps/life_flow/app/">
+    <a class="card" href="apps/life_flow/app/final_show.html">
+
       <h2>Life Flow</h2>
-      <p>
-        MSDS spatial assignment — OPTN transplant system sites as proportional
-        bubble maps with organ and site-type filters.
+       <p>
+        Understanding the transplant system through data.
       </p>
       <div class="preview-single">
         <img
-          src="apps/life_flow/assignments/assignment_05_spatial/outputs/iterations/iteration_05_bubble_map/iteration05_final.png"
-          alt="Life Flow proportional bubble map preview"
+          src="apps/life_flow/app/assets/life_flow_preview_opta.png"
+          alt="Life Flow preview"
         />
       </div>
     </a>
@@ -130,21 +145,12 @@
     <a class="card" href="apps/golf_analytics/">
       <h2>Golf Analytics</h2>
       <p>
-        Golf Pad score trends, blow-up holes, and performance heatmaps from
-        round-level exports.
+        Making golf performance easier to understand.
       </p>
-      <div class="preview-grid">
+      <div class="preview-single">
         <img
           src="apps/golf_analytics/visuals/score_vs_par_heatmap_green_purple.png"
-          alt="Score vs par heatmap"
-        />
-        <img
-          src="apps/golf_analytics/visuals/blowup_heatmap_red.png"
-          alt="Blow-up hole heatmap"
-        />
-        <img
-          src="apps/golf_analytics/visuals/raw_score_by_round_labeled_holes.png"
-          alt="Raw score by round"
+          alt="Golf score heatmap preview"
         />
       </div>
     </a>
@@ -153,21 +159,16 @@
     <a class="card" href="apps/pass_decision/pass_decision.html">
       <h2>Pass Decision</h2>
       <p>
-        Interactive season-pass vs pay-as-you-play calculator for golf membership
-        decisions (D3 sliders).
+        Helping golfers to understand how to purchase their golf: "Play-as-you-go", "Course only pass", or "All Inclusive pass"
       </p>
-      <p class="card-meta">Interactive demo — no static preview image in repo.</p>
-    </a>
+      <div class="preview-single">
+        <img
+          src="apps/pass_decision/assets/pass_decision_preview.png"
+          alt="Pass Decision preview"
+        />
+      </div>
+  </a>
 
-    <!-- Golf Fitting Lab -->
-    <a class="card" href="labs/golf/fitting-dispersion.html">
-      <h2>Golf Fitting Lab</h2>
-      <p>
-        Lab exercise on shot dispersion and fitting scenarios (D3 experiment under
-        <code>labs/golf/</code>).
-      </p>
-      <p class="card-meta">Open lab page — no preview image in repo.</p>
-    </a>
 
   </div>
 

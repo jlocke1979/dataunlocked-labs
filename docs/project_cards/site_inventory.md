@@ -1,32 +1,42 @@
-# Current DataUnlocked Labs Homepage Inventory
+# DataUnlocked Inventory
 
-## Existing homepage
+## Public Projects
 
-File: `index.html`
+### Life Flow
+Status: Complete (v1)
+Category: Data Visualization
+Audience: Public / Portfolio
 
-Current title:
-DataUnlocked Labs
+### Golf Analytics
+Status: Active
+Category: Analytics
+Audience: Golf Operators / Personal
 
-Current framing:
-A portfolio of personal analytics and visualization work.
+### Pass Decision
+Status: Prototype
+Category: Decision Support
+Audience: Golf Operators
 
-Current cards:
-- Life Flow
-- Golf Analytics
-- Pass Decision
-- TBD from remaining index.html
+### Golf Fitting Lab
+Status: Experimental
+Category: Sports Analytics
+Audience: Golfers
 
-## Near-term reframing idea
+---
 
-Change from:
-"coursework prototypes, golf performance charts, and small interactive tools"
+## Future Candidates
 
-To:
-"projects exploring systems, decisions, and visual explanation through data."
+### Cognitive Observability
+Status: Idea
 
-## Do not change before grading
+### AI Economics Explorer
+Status: Idea
 
-- Life Flow link
-- `apps/life_flow/app/`
-- root `index.html`
-- GitHub Pages settings
+### Uplands Garden Tracker
+Status: Active
+
+### Medical Understanding
+Status: Idea
+
+### Thesis Project
+Status: Future

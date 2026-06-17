@@ -26,10 +26,11 @@ export function runScene0() {
   container.selectAll("*").remove();
   d3.selectAll(".landing-breadcrumb-callout").remove();
 
-  const lines = [
-    "Press \u2192 arrow to begin",
-    "\u2193  for detail        \u2191  to return"
-  ];
+const lines = [
+  "Landscape mode recommended.",
+  "Use arrows to navigate."
+];
+
   const bodyLineHeight = typography.sceneTitle.size * (typography.sceneTitle.lineHeight || 1.5);
   const bodyLineGap = 12;
   const bodyBlockHeight =

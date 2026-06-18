@@ -24,13 +24,32 @@ a {
 
 .hero {
   min-height: 72vh;
-  background:
-    linear-gradient(rgba(20, 38, 31, 0.72), rgba(20, 38, 31, 0.78)),
-    url("assets/images/hero.jpg");
   background-size: cover;
   background-position: center;
   color: white;
   padding: 28px;
+}
+
+.hero--home {
+  background-image:
+    linear-gradient(rgba(20, 38, 31, 0.72), rgba(20, 38, 31, 0.78)),
+    url("assets/images/hero-porch.jpg");
+}
+
+.hero--about {
+  background-image:
+    linear-gradient(rgba(20, 38, 31, 0.72), rgba(20, 38, 31, 0.78)),
+    url("assets/images/gallery/blue-door.jpg");
+}
+
+.hero--community {
+  background-image:
+    linear-gradient(rgba(20, 38, 31, 0.72), rgba(20, 38, 31, 0.78)),
+    url("assets/images/gallery/plant-drop-house.jpg");
+}
+
+.hero-page {
+  min-height: 44vh;
 }
 
 .page-header {
@@ -79,6 +98,21 @@ nav {
   max-width: 780px;
   margin: 110px auto 0;
   text-align: center;
+}
+
+.hero-page .hero-copy {
+  margin-top: 64px;
+}
+
+.hero-copy h1 {
+  color: white;
+}
+
+.hero-copy .hero-intro {
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
 }
 
 .eyebrow {
@@ -185,6 +219,12 @@ h1 {
   color: var(--green);
 }
 
+.content-block h3 {
+  font-size: 1.15rem;
+  margin: 28px 0 12px;
+  color: var(--green);
+}
+
 .content-block p,
 .content-block li {
   color: var(--muted);
@@ -193,6 +233,20 @@ h1 {
 
 .content-block ul {
   padding-left: 1.2rem;
+}
+
+.content-block li + li {
+  margin-top: 16px;
+}
+
+.placeholder-text {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.content-block li .placeholder-text {
+  display: block;
+  margin-top: 6px;
 }
 
 .placeholder-note {

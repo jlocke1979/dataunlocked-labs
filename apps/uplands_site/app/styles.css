@@ -27,7 +27,7 @@ a {
   min-height: 72vh;
   background:
     linear-gradient(rgba(20, 38, 31, 0.72), rgba(20, 38, 31, 0.78)),
-    url("assets/images/hero-placeholder.jpg");
+    url("assets/images/hero.jpg");
   background-size: cover;
   background-position: center;
   color: white;

@@ -33,7 +33,7 @@ a {
 .hero--home {
   background-image:
     linear-gradient(rgba(20, 38, 31, 0.72), rgba(20, 38, 31, 0.78)),
-    url("assets/images/hero-porch.jpg");
+    url("assets/images/gallery/porch-light.jpg");
 }
 
 .hero--about {
@@ -325,6 +325,14 @@ footer {
   nav {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .hero-page {
+    min-height: 36vh;
+  }
+
+  .hero-page .hero-copy {
+    margin-top: 32px;
   }
 
   .cards {

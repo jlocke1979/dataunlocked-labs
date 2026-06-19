@@ -205,6 +205,17 @@ h1 {
   line-height: 1.5;
 }
 
+.card-static {
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+.suggested-contribution {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--light-green);
+  color: var(--ink);
+}
+
 .content-block {
   background: var(--card);
   padding: 32px;
@@ -346,6 +357,10 @@ h1 {
 
 .support-feature .button {
   display: inline-block;
+}
+
+.donate-callout--primary {
+  margin-bottom: 32px;
 }
 
 .donate-callout .placeholder-note {

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snow Removal Fund · The Uplands</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <nav>
+      <a class="brand" href="index.html">
+        <span class="brand-logo" aria-label="The Uplands Residential Association">
+          <span class="brand-logo-the">THE</span>
+          <span class="brand-logo-name">UPLANDS</span>
+          <span class="brand-logo-sub">Residential Association</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="community.html">Community</a>
+        <a href="services.html">Services</a>
+        <a href="documents.html">Documents</a>
+        <a href="association-overview.html">Association</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="support.html">Support</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="section snow-fund-page">
+    <p><a href="services.html">← Services</a></p>
+
+    <header class="snow-fund-intro">
+      <p class="snow-fund-eyebrow">Uplands Residential Association</p>
+      <h1 class="page-title">Snow Removal Fund</h1>
+      <p class="snow-fund-tagline">Keeping our neighborhood safe all winter long.</p>
+    </header>
+
+    <!--
+      Snow Fund — update each season:
+      1. Goal, Raised, Percent Complete, and Last Updated below
+      2. Match --thermometer-fill on .snow-fund-progress (e.g. 25%)
+    -->
+    <section
+      class="snow-fund-panel content-block"
+      aria-labelledby="snow-fund-progress-heading"
+    >
+      <div class="snow-fund-layout">
+        <div class="snow-fund-visual">
+          <!-- TODO: Replace with final Snow Fund snowman/thermometer graphic -->
+          <svg class="snowman" viewBox="0 0 200 280" role="img" aria-label="Snow Fund illustration placeholder">
+            <ellipse cx="100" cy="235" rx="62" ry="38" fill="#f4f8fb" stroke="#c5d4de" stroke-width="2"/>
+            <ellipse cx="100" cy="155" rx="48" ry="44" fill="#f4f8fb" stroke="#c5d4de" stroke-width="2"/>
+            <circle cx="100" cy="78" r="36" fill="#f4f8fb" stroke="#c5d4de" stroke-width="2"/>
+            <rect x="68" y="38" width="64" height="22" rx="11" fill="#234236"/>
+            <circle cx="100" cy="32" r="10" fill="#234236"/>
+            <path d="M72 58 Q100 72 128 58" fill="none" stroke="#3d6b5c" stroke-width="14" stroke-linecap="round"/>
+            <circle cx="88" cy="72" r="4" fill="#1f2523"/>
+            <circle cx="112" cy="72" r="4" fill="#1f2523"/>
+            <path d="M112 78 L132 82 L112 86 Z" fill="#c45c26"/>
+            <circle cx="88" cy="88" r="3" fill="#5a4038" opacity=".35"/>
+            <circle cx="100" cy="92" r="3" fill="#5a4038" opacity=".35"/>
+            <circle cx="112" cy="88" r="3" fill="#5a4038" opacity=".35"/>
+            <circle cx="88" cy="148" r="3" fill="#5a4038" opacity=".35"/>
+            <circle cx="100" cy="158" r="3" fill="#5a4038" opacity=".35"/>
+            <circle cx="112" cy="148" r="3" fill="#5a4038" opacity=".35"/>
+            <line x1="52" y1="150" x2="18" y2="118" stroke="#8b6914" stroke-width="5" stroke-linecap="round"/>
+            <line x1="148" y1="150" x2="182" y2="118" stroke="#8b6914" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="182" cy="112" r="8" fill="#f4f8fb" stroke="#c5d4de" stroke-width="2"/>
+          </svg>
+          <p>
+            Your contributions help ensure our contractor can respond quickly when
+            snow and ice cover Uplands sidewalks.
+          </p>
+        </div>
+
+        <div class="snow-fund-progress" style="--thermometer-fill: 25%;">
+          <h2 id="snow-fund-progress-heading" class="visually-hidden">Fundraising progress</h2>
+          <div class="thermometer-wrap">
+            <div class="thermometer" aria-hidden="true">
+              <div class="thermometer-track">
+                <div class="thermometer-fill"></div>
+              </div>
+              <div class="thermometer-bulb"></div>
+            </div>
+            <ol class="thermometer-scale">
+              <li>100%</li>
+              <li>75%</li>
+              <li>50%</li>
+              <li>25%</li>
+              <li>0%</li>
+            </ol>
+          </div>
+          <dl class="snow-fund-stats">
+            <div class="snow-fund-stat">
+              <dt>Goal</dt>
+              <dd>$5,000</dd>
+            </div>
+            <div class="snow-fund-stat snow-fund-stat--raised">
+              <dt>Raised</dt>
+              <dd>$1,250</dd>
+            </div>
+            <div class="snow-fund-stat">
+              <dt>Percent Complete</dt>
+              <dd>25%</dd>
+            </div>
+            <div class="snow-fund-stat">
+              <dt>Last Updated</dt>
+              <dd>May 26, 2025</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="snow-fund-cta content-block">
+      <p class="snow-fund-cta-text">
+        Every contribution makes a difference. Thank you for supporting our community.
+      </p>
+      <a class="button button--snow-fund" href="support.html">Contribute Now</a>
+      <p class="snow-fund-cta-note">Secure payments through PayPal on the Support page.</p>
+    </section>
+
+    <section class="content-block" id="why-snow-fund">
+      <h2>Why the Snow Fund Matters</h2>
+      <p>
+        When the fund is fully subscribed, the URA hires a contractor to clear public
+        sidewalks across the Uplands after qualifying snow events — so neighbors, students,
+        and visitors can walk safely through the neighborhood all winter.
+      </p>
+      <ul>
+        <li>Clearing begins after snowfall meets the season threshold and city plows finish on Uplands streets.</li>
+        <li>Contracted clearing covers association-defined public walks — not private driveways or steps.</li>
+        <li>Equal coverage across the neighborhood helps pedestrians of every age and ability.</li>
+      </ul>
+      <p>
+        Fund status and service details are confirmed by the board each fall. Watch the
+        <em>Uplander</em> newsletter or contact a board officer with questions.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© Uplands Residential Association · Prototype site</p>
+  </footer>
+</body>
+</html>

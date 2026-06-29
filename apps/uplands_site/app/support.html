@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Support · The Uplands</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://www.paypal.com/sdk/js?client-id=BAANU9PhZrUTSdVj3VXFwkfGb221ck837At5a9cNadC-mwY7oBUx5m0KMZInlOzaZG-cI-aZU6R2hbOB1g&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
 </head>
 <body>
   <header class="page-header">
@@ -31,17 +30,33 @@
       voluntary — suggested amounts, not required fees.
     </p>
 
-    <div class="donate-callout donate-callout--primary">
-      <h2>Contribute Now</h2>
-      <p>Note which fund you are supporting in the PayPal message field.</p>
-      <div id="paypal-container-9TEZ8K49JL5ZU"></div>
-      <script>
-        paypal.HostedButtons({
-          hostedButtonId: "9TEZ8K49JL5ZU",
-        }).render("#paypal-container-9TEZ8K49JL5ZU")
-      </script>
+    <div class="donate-callout donate-callout--recurring">
+      <h2>Annual Recurring Support</h2>
+      <p>
+        Prefer to make your neighborhood support automatic? Annual recurring support helps
+        the Uplands plan ahead for snow removal, beautification, communications, and
+        community projects.
+      </p>
+      <p>
+        Before completing payment, please confirm the amount and billing frequency shown
+        by PayPal. Recurring contributions can be managed or canceled through PayPal.
+      </p>
+      <div id="paypal-button-container-P-4B9811964V1773057NI2VPRY" class="paypal-subscribe"></div>
       <p class="donate-disclaimer">
-        Payments are processed securely through PayPal. The Uplands website does not collect or store payment information.
+        Payments are handled by PayPal. The Uplands website does not collect or store payment information.
+      </p>
+    </div>
+
+    <div class="donate-callout donate-callout--onetime">
+      <h2>One-Time Contribution</h2>
+      <p>
+        One-time contributions can be used for Annual Membership, Snow Fund, Beautification
+        Fund, or general association support. Note which fund you are supporting in the
+        PayPal message field.
+      </p>
+      <div id="paypal-container-9TEZ8K49JL5ZU" class="paypal-onetime"></div>
+      <p class="donate-disclaimer">
+        Payments are handled by PayPal. The Uplands website does not collect or store payment information.
       </p>
     </div>
 
@@ -72,5 +87,31 @@
   <footer>
     <p>© Uplands Residential Association · Prototype site</p>
   </footer>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=BAANU9PhZrUTSdVj3VXFwkfGb221ck837At5a9cNadC-mwY7oBUx5m0KMZInlOzaZG-cI-aZU6R2hbOB1g&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
+  <script>
+    paypal.HostedButtons({
+      hostedButtonId: "9TEZ8K49JL5ZU",
+    }).render("#paypal-container-9TEZ8K49JL5ZU");
+  </script>
+  <script src="https://www.paypal.com/sdk/js?client-id=BAA18wXP8nP8olYSseP2y0j027g8TPE5jh_yQ2ehTSJvGTsgL7veqRC39WeW_pYLneJmCTeCI0aUGMzg-0&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+  <script>
+    paypal.Buttons({
+      style: {
+        shape: "pill",
+        color: "gold",
+        layout: "vertical",
+        label: "subscribe",
+      },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({
+          plan_id: "P-4B9811964V1773057NI2VPRY",
+        });
+      },
+      onApprove: function (data, actions) {
+        /* PayPal handles confirmation in the checkout flow */
+      },
+    }).render("#paypal-button-container-P-4B9811964V1773057NI2VPRY");
+  </script>
 </body>
 </html>

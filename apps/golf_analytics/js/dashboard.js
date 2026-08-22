@@ -320,6 +320,7 @@
   function renderSummary() {
     const all = [...state.allRows].sort(compareRounds);
     const best = all[0];
+    const bestStandalone = all.find((r) => r.completed_holes_in_round === 9);
     const eighteen = state.handicapRows
       .filter((r) => r.completed_holes === 18 && Number.isFinite(r.gross_score))
       .sort((a, b) => a.gross_score - b.gross_score);
@@ -332,6 +333,11 @@
         <h3>Best overall 9-hole</h3>
         <p class="summary-value">${best.score}</p>
         <p class="summary-detail">${best.dateKey} · ${shortCourse(best.course)} · ${best.side}</p>
+      </article>
+      <article class="summary-card">
+        <h3>Best standalone 9-hole</h3>
+        <p class="summary-value">${bestStandalone ? bestStandalone.score : "—"}</p>
+        <p class="summary-detail">${bestStandalone ? `${bestStandalone.dateKey} · ${shortCourse(bestStandalone.course)}` : "No standalone nine-hole rounds"}</p>
       </article>
       <article class="summary-card">
         <h3>Best overall 18</h3>
@@ -1099,7 +1105,7 @@
           <p class="handicap-detail">Sum across filtered rounds</p>
         </article>
       </div>
-      <p class="handicap-formula">Per-hole penalty breakdown not in export — penalty totals appear in heatmap tooltips when a round matches.</p>
+      <p class="handicap-formula">Per-hole penalties are included for newly imported rounds; totals appear in matched heatmap tooltips.</p>
       <div class="chart-wrap" id="chart-penalties">
         <div class="chart-tooltip"></div>
       </div>

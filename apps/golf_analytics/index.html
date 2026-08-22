@@ -412,6 +412,8 @@
       </p>
       <ul class="view-index" aria-label="Sections">
         <li><a href="#summary">Summary</a></li>
+        <li><a href="#latest-round">Latest Round</a></li>
+        <li><a href="#shot-performance">Shot Performance</a></li>
         <li><a href="#round-timeline">Timeline</a></li>
         <li><a href="#course-distribution">Courses</a></li>
         <li><a href="#round-records">Rounds Table</a></li>
@@ -426,9 +428,49 @@
     <section class="view" id="summary">
       <div class="view-header">
         <h2>Summary</h2>
-        <p>Key benchmarks from the current export. Kellogg 51 (2026-05-24 front) is noted in tooltips where it appears.</p>
+        <p>Key benchmarks through August 22, 2026. Best overall nine includes segments of 18-hole rounds; standalone rounds are shown separately.</p>
       </div>
       <div class="summary-grid" id="summary-cards"></div>
+    </section>
+
+    <section class="view" id="latest-round">
+      <div class="view-header"><h2>Latest Round</h2><p>Madison Golf Course · August 22, 2026 · White tees · front nine.</p></div>
+      <article class="card">
+        <div class="handicap-grid">
+          <article class="handicap-card handicap-card-primary"><h3>Nine-hole score</h3><p class="handicap-value">50</p><p class="handicap-detail">+15 · best standalone nine-hole round</p></article>
+          <article class="handicap-card"><h3>Penalty strokes</h3><p class="handicap-value">0</p><p class="handicap-detail">Four fewer than the previous round.</p></article>
+          <article class="handicap-card"><h3>Putts</h3><p class="handicap-value">20</p><p class="handicap-detail">Two three-putts · one par.</p></article>
+          <article class="handicap-card"><h3>Fairways</h3><p class="handicap-value">1 / 7</p><p class="handicap-detail">Playable misses still kept the round together.</p></article>
+        </div>
+        <div class="chart-wrap"><table class="rank-table"><thead><tr><th>Hole</th><th>Par</th><th>Score</th><th>Vs par</th><th>Putts</th><th>Penalties</th><th>Tee result</th></tr></thead><tbody>
+              <tr><td>1</td><td>4</td><td class="col-score">6</td><td>+2</td><td>3</td><td>0</td><td>left</td></tr>
+              <tr><td>2</td><td>5</td><td class="col-score">7</td><td>+2</td><td>2</td><td>0</td><td>right</td></tr>
+              <tr><td>3</td><td>4</td><td class="col-score">5</td><td>+1</td><td>2</td><td>0</td><td>right</td></tr>
+              <tr><td>4</td><td>3</td><td class="col-score">5</td><td>+2</td><td>3</td><td>0</td><td>—</td></tr>
+              <tr><td>5</td><td>4</td><td class="col-score">4</td><td>0</td><td>2</td><td>0</td><td>right</td></tr>
+              <tr><td>6</td><td>4</td><td class="col-score">6</td><td>+2</td><td>2</td><td>0</td><td>left</td></tr>
+              <tr><td>7</td><td>3</td><td class="col-score">5</td><td>+2</td><td>2</td><td>0</td><td>—</td></tr>
+              <tr><td>8</td><td>4</td><td class="col-score">5</td><td>+1</td><td>2</td><td>0</td><td>hit</td></tr>
+              <tr class="row-notable"><td>9</td><td>4</td><td class="col-score">7</td><td>+3</td><td>2</td><td>0</td><td>left</td></tr>
+        </tbody></table></div>
+        <p class="handicap-formula" style="margin-top:1rem">One fewer three-putt turns this same round into a 49.</p>
+      </article>
+    </section>
+
+    <section class="view" id="shot-performance">
+      <div class="view-header"><h2>Shot Performance</h2><p>Driver progression and scoring opportunities from the latest tracked Golf Pad shots.</p></div>
+      <article class="card">
+        <div class="handicap-grid"><article class="handicap-card"><h3>Driver shots</h3><p class="handicap-value">6</p><p class="handicap-detail">Tracked on the Madison front nine.</p></article><article class="handicap-card"><h3>Final three driver shots</h3><p class="handicap-value">218 yd</p><p class="handicap-detail">Average after the early-round warm-up.</p></article><article class="handicap-card"><h3>Longest drive</h3><p class="handicap-value">232 yd</p><p class="handicap-detail">Controlled distance is already available.</p></article></div>
+        <h3 class="subsection-title">Driver progression</h3>
+          <div style="display:grid;grid-template-columns:4rem 1fr 4rem;gap:.7rem;align-items:center;margin:.65rem 0"><span style="font-size:.8rem;color:var(--muted)">Hole 1</span><span style="height:12px;background:var(--controls-bg);border-radius:8px;overflow:hidden"><span style="display:block;height:100%;width:48.8%;background:var(--accent-green);border-radius:8px"></span></span><strong style="font-size:.8rem;text-align:right">117 yd</strong></div>
+          <div style="display:grid;grid-template-columns:4rem 1fr 4rem;gap:.7rem;align-items:center;margin:.65rem 0"><span style="font-size:.8rem;color:var(--muted)">Hole 2</span><span style="height:12px;background:var(--controls-bg);border-radius:8px;overflow:hidden"><span style="display:block;height:100%;width:42.9%;background:var(--accent-green);border-radius:8px"></span></span><strong style="font-size:.8rem;text-align:right">103 yd</strong></div>
+          <div style="display:grid;grid-template-columns:4rem 1fr 4rem;gap:.7rem;align-items:center;margin:.65rem 0"><span style="font-size:.8rem;color:var(--muted)">Hole 3</span><span style="height:12px;background:var(--controls-bg);border-radius:8px;overflow:hidden"><span style="display:block;height:100%;width:71.3%;background:var(--accent-green);border-radius:8px"></span></span><strong style="font-size:.8rem;text-align:right">171 yd</strong></div>
+          <div style="display:grid;grid-template-columns:4rem 1fr 4rem;gap:.7rem;align-items:center;margin:.65rem 0"><span style="font-size:.8rem;color:var(--muted)">Hole 5</span><span style="height:12px;background:var(--controls-bg);border-radius:8px;overflow:hidden"><span style="display:block;height:100%;width:96.7%;background:var(--accent-green);border-radius:8px"></span></span><strong style="font-size:.8rem;text-align:right">232 yd</strong></div>
+          <div style="display:grid;grid-template-columns:4rem 1fr 4rem;gap:.7rem;align-items:center;margin:.65rem 0"><span style="font-size:.8rem;color:var(--muted)">Hole 8</span><span style="height:12px;background:var(--controls-bg);border-radius:8px;overflow:hidden"><span style="display:block;height:100%;width:86.7%;background:var(--accent-green);border-radius:8px"></span></span><strong style="font-size:.8rem;text-align:right">208 yd</strong></div>
+          <div style="display:grid;grid-template-columns:4rem 1fr 4rem;gap:.7rem;align-items:center;margin:.65rem 0"><span style="font-size:.8rem;color:var(--muted)">Hole 9</span><span style="height:12px;background:var(--controls-bg);border-radius:8px;overflow:hidden"><span style="display:block;height:100%;width:89.2%;background:var(--accent-green);border-radius:8px"></span></span><strong style="font-size:.8rem;text-align:right">214 yd</strong></div>
+        <p class="handicap-formula" style="margin-top:1rem"><strong>Pitching wedge:</strong> Hole 5: 119 yd to 5 yd from the pin, setting up par. Hole 8: 120 yd, leaving 13 yd.</p>
+        <p class="handicap-formula"><strong>Practice priorities:</strong> controlled tee shots, dependable wedge contact, avoiding penalties, and two-putt pace.</p>
+      </article>
     </section>
 
     <section class="controls-section" aria-label="Dashboard filters">

@@ -11,7 +11,8 @@ from __future__ import annotations
 
 import argparse
 import csv
-from collections import defaultdict
+import hashlib
+from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 
@@ -20,8 +21,8 @@ RAW_DIR = GOLF_ROOT / "data" / "raw"
 PROCESSED_PATH = GOLF_ROOT / "data" / "processed" / "nine_hole_rounds.csv"
 HOLES_PROCESSED_PATH = GOLF_ROOT / "data" / "processed" / "hole_scores.csv"
 HANDICAP_ROUNDS_PATH = GOLF_ROOT / "data" / "processed" / "rounds_for_handicap.csv"
-PROTOTYPES = Path.home() / "Documents/Businesses/Data_Unlocked/Prototypes/GolfPad_Data_Extract"
-PRIMARY_PLAYER = "Justin"
+SHOT_SUMMARIES_PATH = GOLF_ROOT / "data" / "processed" / "shot_summaries.csv"
+PRIMARY_PLAYER = ""
 OUTPUT_FIELDS = [
     "date",
     "course",
@@ -42,14 +43,9 @@ def find_export_dir(explicit: Path | None) -> Path:
         rounds = list(RAW_DIR.rglob("rounds*.csv"))
         if rounds:
             return max(rounds, key=lambda p: p.stat().st_mtime).parent
-    if PROTOTYPES.is_dir():
-        candidates: list[Path] = []
-        for p in PROTOTYPES.rglob("rounds*.csv"):
-            if list(p.parent.glob("holes*.csv")):
-                candidates.append(p.parent)
-        if candidates:
-            return max(candidates, key=lambda d: max(f.stat().st_mtime for f in d.glob("rounds*.csv")))
-    raise FileNotFoundError(f"No GolfPad export in {RAW_DIR} or {PROTOTYPES}")
+    raise FileNotFoundError(
+        "No Golf Pad export found. Supply --export-dir or add local files to data/raw."
+    )
 
 
 def pick_csv(folder: Path, stem: str) -> Path:
@@ -69,7 +65,8 @@ def norm_cols(row: dict[str, str]) -> dict[str, str]:
 
 
 def round_key(player: str, date_s: str, course: str, start_time: str) -> str:
-    return f"{player}||{date_s}||{course}||{start_time}"
+    value = f"{player}||{date_s}||{course}||{start_time}"
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()[:16]
 
 
 def parse_date(s: str) -> str:
@@ -242,20 +239,38 @@ HANDICAP_FIELDS = [
     "course",
     "tee",
     "completed_holes",
+    "round_key",
     "gross_score",
     "gross_over_par",
+    "adjusted_score_9",
+    "adjusted_score_18",
     "rating",
     "slope",
     "penalties",
+    "penalties_per_9",
+    "penalties_per_18",
+    "putts",
+    "three_putts",
+    "fairways",
+    "fairways_left",
+    "fairways_right",
+    "sand_shots",
     "score_differential",
     "differential_type",
 ]
 
 
-def build_handicap_rounds(rounds_path: Path) -> list[dict]:
+def build_handicap_rounds(rounds_path: Path, holes_path: Path) -> list[dict]:
     """Rounds row for WHS-style index (18-hole differentials when rating/slope exist)."""
     rounds = [norm_cols(r) for r in read_csv(rounds_path)]
     rounds = [r for r in rounds if r.get("player_name") == PRIMARY_PLAYER]
+    holes = [norm_cols(hole) for hole in read_csv(holes_path)]
+    holes = [hole for hole in holes if hole.get("player_name") == PRIMARY_PLAYER]
+    holes_by_date_course: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
+    for hole in holes:
+        holes_by_date_course[
+            (parse_date(hole.get("date", "")), hole.get("course_name", ""))
+        ].append(hole)
     rows: list[dict] = []
 
     for r in rounds:
@@ -264,7 +279,7 @@ def build_handicap_rounds(rounds_path: Path) -> list[dict]:
             gross = int(r.get("gross_score") or 0)
         except (TypeError, ValueError):
             continue
-        if completed < 9 or gross <= 0:
+        if completed <= 0 or gross <= 0:
             continue
 
         rating_s = r.get("rating", "")
@@ -299,11 +314,42 @@ def build_handicap_rounds(rounds_path: Path) -> list[dict]:
                 "course": r["course_name"],
                 "tee": r.get("tee_name", ""),
                 "completed_holes": completed,
+                "round_key": round_key(
+                    r["player_name"],
+                    parse_date(r["date"]),
+                    r["course_name"],
+                    r.get("start_time", ""),
+                ),
                 "gross_score": gross,
                 "gross_over_par": over_par if over_par is not None else "",
+                "adjusted_score_9": round(gross * 9 / completed, 1),
+                "adjusted_score_18": round(gross * 18 / completed, 1),
                 "rating": rating if rating is not None else "",
                 "slope": slope if slope else "",
                 "penalties": penalties,
+                "penalties_per_9": round(penalties * 9 / completed, 2),
+                "penalties_per_18": round(penalties * 18 / completed, 2),
+                "putts": int(r.get("putts") or 0),
+                "three_putts": sum(
+                    int(hole.get("putts") or 0) >= 3
+                    for hole in holes_by_date_course.get(
+                        (parse_date(r["date"]), r["course_name"]), []
+                    )
+                ),
+                "fairways": int(r.get("fairways") or 0),
+                "fairways_left": sum(
+                    hole.get("fairway", "") == "left"
+                    for hole in holes_by_date_course.get(
+                        (parse_date(r["date"]), r["course_name"]), []
+                    )
+                ),
+                "fairways_right": sum(
+                    hole.get("fairway", "") == "right"
+                    for hole in holes_by_date_course.get(
+                        (parse_date(r["date"]), r["course_name"]), []
+                    )
+                ),
+                "sand_shots": int(r.get("sand_shots") or 0),
                 "score_differential": diff,
                 "differential_type": dtype,
             }
@@ -313,17 +359,191 @@ def build_handicap_rounds(rounds_path: Path) -> list[dict]:
     return rows
 
 
+SHOT_SUMMARY_FIELDS = [
+    "round_key",
+    "tee_shots",
+    "approach_shots",
+    "recovery_shots",
+    "chips",
+    "pitches",
+    "tracked_putts",
+    "short_game_holes",
+    "first_short_on_green",
+    "seven_iron_count",
+    "seven_iron_avg_yards",
+    "driver_tee_shots",
+    "driver_tee_penalties",
+    "non_putt_shots",
+]
+
+
+def numeric_or_blank(value: str) -> float | str:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return ""
+
+
+def shot_category(shot: dict[str, str]) -> str:
+    """Classify by starting lie and distance to pin, not distance traveled."""
+    lie = shot.get("lie", "").lower()
+    club = shot.get("club", "").lower()
+    before = numeric_or_blank(shot.get("target_distance_before", ""))
+    if lie == "green" or club in {"pt", "putter"}:
+        return "putt"
+    if lie == "tee":
+        return "tee"
+    if isinstance(before, float) and before <= 20:
+        return "chip"
+    if isinstance(before, float) and before <= 50:
+        return "pitch"
+    if lie == "recovery":
+        return "recovery"
+    if isinstance(before, float):
+        return "approach"
+    return "unknown"
+
+
+def build_shot_rows(rounds_path: Path, shots_path: Path) -> list[dict]:
+    """Prepare in-memory shot details for private local aggregation."""
+    rounds = [norm_cols(row) for row in read_csv(rounds_path)]
+    rounds = [row for row in rounds if row.get("player_name") == PRIMARY_PLAYER]
+    by_date_course: dict[tuple[str, str], dict[str, str]] = {}
+    for rnd in rounds:
+        key = (parse_date(rnd["date"]), rnd["course_name"])
+        if key not in by_date_course:
+            by_date_course[key] = rnd
+
+    rows = []
+    for raw in read_csv(shots_path):
+        shot = norm_cols(raw)
+        date = parse_date(shot.get("date", ""))
+        course = shot.get("course_name", "")
+        rnd = by_date_course.get((date, course))
+        if not rnd:
+            continue
+        try:
+            hole_number = int(shot.get("hole_number", ""))
+            shot_number = int(shot.get("shot_number", ""))
+        except (TypeError, ValueError):
+            continue
+        rows.append(
+            {
+                "date": date,
+                "course": course,
+                "round_key": round_key(
+                    PRIMARY_PLAYER, date, course, rnd.get("start_time", "")
+                ),
+                "hole_number": hole_number,
+                "shot_number": shot_number,
+                "category": shot_category(shot),
+                "lie": shot.get("lie", ""),
+                "club": shot.get("club", ""),
+                "shot_length_yards": numeric_or_blank(
+                    shot.get("shot_length_yards", "")
+                ),
+                "target_distance_before": numeric_or_blank(
+                    shot.get("target_distance_before", "")
+                ),
+                "target_distance_after": numeric_or_blank(
+                    shot.get("target_distance_after", "")
+                ),
+                "outcome": shot.get("outcome", ""),
+                "included_in_distance_stats": shot.get(
+                    "included_in_distance_stats", ""
+                ),
+                "strokes_gained": numeric_or_blank(shot.get("strokes_gained", "")),
+            }
+        )
+    rows.sort(key=lambda row: (row["date"], row["course"], row["hole_number"], row["shot_number"]))
+    return rows
+
+
+def build_shot_summaries(shot_rows: list[dict]) -> list[dict]:
+    """Publish only per-round aggregates, never individual shot histories."""
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for shot in shot_rows:
+        grouped[shot["round_key"]].append(shot)
+
+    summaries = []
+    for key, shots in grouped.items():
+        counts = Counter(shot["category"] for shot in shots)
+        short_by_hole: dict[int, list[dict]] = defaultdict(list)
+        for shot in shots:
+            if shot["category"] in {"chip", "pitch"}:
+                short_by_hole[shot["hole_number"]].append(shot)
+        first_on_green = sum(
+            min(entries, key=lambda shot: shot["shot_number"])["outcome"]
+            in {"Green", "Holed"}
+            for entries in short_by_hole.values()
+        )
+        seven_iron = [
+            shot["shot_length_yards"]
+            for shot in shots
+            if shot["club"] == "7i"
+            and shot["included_in_distance_stats"] == "yes"
+            and isinstance(shot["shot_length_yards"], float)
+        ]
+        driver_tees = [
+            shot for shot in shots if shot["category"] == "tee" and shot["club"] == "D"
+        ]
+        summaries.append(
+            {
+                "round_key": key,
+                "tee_shots": counts["tee"],
+                "approach_shots": counts["approach"],
+                "recovery_shots": counts["recovery"],
+                "chips": counts["chip"],
+                "pitches": counts["pitch"],
+                "tracked_putts": counts["putt"],
+                "short_game_holes": len(short_by_hole),
+                "first_short_on_green": first_on_green,
+                "seven_iron_count": len(seven_iron),
+                "seven_iron_avg_yards": round(sum(seven_iron) / len(seven_iron), 1)
+                if seven_iron
+                else "",
+                "driver_tee_shots": len(driver_tees),
+                "driver_tee_penalties": sum(
+                    shot["outcome"] == "Penalty" for shot in driver_tees
+                ),
+                "non_putt_shots": len(shots) - counts["putt"],
+            }
+        )
+    return sorted(summaries, key=lambda row: row["round_key"])
+
+
 def main() -> None:
+    global PRIMARY_PLAYER
     parser = argparse.ArgumentParser()
     parser.add_argument("--export-dir", type=Path, default=None)
+    parser.add_argument(
+        "--player",
+        default=None,
+        help="Golfer to import; defaults to the most frequent player in the rounds export.",
+    )
     args = parser.parse_args()
 
     export_dir = find_export_dir(args.export_dir)
     rounds_path = pick_csv(export_dir, "rounds")
+    player_counts = Counter(
+        norm_cols(row).get("player_name", "") for row in read_csv(rounds_path)
+    )
+    player_counts.pop("", None)
+    if not player_counts:
+        raise ValueError("The rounds export does not contain any named golfers.")
+    PRIMARY_PLAYER = args.player or player_counts.most_common(1)[0][0]
+    if PRIMARY_PLAYER not in player_counts:
+        raise ValueError("The requested golfer was not found in the rounds export.")
     holes_path = pick_csv(export_dir, "holes")
+    try:
+        shots_path = pick_csv(export_dir, "shots")
+    except FileNotFoundError:
+        shots_path = None
     rows = build_rows(rounds_path, holes_path)
     hole_rows = build_hole_rows(rounds_path, holes_path)
-    handicap_rows = build_handicap_rounds(rounds_path)
+    handicap_rows = build_handicap_rounds(rounds_path, holes_path)
+    shot_rows = build_shot_rows(rounds_path, shots_path) if shots_path else []
+    shot_summaries = build_shot_summaries(shot_rows)
 
     PROCESSED_PATH.parent.mkdir(parents=True, exist_ok=True)
     with PROCESSED_PATH.open("w", newline="", encoding="utf-8") as f:
@@ -347,6 +567,13 @@ def main() -> None:
         w.writerows(handicap_rows)
 
     print(f"wrote {HANDICAP_ROUNDS_PATH} rows={len(handicap_rows)}")
+    if shots_path:
+        with SHOT_SUMMARIES_PATH.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=SHOT_SUMMARY_FIELDS)
+            writer.writeheader()
+            writer.writerows(shot_summaries)
+        print(f"shots={shots_path.name}")
+        print(f"wrote {SHOT_SUMMARIES_PATH} rows={len(shot_summaries)}")
     if rows:
         best = min(rows, key=lambda r: (r["score"], r["score_vs_par"]))
         print(

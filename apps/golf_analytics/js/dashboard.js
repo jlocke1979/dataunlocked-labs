@@ -7,6 +7,7 @@
   const CSV_URL = "data/processed/nine_hole_rounds.csv";
   const HOLES_CSV_URL = "data/processed/hole_scores.csv";
   const HANDICAP_CSV_URL = "data/processed/rounds_for_handicap.csv";
+  const SHOTS_CSV_URL = "data/processed/shot_summaries.csv";
   const CHART_W = 900;
 
   const COLORS = {
@@ -38,6 +39,7 @@
     allRows: [],
     holeRows: [],
     handicapRows: [],
+    shotSummaries: [],
     controls: {
       xMode: "equal",
       metric: "score",
@@ -151,6 +153,33 @@
       if (f === "all") return true;
       return courseBucket(r.course) === f;
     });
+  }
+
+  function normalizedFormat() {
+    return state.controls.holeFormat === "eighteen" ? 18 : 9;
+  }
+
+  function normalizedScore(round) {
+    return normalizedFormat() === 18 ? round.adjusted_score_18 : round.adjusted_score_9;
+  }
+
+  function normalizedPenalties(round) {
+    return normalizedFormat() === 18 ? round.penalties_per_18 : round.penalties_per_9;
+  }
+
+  function formatNumber(value, digits = 1) {
+    if (!Number.isFinite(value)) return "—";
+    return Number.isInteger(value) ? String(value) : value.toFixed(digits);
+  }
+
+  function roundShotSummary(round) {
+    return state.shotSummaries.find((summary) => summary.round_key === round.round_key);
+  }
+
+  function latestRound() {
+    return [...state.handicapRows]
+      .filter((round) => round.completed_holes >= 5)
+      .sort((a, b) => b.date - a.date || b.round_key.localeCompare(a.round_key))[0];
   }
 
   function isKelloggNotable(d) {
@@ -354,6 +383,129 @@
         <p class="summary-value">${filteredRows().length}</p>
         <p class="summary-detail">${state.allRows.length} nine-hole segments · filter applied</p>
       </article>
+    `;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function signed(value) {
+    if (!Number.isFinite(value)) return "—";
+    return value > 0 ? `+${value}` : String(value);
+  }
+
+  function renderLatestRound() {
+    const root = document.getElementById("latest-round-panel");
+    const description = document.getElementById("latest-round-description");
+    const round = latestRound();
+    if (!root || !round) return;
+
+    const holes = state.holeRows
+      .filter((hole) => hole.round_key === round.round_key)
+      .sort((a, b) => a.hole_number - b.hole_number);
+    const threePutts = round.three_putts;
+    const eligibleFairways = holes.filter((hole) => hole.par > 3).length;
+    const fairwayHits = round.fairways;
+    const fairwayLeft = round.fairways_left;
+    const fairwayRight = round.fairways_right;
+    const dateLabel = d3.timeFormat("%B %-d, %Y")(round.date);
+    description.textContent = `${round.course} · ${dateLabel} · ${round.tee || "unlisted"} tees · ${round.completed_holes} holes.`;
+
+    const rows = holes.map((hole) => `
+      <tr${hole.score_vs_par >= 4 ? ' class="row-notable"' : ""}>
+        <td>${hole.hole_number}</td><td>${hole.par}</td>
+        <td class="col-score">${hole.strokes}</td><td>${signed(hole.score_vs_par)}</td>
+      </tr>`).join("");
+
+    root.innerHTML = `
+      <div class="handicap-grid">
+        <article class="handicap-card handicap-card-primary"><h3>${round.completed_holes}-hole score</h3><p class="handicap-value">${round.gross_score}</p><p class="handicap-detail">${signed(round.gross_over_par)} · adjusted 9: ${formatNumber(round.adjusted_score_9)} · adjusted 18: ${formatNumber(round.adjusted_score_18)}</p></article>
+        <article class="handicap-card"><h3>Penalty strokes</h3><p class="handicap-value">${round.penalties}</p><p class="handicap-detail">${formatNumber(round.penalties_per_9, 2)} per nine holes.</p></article>
+        <article class="handicap-card"><h3>Putts</h3><p class="handicap-value">${round.putts}</p><p class="handicap-detail">${formatNumber(round.putts / round.completed_holes, 2)} per hole · ${threePutts} three-putt${threePutts === 1 ? "" : "s"}.</p></article>
+        <article class="handicap-card"><h3>Fairways</h3><p class="handicap-value">${fairwayHits} / ${eligibleFairways}</p><p class="handicap-detail">${fairwayRight} right · ${fairwayLeft} left.</p></article>
+      </div>
+      <div class="chart-wrap"><table class="rank-table"><thead><tr><th>Hole</th><th>Par</th><th>Score</th><th>Vs par</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="handicap-formula" style="margin-top:1rem">Converting ${threePutts} three-putt${threePutts === 1 ? "" : "s"} into two-putts projects the same round at ${round.gross_score - threePutts}.</p>
+    `;
+  }
+
+  function shortGameStats(round) {
+    const summary = roundShotSummary(round);
+    if (!summary) return null;
+    return {
+      summary,
+      shortCount: summary.chips + summary.pitches,
+      holes: summary.short_game_holes,
+      firstOnGreen: summary.first_short_on_green,
+    };
+  }
+
+  function renderShotPerformance() {
+    const root = document.getElementById("shot-performance-panel");
+    const round = latestRound();
+    if (!root || !round) return;
+    const stats = shortGameStats(round);
+    if (!stats) {
+      root.innerHTML = '<p class="chart-empty">No shot-level data was available for the latest round.</p>';
+      return;
+    }
+
+    const summary = stats.summary;
+    const teeCount = summary.tee_shots;
+    const approachCount = summary.approach_shots;
+    const recoveryCount = summary.recovery_shots;
+    const chipCount = summary.chips;
+    const pitchCount = summary.pitches;
+    const trackedPutts = summary.tracked_putts;
+    const sevenAverage = summary.seven_iron_avg_yards;
+    const nonPuttShots = summary.non_putt_shots;
+    const expectedNonPutts = round.gross_score - round.putts - round.penalties;
+    const coverageNote = nonPuttShots === expectedNonPutts
+      ? "All non-putting swings reconcile with the official scorecard."
+      : `${nonPuttShots} non-putting shot entries recorded; the scorecard implies ${expectedNonPutts}.`;
+
+    const categories = [
+      ["Tee shots", teeCount, "All opening shots, regardless of club"],
+      ["Approaches", approachCount, "More than 50 yards from the pin"],
+      ["Long recoveries", recoveryCount, "Recovery lie, more than 50 yards out"],
+      ["Pitches", pitchCount, "More than 20 to 50 yards from the pin"],
+      ["Chips", chipCount, "20 yards or less from the pin"],
+      ["Putts", round.putts, "Official hole-level total"],
+      ["Penalty strokes", round.penalties, "Official scorecard total"],
+    ];
+    const breakdown = categories.map(([label, value, detail]) => `
+      <tr><td>${label}</td><td class="col-score">${value}</td><td>${detail}</td></tr>`).join("");
+
+    const historical = [...state.handicapRows]
+      .filter((item) => item.completed_holes >= 5 && roundShotSummary(item))
+      .sort((a, b) => b.date - a.date)
+      .slice(0, 8)
+      .map((item) => {
+        const history = shortGameStats(item);
+        const chips = history.summary.chips;
+        const pitches = history.summary.pitches;
+        return `<tr><td>${item.dateKey}</td><td>${escapeHtml(shortCourse(item.course))}</td><td>${formatNumber(item.adjusted_score_9)}</td><td>${chips}</td><td>${pitches}</td><td>${formatNumber(history.shortCount / item.completed_holes, 2)}</td><td>${history.holes ? `${history.firstOnGreen}/${history.holes}` : "—"}</td><td>${formatNumber(item.putts / item.completed_holes, 2)}</td></tr>`;
+      }).join("");
+
+    root.innerHTML = `
+      <div class="handicap-grid">
+        <article class="handicap-card handicap-card-primary"><h3>Short-game shots</h3><p class="handicap-value">${stats.shortCount}</p><p class="handicap-detail">${chipCount} chips · ${pitchCount} pitches · ${formatNumber(stats.shortCount / round.completed_holes, 2)} per hole.</p></article>
+        <article class="handicap-card"><h3>First shot onto green</h3><p class="handicap-value">${stats.firstOnGreen} / ${stats.holes}</p><p class="handicap-detail">First chip or pitch finished on the green.</p></article>
+        <article class="handicap-card"><h3>7-iron average</h3><p class="handicap-value">${Number.isFinite(sevenAverage) ? `${Math.round(sevenAverage)} yd` : "—"}</p><p class="handicap-detail">${summary.seven_iron_count} distance-qualified shots.</p></article>
+        <article class="handicap-card"><h3>Driver tee shots</h3><p class="handicap-value">${summary.driver_tee_shots}</p><p class="handicap-detail">${summary.driver_tee_penalties} penalty · ${teeCount} tee shots across all clubs.</p></article>
+      </div>
+      <h3 class="subsection-title">Where every stroke went</h3>
+      <div class="chart-wrap"><table class="rank-table"><thead><tr><th>Category</th><th>Strokes</th><th>Definition</th></tr></thead><tbody>${breakdown}</tbody></table></div>
+      <p class="handicap-formula" style="margin-top:.85rem">${coverageNote} The shot export logs ${trackedPutts} putting entries, but official hole totals correctly record ${round.putts} putts.</p>
+      <h3 class="subsection-title">Recent short-game trends</h3>
+      <div class="chart-wrap"><table class="rank-table"><thead><tr><th>Date</th><th>Course</th><th>Adj. 9</th><th>Chips</th><th>Pitches</th><th>Short / hole</th><th>First on green</th><th>Putts / hole</th></tr></thead><tbody>${historical}</tbody></table></div>
+      <p class="handicap-formula" style="margin-top:.85rem">Classification uses distance <em>before</em> the shot. Greenside bunker shots are counted as chips or pitches by their starting distance; putting comes from the scorecard because individual putts can be missing from the shot export.</p>
     `;
   }
 
@@ -1084,8 +1236,11 @@
     if (!root) return;
 
     const rows = filteredPenaltyRounds();
+    const format = normalizedFormat();
     const withPen = rows.filter((r) => r.penalties > 0);
     const totalPen = d3.sum(rows, (r) => r.penalties);
+    const totalHoles = d3.sum(rows, (r) => r.completed_holes);
+    const penaltyRate = totalHoles ? (totalPen * format) / totalHoles : 0;
 
     root.innerHTML = `
       <div class="handicap-grid penalties-summary">
@@ -1100,12 +1255,12 @@
           <p class="handicap-detail">${rows.length ? Math.round((100 * withPen.length) / rows.length) : 0}% of rounds</p>
         </article>
         <article class="handicap-card">
-          <h3>Total penalty strokes</h3>
-          <p class="handicap-value">${totalPen}</p>
-          <p class="handicap-detail">Sum across filtered rounds</p>
+          <h3>Penalties per ${format} holes</h3>
+          <p class="handicap-value">${formatNumber(penaltyRate, 2)}</p>
+          <p class="handicap-detail">${totalPen} actual penalties over ${totalHoles} holes</p>
         </article>
       </div>
-      <p class="handicap-formula">Per-hole penalties are included for newly imported rounds; totals appear in matched heatmap tooltips.</p>
+      <p class="handicap-formula">Both axes use a ${format}-hole equivalent: actual total × ${format} ÷ holes played. Rounds under nine holes are excluded; a 13-hole or 17-hole round no longer appears better or worse simply because fewer holes were played.</p>
       <div class="chart-wrap" id="chart-penalties">
         <div class="chart-tooltip"></div>
       </div>
@@ -1127,15 +1282,15 @@
 
     const x = d3
       .scaleLinear()
-      .domain([-0.5, d3.max(rows, (d) => d.penalties) + 1])
+      .domain([-0.5, d3.max(rows, normalizedPenalties) + 1])
       .range([0, innerW])
       .nice();
 
     const y = d3
       .scaleLinear()
       .domain([
-        d3.min(rows, (d) => d.gross_score) - 4,
-        d3.max(rows, (d) => d.gross_score) + 4,
+        d3.min(rows, normalizedScore) - 4,
+        d3.max(rows, normalizedScore) + 4,
       ])
       .range([innerH, 0])
       .nice();
@@ -1144,7 +1299,7 @@
 
     g.append("g")
       .attr("transform", `translate(0,${innerH})`)
-      .call(d3.axisBottom(x).ticks(6).tickFormat(d3.format("d")).tickSizeOuter(0))
+      .call(d3.axisBottom(x).ticks(6).tickFormat(d3.format("~g")).tickSizeOuter(0))
       .call(axisStyles);
 
     g.append("g")
@@ -1160,8 +1315,8 @@
       .selectAll("circle")
       .data(points)
       .join("circle")
-      .attr("cx", (d) => x(d.penalties) + d.jx)
-      .attr("cy", (d) => y(d.gross_score))
+      .attr("cx", (d) => x(normalizedPenalties(d)) + d.jx)
+      .attr("cy", (d) => y(normalizedScore(d)))
       .style("cursor", "pointer");
 
     dots.each(function (d) {
@@ -1190,7 +1345,7 @@
             : "—";
         showTip(
           this,
-          `<strong>${d.dateKey}</strong><br>${shortCourse(d.course)}<br>Score <strong>${d.gross_score}</strong> (${vs} vs par)<br>Penalties <strong>${d.penalties}</strong>`,
+          `<strong>${d.dateKey}</strong><br>${shortCourse(d.course)} · ${d.completed_holes} holes<br>Actual score <strong>${d.gross_score}</strong> (${vs} vs par)<br>Adjusted ${format}-hole score <strong>${formatNumber(normalizedScore(d))}</strong><br>Penalties <strong>${d.penalties}</strong> · ${formatNumber(normalizedPenalties(d), 2)} per ${format}`,
           event
         );
       })
@@ -1203,7 +1358,7 @@
             : "—";
         showTip(
           this,
-          `<strong>${d.dateKey}</strong><br>${shortCourse(d.course)}<br>Score <strong>${d.gross_score}</strong> (${vs} vs par)<br>Penalties <strong>${d.penalties}</strong>`,
+          `<strong>${d.dateKey}</strong><br>${shortCourse(d.course)} · ${d.completed_holes} holes<br>Actual score <strong>${d.gross_score}</strong> (${vs} vs par)<br>Adjusted ${format}-hole score <strong>${formatNumber(normalizedScore(d))}</strong><br>Penalties <strong>${d.penalties}</strong> · ${formatNumber(normalizedPenalties(d), 2)} per ${format}`,
           event
         );
       })
@@ -1233,7 +1388,7 @@
       .attr("text-anchor", "middle")
       .attr("fill", COLORS.muted)
       .attr("font-size", 10)
-      .text("Penalty strokes (round total)");
+      .text(`Penalty strokes per ${format} holes`);
 
     svg
       .append("text")
@@ -1243,15 +1398,21 @@
       .attr("text-anchor", "middle")
       .attr("fill", COLORS.muted)
       .attr("font-size", 10)
-      .text("Gross score");
+      .text(`Adjusted ${format}-hole score`);
   }
 
   function rowKeyFromHandicap(r) {
-    return `${r.dateKey}|${r.course}|${r.gross_score}`;
+    if (r.completed_holes === 18) {
+      return `${r.dateKey}|${r.course}|18|${r.gross_score}`;
+    }
+    const segment = state.allRows.find((row) => row.round_key === r.round_key);
+    return segment ? rowKey(segment) : `${r.dateKey}|${r.course}|${r.gross_score}`;
   }
 
   function renderAll() {
     renderSummary();
+    renderLatestRound();
+    renderShotPerformance();
     renderTimeline();
     renderCourseDistribution();
     renderTable();
@@ -1320,12 +1481,27 @@
         course: d.course,
         tee: d.tee || "",
         completed_holes: +d.completed_holes,
+        round_key: d.round_key || "",
         gross_score: +d.gross_score,
         gross_over_par:
           d.gross_over_par === "" ? null : +d.gross_over_par,
         rating: d.rating === "" ? null : +d.rating,
         slope: d.slope === "" ? null : +d.slope,
         penalties: +d.penalties || 0,
+        adjusted_score_9: +d.adjusted_score_9 || (+d.gross_score * 9) / +d.completed_holes,
+        adjusted_score_18: +d.adjusted_score_18 || (+d.gross_score * 18) / +d.completed_holes,
+        penalties_per_9: d.penalties_per_9 === "" || d.penalties_per_9 == null
+          ? (+d.penalties * 9) / +d.completed_holes
+          : +d.penalties_per_9,
+        penalties_per_18: d.penalties_per_18 === "" || d.penalties_per_18 == null
+          ? (+d.penalties * 18) / +d.completed_holes
+          : +d.penalties_per_18,
+        putts: +d.putts || 0,
+        three_putts: +d.three_putts || 0,
+        fairways: +d.fairways || 0,
+        fairways_left: +d.fairways_left || 0,
+        fairways_right: +d.fairways_right || 0,
+        sand_shots: +d.sand_shots || 0,
         score_differential:
           d.score_differential === "" ? NaN : +d.score_differential,
         differential_type: d.differential_type,
@@ -1333,15 +1509,40 @@
       .filter((d) => d.date);
   }
 
+  function parseShotSummaries(raw) {
+    return raw
+      .map((summary) => ({
+        round_key: summary.round_key,
+        tee_shots: +summary.tee_shots || 0,
+        approach_shots: +summary.approach_shots || 0,
+        recovery_shots: +summary.recovery_shots || 0,
+        chips: +summary.chips || 0,
+        pitches: +summary.pitches || 0,
+        tracked_putts: +summary.tracked_putts || 0,
+        short_game_holes: +summary.short_game_holes || 0,
+        first_short_on_green: +summary.first_short_on_green || 0,
+        seven_iron_count: +summary.seven_iron_count || 0,
+        seven_iron_avg_yards: summary.seven_iron_avg_yards === ""
+          ? NaN
+          : +summary.seven_iron_avg_yards,
+        driver_tee_shots: +summary.driver_tee_shots || 0,
+        driver_tee_penalties: +summary.driver_tee_penalties || 0,
+        non_putt_shots: +summary.non_putt_shots || 0,
+      }))
+      .filter((summary) => summary.round_key);
+  }
+
   Promise.all([
     d3.csv(CSV_URL),
     d3.csv(HOLES_CSV_URL).catch(() => []),
     d3.csv(HANDICAP_CSV_URL).catch(() => []),
+    d3.csv(SHOTS_CSV_URL).catch(() => []),
   ])
-    .then(([nineRaw, holeRaw, handicapRaw]) => {
+    .then(([nineRaw, holeRaw, handicapRaw, shotRaw]) => {
       state.allRows = parseNineRows(nineRaw);
       state.holeRows = parseHoleRows(holeRaw);
       state.handicapRows = parseHandicapRows(handicapRaw);
+      state.shotSummaries = parseShotSummaries(shotRaw);
 
       if (!state.allRows.length) {
         showError("No rows loaded from nine_hole_rounds.csv.");

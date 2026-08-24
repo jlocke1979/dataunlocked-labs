@@ -1,0 +1,15 @@
+{
+  "fixture_id": "fixture.pricing.runner-001.v1",
+  "observed_at": "2026-08-01T12:00:00+00:00",
+  "source_id": "source.synthetic-pricing-catalog.v1",
+  "source_uri": "fixture://pricing/catalog/runner-001",
+  "request": {
+    "request_id": "request.pricing.runner-001.v1",
+    "question": "How does the current list price compare with competing offers?",
+    "arguments": {
+      "product_id": "RUNNER-001",
+      "current_price": 120.0,
+      "competitor_prices": [100.0, 110.0, 115.0]
+    }
+  }
+}

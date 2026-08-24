@@ -1,0 +1,16 @@
+{
+  "fixture_id": "fixture.illinois-education.district-150.v1",
+  "observed_at": "2026-08-01T12:00:00+00:00",
+  "source_id": "source.synthetic-illinois-district-snapshot.v1",
+  "source_uri": "fixture://illinois-education/district-150/2025",
+  "request": {
+    "request_id": "request.illinois-education.district-150.v1",
+    "question": "How does this synthetic district attendance rate compare with its benchmark?",
+    "arguments": {
+      "district_id": "IL-DISTRICT-150",
+      "school_year": 2025,
+      "attendance_rate": 0.91,
+      "benchmark_rate": 0.94
+    }
+  }
+}

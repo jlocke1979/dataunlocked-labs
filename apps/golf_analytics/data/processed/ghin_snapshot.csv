@@ -1,0 +1,10 @@
+date,course,differential,counting_at_snapshot,status
+2026-08-28,Newman Golf Course,33.2,false,new_posted
+2026-08-26,Madison Golf Course,36.7,true,counting
+2026-08-22,Madison Golf Course,36.7,true,counting
+2026-07-22,Newman Golf Course,39.0,true,counting
+2026-06-15,Newman Golf Course,37.7,true,counting
+2026-05-12,Newman Golf Course,38.3,true,counting
+2026-05-07,Newman Golf Course,38.9,true,counting
+2026-05-05,Newman Golf Course,39.0,true,counting
+2026-04-23,Newman Golf Course,38.6,true,counting

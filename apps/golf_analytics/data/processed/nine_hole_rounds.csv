@@ -4,6 +4,7 @@ date,course,side,tee,score,par,score_vs_par,completed_holes_in_round,round_key
 2025-10-03,Madison Golf Course,front,,48,35,13,18,18e2a1e66a89c08b
 2025-10-03,Madison Golf Course,back,,49,34,15,18,18e2a1e66a89c08b
 2026-08-22,Madison Golf Course,front,White,50,35,15,9,5a32b26f34b14ea3
+2026-08-26,Madison Golf Course,front,White,50,35,15,9,86a424f216ca470d
 2026-05-24,Howard D. Kellogg Golf Course - Championship Course,front,Red,51,36,15,9,4831aa4ad4c12fde
 2025-09-06,Howard D. Kellogg Golf Course - Championship Course,front,,53,36,17,18,ef601ff15f38b7c0
 2025-10-15,Quail Meadows Golf Club,back,,54,36,18,9,b7a04ef748bfca26
@@ -16,6 +17,8 @@ date,course,side,tee,score,par,score_vs_par,completed_holes_in_round,round_key
 2026-04-23,Newman Golf Course,front,White,56,36,20,18,8eea4c114d48467c
 2026-05-05,Newman Golf Course,front,White,56,36,20,9,50bf96bd001618eb
 2026-05-12,Newman Golf Course,back,White,56,36,20,9,06af624ffe1852ec
+2026-08-28,Newman Golf Course,front,White,56,36,20,18,5e15f8b06b39958d
+2026-08-28,Newman Golf Course,back,White,56,36,20,18,5e15f8b06b39958d
 2025-09-14,Howard D. Kellogg Golf Course - Executive,front,White,56,34,22,9,62dc76d8ecd92eda
 2026-02-13,Howard D. Kellogg Golf Course - Executive,front,White,56,34,22,9,4f90abd5dc161244
 2026-07-20,Howard D. Kellogg Golf Course - Championship Course,front,Red,57,36,21,9,3cacf6dc5b997752
@@ -30,7 +33,7 @@ date,course,side,tee,score,par,score_vs_par,completed_holes_in_round,round_key
 2025-11-05,Newman Golf Course,front,,60,36,24,9,c35adb592f3ef7c4
 2026-02-16,Newman Golf Course,front,Gold,60,36,24,9,d002f247bebc7965
 2026-02-17,Newman Golf Course,front,Gold,60,36,24,9,4c0d929b1f8c53a9
-2026-05-07,Newman Golf Course,back,White,60,36,24,7,863aee656a5c2242
+2026-05-07,Newman Golf Course,back,White,60,36,24,17,863aee656a5c2242
 2026-08-02,Newman Golf Course,front,White,60,36,24,18,34b16b12346c212f
 2025-10-05,Newman Golf Course,front,,61,36,25,18,7d7753ec9dc6fde4
 2025-10-10,Newman Golf Course,front,,61,36,25,9,b63088c12cf5afba

@@ -1,0 +1,1 @@
+Heatmap policy: include regulation/executive golf rounds and exclude Howard D. Kellogg Golf Course - Pitch & Putt. Latest incremental hole rows may be stored in hole_scores_latest.csv and merged by the dashboard.

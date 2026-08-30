@@ -1,1 +1,0 @@
-The heatmap should merge historical hole_scores.csv with hole_scores_latest.csv and exclude course names containing Pitch & Putt. This preserves regulation and Executive rounds while excluding pitch-and-putt rounds.

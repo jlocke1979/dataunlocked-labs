@@ -1,1 +1,486 @@
 date,course,round_key,side,hole_number,strokes,par,score_vs_par
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,1,5,4,1
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,2,8,5,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,3,9,4,5
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,4,2,3,-1
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,5,6,5,1
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,6,5,4,1
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,7,6,4,2
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,8,6,3,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,front,9,6,4,2
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,10,7,4,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,11,8,5,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,12,7,3,4
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,13,7,4,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,14,9,4,5
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,15,7,4,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,16,6,3,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,17,8,5,3
+2025-09-06,Howard D. Kellogg Golf Course - Championship Course,ef601ff15f38b7c0,back,18,7,4,3
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,1,8,4,4
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,2,3,3,0
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,3,8,5,3
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,4,5,4,1
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,5,7,4,3
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,6,5,3,2
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,7,7,4,3
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,8,7,4,3
+2025-09-12,Newman Golf Course,54117f620a5a0ecf,front,9,8,5,3
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,1,5,4,1
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,2,7,4,3
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,3,7,4,3
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,4,5,3,2
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,5,7,4,3
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,6,8,4,4
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,7,6,4,2
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,8,4,3,1
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,9,7,4,3
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,1,7,5,2
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,2,9,4,5
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,3,8,5,3
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,4,3,3,0
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,5,6,4,2
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,6,7,4,3
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,7,6,4,2
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,8,8,4,4
+2025-09-28,Quail Meadows Golf Club,2a2200b0ff5254c5,front,9,5,3,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,1,6,4,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,2,6,5,1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,3,6,4,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,4,4,3,1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,5,7,4,3
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,6,6,4,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,7,5,3,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,8,3,4,-1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,front,9,5,4,1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,10,6,4,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,11,5,4,1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,12,7,4,3
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,13,6,3,3
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,14,4,4,0
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,15,6,4,2
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,16,5,4,1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,17,4,3,1
+2025-10-03,Madison Golf Course,18e2a1e66a89c08b,back,18,6,4,2
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,1,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,2,6,3,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,3,7,5,2
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,4,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,5,6,4,2
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,6,4,3,1
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,7,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,8,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,front,9,10,5,5
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,10,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,11,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,12,7,3,4
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,13,7,4,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,14,8,4,4
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,15,7,3,4
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,16,10,5,5
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,17,8,5,3
+2025-10-05,Newman Golf Course,7d7753ec9dc6fde4,back,18,6,4,2
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,1,5,4,1
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,2,7,3,4
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,3,8,5,3
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,4,7,4,3
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,5,8,4,4
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,6,4,3,1
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,7,8,4,4
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,8,6,4,2
+2025-10-10,Newman Golf Course,b63088c12cf5afba,front,9,8,5,3
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,1,6,4,2
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,2,7,3,4
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,3,7,5,2
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,4,7,4,3
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,5,8,4,4
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,6,5,3,2
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,7,6,4,2
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,8,8,4,4
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,front,9,10,5,5
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,10,7,4,3
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,11,5,4,1
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,12,5,3,2
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,13,8,4,4
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,14,6,4,2
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,15,12,3,9
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,16,8,5,3
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,17,10,5,5
+2025-10-12,Newman Golf Course,94d6571d65a7ab16,back,18,8,4,4
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,10,5,3,2
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,11,8,4,4
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,12,7,4,3
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,13,5,3,2
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,14,7,5,2
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,15,4,4,0
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,16,6,4,2
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,17,6,5,1
+2025-10-15,Quail Meadows Golf Club,b7a04ef748bfca26,back,18,6,4,2
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,1,7,5,2
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,2,4,4,0
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,3,8,5,3
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,4,7,3,4
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,5,5,4,1
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,6,7,4,3
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,7,6,4,2
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,8,6,4,2
+2025-10-17,Quail Meadows Golf Club,43a4c4df25a7888a,front,9,6,3,3
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,1,6,4,2
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,2,7,5,2
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,3,8,4,4
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,4,3,3,0
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,5,5,5,0
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,6,5,4,1
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,7,8,4,4
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,8,5,3,2
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,front,9,7,4,3
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,back,10,6,4,2
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,back,13,6,4,2
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,back,16,8,3,5
+2025-11-01,Howard D. Kellogg Golf Course - Championship Course,13ba51caf3ba0bc4,back,18,5,4,1
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,1,6,4,2
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,2,5,3,2
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,3,7,5,2
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,4,7,4,3
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,5,9,4,5
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,6,7,3,4
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,7,7,4,3
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,8,6,4,2
+2025-11-05,Newman Golf Course,c35adb592f3ef7c4,front,9,6,5,1
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,1,6,4,2
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,2,10,4,6
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,3,6,4,2
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,4,4,3,1
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,5,6,4,2
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,6,8,4,4
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,7,6,4,2
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,8,5,3,2
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,9,5,4,1
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,1,6,4,2
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,2,7,4,3
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,3,8,4,4
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,4,5,3,2
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,5,5,4,1
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,6,6,4,2
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,7,5,4,1
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,8,6,3,3
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,9,7,4,3
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,1,9,4,5
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,2,4,3,1
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,3,10,5,5
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,4,5,4,1
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,5,6,4,2
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,6,5,3,2
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,7,8,4,4
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,8,4,4,0
+2026-02-16,Newman Golf Course,d002f247bebc7965,front,9,9,5,4
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,1,6,4,2
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,2,4,3,1
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,3,7,5,2
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,4,7,4,3
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,5,8,4,4
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,6,7,3,4
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,7,7,4,3
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,8,7,4,3
+2026-02-17,Newman Golf Course,4c0d929b1f8c53a9,front,9,7,5,2
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,10,8,4,4
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,11,6,4,2
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,12,8,3,5
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,13,6,4,2
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,14,8,4,4
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,15,6,3,3
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,16,8,5,3
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,17,9,5,4
+2026-02-19,Newman Golf Course,7922c7e8feb01862,back,18,6,4,2
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,1,5,4,1
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,2,6,3,3
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,3,9,5,4
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,4,8,4,4
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,5,6,4,2
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,6,5,3,2
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,7,7,4,3
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,8,8,4,4
+2026-02-24,Newman Golf Course,8993663b3a94589c,front,9,7,5,2
+2026-02-25,Newman Golf Course,67926527969ae145,back,10,9,4,5
+2026-02-25,Newman Golf Course,67926527969ae145,back,11,9,4,5
+2026-02-25,Newman Golf Course,67926527969ae145,back,12,4,3,1
+2026-02-25,Newman Golf Course,67926527969ae145,back,13,7,4,3
+2026-02-25,Newman Golf Course,67926527969ae145,back,14,8,4,4
+2026-02-25,Newman Golf Course,67926527969ae145,back,15,8,3,5
+2026-02-25,Newman Golf Course,67926527969ae145,back,16,12,5,7
+2026-02-25,Newman Golf Course,67926527969ae145,back,17,10,5,5
+2026-02-25,Newman Golf Course,67926527969ae145,back,18,6,4,2
+2026-02-27,Newman Golf Course,7cd43d51f26a7e12,front,1,5,4,1
+2026-02-27,Newman Golf Course,7cd43d51f26a7e12,front,2,4,3,1
+2026-02-27,Newman Golf Course,7cd43d51f26a7e12,front,3,9,5,4
+2026-02-27,Newman Golf Course,7cd43d51f26a7e12,front,4,7,4,3
+2026-02-27,Newman Golf Course,7cd43d51f26a7e12,front,5,7,4,3
+2026-02-27,Newman Golf Course,7cd43d51f26a7e12,front,6,6,3,3
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,1,6,4,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,2,5,3,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,3,9,5,4
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,4,6,4,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,5,5,4,1
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,6,5,3,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,7,7,4,3
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,8,5,4,1
+2026-03-06,Newman Golf Course,c492d4628db89fdd,front,9,7,5,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,10,6,4,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,11,6,4,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,12,5,3,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,13,8,4,4
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,14,7,4,3
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,15,5,3,2
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,16,9,5,4
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,17,8,5,3
+2026-03-06,Newman Golf Course,c492d4628db89fdd,back,18,8,4,4
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,1,8,4,4
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,2,10,4,6
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,3,10,4,6
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,4,5,3,2
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,5,8,5,3
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,6,11,4,7
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,7,7,4,3
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,8,5,3,2
+2026-03-31,Isle Dauphine Golf Club,a9d4bda9d571a3d3,front,9,10,5,5
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,1,11,3,8
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,2,5,3,2
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,3,7,3,4
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,4,4,3,1
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,5,5,3,2
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,6,5,3,2
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,7,6,3,3
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,8,6,3,3
+2026-04-03,Orange Beach Golf Center - Orange Beach,c9b2351f4ee0b0f6,front,9,8,3,5
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,1,6,4,2
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,2,6,3,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,3,10,5,5
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,4,8,4,4
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,5,6,4,2
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,6,6,3,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,7,7,4,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,8,7,4,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,front,9,10,5,5
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,10,8,4,4
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,11,6,4,2
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,12,6,3,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,13,7,4,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,14,7,4,3
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,15,5,3,2
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,16,15,5,10
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,17,9,5,4
+2026-04-14,Newman Golf Course,508fecf3510e60b3,back,18,6,4,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,1,7,4,3
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,2,3,3,0
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,3,7,5,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,4,6,4,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,5,6,4,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,6,5,3,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,7,7,4,3
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,8,6,4,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,front,9,9,5,4
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,10,5,4,1
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,11,5,4,1
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,12,5,3,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,13,8,4,4
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,14,7,4,3
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,15,4,3,1
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,16,9,5,4
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,17,7,5,2
+2026-04-23,Newman Golf Course,8eea4c114d48467c,back,18,8,4,4
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,1,9,4,5
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,2,8,5,3
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,3,8,4,4
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,4,3,3,0
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,5,8,4,4
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,6,6,4,2
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,7,4,3,1
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,8,8,4,4
+2026-04-25,Madison Golf Course,ddac14546aea7a2e,front,9,8,4,4
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,1,7,4,3
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,2,5,3,2
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,3,7,5,2
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,4,7,4,3
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,5,6,4,2
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,6,5,3,2
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,7,4,4,0
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,8,8,4,4
+2026-05-05,Newman Golf Course,50bf96bd001618eb,front,9,7,5,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,1,4,4,0
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,1,5,4,1
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,3,6,5,1
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,3,6,5,1
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,4,5,4,1
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,4,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,5,7,4,3
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,5,7,4,3
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,6,5,3,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,6,5,3,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,7,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,7,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,8,8,4,4
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,8,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,front,9,12,5,7
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,10,7,4,3
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,11,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,12,6,3,3
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,13,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,14,6,4,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,15,5,3,2
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,16,10,5,5
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,17,8,5,3
+2026-05-07,Newman Golf Course,863aee656a5c2242,back,18,6,4,2
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,10,5,4,1
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,11,7,4,3
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,12,3,3,0
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,13,7,4,3
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,14,6,4,2
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,15,6,3,3
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,16,6,5,1
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,17,9,5,4
+2026-05-12,Newman Golf Course,06af624ffe1852ec,back,18,7,4,3
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,10,5,4,1
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,11,7,4,3
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,12,5,4,1
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,13,6,3,3
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,14,8,4,4
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,15,5,4,1
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,16,9,4,5
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,17,4,3,1
+2026-05-20,Madison Golf Course,610ba6220bf6d476,back,18,5,4,1
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,1,6,4,2
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,2,8,5,3
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,3,6,4,2
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,4,4,3,1
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,5,7,5,2
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,6,7,4,3
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,7,6,4,2
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,8,4,3,1
+2026-05-24,Howard D. Kellogg Golf Course - Championship Course,4831aa4ad4c12fde,front,9,3,4,-1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,1,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,2,6,3,3
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,3,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,4,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,5,3,3,0
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,6,7,3,4
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,7,5,3,2
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,8,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,front,9,3,3,0
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,10,5,3,2
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,11,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,12,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,13,5,3,2
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,14,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,15,6,3,3
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,16,4,3,1
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,17,3,3,0
+2026-06-11,Howard D. Kellogg Golf Course - Pitch & Putt,1a52dc2fb4f6c0c4,back,18,3,3,0
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,1,7,4,3
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,2,4,3,1
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,3,8,5,3
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,4,6,4,2
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,5,7,4,3
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,6,5,3,2
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,7,6,4,2
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,8,7,4,3
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,front,9,9,5,4
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,10,4,4,0
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,11,7,4,3
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,12,4,3,1
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,13,5,4,1
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,14,10,4,6
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,15,4,3,1
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,16,11,5,6
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,17,6,5,1
+2026-06-15,Newman Golf Course,07f60cb633d6e45b,back,18,7,4,3
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,1,7,4,3
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,2,12,5,7
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,3,6,4,2
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,4,4,3,1
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,5,6,5,1
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,6,5,4,1
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,7,6,4,2
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,8,6,3,3
+2026-07-20,Howard D. Kellogg Golf Course - Championship Course,3cacf6dc5b997752,front,9,5,4,1
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,1,6,4,2
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,2,6,3,3
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,3,7,5,2
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,4,6,4,2
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,5,5,4,1
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,6,4,3,1
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,7,6,4,2
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,8,10,4,6
+2026-07-22,Newman Golf Course,aa4d78ced538aa28,front,9,8,5,3
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,1,5,4,1
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,2,8,3,5
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,3,8,5,3
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,4,9,4,5
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,5,6,4,2
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,6,5,3,2
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,7,7,4,3
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,8,7,4,3
+2026-07-30,Newman Golf Course,2a06bc5e8b0fe384,front,9,9,5,4
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,1,7,4,3
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,2,5,3,2
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,3,6,5,1
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,4,8,4,4
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,5,8,4,4
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,6,4,3,1
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,7,6,4,2
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,8,5,4,1
+2026-08-02,Newman Golf Course,34b16b12346c212f,front,9,11,5,6
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,10,5,4,1
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,11,7,4,3
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,12,7,3,4
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,13,7,4,3
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,14,8,4,4
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,15,4,3,1
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,16,7,5,2
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,17,7,5,2
+2026-08-02,Newman Golf Course,34b16b12346c212f,back,18,7,4,3
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,1,4,3,1
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,1,5,3,2
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,2,5,3,2
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,2,5,3,2
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,3,3,3,0
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,3,4,3,1
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,4,4,3,1
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,4,5,3,2
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,5,3,3,0
+2026-08-12,Howard D. Kellogg Golf Course - Pitch & Putt,7acf9fa26d8efa56,front,5,5,3,2
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,1,7,4,3
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,2,6,4,2
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,3,7,4,3
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,4,5,3,2
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,5,5,4,1
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,6,8,4,4
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,7,6,4,2
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,8,5,3,2
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,9,6,4,2
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,1,7,4,3
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,2,9,5,4
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,3,5,4,1
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,4,5,3,2
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,5,7,5,2
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,6,8,4,4
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,7,5,4,1
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,8,6,3,3
+2026-08-19,Howard D. Kellogg Golf Course - Championship Course,9bf5e192ccd57107,front,9,9,4,5
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,1,6,4,2
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,2,7,5,2
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,3,5,4,1
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,4,5,3,2
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,5,4,4,0
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,6,6,4,2
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,7,5,3,2
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,8,5,4,1
+2026-08-22,Madison Golf Course,5a32b26f34b14ea3,front,9,7,4,3
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,1,6,4,2
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,2,6,3,3
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,3,10,5,5
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,4,7,4,3
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,5,8,4,4
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,6,4,3,1
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,7,6,4,2
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,8,7,4,3
+2026-08-23,Newman Golf Course,d776bd78847a2543,front,9,8,5,3

@@ -45,3 +45,4 @@ date,course,tee,completed_holes,round_key,gross_score,gross_over_par,adjusted_sc
 2026-08-23,Newman Golf Course,White,9,d776bd78847a2543,62,26,62.0,124.0,70.9,127,1,1.0,2.0,22,4,2,2,3,2,,nine_hole
 2026-08-26,Madison Golf Course,White,9,86a424f216ca470d,50,15,50.0,100.0,63.8,92,1,1.0,2.0,17,2,3,0,4,1,,nine_hole
 2026-08-28,Newman Golf Course,White,18,5e15f8b06b39958d,112,40,56.0,112.0,70.9,127,7,3.5,7.0,36,2,7,1,2,2,36.6,whs_18
+2026-08-30,Howard D. Kellogg Golf Course - Championship Course,White,18,de2dbf4b70b94a8f,120,48,60.0,120.0,70.4,128,9,4.5,9.0,42,7,4,1,5,2,43.8,whs_18

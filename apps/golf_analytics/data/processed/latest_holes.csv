@@ -1,4 +1,8 @@
 date,course,round_key,side,hole_number,strokes,par,score_vs_par
+2025-09-14,Howard D. Kellogg Golf Course - Executive,62dc76d8ecd92eda,front,6,8,5,3
+2026-02-13,Howard D. Kellogg Golf Course - Executive,4f90abd5dc161244,front,6,8,5,3
+2026-02-15,Howard D. Kellogg Golf Course - Executive,27cf418da4438579,front,6,6,5,1
+2026-08-17,Howard D. Kellogg Golf Course - Executive,bcb7dac1dbb043df,front,6,8,5,3
 2026-08-26,Madison Golf Course,86a424f216ca470d,front,1,4,4,0
 2026-08-26,Madison Golf Course,86a424f216ca470d,front,2,5,5,0
 2026-08-26,Madison Golf Course,86a424f216ca470d,front,3,6,4,2
@@ -49,7 +53,7 @@ date,course,round_key,side,hole_number,strokes,par,score_vs_par
 2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,3,4,4,0
 2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,4,4,3,1
 2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,5,5,4,1
-2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,6,5,4,1
+2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,6,5,5,0
 2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,7,6,4,2
 2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,8,3,3,0
 2026-09-06,Howard D. Kellogg Golf Course - Executive,a3cb7e907d4a9d3a,front,9,7,4,3

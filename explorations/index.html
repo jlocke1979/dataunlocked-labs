@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/" />
+  <title>DataUnlocked Labs</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 24px;
+      line-height: 1.5;
+      background: #ffffff;
+      color: #222;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+
+    .intro {
+      color: #444;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      max-width: 720px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 36px;
+      font-size: 0.95rem;
+    }
+
+    .explorations {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      margin: 0 0 16px;
+      font-size: 0.85rem;
+      font-weight: normal;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      background: #fafafa;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      background: #f2f2f2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+    }
+
+    .card p {
+      color: #555;
+      margin: 0 0 16px;
+      flex: 1;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .preview-grid img,
+    .preview-single img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      display: block;
+    }
+
+    .card-meta {
+      margin-top: auto;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .site-footer {
+      color: #666;
+      font-size: 0.9rem;
+      max-width: 720px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="/">← DATA Unlocked home</a>
+  <h1>DataUnlocked Labs</h1>
+
+  <p class="intro">
+    A research studio for visual and computational inquiry into human-scale systems.
+  </p>
+
+  <p class="subtitle">
+    Working explorations in progress — not client work, not deliverables.
+  </p>
+
+  <section class="explorations" aria-label="Explorations">
+    <h2 class="section-label">Explorations (7)</h2>
+
+    <div class="cards">
+
+      <a class="card" href="apps/life_flow/app/final_show.html">
+        <h2>Life Flow</h2>
+        <p>
+          Understanding the transplant system through data — time, geography, and the structures that shape who waits and who receives.
+        </p>
+        <div class="preview-single">
+          <img
+            src="apps/life_flow/app/assets/life_flow_preview_opta.png"
+            alt="Life Flow preview"
+          />
+        </div>
+        <p class="card-meta">complete · health · time &amp; space</p>
+      </a>
+
+      <a class="card" href="apps/golf_analytics/">
+        <h2>Golf Analytics</h2>
+        <p>
+          Making golf performance easier to read — where shots land, how patterns accumulate, and what uncertainty looks like on a course.
+        </p>
+        <div class="preview-single">
+          <img
+            src="apps/golf_analytics/visuals/score_heatmap_v3_green_red.png"
+            alt="Golf Analytics heatmap preview"
+          />
+        </div>
+        <p class="card-meta">active · sport · uncertainty</p>
+      </a>
+
+      <a class="card" href="apps/uplands_garden_tracker/app/index.html">
+        <h2>Uplands Garden Tracker</h2>
+        <p>
+          Field notes from a community garden — plot responsibility, plant condition, and relocation planning across shared beds.
+        </p>
+        <div class="preview-single">
+          <img
+            src="apps/uplands_garden_tracker/app/assets/map_base.jpg"
+            alt="Uplands garden map preview"
+          />
+        </div>
+        <p class="card-meta">active · ecology · place &amp; care</p>
+      </a>
+
+      <a class="card" href="apps/venue_viability_lab/app/index.html">
+        <h2>Venue Viability Lab</h2>
+        <p>
+          What has to be true for a venue to work? Scenario modeling to surface the conditions behind financial sustainability.
+        </p>
+        <p class="card-meta">draft · space · thresholds</p>
+      </a>
+
+      <a class="card" href="apps/pass_decision/pass_decision.html">
+        <h2>Pass Decision</h2>
+        <p>
+          A decision tool for golfers weighing play-as-you-go, course-only, and all-inclusive pass options.
+        </p>
+        <div class="preview-single">
+          <img
+            src="apps/pass_decision/assets/pass_decision_preview.png"
+            alt="Pass Decision preview"
+          />
+        </div>
+        <p class="card-meta">prototype · choice · economics</p>
+      </a>
+
+      <a class="card" href="apps/golf_lab/app/index.html">
+        <h2>Golf Lab</h2>
+        <p>
+          Experimental charts from range sessions — dispersion, fitting data, and early prototypes for reading motion.
+        </p>
+        <p class="card-meta">experimental · sport · motion</p>
+      </a>
+
+      <a class="card" href="https://jlocke1979.github.io/">
+        <h2>Illinois Education Visualization</h2>
+        <p>
+          Interactive exploration of Illinois education funding and performance through data visualization.
+        </p>
+        <div class="preview-single">
+          <img
+            src="https://jlocke1979.github.io/assets/share.png"
+            alt="Illinois Education Visualization preview"
+          />
+        </div>
+        <p class="card-meta">published · education · policy</p>
+      </a>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    For collaborators, critics, and curious strangers.
+  </footer>
+
+</body>
+</html>
+

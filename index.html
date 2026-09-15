@@ -1,232 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>DataUnlocked Labs</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DATA Unlocked — Analytics, strategy & creative exploration</title>
+  <meta name="description" content="Practical analytics, pricing strategy and AI workflows by Justin Locke. Explore independent projects in data, art, public policy and everyday decisions.">
+  <meta name="theme-color" content="#f4f2eb">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 1100px;
-      margin: 50px auto;
-      padding: 0 24px;
-      line-height: 1.5;
-      background: #ffffff;
-      color: #222;
-    }
-
-    h1 {
-      margin-bottom: 0;
-    }
-
-    .intro {
-      color: #444;
-      margin-top: 12px;
-      margin-bottom: 8px;
-      max-width: 720px;
-    }
-
-    .subtitle {
-      color: #666;
-      margin-top: 0;
-      margin-bottom: 36px;
-      font-size: 0.95rem;
-    }
-
-    .explorations {
-      margin-bottom: 48px;
-    }
-
-    .section-label {
-      margin: 0 0 16px;
-      font-size: 0.85rem;
-      font-weight: normal;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #888;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
-      align-items: stretch;
-    }
-
-    .card {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #ddd;
-      border-radius: 14px;
-      padding: 20px;
-      text-decoration: none;
-      color: inherit;
-      background: #fafafa;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      background: #f2f2f2;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.35rem;
-    }
-
-    .card p {
-      color: #555;
-      margin: 0 0 16px;
-      flex: 1;
-    }
-
-    .preview-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: auto;
-    }
-
-    .preview-grid img,
-    .preview-single img {
-      width: 100%;
-      max-height: 360px;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: #fff;
-      display: block;
-    }
-
-    .card-meta {
-      margin-top: auto;
-      padding: 14px 16px;
-      border-radius: 10px;
-      border: 1px solid #e0e0e0;
-      background: #fff;
-      color: #666;
-      font-size: 0.9rem;
-    }
-
-    .site-footer {
-      color: #666;
-      font-size: 0.9rem;
-      max-width: 720px;
-    }
+    :root{--paper:#f4f2eb;--ink:#20392f;--muted:#52635a;--line:#cdd1c5;--orange:#aa451f;--lime:#dbe697}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-underline-offset:5px}a:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:6px}a:hover{text-decoration-thickness:2px}.wrap{max-width:1240px;margin:auto;padding:0 44px}.skip{position:absolute;left:20px;top:-100px;background:var(--ink);color:white;padding:12px;z-index:2}.skip:focus{top:12px}.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 0;border-bottom:1px solid var(--line)}.brand{text-decoration:none;font-size:23px;letter-spacing:-1px;white-space:nowrap}.brand b{font-weight:850}.brand span{font-weight:350}nav{display:flex;gap:27px;font-size:14px}nav a{text-decoration:none}.eyebrow{font-size:11px;font-weight:650;letter-spacing:2px;text-transform:uppercase;margin:0 0 22px}.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:52px;align-items:center;padding:76px 0 72px}h1{font:normal clamp(48px,5.8vw,78px)/1.05 Georgia,serif;letter-spacing:-3px;margin:0 0 25px}h1 em{color:var(--orange);font-weight:normal}p{margin:0 0 20px}.lead{max-width:540px;font-size:18px;color:var(--muted)}.actions{display:flex;align-items:center;flex-wrap:wrap;gap:24px;margin-top:30px;font-size:14px;font-weight:600}.button{display:inline-block;background:var(--ink);color:white;padding:13px 21px;text-decoration:none;border:1px solid var(--ink)}.button:hover{background:#355345}.art{aspect-ratio:1;position:relative;background:var(--ink);overflow:hidden}.art svg{display:block;width:100%;height:100%}.art-label{position:absolute;bottom:20px;left:22px;right:22px;display:flex;justify-content:space-between;color:#e3e7ce;font:10px/1.4 ui-monospace,monospace;letter-spacing:1px}.ribbon{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:19px 0;display:flex;justify-content:space-between;gap:14px;font-size:12px;color:var(--muted)}section{padding:72px 0;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:end;margin-bottom:34px}h2{font:normal clamp(32px,3.7vw,46px)/1.13 Georgia,serif;letter-spacing:-1px;margin:0}.section-head p{color:var(--muted);max-width:480px;margin:0}.services{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.service{border-top:2px solid var(--ink);padding-top:18px}.number{font:12px ui-monospace,monospace;color:var(--orange)}h3{font-size:20px;line-height:1.3;letter-spacing:-.4px;margin:18px 0 12px}.service p{font-size:15px;color:var(--muted)}.pilot{margin-top:28px;background:#e7e9dd;display:flex;align-items:center;justify-content:space-between;gap:25px;padding:22px 25px;font-size:14px}.pilot p{margin:0;max-width:680px}.pilot a{white-space:nowrap;font-weight:600}.projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.project{display:flex;flex-direction:column;text-decoration:none;background:#fbfaf6;border:1px solid var(--line);padding:24px;transition:transform .15s,border-color .15s}.project:hover{transform:translateY(-3px);border-color:var(--ink)}.project h3{margin:16px 0 12px;font-size:23px}.project p{color:var(--muted);font-size:14px;flex:1}.tag{font:10px/1.5 ui-monospace,monospace;text-transform:uppercase;letter-spacing:1px;color:var(--orange)}.project .open{font-size:13px;margin-top:9px;font-weight:600}.project.featured{background:var(--ink);color:var(--paper)}.project.featured p{color:#d4dfd2}.project.featured .tag{color:var(--lime)}.project.wide{grid-column:span 2;background:#eceadf}.gallery-link{margin:24px 0 0;font-size:14px}.about{display:grid;grid-template-columns:1fr 1.3fr;gap:70px}.about p{color:var(--muted)}.about h2{max-width:360px}.bio{font-size:14px;border-top:1px solid var(--line);padding-top:18px;margin-top:24px}.closing{background:var(--lime);padding:32px;margin-top:26px}.closing h3{margin:0 0 10px;font-size:24px}.closing p{font-size:15px;color:var(--ink)}footer{padding:28px 0 36px;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:12px}footer p{margin:0}footer a{margin-left:20px}
+    @media(max-width:900px){.wrap{padding:0 28px}.hero{gap:28px;padding:55px 0}.projects{grid-template-columns:repeat(2,minmax(0,1fr))}.project.wide{grid-column:auto}.services{gap:20px}.section-head{gap:30px}.about{gap:35px}.pilot{align-items:flex-start;flex-direction:column}}
+    @media(max-width:620px){.wrap{padding:0 22px}.nav{align-items:flex-start;flex-direction:column;gap:13px;padding:20px 0}nav{gap:24px}.hero,.section-head,.about{grid-template-columns:1fr}.hero{padding:42px 0;gap:32px}h1{font-size:52px;letter-spacing:-2px}.art{max-width:420px;width:100%;margin:auto}.lead{font-size:17px}.ribbon{flex-wrap:wrap;justify-content:flex-start;gap:9px 22px}.services,.projects{grid-template-columns:1fr}.service{padding-bottom:10px}section{padding:47px 0}.section-head{gap:20px}.eyebrow{margin-bottom:16px}.project{min-height:240px}.closing{padding:23px}footer{flex-direction:column}footer a{margin:0 20px 0 0}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.project{transition:none}.project:hover{transform:none}}
   </style>
 </head>
-
 <body>
-
-  <h1>DataUnlocked Labs</h1>
-
-  <p class="intro">
-    A research studio for visual and computational inquiry into human-scale systems.
-  </p>
-
-  <p class="subtitle">
-    Working explorations in progress — not client work, not deliverables.
-  </p>
-
-  <section class="explorations" aria-label="Explorations">
-    <h2 class="section-label">Explorations (7)</h2>
-
-    <div class="cards">
-
-      <a class="card" href="apps/life_flow/app/final_show.html">
-        <h2>Life Flow</h2>
-        <p>
-          Understanding the transplant system through data — time, geography, and the structures that shape who waits and who receives.
-        </p>
-        <div class="preview-single">
-          <img
-            src="apps/life_flow/app/assets/life_flow_preview_opta.png"
-            alt="Life Flow preview"
-          />
-        </div>
-        <p class="card-meta">complete · health · time &amp; space</p>
-      </a>
-
-      <a class="card" href="apps/golf_analytics/">
-        <h2>Golf Analytics</h2>
-        <p>
-          Making golf performance easier to read — where shots land, how patterns accumulate, and what uncertainty looks like on a course.
-        </p>
-        <div class="preview-single">
-          <img
-            src="apps/golf_analytics/visuals/score_heatmap_v3_green_red.png"
-            alt="Golf Analytics heatmap preview"
-          />
-        </div>
-        <p class="card-meta">active · sport · uncertainty</p>
-      </a>
-
-      <a class="card" href="apps/uplands_garden_tracker/app/index.html">
-        <h2>Uplands Garden Tracker</h2>
-        <p>
-          Field notes from a community garden — plot responsibility, plant condition, and relocation planning across shared beds.
-        </p>
-        <div class="preview-single">
-          <img
-            src="apps/uplands_garden_tracker/app/assets/map_base.jpg"
-            alt="Uplands garden map preview"
-          />
-        </div>
-        <p class="card-meta">active · ecology · place &amp; care</p>
-      </a>
-
-      <a class="card" href="apps/venue_viability_lab/app/index.html">
-        <h2>Venue Viability Lab</h2>
-        <p>
-          What has to be true for a venue to work? Scenario modeling to surface the conditions behind financial sustainability.
-        </p>
-        <p class="card-meta">draft · space · thresholds</p>
-      </a>
-
-      <a class="card" href="apps/pass_decision/pass_decision.html">
-        <h2>Pass Decision</h2>
-        <p>
-          A decision tool for golfers weighing play-as-you-go, course-only, and all-inclusive pass options.
-        </p>
-        <div class="preview-single">
-          <img
-            src="apps/pass_decision/assets/pass_decision_preview.png"
-            alt="Pass Decision preview"
-          />
-        </div>
-        <p class="card-meta">prototype · choice · economics</p>
-      </a>
-
-      <a class="card" href="apps/golf_lab/app/index.html">
-        <h2>Golf Lab</h2>
-        <p>
-          Experimental charts from range sessions — dispersion, fitting data, and early prototypes for reading motion.
-        </p>
-        <p class="card-meta">experimental · sport · motion</p>
-      </a>
-
-      <a class="card" href="https://jlocke1979.github.io/">
-        <h2>Illinois Education Visualization</h2>
-        <p>
-          Interactive exploration of Illinois education funding and performance through data visualization.
-        </p>
-        <div class="preview-single">
-          <img
-            src="https://jlocke1979.github.io/assets/share.png"
-            alt="Illinois Education Visualization preview"
-          />
-        </div>
-        <p class="card-meta">published · education · policy</p>
-      </a>
-
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="nav"><a class="brand" href="/" aria-label="DATA Unlocked home"><b>DATA</b> <span>unlocked</span><span aria-hidden="true" style="color:var(--orange)"> ↗</span></a><nav aria-label="Main navigation"><a href="#services">Work together</a><a href="#explore">Explore</a><a href="#about">About</a></nav></header>
+  <main id="main">
+    <div class="hero">
+      <div><p class="eyebrow">Independent analytics &amp; creative practice</p><h1>Better questions.<br>Clearer decisions.<br><em>New possibilities.</em></h1><p class="lead">DATA Unlocked turns complex data into practical tools, visual stories and decisions you can act on.</p><p class="lead">Analytics and strategy for organizations. An open studio for curious people.</p><div class="actions"><a class="button" href="#services">Explore services ↗</a><a href="#explore">Discover the projects ↓</a></div></div>
+      <div class="art" role="img" aria-label="Abstract composition of data points, crossing lines and an orange circle, suggesting patterns emerging from complexity.">
+        <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#71806b" stroke-opacity=".22"/></pattern><pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="2" fill="#dbe697"/></pattern><clipPath id="disc"><circle cx="282" cy="204" r="135"/></clipPath></defs><rect width="480" height="480" fill="url(#grid)"/><circle cx="282" cy="204" r="135" fill="#de774c"/><g clip-path="url(#disc)" stroke="#20392f" stroke-width="1.5"><path d="M110 105H440 M110 121H440 M110 137H440 M110 153H440 M110 169H440 M110 185H440 M110 201H440 M110 217H440 M110 233H440 M110 249H440 M110 265H440 M110 281H440 M110 297H440 M110 313H440 M110 329H440"/></g><rect x="56" y="215" width="208" height="176" fill="url(#dots)"/><circle cx="177" cy="232" r="128" stroke="#e9eed1" stroke-width="1" fill="none"/><circle cx="177" cy="232" r="96" stroke="#e9eed1" stroke-opacity=".65" fill="none"/><path d="M58 360L157 300L207 316L278 225L332 250L423 122" stroke="#dbe697" stroke-width="3" fill="none"/><g fill="#f4f2eb"><circle cx="58" cy="360" r="5"/><circle cx="157" cy="300" r="5"/><circle cx="207" cy="316" r="5"/><circle cx="278" cy="225" r="5"/><circle cx="332" cy="250" r="5"/><circle cx="423" cy="122" r="5"/></g><path d="M48 54h24m-12-12v24M408 388h24m-12-12v24" stroke="#dbe697"/></svg>
+        <div class="art-label"><span>STRUCTURE / CURIOSITY / POSSIBILITY</span><span>DU—01</span></div>
+      </div>
     </div>
-  </section>
-
-  <footer class="site-footer">
-    For collaborators, critics, and curious strangers.
-  </footer>
-
+    <div class="ribbon" aria-label="Areas of practice"><span>BUSINESS &amp; OPERATIONS</span><span>DATA &amp; AI</span><span>POLITICS &amp; PUBLIC POLICY</span><span>ART &amp; EXPERIMENTS</span></div>
+    <section id="services" aria-labelledby="services-title">
+      <p class="eyebrow">01 / Work together</p><div class="section-head"><h2 id="services-title">Make your data useful.</h2><p>Focused analytics and decision support for businesses, schools and public-sector organizations. Start with a question that matters to your work.</p></div>
+      <div class="services"><article class="service"><span class="number">01.1</span><h3>Pricing &amp; operational analytics</h3><p>Understand revenue, customers and capacity. Compare pricing choices and identify where better information can improve the way your organization operates.</p></article><article class="service"><span class="number">01.2</span><h3>Financial intelligence</h3><p>Build forecasts, financial models and management reporting that connect day-to-day activity to the decisions ahead.</p></article><article class="service"><span class="number">01.3</span><h3>Data systems &amp; AI workflows</h3><p>Connect scattered information, simplify recurring reports and explore practical AI tools, with clear assumptions and human review.</p></article></div>
+      <div class="pilot"><p><strong>A focused starting point: Golf Revenue Analytics.</strong><br>A consulting pilot for operators exploring player behavior, course utilization and membership economics.</p><a href="apps/golf_revenue/">Explore the pilot ↗</a></div>
+    </section>
+    <section id="explore" aria-labelledby="explore-title">
+      <p class="eyebrow">02 / The open studio</p><div class="section-head"><h2 id="explore-title">Follow a question<br>somewhere interesting.</h2><p>Independent projects in data, visual storytelling and everyday life. A place for creative experiments and questions about politics, public policy and the systems we share.</p></div>
+      <div class="projects">
+        <a class="project featured" href="apps/life_flow/app/final_show.html"><span class="tag">Visual story · Health &amp; systems</span><h3>Life Flow</h3><p>Who waits, who receives, and how time and geography shape the organ transplant system.</p><span class="open">Explore the story ↗</span></a>
+        <a class="project" href="apps/golf_analytics/"><span class="tag">Active · Personal analytics</span><h3>Golf Analytics</h3><p>Read the patterns behind a round: scoring, shot value and the parts of the game that need attention.</p><span class="open">Open the dashboard ↗</span></a>
+        <a class="project" href="https://jlocke1979.github.io/"><span class="tag">Published · Education &amp; policy</span><h3>Illinois Education</h3><p>Explore school funding and performance, and the public choices behind the numbers.</p><span class="open">Explore the visualization ↗</span></a>
+        <a class="project" href="apps/uplands_garden_tracker/app/index.html"><span class="tag">Active · Ecology &amp; community</span><h3>Uplands Garden Tracker</h3><p>A shared landscape made legible: plants, places and the ongoing work of caring for a neighborhood garden.</p><span class="open">Visit the garden ↗</span></a>
+        <a class="project" href="apps/venue_viability_lab/app/index.html"><span class="tag">Draft · Scenario modeling</span><h3>Venue Viability Lab</h3><p>What has to be true for a venue to work? Explore the conditions behind financial sustainability.</p><span class="open">Explore the lab ↗</span></a>
+        <a class="project" href="apps/pass_decision/pass_decision.html"><span class="tag">Prototype · Decision tools</span><h3>Pass Decision</h3><p>Explore the tradeoffs between paying per round and buying a golf pass. Assumptions and comparison logic remain under review.</p><span class="open">Try the prototype ↗</span></a>
+        <a class="project wide" href="apps/golf_lab/app/index.html"><span class="tag">Experimental · Motion &amp; patterns</span><h3>Golf Lab</h3><p>Early visual experiments in dispersion, fitting data and reading a swing. A working sketchbook for ideas taking shape.</p><span class="open">Enter the sketchbook ↗</span></a>
+      </div><p class="gallery-link"><a href="explorations/">Visit the original explorations gallery ↗</a></p>
+    </section>
+    <section id="about" aria-labelledby="about-title"><div class="about"><div><p class="eyebrow">03 / Behind the work</p><h2 id="about-title">A practical mind.<br>A curious point of view.</h2></div><div><p>DATA Unlocked is the independent practice of <strong>Justin Locke</strong>, connecting business experience, data science and a love of making things understandable.</p><p>The commercial work helps organizations make better decisions. The open studio makes room for visual expression, civic questions and experiments that begin with “what if?”</p><p class="bio">Based in Peoria, Illinois. Background in strategy, pricing analytics and operations. MBA, University of Chicago Booth; graduate study in data science at Northwestern.</p><div class="closing"><h3>Start with a question.</h3><p>A pricing decision, a report that needs rethinking, a public dataset worth exploring. The first step is defining what you want to understand.</p><a href="https://github.com/jlocke1979">Find Justin on GitHub ↗</a></div></div></div></section>
+  </main>
+  <footer><p><strong>DATA Unlocked</strong> · For collaborators, critics and curious strangers.</p><div><a href="#services">Services</a><a href="#explore">Projects</a><a href="https://github.com/jlocke1979/dataunlocked-labs">Source ↗</a></div></footer>
+</div>
 </body>
 </html>

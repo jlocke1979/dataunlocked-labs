@@ -20,6 +20,50 @@
       margin-bottom: 0;
     }
 
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-bottom: 28px;
+      font-size: 0.9rem;
+    }
+
+    .site-nav a {
+      color: #444;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+    }
+
+    .site-nav a:hover {
+      border-bottom-color: #888;
+    }
+
+    .hero-links {
+      margin: 0 0 28px;
+      font-size: 0.92rem;
+    }
+
+    .hero-links a {
+      color: #222;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .hero-links a:hover {
+      border-bottom-color: #666;
+    }
+
+    .about-section {
+      margin: 48px 0;
+      max-width: 720px;
+      color: #444;
+    }
+
+    .about-section p {
+      margin: 0 0 12px;
+    }
+
     .intro {
       color: #444;
       margin-top: 12px;
@@ -171,10 +215,28 @@
       padding-top: 24px;
       border-top: 1px solid #eee;
     }
+
+    .site-footer a {
+      color: #444;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .site-footer a:hover {
+      border-bottom-color: #888;
+    }
   </style>
 </head>
 
-<body>
+<body id="top">
+
+  <nav class="site-nav" aria-label="Primary">
+    <a href="#top">Home</a>
+    <a href="#explorations">Explorations</a>
+    <a href="#about">About</a>
+    <a href="https://dataunlocked.art">Writing</a>
+    <a href="#collaboration">Contact</a>
+  </nav>
 
   <h1>DataUnlocked Labs</h1>
 
@@ -186,7 +248,13 @@
     Public explorations in progress — research prototypes shared openly. Select client and collaboration work is available separately.
   </p>
 
-  <section class="explorations" aria-label="Explorations">
+  <p class="hero-links">
+    <a href="mailto:hello@dataunlocked.xyz">hello@dataunlocked.xyz</a>
+    ·
+    <a href="#collaboration">Collaboration &amp; contact</a>
+  </p>
+
+  <section class="explorations" id="explorations" aria-label="Explorations">
     <h2 class="section-label">Explorations (7)</h2>
 
     <div class="cards">
@@ -301,7 +369,19 @@
     </div>
   </section>
 
-  <section class="collaboration" aria-labelledby="collaboration-heading">
+  <section class="about-section" id="about" aria-labelledby="about-heading">
+    <h2 class="section-label" id="about-heading">About</h2>
+    <p>
+      DataUnlocked Labs is a research studio for interactive tools and visual explanations
+      of complex systems, decisions, and public-facing data stories.
+    </p>
+    <p>
+      Projects here are experiments — prototypes meant to invite curiosity and closer looking,
+      not polished product releases.
+    </p>
+  </section>
+
+  <section class="collaboration" id="collaboration" aria-labelledby="collaboration-heading">
     <h2 class="section-label" id="collaboration-heading">Collaboration</h2>
     <p>
       I work with teams on analytics, interactive visualization, and decision tools
@@ -317,7 +397,10 @@
   </section>
 
   <footer class="site-footer">
-    For collaborators, critics, and curious strangers.
+    <p>For collaborators, critics, and curious strangers.</p>
+    <p>
+      <a href="https://dataunlocked.art">Data Unlocked — writing &amp; essays →</a>
+    </p>
   </footer>
 
   <script>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DataUnlocked Labs</title>
 
   <style>
@@ -89,15 +90,28 @@
       margin-top: auto;
     }
 
+    .preview-single {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      max-height: 360px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      overflow: hidden;
+    }
+
     .preview-grid img,
     .preview-single img {
       width: 100%;
       max-height: 360px;
+      height: auto;
       object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: #fff;
+      object-position: center;
       display: block;
+      border: none;
+      background: #fff;
     }
 
     .card-meta {
@@ -110,14 +124,52 @@
       font-size: 0.9rem;
     }
 
+    .collaboration {
+      margin: 56px 0 40px;
+      max-width: 720px;
+    }
+
+    .collaboration p {
+      color: #444;
+      margin: 0 0 14px;
+    }
+
+    .contact-link {
+      display: inline-block;
+      color: #222;
+      text-decoration: none;
+      border-bottom: 1px solid #222;
+      padding-bottom: 2px;
+      font-size: 0.95rem;
+    }
+
+    .contact-link:hover {
+      color: #444;
+      border-bottom-color: #666;
+    }
+
+    .contact-note {
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #666;
+    }
+
+    .contact-note a {
+      color: #666;
+      text-decoration: none;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .contact-note a:hover {
+      border-bottom-color: #888;
+    }
+
     .site-footer {
       color: #666;
       font-size: 0.9rem;
       max-width: 720px;
-    }
-
-    .site-footer a {
-      color: inherit;
+      padding-top: 24px;
+      border-top: 1px solid #eee;
     }
   </style>
 </head>
@@ -131,57 +183,69 @@
   </p>
 
   <p class="subtitle">
-    Working explorations in progress — not client work, not deliverables.
+    Public explorations in progress — research prototypes shared openly. Select client and collaboration work is available separately.
   </p>
 
   <section class="explorations" aria-label="Explorations">
-    <h2 class="section-label">Explorations (6)</h2>
+    <h2 class="section-label">Explorations (7)</h2>
 
     <div class="cards">
 
-      <a class="card" href="apps/life_flow/app/final_show.html">
+      <a class="card" href="./apps/life_flow/app/final_show.html">
         <h2>Life Flow</h2>
         <p>
           Understanding the transplant system through data — time, geography, and the structures that shape who waits and who receives.
         </p>
         <div class="preview-single">
           <img
-            src="apps/life_flow/app/assets/life_flow_preview_opta.png"
+            src="./apps/life_flow/app/assets/life_flow_preview_opta.png"
             alt="Life Flow preview"
+            width="2404"
+            height="1480"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <p class="card-meta">complete · health · time &amp; space</p>
       </a>
 
-      <a class="card" href="apps/golf_analytics/">
+      <a class="card" href="./apps/golf_analytics/">
         <h2>Golf Analytics</h2>
         <p>
-          Making golf performance easier to read — round scoring, shot patterns, and Golf Lab experiments in swing mechanics and range performance.
+          Making golf performance easier to read — where shots land, how patterns accumulate, and what uncertainty looks like on a course.
         </p>
         <div class="preview-single">
           <img
-            src="apps/golf_analytics/visuals/score_heatmap_v3_green_red.png"
+            src="./apps/golf_analytics/visuals/score_heatmap_v3_green_red.png"
             alt="Golf Analytics heatmap preview"
+            width="808"
+            height="1390"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <p class="card-meta">active · sport · uncertainty</p>
       </a>
 
-      <a class="card" href="apps/uplands_garden_tracker/app/index.html">
+      <a class="card" href="./apps/uplands_garden_tracker/app/index.html">
         <h2>Uplands Garden Tracker</h2>
         <p>
           Field notes from a community garden — plot responsibility, plant condition, and relocation planning across shared beds.
         </p>
         <div class="preview-single">
           <img
-            src="apps/uplands_garden_tracker/app/assets/map_base.jpg"
+            src="./apps/uplands_garden_tracker/app/assets/map_base.jpg"
             alt="Uplands garden map preview"
+            width="919"
+            height="690"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <p class="card-meta">active · ecology · place &amp; care</p>
       </a>
 
-      <a class="card" href="apps/venue_viability_lab/app/index.html">
+      <a class="card" href="./apps/venue_viability_lab/app/index.html">
         <h2>Venue Viability Lab</h2>
         <p>
           What has to be true for a venue to work? Scenario modeling to surface the conditions behind financial sustainability.
@@ -189,18 +253,30 @@
         <p class="card-meta">draft · space · thresholds</p>
       </a>
 
-      <a class="card" href="apps/pass_decision/pass_decision.html">
+      <a class="card" href="./apps/pass_decision/pass_decision.html">
         <h2>Pass Decision</h2>
         <p>
           A decision tool for golfers weighing play-as-you-go, course-only, and all-inclusive pass options.
         </p>
         <div class="preview-single">
           <img
-            src="apps/pass_decision/assets/pass_decision_preview.png"
+            src="./apps/pass_decision/assets/pass_decision_preview.png"
             alt="Pass Decision preview"
+            width="1314"
+            height="860"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <p class="card-meta">prototype · choice · economics</p>
+      </a>
+
+      <a class="card" href="./apps/golf_lab/app/index.html">
+        <h2>Golf Lab</h2>
+        <p>
+          Experimental charts from range sessions — dispersion, fitting data, and early prototypes for reading motion.
+        </p>
+        <p class="card-meta">experimental · sport · motion</p>
       </a>
 
       <a class="card" href="https://jlocke1979.github.io/">
@@ -212,6 +288,11 @@
           <img
             src="https://jlocke1979.github.io/assets/share.png"
             alt="Illinois Education Visualization preview"
+            width="1200"
+            height="630"
+            loading="lazy"
+            decoding="async"
+            referrerpolicy="no-referrer"
           />
         </div>
         <p class="card-meta">published · education · policy</p>
@@ -220,13 +301,36 @@
     </div>
   </section>
 
+  <section class="collaboration" aria-labelledby="collaboration-heading">
+    <h2 class="section-label" id="collaboration-heading">Collaboration</h2>
+    <p>
+      I work with teams on analytics, interactive visualization, and decision tools
+      when the problem is complex, the data is messy, and clarity matters.
+    </p>
+    <p>
+      <a class="contact-link" href="mailto:hello@dataunlocked.xyz">Contact me →</a>
+    </p>
+    <p class="contact-note">
+      Applied golf analytics and operator-facing work lives at
+      <a href="https://golfdataunlocked.com">Golf Data Unlocked</a>.
+    </p>
+  </section>
+
   <footer class="site-footer">
     For collaborators, critics, and curious strangers.
-    From the notebook:
-    <a href="https://dataunlocked.art/p/to-aggregate-or-not-to-aggregate">
-      To Aggregate or Not to Aggregate
-    </a>.
   </footer>
+
+  <script>
+    if (location.protocol === "file:") {
+      const note = document.createElement("p");
+      note.setAttribute("role", "status");
+      note.style.cssText = "color:#a33;margin:0 0 24px;max-width:720px;font-size:0.92rem;";
+      note.textContent =
+        "Card previews need a local server (Safari will not load these images from a file:// page). " +
+        "Run: python3 -m http.server 8000 — then open http://localhost:8000/";
+      document.querySelector(".intro").after(note);
+    }
+  </script>
 
 </body>
 </html>
